@@ -17,7 +17,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with: { version: "0.9.2", enable-cache: true }
       - run: uv lock --check
-      - run: uv sync --frozen --extra genai --extra production
+      - run: uv sync --frozen --extra dev --extra genai --extra production
       - run: uv run python scripts/export_v2_contracts.py
       - run: uv run pytest --cov=wallet_twin_v2 --cov-report=term-missing
       - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json
@@ -40,7 +40,7 @@ jobs:
       - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2"
       - uses: anchore/sbom-action@v0
         with: { image: "wallet-twin:${{ github.sha }}", format: spdx-json, output-file: sbom.spdx.json }
-      - uses: aquasecurity/trivy-action@0.28.0
+      - uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: "wallet-twin:${{ github.sha }}"
           severity: "CRITICAL,HIGH"
