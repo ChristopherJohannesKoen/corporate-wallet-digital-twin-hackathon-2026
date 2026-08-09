@@ -5857,7 +5857,7 @@
         }
       ]
     },
-    "generated_at": "2026-08-09T17:44:51.723386+00:00",
+    "generated_at": "2026-08-09T18:05:30.684821+00:00",
     "generated_stress_suite": {
       "below_half_percent_bound": true,
       "cases": 640,
@@ -6075,7 +6075,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 0.13,
               "net_contribution_bps": 0.13,
-              "total_cost_bps": 0.36999999999999994
+              "total_cost_bps": 0.37
             },
             "Cross-border FX": {
               "costs_bps": {
@@ -6094,7 +6094,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 1.04,
               "net_contribution_bps": 1.04,
-              "total_cost_bps": 2.9599999999999995
+              "total_cost_bps": 2.96
             },
             "Liquidity": {
               "costs_bps": {
@@ -6113,7 +6113,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 0.52,
               "net_contribution_bps": 0.52,
-              "total_cost_bps": 1.4799999999999998
+              "total_cost_bps": 1.48
             },
             "Payments": {
               "costs_bps": {
@@ -6132,7 +6132,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 0.078,
               "net_contribution_bps": 0.078,
-              "total_cost_bps": 0.22200000000000003
+              "total_cost_bps": 0.222
             },
             "Trade finance": {
               "costs_bps": {
@@ -6151,7 +6151,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 5.2,
               "net_contribution_bps": 5.2,
-              "total_cost_bps": 14.799999999999999
+              "total_cost_bps": 14.8
             }
           },
           "portfolio_frontier": [
@@ -6201,9 +6201,9 @@
             "Trade finance": 3564157.721459561
           },
           "reconciliation": {
-            "difference_zar": 5.587935447692871e-09,
+            "difference_zar": 3.725290298461914e-09,
             "passes": true,
-            "product_sum_zar": 11533093.50955534
+            "product_sum_zar": 11533093.509555342
           },
           "sample_frontiers": [
             {
@@ -6402,7 +6402,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 3.0,
               "net_contribution_bps": 3.0,
-              "total_cost_bps": 3.0000000000000004
+              "total_cost_bps": 3.0
             },
             "Payments": {
               "costs_bps": {
@@ -6421,7 +6421,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 0.4,
               "net_contribution_bps": 0.4,
-              "total_cost_bps": 0.4000000000000001
+              "total_cost_bps": 0.4
             },
             "Trade finance": {
               "costs_bps": {
@@ -6490,9 +6490,9 @@
             "Trade finance": 29969410.152969502
           },
           "reconciliation": {
-            "difference_zar": 1.4901161193847656e-08,
+            "difference_zar": 2.9802322387695312e-08,
             "passes": true,
-            "product_sum_zar": 93297225.11432013
+            "product_sum_zar": 93297225.11432011
           },
           "sample_frontiers": [
             {
@@ -6632,7 +6632,7 @@
             "note": "Benchmark acquisition cost is zero; bank implementation costs must be supplied before production."
           },
           "concentration": {
-            "product_hhi": 0.2729901084800377,
+            "product_hhi": 0.27299010848003774,
             "top_product_share": 0.34222298271150164
           },
           "margin_waterfalls": {
@@ -6672,7 +6672,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 11.34,
               "net_contribution_bps": 11.34,
-              "total_cost_bps": 6.660000000000002
+              "total_cost_bps": 6.66
             },
             "Liquidity": {
               "costs_bps": {
@@ -6691,7 +6691,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 7.56,
               "net_contribution_bps": 7.56,
-              "total_cost_bps": 4.44
+              "total_cost_bps": 4.4399999999999995
             },
             "Payments": {
               "costs_bps": {
@@ -6710,7 +6710,7 @@
               "hurdle_bps": 0.0,
               "hurdle_headroom_bps": 1.008,
               "net_contribution_bps": 1.008,
-              "total_cost_bps": 0.5920000000000001
+              "total_cost_bps": 0.592
             },
             "Trade finance": {
               "costs_bps": {
@@ -6976,7 +6976,7 @@
       },
       "status": "SIMULATED_TRIAL_DESIGN_ONLY"
     },
-    "generated_at": "2026-08-09T12:04:30.213351+00:00",
+    "generated_at": "2026-08-09T18:04:32.709279+00:00",
     "global_watermark": "SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE \u2014 NOT BANK-VALIDATED",
     "historical_validation": {
       "entities": 20,
@@ -19758,11 +19758,12 @@
         "value": 438.4
       }
     ],
-    "generated_at": "2026-08-09T17:44:46.257324+00:00",
+    "generated_at": "2026-08-09T18:05:25.437706+00:00",
     "human_approvals_completed": 0,
     "production_approval_claim_allowed": false,
     "qa_version": "public-evidence-qa-1.0.0",
-    "ready_for_finance_sme": 51
+    "ready_for_finance_sme": 51,
+    "source_cache_complete": true
   },
   "release": {
     "bank_production_status": "NOT_PROMOTABLE",

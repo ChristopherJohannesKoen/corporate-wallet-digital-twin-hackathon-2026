@@ -1658,9 +1658,10 @@
       "value": 438.4
     }
   ],
-  "generated_at": "2026-08-09T17:44:46.257324+00:00",
+  "generated_at": "2026-08-09T18:05:25.437706+00:00",
   "human_approvals_completed": 0,
   "production_approval_claim_allowed": false,
   "qa_version": "public-evidence-qa-1.0.0",
-  "ready_for_finance_sme": 51
+  "ready_for_finance_sme": 51,
+  "source_cache_complete": true
 }

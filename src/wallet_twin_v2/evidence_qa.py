@@ -174,6 +174,7 @@ def verify_expanded_evidence(
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "as_of": registry["as_of"],
         "documents": len(doc_results),
+        "source_cache_complete": all(item["automated_status"] == "PASS" for item in doc_results.values()),
         "facts": len(fact_results),
         "document_passes": sum(item["automated_status"] == "PASS" for item in doc_results.values()),
         "fact_passes": counts["PASS"],

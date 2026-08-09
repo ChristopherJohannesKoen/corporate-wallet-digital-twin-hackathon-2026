@@ -11,7 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def run(*args: str) -> dict:
+def _portable(value: str) -> str:
+    return value.replace(str(ROOT), "<REPOSITORY_ROOT>")
+
+
+def run(*args: str, display_args: list[str] | None = None) -> dict:
     command = [sys.executable, *args]
     completed = subprocess.run(command, cwd=ROOT, text=True, capture_output=True)
     if completed.returncode:
@@ -20,9 +24,9 @@ def run(*args: str) -> dict:
             f"STDOUT:\n{completed.stdout}\nSTDERR:\n{completed.stderr}"
         )
     return {
-        "command": " ".join(args),
+        "command": " ".join(display_args or [_portable(item) for item in args]),
         "status": "passed",
-        "stdout_tail": completed.stdout.strip().splitlines()[-8:],
+        "stdout_tail": [_portable(line) for line in completed.stdout.strip().splitlines()[-8:]],
     }
 
 
@@ -45,7 +49,10 @@ def main() -> None:
     else:
         offline_args.append("--skip-history")
         history_mode = "representative-lab-only"
-    checks.append(run(*offline_args))
+    display_offline_args = list(offline_args)
+    if "--data-zip" in display_offline_args:
+        display_offline_args[-1] = "<SYNBANK_DATA_ZIP>"
+    checks.append(run(*offline_args, display_args=display_offline_args))
 
     report = {
         "generated_at": datetime.now(timezone.utc).isoformat(),

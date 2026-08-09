@@ -1,0 +1,22 @@
+{
+  "summary_version": "representative-trade-finance-summary-1.0.0",
+  "source_dataset_id": "electricsheepafrica/africa-synth-trade-trade-finance-gap-all",
+  "source_revision": "d58f99fe2947f6613f321418bba5cf91cad805b1",
+  "source_snapshot_sha256": "b1b5834563d958f6304d159dc17587ce95a299c54ef0409735dd900fbbb42ef4",
+  "classification": "REPRESENTATIVE_SYNTHETIC_PUBLIC",
+  "production_e3_eligible": false,
+  "records": 10000,
+  "countries": 40,
+  "approval_rate": 0.4654,
+  "collateral_rate": 0.5902,
+  "requested_amount_usd": {
+    "p10": 5000.0,
+    "p50": 21939.025,
+    "p90": 151366.16100000005
+  },
+  "processing_days": {
+    "p10": 8.900000000000091,
+    "p50": 21.0,
+    "p90": 37.0
+  }
+}

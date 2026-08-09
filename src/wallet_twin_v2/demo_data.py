@@ -18,6 +18,7 @@ BASELINE_PATH = ROOT / "outputs" / "data" / "portfolio.json"
 TRADE_REFERENCE_PATH = (
     ROOT / "data" / "v2" / "external" / "africa_trade_finance_gap" / "data" / "finance_gap_full.csv"
 )
+TRADE_REFERENCE_SUMMARY_PATH = ROOT / "data" / "v2" / "representative_trade_finance_summary.json"
 CLIENT_DEMO_WATERMARK = "CLIENT DEMONSTRATION — SIMULATED/REPRESENTATIVE DATA — NOT FOR FINANCIAL DECISIONS"
 
 
@@ -53,9 +54,10 @@ def load_external_registry(path: Path = REGISTRY_PATH) -> dict:
     return registry
 
 
-def validate_external_registry(path: Path = REGISTRY_PATH) -> dict:
+def validate_external_registry(path: Path = REGISTRY_PATH, *, require_local_snapshots: bool = False) -> dict:
     registry = load_external_registry(path)
-    findings: List[str] = []
+    structural_findings: List[str] = []
+    snapshot_findings: List[str] = []
     resolved = 0
     for dataset in registry["datasets"]:
         required = {
@@ -71,23 +73,28 @@ def validate_external_registry(path: Path = REGISTRY_PATH) -> dict:
             "purpose",
         }
         missing = sorted(required.difference(dataset))
-        findings.extend(f"{dataset.get('dataset_id', 'UNKNOWN')}:MISSING_{field}" for field in missing)
+        structural_findings.extend(f"{dataset.get('dataset_id', 'UNKNOWN')}:MISSING_{field}" for field in missing)
         if dataset.get("production_e3_eligible"):
-            findings.append(f"{dataset['dataset_id']}:REPRESENTATIVE_DATA_CANNOT_BE_E3")
+            structural_findings.append(f"{dataset['dataset_id']}:REPRESENTATIVE_DATA_CANNOT_BE_E3")
         snapshot = dataset.get("local_snapshot")
         expected = dataset.get("local_sha256")
         if snapshot:
             local_path = ROOT / snapshot
             if not local_path.exists():
-                findings.append(f"{dataset['dataset_id']}:LOCAL_SNAPSHOT_MISSING")
+                snapshot_findings.append(f"{dataset['dataset_id']}:LOCAL_SNAPSHOT_MISSING")
             else:
                 resolved += 1
                 if expected and _sha256(local_path).lower() != expected.lower():
-                    findings.append(f"{dataset['dataset_id']}:HASH_MISMATCH")
+                    snapshot_findings.append(f"{dataset['dataset_id']}:HASH_MISMATCH")
+    findings = structural_findings + (snapshot_findings if require_local_snapshots else [])
     return {
         "registry_version": registry["registry_version"],
         "datasets": len(registry["datasets"]),
         "local_snapshots_verified": resolved,
+        "local_snapshot_findings": snapshot_findings,
+        "local_snapshots_passed": not snapshot_findings,
+        "local_snapshots_required": require_local_snapshots,
+        "registry_passed": not structural_findings,
         "findings": findings,
         "passed": not findings,
         "production_e3_claim_allowed": False,
@@ -110,26 +117,12 @@ def _baseline_frames() -> tuple[pd.DataFrame, pd.DataFrame]:
 
 
 def _trade_reference_summary() -> dict:
-    frame = pd.read_csv(TRADE_REFERENCE_PATH)
-    approved = frame["approval_status"].eq("approved")
-    return {
-        "records": int(len(frame)),
-        "countries": int(frame["country"].nunique()),
-        "approval_rate": float(approved.mean()),
-        "collateral_rate": float(frame["collateral_required"].mean()),
-        "requested_amount_usd": {
-            "p10": float(frame["amount_requested_usd"].quantile(0.10)),
-            "p50": float(frame["amount_requested_usd"].quantile(0.50)),
-            "p90": float(frame["amount_requested_usd"].quantile(0.90)),
-        },
-        "processing_days": {
-            "p10": float(frame["processing_days"].quantile(0.10)),
-            "p50": float(frame["processing_days"].quantile(0.50)),
-            "p90": float(frame["processing_days"].quantile(0.90)),
-        },
-        "source_revision": "d58f99fe2947f6613f321418bba5cf91cad805b1",
-        "classification": "REPRESENTATIVE_SYNTHETIC_PUBLIC",
-    }
+    summary = json.loads(TRADE_REFERENCE_SUMMARY_PATH.read_text(encoding="utf-8"))
+    if summary.get("source_revision") != "d58f99fe2947f6613f321418bba5cf91cad805b1":
+        raise ValueError("representative trade-finance summary revision is not pinned")
+    if summary.get("classification") != "REPRESENTATIVE_SYNTHETIC_PUBLIC":
+        raise ValueError("representative trade-finance summary classification is invalid")
+    return summary
 
 
 def generate_representative_multibank_analog(

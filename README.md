@@ -62,6 +62,12 @@ Without that archive, the runner reproduces the public/representative validation
 laboratory and retains the frozen aggregate transaction-history results supplied
 in `outputs/v2_validation/offline_validation_report.json`.
 
+Downloaded issuer PDFs, extracted page text and third-party dataset snapshots are
+also intentionally absent from Git. Registry and model-mechanics checks remain
+fully reproducible from the committed aggregate fixtures. Page-level evidence QA
+reports an incomplete local source cache rather than silently passing; hydrate the
+pinned paths in `data/v2/external_dataset_registry.json` to rerun that source audit.
+
 Run the API and workbench:
 
 ```powershell

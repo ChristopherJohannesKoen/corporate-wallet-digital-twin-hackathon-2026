@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-09T17:45:24.803201+00:00",
+  "generated_at": "2026-08-09T18:05:56.215489+00:00",
   "team": "Corporate Wallet Digital Twin",
   "member": "Christopher Koen",
   "solution_version": "V2.1",
@@ -69,7 +69,7 @@
       ]
     },
     {
-      "command": "scripts/run_offline_validation.py --data-zip C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\ref\\Data Sets\\Data.zip",
+      "command": "scripts/run_offline_validation.py --data-zip <SYNBANK_DATA_ZIP>",
       "status": "passed",
       "stdout_tail": [
         "{",

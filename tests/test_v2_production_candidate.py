@@ -14,11 +14,20 @@ from wallet_twin_v2.fixtures import build_fixture
 from wallet_twin_v2.runtime_config import RuntimeConfig
 
 
-def test_expanded_evidence_is_page_grounded_but_not_human_approved():
+def test_expanded_evidence_reports_page_grounding_and_local_cache_boundary():
     report = verify_expanded_evidence()
-    assert report["document_passes"] == report["documents"] == 17
-    assert report["fact_passes"] == report["facts"] == 51
-    assert report["ready_for_finance_sme"] == 51
+    assert report["documents"] == 17
+    assert report["facts"] == 51
+    if report["source_cache_complete"]:
+        assert report["document_passes"] == 17
+        assert report["fact_passes"] == 51
+        assert report["ready_for_finance_sme"] == 51
+    else:
+        # The public repository deliberately excludes downloaded issuer PDFs and
+        # extracted page text. Absence must be reported, never treated as a pass.
+        assert report["document_passes"] < 17
+        assert report["fact_passes"] < 51
+        assert report["ready_for_finance_sme"] < 51
     assert report["human_approvals_completed"] == 0
     assert report["production_approval_claim_allowed"] is False
 
