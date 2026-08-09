@@ -1,7 +1,10 @@
 from __future__ import annotations
 
 import json
+import math
+import re
 import sys
+from decimal import Decimal, ROUND_HALF_EVEN
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -31,6 +34,21 @@ from wallet_twin_v2.repository import repository
 CONTRACTS = ROOT / "contracts"
 SCHEMAS = CONTRACTS / "jsonschema"
 DASHBOARD_DATA = ROOT / "dashboard" / "app" / "data"
+LONG_DECIMAL = re.compile(r"^-?\d+\.\d{9,}$")
+
+
+def canonical_dashboard_value(value: object) -> object:
+    """Remove platform-only floating-point noise from the checked-in UI fixture."""
+    if isinstance(value, dict):
+        return {key: canonical_dashboard_value(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [canonical_dashboard_value(item) for item in value]
+    if isinstance(value, float) and math.isfinite(value):
+        return round(value, 8)
+    if isinstance(value, str) and LONG_DECIMAL.fullmatch(value):
+        rounded = Decimal(value).quantize(Decimal("0.00000001"), rounding=ROUND_HALF_EVEN)
+        return format(rounded, "f")
+    return value
 
 
 def write_json(path: Path, value: object) -> None:
@@ -78,7 +96,7 @@ def main() -> None:
         "operational_rehearsal": repository.operational_rehearsal,
         "release": repository.release,
     }
-    write_json(DASHBOARD_DATA / "shadow-fixture.json", payload)
+    write_json(DASHBOARD_DATA / "shadow-fixture.json", canonical_dashboard_value(payload))
     print(json.dumps({"schemas": len(models), "opportunities": len(repository.opportunities), "output": str(DASHBOARD_DATA)}))
 
 
