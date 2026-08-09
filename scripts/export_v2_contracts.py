@@ -44,7 +44,7 @@ def canonical_dashboard_value(value: object) -> object:
     if isinstance(value, list):
         return [canonical_dashboard_value(item) for item in value]
     if isinstance(value, float) and math.isfinite(value):
-        return round(value, 8)
+        return round(value, 5)
     if isinstance(value, str) and LONG_DECIMAL.fullmatch(value):
         rounded = Decimal(value).quantize(Decimal("0.00000001"), rounding=ROUND_HALF_EVEN)
         return format(rounded, "f")

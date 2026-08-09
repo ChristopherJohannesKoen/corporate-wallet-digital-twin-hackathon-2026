@@ -7,7 +7,11 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
     WALLET_DEPLOYMENT_MODE=CLIENT_DEMO \
     WALLET_SERVICE_APP=workbench_bff_app
 
-RUN groupadd --gid 10001 wallet && useradd --uid 10001 --gid wallet --no-create-home wallet
+RUN apt-get update \
+    && apt-get upgrade --yes \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --gid 10001 wallet \
+    && useradd --uid 10001 --gid wallet --no-create-home wallet
 WORKDIR /app
 
 COPY pyproject.toml uv.lock README.md ./
