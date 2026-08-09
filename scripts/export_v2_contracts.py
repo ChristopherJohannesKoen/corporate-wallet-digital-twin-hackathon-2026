@@ -44,7 +44,12 @@ def canonical_dashboard_value(value: object) -> object:
     if isinstance(value, list):
         return [canonical_dashboard_value(item) for item in value]
     if isinstance(value, float) and math.isfinite(value):
-        return round(value, 5)
+        if abs(value) < 0.0000001:
+            return 0.0
+        # Portfolio currency values are displayed at cent precision; ratios and
+        # probabilities retain eight decimals. This removes BLAS/platform noise
+        # without changing any decision-relevant value.
+        return round(value, 2 if abs(value) >= 1_000 else 8)
     if isinstance(value, str) and LONG_DECIMAL.fullmatch(value):
         rounded = Decimal(value).quantize(Decimal("0.00000001"), rounding=ROUND_HALF_EVEN)
         return format(rounded, "f")
