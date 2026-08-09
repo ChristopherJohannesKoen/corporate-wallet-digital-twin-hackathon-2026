@@ -1,0 +1,56 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "actionability": {
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Actionability",
+      "type": "integer"
+    },
+    "completed": {
+      "title": "Completed",
+      "type": "boolean"
+    },
+    "comprehension": {
+      "maximum": 5,
+      "minimum": 1,
+      "title": "Comprehension",
+      "type": "integer"
+    },
+    "notes": {
+      "default": "",
+      "maxLength": 2000,
+      "title": "Notes",
+      "type": "string"
+    },
+    "omission_found": {
+      "default": false,
+      "title": "Omission Found",
+      "type": "boolean"
+    },
+    "override": {
+      "default": false,
+      "title": "Override",
+      "type": "boolean"
+    },
+    "task_id": {
+      "title": "Task Id",
+      "type": "string"
+    },
+    "verification_seconds": {
+      "maximum": 7200,
+      "minimum": 0,
+      "title": "Verification Seconds",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "task_id",
+    "completed",
+    "verification_seconds",
+    "actionability",
+    "comprehension"
+  ],
+  "title": "PilotFeedbackRequest",
+  "type": "object"
+}

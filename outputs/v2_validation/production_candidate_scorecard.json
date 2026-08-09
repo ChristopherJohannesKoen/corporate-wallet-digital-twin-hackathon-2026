@@ -1,0 +1,121 @@
+{
+  "claim": "Maximum offline production-candidate maturity; bank-dependent release gates remain explicit.",
+  "controlled_runtime_without_bank_config": {
+    "bank_production_claims_allowed": null,
+    "claim_profile": "BANK_CONTROLLED",
+    "configured_components": {
+      "aws_region": false,
+      "immutable_document_bucket": false,
+      "kms_key_arn": false,
+      "mlflow_registry_uri": false,
+      "msk_brokers": false,
+      "oidc_audience": false,
+      "oidc_issuer": false,
+      "opa_url": false,
+      "otel_endpoint": false,
+      "postgres_dsn": false,
+      "unity_catalog": false
+    },
+    "environment": "PRODUCTION",
+    "errors": [
+      "MISSING_REQUIRED_CONFIG:aws_region",
+      "MISSING_REQUIRED_CONFIG:kms_key_arn",
+      "MISSING_REQUIRED_CONFIG:immutable_document_bucket",
+      "MISSING_REQUIRED_CONFIG:msk_brokers",
+      "MISSING_REQUIRED_CONFIG:postgres_dsn",
+      "MISSING_REQUIRED_CONFIG:opa_url",
+      "MISSING_REQUIRED_CONFIG:oidc_issuer",
+      "MISSING_REQUIRED_CONFIG:oidc_audience",
+      "MISSING_REQUIRED_CONFIG:otel_endpoint",
+      "MISSING_REQUIRED_CONFIG:mlflow_registry_uri",
+      "MISSING_REQUIRED_CONFIG:unity_catalog"
+    ],
+    "fail_closed": true,
+    "genai_provider": "deterministic",
+    "secrets_exposed": false,
+    "valid": false
+  },
+  "fixture_runtime": {
+    "bank_production_claims_allowed": null,
+    "claim_profile": "LOCAL_DEVELOPMENT",
+    "configured_components": {
+      "aws_region": false,
+      "immutable_document_bucket": false,
+      "kms_key_arn": false,
+      "mlflow_registry_uri": false,
+      "msk_brokers": false,
+      "oidc_audience": false,
+      "oidc_issuer": false,
+      "opa_url": false,
+      "otel_endpoint": false,
+      "postgres_dsn": false,
+      "unity_catalog": false
+    },
+    "environment": "FIXTURE",
+    "errors": [],
+    "fail_closed": false,
+    "genai_provider": "deterministic",
+    "secrets_exposed": false,
+    "valid": true
+  },
+  "generated_at": "2026-08-09T12:04:42.108651+00:00",
+  "machine_gates": {
+    "entitlement_negative_pass_rate": 1.0,
+    "event_recovery_byte_identical": true,
+    "evidence_documents": "17/17",
+    "evidence_facts": "51/51",
+    "genai_deterministic_gate": true,
+    "genai_governed_checks": 809,
+    "local_p95_latency_ms": 274.4380150000003,
+    "production_runtime_fails_closed_without_bank_config": true,
+    "production_target_control_definitions": "21/21",
+    "timing_challenger_brier_improvement": 0.07376393710106549,
+    "wallet_conformal_coverage_90": 0.9130434782608695
+  },
+  "non_delegable_gates": [
+    "finance-SME and independent approval of pending E1 facts",
+    "representative, consented E3 multibank calibration panel",
+    "approved Treasury/Product Finance/FTP/risk/capital/cost/hurdle inputs",
+    "bank SSO, Unity Catalog, SIEM, network and infrastructure validation",
+    "bank-approved live-provider evaluation on sealed independently adjudicated documents",
+    "at least five supervised RM pilot sessions and a powered live randomized trial",
+    "30 elapsed clean production shadow days"
+  ],
+  "production_release_allowed": false,
+  "scores": {
+    "causal_learning": {
+      "basis": "locked preregistration, cluster-robust ITT, randomization inference, IV gate, A/A rehearsal and event contracts; no live randomized trial",
+      "score": 6.5
+    },
+    "economics": {
+      "basis": "fail-closed engine, three E0 packs, waterfalls, frontiers, break-even, concentration and reconciliation; no bank-approved rates",
+      "score": 7.5
+    },
+    "genai": {
+      "basis": "three fail-closed adapters, circuit breaker, payload guard, claim compiler and 809 governed checks; no approved live-provider run",
+      "score": 8.5
+    },
+    "platform_security": {
+      "basis": "AWS/Databricks IaC, runtime fail-closed config, production adapters, ABAC, hardened Helm, load/negative/recovery rehearsals; no bank infrastructure validation",
+      "score": 8.0
+    },
+    "public_evidence": {
+      "basis": "82 E1 facts across 20 clients; 51/51 expanded facts page-grounded; four-eyes SME approval pending",
+      "score": 8.5
+    },
+    "rm_adoption": {
+      "basis": "consented pilot sessions, task feedback and adoption gate implemented; zero real completed banker sessions",
+      "score": 4.0
+    },
+    "timing": {
+      "basis": "30/60/90 baseline plus temporally held-out discrete-time surrogate hazard challenger; no qualified RM outcomes",
+      "score": 7.0
+    },
+    "wallet_modelling": {
+      "basis": "product models, selection weighting, known-truth holdout, split-conformal and stress audits; no representative real E3 panel",
+      "score": 8.0
+    }
+  },
+  "status": "BANK_PRODUCTION_CANDIDATE_NOT_PROMOTABLE",
+  "version": "production-candidate-scorecard-1.0.0"
+}

@@ -1,0 +1,53 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "action": {
+      "title": "Action",
+      "type": "string"
+    },
+    "client_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Client Id"
+    },
+    "product": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Product"
+    },
+    "resource_id": {
+      "title": "Resource Id",
+      "type": "string"
+    },
+    "resource_type": {
+      "title": "Resource Type",
+      "type": "string"
+    },
+    "sensitive_economics": {
+      "default": false,
+      "title": "Sensitive Economics",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "action",
+    "resource_type",
+    "resource_id"
+  ],
+  "title": "AccessEvaluationRequest",
+  "type": "object"
+}

@@ -1,0 +1,30 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "consent_reference": {
+      "minLength": 8,
+      "title": "Consent Reference",
+      "type": "string"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "task_ids": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Task Ids",
+      "type": "array"
+    }
+  },
+  "required": [
+    "task_ids",
+    "consent_reference"
+  ],
+  "title": "PilotSessionRequest",
+  "type": "object"
+}

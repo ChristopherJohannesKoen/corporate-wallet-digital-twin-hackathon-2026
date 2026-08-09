@@ -1,0 +1,22 @@
+version: 1
+cluster: wallet-twin
+defaults:
+  partitions: 12
+  replication_factor: 3
+  min_insync_replicas: 2
+  cleanup_policy: delete
+  retention_ms: 31536000000
+topics:
+  - { name: wallet.eligibility-recorded.v1 }
+  - { name: wallet.recommendation-assigned.v1 }
+  - { name: wallet.recommendation-displayed.v1 }
+  - { name: wallet.recommendation-opened.v1 }
+  - { name: wallet.recommendation-dismissed.v1 }
+  - { name: wallet.banker-action-recorded.v1 }
+  - { name: wallet.pipeline-milestone-recorded.v1 }
+  - { name: wallet.outcome-recorded.v1 }
+  - { name: wallet.evidence-approved.v1 }
+  - { name: wallet.access-decision-logged.v1, partitions: 24 }
+dead_letter_topics:
+  - { name: wallet.contract-quarantine.v1, retention_ms: 7776000000 }
+  - { name: wallet.integration-dead-letter.v1, retention_ms: 7776000000 }

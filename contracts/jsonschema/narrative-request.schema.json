@@ -1,0 +1,20 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "opportunity_id": {
+      "title": "Opportunity Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "as_of"
+  ],
+  "title": "NarrativeRequest",
+  "type": "object"
+}

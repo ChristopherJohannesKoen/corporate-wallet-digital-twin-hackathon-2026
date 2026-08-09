@@ -1,0 +1,132 @@
+{
+  "apply_allowed": false,
+  "apply_blockers": [
+    "bank-owned AWS accounts, VPCs, subnets, DNS and deployment role",
+    "bank-owned Databricks account, workspaces, metastore and SCIM groups",
+    "approved SIEM destination and telemetry credentials",
+    "architecture, privacy, third-party, security and model-risk approvals",
+    "explicit cost and production-change authority"
+  ],
+  "bank_production_release_allowed": false,
+  "controls": {
+    "asymmetric_manifest_signing": {
+      "evidence": "infra/terraform/security_observability.tf",
+      "missing": [],
+      "passed": true
+    },
+    "cloudtrail_integrity": {
+      "evidence": "infra/terraform/security_observability.tf",
+      "missing": [],
+      "passed": true
+    },
+    "eks_audit_logs": {
+      "evidence": "infra/terraform/main.tf",
+      "missing": [],
+      "passed": true
+    },
+    "event_topic_contract": {
+      "evidence": "infra/msk/topics.yaml",
+      "missing": [],
+      "passed": true
+    },
+    "iam_authenticated_msk": {
+      "evidence": "infra/terraform/main.tf",
+      "missing": [],
+      "passed": true
+    },
+    "iam_authenticated_postgres": {
+      "evidence": "infra/terraform/main.tf",
+      "missing": [],
+      "passed": true
+    },
+    "immutable_audit_archive": {
+      "evidence": "infra/terraform/security_observability.tf",
+      "missing": [],
+      "passed": true
+    },
+    "mlflow_promotion_policy": {
+      "evidence": "config/mlflow_promotion_policy.json",
+      "missing": [],
+      "passed": true
+    },
+    "network_default_deny": {
+      "evidence": "infra/helm/wallet-twin/templates/networkpolicy.yaml",
+      "missing": [],
+      "passed": true
+    },
+    "non_root_digest_pinned_image_contract": {
+      "evidence": "infra/helm/wallet-twin/templates/workloads.yaml",
+      "missing": [],
+      "passed": true
+    },
+    "object_locked_evidence": {
+      "evidence": "infra/terraform/main.tf",
+      "missing": [],
+      "passed": true
+    },
+    "opa_deny_by_default": {
+      "evidence": "infra/policy/client_entitlements.rego",
+      "missing": [],
+      "passed": true
+    },
+    "otel_redaction_and_export": {
+      "evidence": "infra/otel/collector.yaml",
+      "missing": [],
+      "passed": true
+    },
+    "private_eks": {
+      "evidence": "infra/terraform/main.tf",
+      "missing": [],
+      "passed": true
+    },
+    "private_service_endpoints": {
+      "evidence": "infra/terraform/security_observability.tf",
+      "missing": [],
+      "passed": true
+    },
+    "provider_secrets": {
+      "evidence": "infra/terraform/security_observability.tf",
+      "missing": [],
+      "passed": true
+    },
+    "service_specific_irsa": {
+      "evidence": "infra/helm/wallet-twin/values.yaml",
+      "missing": [],
+      "passed": true
+    },
+    "supply_chain_ci": {
+      "evidence": ".github/workflows/ci.yml",
+      "missing": [],
+      "passed": true
+    },
+    "unity_catalog_abac": {
+      "evidence": "infra/databricks/unity_catalog_controls.sql",
+      "missing": [],
+      "passed": true
+    },
+    "unity_catalog_data_products": {
+      "evidence": "infra/databricks/data_products.sql",
+      "missing": [],
+      "passed": true
+    },
+    "vpc_flow_logs": {
+      "evidence": "infra/terraform/security_observability.tf",
+      "missing": [],
+      "passed": true
+    }
+  },
+  "controls_passed": 21,
+  "controls_total": 21,
+  "environment_state": {
+    "aws_account_provisioned": false,
+    "bank_sso_federated": false,
+    "databricks_workspace_provisioned": false,
+    "production_feeds_connected": false,
+    "siem_destination_connected": false,
+    "unity_catalog_policies_applied": false
+  },
+  "generated_at": "2026-08-09T17:44:59.683769+00:00",
+  "implementation_definitions_ready": true,
+  "target": "AWS + Databricks / private EKS / Delta + Unity Catalog / MLflow / MSK / OPA / OpenTelemetry",
+  "version": "production-target-validation-1.0.0"
+}

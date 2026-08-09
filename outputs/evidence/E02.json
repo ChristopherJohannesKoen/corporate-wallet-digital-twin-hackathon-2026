@@ -1,0 +1,1853 @@
+{
+  "metadata": {
+    "title": "Corporate Wallet Digital Twin",
+    "model_version": "1.1.0",
+    "as_of": "2026-06-30",
+    "period_start": "2023-07-01",
+    "period_end": "2026-06-30",
+    "generated_from": "supplied synthetic banking datasets plus point-in-time audited public facts for three showcase clients",
+    "currency": "ZAR"
+  },
+  "client": {
+    "entity_id": "E02",
+    "entity_name": "Glencore",
+    "sector": "mining",
+    "observed_ltm_zar": 7745008878.8007965,
+    "relationship_breadth": 5,
+    "country_count": 15,
+    "top_countries": [
+      {
+        "name": "DRC",
+        "value_zar": 3659029310.1000013
+      },
+      {
+        "name": "Brazil",
+        "value_zar": 594605909.7900001
+      },
+      {
+        "name": "United States",
+        "value_zar": 577306625.8199999
+      },
+      {
+        "name": "Germany",
+        "value_zar": 566160339.0699998
+      },
+      {
+        "name": "China",
+        "value_zar": 541805605.8099997
+      }
+    ],
+    "top_currencies": [
+      {
+        "name": "USD/ZAR",
+        "value_zar": 1556826719.0599988
+      },
+      {
+        "name": "AED/ZAR",
+        "value_zar": 1420259005.2399986
+      },
+      {
+        "name": "CNY/ZAR",
+        "value_zar": 1389585318.2000003
+      },
+      {
+        "name": "EUR/ZAR",
+        "value_zar": 1383085551.99
+      },
+      {
+        "name": "GBP/ZAR",
+        "value_zar": 1355648126.4800005
+      }
+    ],
+    "monthly": {
+      "Collections": [
+        {
+          "month": "2023-07",
+          "value_zar": 232477797.53006005
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 170217726.86855254
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 156343091.78888336
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 221595676.68578246
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 147137787.29639447
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 230944126.15087935
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 173431885.38734496
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 194220537.2866683
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 232991739.13740227
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 191199743.25148243
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 175184587.86734462
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 174890450.73301366
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 168851211.62993956
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 167353069.6148241
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 173826019.24708867
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 195308957.70702398
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 195019434.73443645
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 204420395.4040241
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 189045439.01498142
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 189555528.20970923
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 186396596.74738535
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 161706266.26773873
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 158439114.45769784
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 184442275.17245966
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 201336901.40166146
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 194010572.4638312
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 216818602.07895067
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 238313763.19936967
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 206337094.38990194
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 226583485.05333695
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 188182923.68018025
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 178520279.35227624
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 179854881.43926585
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 204034587.40313038
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 195031929.6463552
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 234100137.2925352
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2023-07",
+          "value_zar": 153958963.67999998
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 159234414.60000002
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 164003680.05999985
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 149789531.21
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 122636260.6899999
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 202188602.53000018
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 135253244.48000002
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 114106278.41999997
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 140315198.34999993
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 148314535.73
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 165139952.4499999
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 167391003.19000003
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 129869731.31
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 129731141.74999994
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 133578002.88000004
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 150620088.3400001
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 126238513.87999994
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 127884467.12
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 168415939.1299999
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 124211878.96999995
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 160468724.93999994
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 169723510.39000002
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 138938752.67
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 152160506.51999998
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 148431895.96999988
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 134278989.56000003
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 172298897.76000014
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 143780231.26000002
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 193573789.15999997
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 158251592.7299999
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 151140764.22
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 136417996.29000008
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 158217574.87000006
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 163031874.04999998
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 171798346.64
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 144887068.47000018
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2023-07",
+          "value_zar": 193218380.60503
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 164726070.73427624
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 160173385.9244417
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 185692603.9478912
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 134887023.99319732
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 216566364.34043962
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 154342564.93367243
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 154163407.8533342
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 186653468.74370116
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 169757139.4907412
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 170162270.1586723
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 171140726.96150678
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 149360471.4699698
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 148542105.68241215
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 153702011.06354433
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 172964523.02351198
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 160628974.30721825
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 166152431.26201206
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 178730689.07249063
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 156883703.58985466
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 173432660.84369266
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 165714888.32886934
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 148688933.56384897
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 168301390.84622985
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 174884398.6858307
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 164144781.01191568
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 194558749.9194754
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 191046997.22968483
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 199955441.77495086
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 192417538.8916684
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 169661843.9500901
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 157469137.82113823
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 169036228.15463293
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 183533230.72656515
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 183415138.14317763
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 189493602.88126755
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2023-07",
+          "value_zar": 194517396.69000003
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 189102053.65999997
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 216798651.51999995
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 148505188.97999996
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 218603367.56999996
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 236071066.87999988
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 126788430.12
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 141815991.14999998
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 232197373.94
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 185232451.38000008
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 288919297.79
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 198394891.10000005
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 186189972.51999998
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 159725607.93999997
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 171046081.8
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 157060967.61
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 226743657.84999996
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 223008471.14
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 239481496.0
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 143381295.86999992
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 196478420.9299999
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 248184895.17999986
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 297872183.4399999
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 158584385.34
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 150789016.66
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 163768175.06000003
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 246692148.90999994
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 222876696.32
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 133787416.89999999
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 205650480.28
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 211888295.36999997
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 135450711.53
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 271342433.47999996
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 248470297.04999995
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 154541483.14000005
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 175443969.87
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2023-07",
+          "value_zar": 53451052.10000001
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 68431493.62
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 106136840.59000002
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 36571537.470000006
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 62372762.00999999
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 161956903.57999995
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 93997001.62
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 71950268.20000002
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 130964807.26000002
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 83045795.5
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 118188332.23
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 92822061.13999999
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 107684269.38
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 110529492.02000003
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 76114552.58
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 101841917.77
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 116334585.25
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 59459257.96
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 27397096.819999997
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 85699462.38999999
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 61136956.04
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 79075042.59
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 72999663.96
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 68887583.71000002
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 118369826.90999997
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 74607817.10000002
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 123078215.99000001
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 112504339.49999999
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 91965389.55000001
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 113874478.53000002
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 74191127.60999998
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 39500983.91
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 99442587.59000002
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 71054629.1
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 70329096.44
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 96155083.61999999
+        }
+      ]
+    },
+    "forecasts": {
+      "Collections": [
+        {
+          "month": "2026-07",
+          "value_zar": 222069376.99505475,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 213988626.31518272,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 239145291.04903534,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2026-07",
+          "value_zar": 150311708.59580898,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 135979563.00013715,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 174480973.52818748,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2026-07",
+          "value_zar": 185615833.7663639,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 174217200.70443586,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 206497462.6337028,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2026-07",
+          "value_zar": 140590011.85987532,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 152691291.34166703,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 230006487.93404645,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2026-07",
+          "value_zar": 134986617.83112594,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 85081284.2849687,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 140355971.94723406,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ]
+    },
+    "latent_state": {
+      "operating_scale": 65.0,
+      "working_capital_intensity": 56.0,
+      "liquidity_volatility": 10.0,
+      "international_exposure": 44.0,
+      "financing_need": 100.0,
+      "event_intensity": 100.0,
+      "relationship_complexity": 100.0
+    },
+    "public_facts": [
+      {
+        "fact_id": "GLEN-2025-REV",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "revenue",
+        "value": 247535.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "136",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Consolidated statement of income revenue",
+        "fx_to_zar": 17.86,
+        "value_zar": 4420975100000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-COST",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "operating_cost_base",
+        "value": 241672.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "136",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Cost of goods sold",
+        "fx_to_zar": 17.86,
+        "value_zar": 4316261920000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-AR-OPEN",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "trade_receivables_open",
+        "value": 10878.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-01-01",
+        "period_end": "2024-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "186",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Trade receivables including derivative features comparative balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 194281080000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-AR-CLOSE",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "trade_receivables_close",
+        "value": 13428.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "186",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Trade receivables including derivative features closing balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 239824080000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-INV-OPEN",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "inventories_open",
+        "value": 30097.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-01-01",
+        "period_end": "2024-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "185",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Current plus non-current inventories comparative balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 537532420000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-INV-CLOSE",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "inventories_close",
+        "value": 33955.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "185",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Current plus non-current inventories closing balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 606436300000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-AP-OPEN",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "trade_payables_open",
+        "value": 24872.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-01-01",
+        "period_end": "2024-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "205",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Trade payables including derivative features comparative balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 444213920000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-AP-CLOSE",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "trade_payables_close",
+        "value": 30537.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "205",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Trade payables including derivative features closing balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 545390820000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-FX",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "fx_exposure",
+        "value": 7587.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "212",
+        "method": "direct audited note",
+        "confidence": 0.95,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Cross-currency swap hedge notional of 1378 plus 6209",
+        "fx_to_zar": 17.86,
+        "value_zar": 135503820000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "GLEN-2025-DEBT",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "concept": "current_debt",
+        "value": 14494.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2025-01-01",
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "source_title": "Glencore Annual Report 2025",
+        "source_url": "https://www.glencore.com/.rest/api/v1/documents/static/9b103e11-72e7-40bf-ae7c-eabe57361522/GLEN-2025-Annual-Report.pdf",
+        "page": "138",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2026-03-10",
+        "notes": "Current borrowings",
+        "fx_to_zar": 17.86,
+        "value_zar": 258862840000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      }
+    ],
+    "public_anchors": {
+      "Collections": {
+        "product": "Collections",
+        "name": "Audited cash-collections identity",
+        "low_zar": 3850380248000.0,
+        "base_zar": 4375432100000.0,
+        "high_zar": 4900483952000.0,
+        "weight": 0.84,
+        "formula": "Revenue + opening trade receivables - closing trade receivables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112% to allow non-cash and classification effects.",
+        "fact_ids": [
+          "GLEN-2025-REV",
+          "GLEN-2025-AR-OPEN",
+          "GLEN-2025-AR-CLOSE"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.136",
+          "Glencore Annual Report 2025 p.186"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      },
+      "Payments": {
+        "product": "Payments",
+        "name": "Audited supplier-payments identity",
+        "low_zar": 3769910232000.0,
+        "base_zar": 4283988900000.0,
+        "high_zar": 4798067568000.0,
+        "weight": 0.84,
+        "formula": "Cost base + closing inventory - opening inventory + opening trade payables - closing trade payables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112%; BHP's cost base is expenses excluding net finance costs.",
+        "fact_ids": [
+          "GLEN-2025-COST",
+          "GLEN-2025-INV-OPEN",
+          "GLEN-2025-INV-CLOSE",
+          "GLEN-2025-AP-OPEN",
+          "GLEN-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.136",
+          "Glencore Annual Report 2025 p.185",
+          "Glencore Annual Report 2025 p.205"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      },
+      "Trade finance": {
+        "product": "Trade finance",
+        "name": "Audited payments base \u00d7 trade-utilisation range",
+        "low_zar": 42839889000.0,
+        "base_zar": 128519667000.0,
+        "high_zar": 257039334000.0,
+        "weight": 0.84,
+        "formula": "Audited supplier-payments proxy \u00d7 declared sector trade-finance utilisation",
+        "transformation_assumption": "Sector utilisation low/base/high = 1.0%/3.0%/6.0%.",
+        "fact_ids": [
+          "GLEN-2025-COST",
+          "GLEN-2025-INV-OPEN",
+          "GLEN-2025-INV-CLOSE",
+          "GLEN-2025-AP-OPEN",
+          "GLEN-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.136",
+          "Glencore Annual Report 2025 p.185",
+          "Glencore Annual Report 2025 p.205"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      },
+      "Cross-border FX": {
+        "product": "Cross-border FX",
+        "name": "Audited FX exposure/notional turnover range",
+        "low_zar": 135503820000.0,
+        "base_zar": 271007640000.0,
+        "high_zar": 542015280000.0,
+        "weight": 0.84,
+        "formula": "Audited FX point exposure or hedge notional \u00d7 annual turnover multiple",
+        "transformation_assumption": "Annual turnover low/base/high = 1.0x/2.0x/4.0x the disclosed point exposure/notional.",
+        "fact_ids": [
+          "GLEN-2025-FX"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.212"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      },
+      "Liquidity": {
+        "product": "Liquidity",
+        "name": "Audited debt-maturity liquidity range",
+        "low_zar": 194147130000.0,
+        "base_zar": 258862840000.0,
+        "high_zar": 388294260000.0,
+        "weight": 0.84,
+        "formula": "Current debt maturity/refinancing amount \u00d7 declared liquidity multiple",
+        "transformation_assumption": "Liquidity low/base/high = 0.75x/1.00x/1.50x current debt and facilities.",
+        "fact_ids": [
+          "GLEN-2025-DEBT"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.138"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      }
+    },
+    "debt_maturity_anchor": {
+      "name": "Audited current debt-maturity/refinancing anchor",
+      "base_zar": 258862840000.0,
+      "low_zar": 194147130000.0,
+      "high_zar": 388294260000.0,
+      "fact_ids": [
+        "GLEN-2025-DEBT"
+      ],
+      "source_pages": [
+        "Glencore Annual Report 2025 p.138"
+      ],
+      "period_end": "2025-12-31",
+      "available_date": "2026-03-10",
+      "audit_status": "audited",
+      "formula": "Current borrowings + disclosed short-term facilities"
+    },
+    "timing": {
+      "trade_events_next_90d": 48,
+      "trade_events_value_zar": 199079093.61000004,
+      "next_quarter_forecast_zar": 2019687204.6823242,
+      "reason": "Audited current debt and facilities of ZAR 258.9bn create a dated refinancing/liquidity anchor; Trade finance is the strongest modelled window."
+    },
+    "evidence_summary": {
+      "overall_recurrence": 1.0,
+      "public_facts_available": 10,
+      "active_public_anchors": 5,
+      "data_quality_score": 0.9774478960679848,
+      "minimum_evidence_met": true
+    },
+    "brief": {
+      "product": "Trade finance",
+      "headline": "Validate trade finance share before proposing a R146.6m base-case gap.",
+      "why_now": "Audited current debt and facilities of ZAR 258.9bn create a dated refinancing/liquidity anchor; Trade finance is the strongest modelled window.",
+      "confidence": "High",
+      "questions": [
+        "What activity is held with other banks?",
+        "Which entities and mandates can move first?",
+        "What blocks the target-share scenario?"
+      ]
+    }
+  },
+  "opportunities": [
+    {
+      "entity_id": "E02",
+      "product": "Trade finance",
+      "observed_activity_zar": 1085073575.85,
+      "need_propensity": 0.9560958739997931,
+      "current_share": {
+        "p10": 0.009977321142609291,
+        "p50": 0.013966935358038043,
+        "p90": 0.020918586742083425
+      },
+      "total_wallet_zar": {
+        "p10": 51871287431.6891,
+        "p50": 77688738496.00256,
+        "p90": 108754012046.78244
+      },
+      "partial_identification_zar": {
+        "lower": 42839889000.0,
+        "upper": 257039334000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited payments base \u00d7 trade-utilisation range"
+      },
+      "contestable_activity_zar": {
+        "p10": 18928281866.315186,
+        "p50": 29830450121.701424,
+        "p90": 42706700112.81435
+      },
+      "revenue_gap_zar": {
+        "p10": 79624307.35499184,
+        "p50": 146620772.9061767,
+        "p90": 244310838.75948358
+      },
+      "confidence": 0.9602039990571444,
+      "confidence_label": "High",
+      "fit_score": 1.0,
+      "timing_score": 0.934158303567707,
+      "priority_score": 131516273.12779424,
+      "recurrence": 1.0,
+      "trend": 0.12191747999586022,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited payments base \u00d7 trade-utilisation range",
+        "fact_ids": [
+          "GLEN-2025-COST",
+          "GLEN-2025-INV-OPEN",
+          "GLEN-2025-INV-CLOSE",
+          "GLEN-2025-AP-OPEN",
+          "GLEN-2025-AP-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 2037557406.0907722,
+          "p50": 3304292237.5367584,
+          "p90": 7007838476.3201065
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 51871287431.6891,
+          "p50": 77688738496.00256,
+          "p90": 108754012046.78244
+        },
+        "prior_relative_interval_width": 1.5041893128479809,
+        "anchored_relative_interval_width": 0.7321875179891125,
+        "relative_interval_width_reduction": 0.5132344634181627,
+        "confidence_before": 0.7002039990571444,
+        "confidence_after": 0.9602039990571444,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.26,
+        "share_prior_concentration": 8,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 20.0,
+          "base": 45.0,
+          "high": 85.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E02-trade-finance",
+      "entity_name": "Glencore",
+      "sector": "mining",
+      "top10_probability": 1.0,
+      "forecast_next_quarter_zar": 360423874.06332874,
+      "public_anchor": {
+        "product": "Trade finance",
+        "name": "Audited payments base \u00d7 trade-utilisation range",
+        "low_zar": 42839889000.0,
+        "base_zar": 128519667000.0,
+        "high_zar": 257039334000.0,
+        "weight": 0.84,
+        "formula": "Audited supplier-payments proxy \u00d7 declared sector trade-finance utilisation",
+        "transformation_assumption": "Sector utilisation low/base/high = 1.0%/3.0%/6.0%.",
+        "fact_ids": [
+          "GLEN-2025-COST",
+          "GLEN-2025-INV-OPEN",
+          "GLEN-2025-INV-CLOSE",
+          "GLEN-2025-AP-OPEN",
+          "GLEN-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.136",
+          "Glencore Annual Report 2025 p.185",
+          "Glencore Annual Report 2025 p.205"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E02",
+      "product": "Collections",
+      "observed_activity_zar": 2463125157.4007955,
+      "need_propensity": 0.9236401211633105,
+      "current_share": {
+        "p10": 0.001488692784808201,
+        "p50": 0.0016262860785643623,
+        "p90": 0.0017474720155253266
+      },
+      "total_wallet_zar": {
+        "p10": 1409536276841.7048,
+        "p50": 1514570648743.9043,
+        "p90": 1654555716750.1719
+      },
+      "partial_identification_zar": {
+        "lower": 3850380248000.0,
+        "upper": 4900483952000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited cash-collections identity"
+      },
+      "contestable_activity_zar": {
+        "p10": 513183557686.9731,
+        "p50": 603702584847.842,
+        "p90": 699312610153.3306
+      },
+      "revenue_gap_zar": {
+        "p10": 52530180.24788056,
+        "p50": 82281975.8428801,
+        "p90": 122544576.6105334
+      },
+      "confidence": 0.9580270104030745,
+      "confidence_label": "High",
+      "fit_score": 0.78,
+      "timing_score": 0.5959338675449114,
+      "priority_score": 36641659.596447244,
+      "recurrence": 1.0,
+      "trend": 0.13280242326620972,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited cash-collections identity",
+        "fact_ids": [
+          "GLEN-2025-REV",
+          "GLEN-2025-AR-OPEN",
+          "GLEN-2025-AR-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 4125164842.1653743,
+          "p50": 5734782465.92267,
+          "p90": 8993105557.501692
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 1409536276841.7048,
+          "p50": 1514570648743.9043,
+          "p90": 1654555716750.1719
+        },
+        "prior_relative_interval_width": 0.8488448767259584,
+        "anchored_relative_interval_width": 0.1617748502598223,
+        "relative_interval_width_reduction": 0.8094176513336608,
+        "confidence_before": 0.6980270104030745,
+        "confidence_after": 0.9580270104030745,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.36,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.5,
+          "base": 1.2,
+          "high": 2.5
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E02-collections",
+      "entity_name": "Glencore",
+      "sector": "mining",
+      "top10_probability": 1.0,
+      "forecast_next_quarter_zar": 675203294.3592728,
+      "public_anchor": {
+        "product": "Collections",
+        "name": "Audited cash-collections identity",
+        "low_zar": 3850380248000.0,
+        "base_zar": 4375432100000.0,
+        "high_zar": 4900483952000.0,
+        "weight": 0.84,
+        "formula": "Revenue + opening trade receivables - closing trade receivables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112% to allow non-cash and classification effects.",
+        "fact_ids": [
+          "GLEN-2025-REV",
+          "GLEN-2025-AR-OPEN",
+          "GLEN-2025-AR-CLOSE"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.136",
+          "Glencore Annual Report 2025 p.186"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E02",
+      "product": "Cross-border FX",
+      "observed_activity_zar": 2320701124.57,
+      "need_propensity": 0.9481921702377054,
+      "current_share": {
+        "p10": 0.010251865359279166,
+        "p50": 0.013904151155084539,
+        "p90": 0.019522457204421657
+      },
+      "total_wallet_zar": {
+        "p10": 118873419464.37033,
+        "p50": 166907069611.77493,
+        "p90": 226368683514.08478
+      },
+      "partial_identification_zar": {
+        "lower": 135503820000.0,
+        "upper": 542015280000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited FX exposure/notional turnover range"
+      },
+      "contestable_activity_zar": {
+        "p10": 43849468881.12277,
+        "p50": 63994705575.52929,
+        "p90": 90125915090.60103
+      },
+      "revenue_gap_zar": {
+        "p10": 37561995.112856284,
+        "p50": 62815640.7180202,
+        "p90": 105487118.46817899
+      },
+      "confidence": 0.977356176007138,
+      "confidence_label": "High",
+      "fit_score": 1.0,
+      "timing_score": 0.5571109369377254,
+      "priority_score": 34202853.483561344,
+      "recurrence": 1.0,
+      "trend": -0.03615659524589199,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited FX exposure/notional turnover range",
+        "fact_ids": [
+          "GLEN-2025-FX"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 4232907849.2306237,
+          "p50": 6312019338.579748,
+          "p90": 10984177658.251585
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 118873419464.37033,
+          "p50": 166907069611.77493,
+          "p90": 226368683514.08478
+        },
+        "prior_relative_interval_width": 1.0695895317931723,
+        "anchored_relative_interval_width": 0.6440426058629387,
+        "relative_interval_width_reduction": 0.397860032546132,
+        "confidence_before": 0.717356176007138,
+        "confidence_after": 0.977356176007138,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.3,
+        "share_prior_concentration": 10,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 4.0,
+          "base": 9.0,
+          "high": 18.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E02-cross-border-fx",
+      "entity_name": "Glencore",
+      "sector": "mining",
+      "top10_probability": 1.0,
+      "forecast_next_quarter_zar": 523287791.1355888,
+      "public_anchor": {
+        "product": "Cross-border FX",
+        "name": "Audited FX exposure/notional turnover range",
+        "low_zar": 135503820000.0,
+        "base_zar": 271007640000.0,
+        "high_zar": 542015280000.0,
+        "weight": 0.84,
+        "formula": "Audited FX point exposure or hedge notional \u00d7 annual turnover multiple",
+        "transformation_assumption": "Annual turnover low/base/high = 1.0x/2.0x/4.0x the disclosed point exposure/notional.",
+        "fact_ids": [
+          "GLEN-2025-FX"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.212"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E02",
+      "product": "Payments",
+      "observed_activity_zar": 1876109020.98,
+      "need_propensity": 0.9337979846940223,
+      "current_share": {
+        "p10": 0.0011955881794567143,
+        "p50": 0.001301728470078014,
+        "p90": 0.0014053094862217011
+      },
+      "total_wallet_zar": {
+        "p10": 1335014843652.9219,
+        "p50": 1441244517690.4814,
+        "p90": 1569193350366.752
+      },
+      "partial_identification_zar": {
+        "lower": 3769910232000.0,
+        "upper": 4798067568000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited supplier-payments identity"
+      },
+      "contestable_activity_zar": {
+        "p10": 490103067734.457,
+        "p50": 576414574428.6094,
+        "p90": 670515691350.8419
+      },
+      "revenue_gap_zar": {
+        "p10": 30526686.4355528,
+        "p50": 50355771.78206761,
+        "p90": 75650775.75787541
+      },
+      "confidence": 0.9653955562802273,
+      "confidence_label": "High",
+      "fit_score": 0.86,
+      "timing_score": 0.570521895559425,
+      "priority_score": 23852028.50883773,
+      "recurrence": 1.0,
+      "trend": 0.09595969388044523,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited supplier-payments identity",
+        "fact_ids": [
+          "GLEN-2025-COST",
+          "GLEN-2025-INV-OPEN",
+          "GLEN-2025-INV-CLOSE",
+          "GLEN-2025-AP-OPEN",
+          "GLEN-2025-AP-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 3319903196.4231043,
+          "p50": 4620067580.532099,
+          "p90": 7348289002.63979
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 1335014843652.9219,
+          "p50": 1441244517690.4814,
+          "p90": 1569193350366.752
+        },
+        "prior_relative_interval_width": 0.8719322252322402,
+        "anchored_relative_interval_width": 0.16248353685958078,
+        "relative_interval_width_reduction": 0.8136511850834471,
+        "confidence_before": 0.7053955562802273,
+        "confidence_after": 0.9653955562802273,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.34,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.3,
+          "base": 0.8,
+          "high": 1.6
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E02-payments",
+      "entity_name": "Glencore",
+      "sector": "mining",
+      "top10_probability": 1.0,
+      "forecast_next_quarter_zar": 460772245.1241336,
+      "public_anchor": {
+        "product": "Payments",
+        "name": "Audited supplier-payments identity",
+        "low_zar": 3769910232000.0,
+        "base_zar": 4283988900000.0,
+        "high_zar": 4798067568000.0,
+        "weight": 0.84,
+        "formula": "Cost base + closing inventory - opening inventory + opening trade payables - closing trade payables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112%; BHP's cost base is expenses excluding net finance costs.",
+        "fact_ids": [
+          "GLEN-2025-COST",
+          "GLEN-2025-INV-OPEN",
+          "GLEN-2025-INV-CLOSE",
+          "GLEN-2025-AP-OPEN",
+          "GLEN-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.136",
+          "Glencore Annual Report 2025 p.185",
+          "Glencore Annual Report 2025 p.205"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E02",
+      "product": "Liquidity",
+      "observed_activity_zar": 2169617089.1903977,
+      "need_propensity": 0.9378286753565545,
+      "current_share": {
+        "p10": 0.011885433645324116,
+        "p50": 0.014255853886541128,
+        "p90": 0.01684489925375231
+      },
+      "total_wallet_zar": {
+        "p10": 128799650829.68993,
+        "p50": 152191311813.0636,
+        "p90": 182544209803.0602
+      },
+      "partial_identification_zar": {
+        "lower": 194147130000.0,
+        "upper": 388294260000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited debt-maturity liquidity range"
+      },
+      "contestable_activity_zar": {
+        "p10": 46652112954.96788,
+        "p50": 58533488966.678406,
+        "p90": 73008918932.24542
+      },
+      "revenue_gap_zar": {
+        "p10": 22216901.36210739,
+        "p50": 37643245.92676315,
+        "p90": 58330590.72933885
+      },
+      "confidence": 0.9612727936300988,
+      "confidence_label": "High",
+      "fit_score": 0.88,
+      "timing_score": 0.6842650378751445,
+      "priority_score": 21789172.574002393,
+      "recurrence": 1.0,
+      "trend": 0.11657350713108827,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited debt-maturity liquidity range",
+        "fact_ids": [
+          "GLEN-2025-DEBT"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 4070396685.617456,
+          "p50": 6421341651.523909,
+          "p90": 12420752140.450157
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 128799650829.68993,
+          "p50": 152191311813.0636,
+          "p90": 182544209803.0602
+        },
+        "prior_relative_interval_width": 1.3004066607873137,
+        "anchored_relative_interval_width": 0.3531381544262176,
+        "relative_interval_width_reduction": 0.728440214069332,
+        "confidence_before": 0.7012727936300988,
+        "confidence_after": 0.9612727936300988,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.28,
+        "share_prior_concentration": 9,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 2.0,
+          "base": 6.0,
+          "high": 12.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "accounting-derived",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E02-liquidity",
+      "entity_name": "Glencore",
+      "sector": "mining",
+      "top10_probability": 0.999,
+      "forecast_next_quarter_zar": 566330497.1045026,
+      "public_anchor": {
+        "product": "Liquidity",
+        "name": "Audited debt-maturity liquidity range",
+        "low_zar": 194147130000.0,
+        "base_zar": 258862840000.0,
+        "high_zar": 388294260000.0,
+        "weight": 0.84,
+        "formula": "Current debt maturity/refinancing amount \u00d7 declared liquidity multiple",
+        "transformation_assumption": "Liquidity low/base/high = 0.75x/1.00x/1.50x current debt and facilities.",
+        "fact_ids": [
+          "GLEN-2025-DEBT"
+        ],
+        "source_pages": [
+          "Glencore Annual Report 2025 p.138"
+        ],
+        "period_end": "2025-12-31",
+        "available_date": "2026-03-10",
+        "audit_status": "audited"
+      }
+    }
+  ],
+  "claim_policy": "Use only supplied fields; cite evidence IDs; label inference; abstain when evidence is missing."
+}

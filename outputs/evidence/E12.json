@@ -1,0 +1,1371 @@
+{
+  "metadata": {
+    "title": "Corporate Wallet Digital Twin",
+    "model_version": "1.1.0",
+    "as_of": "2026-06-30",
+    "period_start": "2023-07-01",
+    "period_end": "2026-06-30",
+    "generated_from": "supplied synthetic banking datasets plus point-in-time audited public facts for three showcase clients",
+    "currency": "ZAR"
+  },
+  "client": {
+    "entity_id": "E12",
+    "entity_name": "Clicks Group",
+    "sector": "consumer",
+    "observed_ltm_zar": 1261829863.3000002,
+    "relationship_breadth": 5,
+    "country_count": 18,
+    "top_countries": [
+      {
+        "name": "Lesotho",
+        "value_zar": 431239619.04000044
+      },
+      {
+        "name": "Botswana",
+        "value_zar": 404045288.2299996
+      },
+      {
+        "name": "Namibia",
+        "value_zar": 393224903.28999966
+      },
+      {
+        "name": "Eswatini",
+        "value_zar": 389946774.3400001
+      },
+      {
+        "name": "China",
+        "value_zar": 174282308.4600001
+      }
+    ],
+    "top_currencies": [
+      {
+        "name": "CNY/ZAR",
+        "value_zar": 633856824.4399996
+      },
+      {
+        "name": "GBP/ZAR",
+        "value_zar": 614792521.2999992
+      },
+      {
+        "name": "EUR/ZAR",
+        "value_zar": 597510279.530001
+      },
+      {
+        "name": "USD/ZAR",
+        "value_zar": 591613844.4499999
+      },
+      {
+        "name": "AED/ZAR",
+        "value_zar": 590183555.8500003
+      }
+    ],
+    "monthly": {
+      "Collections": [
+        {
+          "month": "2023-07",
+          "value_zar": 4927775.59
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 4988454.75
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 5896815.020000003
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 5267972.24
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 8496026.799999999
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 6598048.800000002
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 2516578.4900000007
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 5266607.870000001
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 4771154.780000002
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 5145090.3100000005
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 6495375.920000001
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 3713286.430000002
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 5167981.530000002
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 5010456.05
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 5448634.589999999
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 5857916.06
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 9245676.08
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 10900424.4
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 2925413.6999999997
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 4448127.420000001
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 3638878.0699999994
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 4330698.18
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 7830914.159999998
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 5372470.200000004
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 5157088.119999998
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 4827586.869999999
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 5113444.470000001
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 5530759.24
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 7205180.269999998
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 12487917.700000005
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 2288777.6299999994
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 4517765.66
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 4551037.56
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 6600327.029999998
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 5655686.390000001
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 4737611.969999999
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2023-07",
+          "value_zar": 12062371.739999996
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 9044492.67
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 8934136.190000001
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 9634218.279999996
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 22356955.690000013
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 14445007.140000002
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 6872521.04
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 5760519.93
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 7341397.770000003
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 8158013.770000003
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 8051302.660000004
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 9872850.490000006
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 12987667.169999994
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 8372489.439999996
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 11805179.03
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 9490396.190000001
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 12696947.870000003
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 17183162.470000017
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 6992777.379999998
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 6192275.709999998
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 9686668.37
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 7065084.069999999
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 9418904.030000001
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 19451511.480000004
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 9018685.28
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 10726097.38
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 9417693.859999996
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 9669530.659999996
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 17012895.249999993
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 15446848.119999997
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 7394478.359999995
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 8353757.4799999995
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 7248574.249999997
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 10264318.179999996
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 10622425.979999993
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 9214257.08
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2023-07",
+          "value_zar": 8495073.664999997
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 7016473.709999998
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 7415475.605
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 7451095.26
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 15426491.245000005
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 10521527.970000003
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 4694549.765000001
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 5513563.9
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 6056276.275
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 6651552.040000003
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 7273339.290000001
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 6793068.46
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 9077824.349999998
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 6691472.744999999
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 8626906.81
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 7674156.124999996
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 10971311.975000001
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 14041793.435000006
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 4959095.539999999
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 5320201.5649999995
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 6662773.219999999
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 5697891.125
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 8624909.094999997
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 12411990.840000002
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 7087886.700000001
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 7776842.125000002
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 7265569.165000001
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 7600144.949999999
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 12109037.76
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 13967382.909999998
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 4841627.994999997
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 6435761.569999998
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 5899805.905
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 8432322.604999997
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 8139056.185000002
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 6975934.525
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2023-07",
+          "value_zar": 108705213.81999992
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 108802895.58999999
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 82746937.94000001
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 69677017.99
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 121068477.3499999
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 88378702.91999997
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 79048266.1
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 59147842.25000001
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 79135534.28999999
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 79427987.02000001
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 82486813.10999998
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 54532974.36
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 68570356.86000001
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 77375552.54999998
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 95473159.80999991
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 59327298.94
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 69164484.12999997
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 95265057.46000002
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 97196548.71999994
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 80576419.63999999
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 91550185.98999998
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 102568917.26
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 95677946.11000004
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 77152859.47999996
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 106799539.41000004
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 61143627.77999998
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 97535642.76000004
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 84457827.53000005
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 68793909.29999998
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 78466679.50000003
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 97445299.17000003
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 83067384.73
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 112065319.05000004
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 76500480.41000001
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 71897445.73999996
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 66726420.5
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2023-07",
+          "value_zar": 4251634.42
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 12604317.52
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 8607661.54
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 4909187.97
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 8884515.39
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 6593096.01
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 6498728.699999999
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 5296554.640000001
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 5367464.279999999
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 6771479.91
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 1824277.7199999997
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 2482972.23
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 29344502.240000002
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 3402061.47
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 8919149.77
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 5487051.68
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 5782896.31
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 7947945.409999999
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 7131678.970000001
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 1387391.29
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 5194823.86
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 9779199.719999999
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 1888587.0999999999
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 11485428.86
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 11270218.600000001
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 0.0
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 2968114.4999999995
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 4796068.07
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 6698452.68
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 3996382.69
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 3841248.05
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 6633219.44
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 11718498.650000002
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 2352947.31
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 2778225.4200000004
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 6814167.220000001
+        }
+      ]
+    },
+    "forecasts": {
+      "Collections": [
+        {
+          "month": "2026-07",
+          "value_zar": 5121806.877454255,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 4794559.847907711,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 5078461.807227455,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2026-07",
+          "value_zar": 8143089.249470986,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 9684734.032969486,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 8503359.330682276,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2026-07",
+          "value_zar": 6608778.539209924,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 7251163.783208287,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 6774450.496337274,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2026-07",
+          "value_zar": 99541215.10991101,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 56988176.5321492,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 90906912.61864679,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2026-07",
+          "value_zar": 10436027.514910089,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 0.0,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 2748422.6960250437,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ]
+    },
+    "latent_state": {
+      "operating_scale": 20.0,
+      "working_capital_intensity": 15.3,
+      "liquidity_volatility": 11.5,
+      "international_exposure": 84.7,
+      "financing_need": 5.5,
+      "event_intensity": 100.0,
+      "relationship_complexity": 100.0
+    },
+    "public_facts": [],
+    "public_anchors": {},
+    "debt_maturity_anchor": null,
+    "timing": {
+      "trade_events_next_90d": 18,
+      "trade_events_value_zar": 19310487.330000002,
+      "next_quarter_forecast_zar": 301946765.6173543,
+      "reason": "18 trade maturities fall inside 90 days."
+    },
+    "evidence_summary": {
+      "overall_recurrence": 0.9833333333333334,
+      "public_facts_available": 0,
+      "active_public_anchors": 0,
+      "data_quality_score": 0.9774478960679848,
+      "minimum_evidence_met": true
+    },
+    "brief": {
+      "product": "Cross-border FX",
+      "headline": "Validate cross-border fx share before proposing a R145.9k base-case gap.",
+      "why_now": "18 trade maturities fall inside 90 days.",
+      "confidence": "Medium",
+      "questions": [
+        "What activity is held with other banks?",
+        "Which entities and mandates can move first?",
+        "What blocks the target-share scenario?"
+      ]
+    }
+  },
+  "opportunities": [
+    {
+      "entity_id": "E12",
+      "product": "Cross-border FX",
+      "observed_activity_zar": 1004899575.8800002,
+      "need_propensity": 0.9242524895002053,
+      "current_share": {
+        "p10": 0.18598853485462918,
+        "p50": 0.34689316034276063,
+        "p90": 0.5311983978777972
+      },
+      "total_wallet_zar": {
+        "p10": 1891759442.5633948,
+        "p50": 2896856133.5259256,
+        "p90": 5403018941.487229
+      },
+      "partial_identification_zar": {
+        "lower": 1740383881.0894527,
+        "upper": 6340148264.793676,
+        "basis": "Observed activity divided by the 95th/5th percentile of the explicit share prior"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 155686799.8303371,
+        "p90": 1146959441.113264
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 145928.08912936447,
+        "p90": 1191452.4244148924
+      },
+      "confidence": 0.7235974530571379,
+      "confidence_label": "Medium",
+      "fit_score": 0.83,
+      "timing_score": 0.6160483132073683,
+      "priority_score": 53991.92231888865,
+      "recurrence": 1.0,
+      "trend": -0.004950209995892463,
+      "anchor_impact": {
+        "active": false,
+        "anchor_name": null,
+        "fact_ids": [],
+        "prior_only_total_wallet_zar": {
+          "p10": 1891759442.5633948,
+          "p50": 2896856133.5259256,
+          "p90": 5403018941.487229
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 1891759442.5633948,
+          "p50": 2896856133.5259256,
+          "p90": 5403018941.487229
+        },
+        "prior_relative_interval_width": 1.2120931579194734,
+        "anchored_relative_interval_width": 1.2120931579194734,
+        "relative_interval_width_reduction": 0.0,
+        "confidence_before": 0.7235974530571379,
+        "confidence_after": 0.7235974530571379,
+        "confidence_lift": 0.0
+      },
+      "assumptions": {
+        "share_prior_mean": 0.3,
+        "share_prior_concentration": 10,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 4.0,
+          "base": 9.0,
+          "high": 18.0
+        },
+        "public_anchor_weight": 0.0
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "not available"
+      },
+      "opportunity_id": "E12-cross-border-fx",
+      "entity_name": "Clicks Group",
+      "sector": "consumer",
+      "top10_probability": 0.0,
+      "forecast_next_quarter_zar": 247436304.26070702,
+      "public_anchor": null
+    },
+    {
+      "entity_id": "E12",
+      "product": "Trade finance",
+      "observed_activity_zar": 63867542.63000001,
+      "need_propensity": 0.8690019135745803,
+      "current_share": {
+        "p10": 0.13916831666808188,
+        "p50": 0.3025623805930513,
+        "p90": 0.5140780495211423
+      },
+      "total_wallet_zar": {
+        "p10": 124237054.89172408,
+        "p50": 211088844.5631981,
+        "p90": 458923012.0889026
+      },
+      "partial_identification_zar": {
+        "lower": 112980783.44441341,
+        "upper": 578482260.3020568,
+        "basis": "Observed activity divided by the 95th/5th percentile of the explicit share prior"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 20594899.593333293,
+        "p90": 117572468.65925503
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 99151.81967511933,
+        "p90": 599336.8942423243
+      },
+      "confidence": 0.6354284826879718,
+      "confidence_label": "Medium",
+      "fit_score": 0.77,
+      "timing_score": 0.7848956048023088,
+      "priority_score": 38077.63698736288,
+      "recurrence": 0.9166666666666666,
+      "trend": -0.34662839517505617,
+      "anchor_impact": {
+        "active": false,
+        "anchor_name": null,
+        "fact_ids": [],
+        "prior_only_total_wallet_zar": {
+          "p10": 124237054.89172408,
+          "p50": 211088844.5631981,
+          "p90": 458923012.0889026
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 124237054.89172408,
+          "p50": 211088844.5631981,
+          "p90": 458923012.0889026
+        },
+        "prior_relative_interval_width": 1.585521764021862,
+        "anchored_relative_interval_width": 1.585521764021862,
+        "relative_interval_width_reduction": 0.0,
+        "confidence_before": 0.6354284826879718,
+        "confidence_after": 0.6354284826879718,
+        "confidence_lift": 0.0
+      },
+      "assumptions": {
+        "share_prior_mean": 0.26,
+        "share_prior_concentration": 8,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 20.0,
+          "base": 45.0,
+          "high": 85.0
+        },
+        "public_anchor_weight": 0.0
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "not available"
+      },
+      "opportunity_id": "E12-trade-finance",
+      "entity_name": "Clicks Group",
+      "sector": "consumer",
+      "top10_probability": 0.0,
+      "forecast_next_quarter_zar": 13184450.210935133,
+      "public_anchor": null
+    },
+    {
+      "entity_id": "E12",
+      "product": "Liquidity",
+      "observed_activity_zar": 96531372.39500001,
+      "need_propensity": 0.9359014784075955,
+      "current_share": {
+        "p10": 0.16576634638583645,
+        "p50": 0.323581181382236,
+        "p90": 0.510969223174622
+      },
+      "total_wallet_zar": {
+        "p10": 188918173.78230605,
+        "p50": 298321967.02460283,
+        "p90": 582333957.7033274
+      },
+      "partial_identification_zar": {
+        "lower": 170905457.88779786,
+        "upper": 745272196.6141267,
+        "basis": "Observed activity divided by the 95th/5th percentile of the explicit share prior"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 21466211.913688086,
+        "p90": 137466363.95593044
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 12947.320373402708,
+        "p90": 93659.34922112804
+      },
+      "confidence": 0.7161934086866983,
+      "confidence_label": "Medium",
+      "fit_score": 0.92,
+      "timing_score": 0.5503107989541488,
+      "priority_score": 4694.680883138451,
+      "recurrence": 1.0,
+      "trend": -0.04197043184809057,
+      "anchor_impact": {
+        "active": false,
+        "anchor_name": null,
+        "fact_ids": [],
+        "prior_only_total_wallet_zar": {
+          "p10": 188918173.78230605,
+          "p50": 298321967.02460283,
+          "p90": 582333957.7033274
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 188918173.78230605,
+          "p50": 298321967.02460283,
+          "p90": 582333957.7033274
+        },
+        "prior_relative_interval_width": 1.3187623688756922,
+        "anchored_relative_interval_width": 1.3187623688756922,
+        "relative_interval_width_reduction": 0.0,
+        "confidence_before": 0.7161934086866983,
+        "confidence_after": 0.7161934086866983,
+        "confidence_lift": 0.0
+      },
+      "assumptions": {
+        "share_prior_mean": 0.28,
+        "share_prior_concentration": 9,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 2.0,
+          "base": 6.0,
+          "high": 12.0
+        },
+        "public_anchor_weight": 0.0
+      },
+      "provenance": {
+        "observed_activity_zar": "accounting-derived",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "not available"
+      },
+      "opportunity_id": "E12-liquidity",
+      "entity_name": "Clicks Group",
+      "sector": "consumer",
+      "top10_probability": 0.0,
+      "forecast_next_quarter_zar": 20634392.818755485,
+      "public_anchor": null
+    },
+    {
+      "entity_id": "E12",
+      "product": "Payments",
+      "observed_activity_zar": 124389561.87999997,
+      "need_propensity": 0.9473529240296147,
+      "current_share": {
+        "p10": 0.2412740054010249,
+        "p50": 0.3885847318040277,
+        "p90": 0.5558667648106783
+      },
+      "total_wallet_zar": {
+        "p10": 223775859.28268614,
+        "p50": 320109267.0825168,
+        "p90": 515553118.4124912
+      },
+      "partial_identification_zar": {
+        "lower": 205500906.26468214,
+        "upper": 617338514.840094,
+        "basis": "Observed activity divided by the 95th/5th percentile of the explicit share prior"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 3549024.286434287,
+        "p90": 84160903.84319004
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 284.00135184662804,
+        "p90": 7396.1096033072245
+      },
+      "confidence": 0.7139991911747747,
+      "confidence_label": "Medium",
+      "fit_score": 1.0,
+      "timing_score": 0.5499426453214372,
+      "priority_score": 111.51557433658402,
+      "recurrence": 1.0,
+      "trend": -0.05294151940770808,
+      "anchor_impact": {
+        "active": false,
+        "anchor_name": null,
+        "fact_ids": [],
+        "prior_only_total_wallet_zar": {
+          "p10": 223775859.28268614,
+          "p50": 320109267.0825168,
+          "p90": 515553118.4124912
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 223775859.28268614,
+          "p50": 320109267.0825168,
+          "p90": 515553118.4124912
+        },
+        "prior_relative_interval_width": 0.911492696819026,
+        "anchored_relative_interval_width": 0.911492696819026,
+        "relative_interval_width_reduction": 0.0,
+        "confidence_before": 0.7139991911747747,
+        "confidence_after": 0.7139991911747747,
+        "confidence_lift": 0.0
+      },
+      "assumptions": {
+        "share_prior_mean": 0.34,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.3,
+          "base": 0.8,
+          "high": 1.6
+        },
+        "public_anchor_weight": 0.0
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "not available"
+      },
+      "opportunity_id": "E12-payments",
+      "entity_name": "Clicks Group",
+      "sector": "consumer",
+      "top10_probability": 0.0,
+      "forecast_next_quarter_zar": 26331182.613122746,
+      "public_anchor": null
+    },
+    {
+      "entity_id": "E12",
+      "product": "Collections",
+      "observed_activity_zar": 68673182.91000001,
+      "need_propensity": 0.9489281425020668,
+      "current_share": {
+        "p10": 0.25966029849443073,
+        "p50": 0.41466942959552755,
+        "p90": 0.5849843630251345
+      },
+      "total_wallet_zar": {
+        "p10": 117393194.23539698,
+        "p50": 165609467.11873955,
+        "p90": 264473172.81002852
+      },
+      "partial_identification_zar": {
+        "lower": 109109115.47741145,
+        "upper": 310483039.994759,
+        "basis": "Observed activity divided by the 95th/5th percentile of the explicit share prior"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 38694485.57965143
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 5318.618445696641
+      },
+      "confidence": 0.7203000650645836,
+      "confidence_label": "Medium",
+      "fit_score": 1.0,
+      "timing_score": 0.5517711062372348,
+      "priority_score": 0.0,
+      "recurrence": 1.0,
+      "trend": -0.021437149958664192,
+      "anchor_impact": {
+        "active": false,
+        "anchor_name": null,
+        "fact_ids": [],
+        "prior_only_total_wallet_zar": {
+          "p10": 117393194.23539698,
+          "p50": 165609467.11873955,
+          "p90": 264473172.81002852
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 117393194.23539698,
+          "p50": 165609467.11873955,
+          "p90": 264473172.81002852
+        },
+        "prior_relative_interval_width": 0.8881133496382629,
+        "anchored_relative_interval_width": 0.8881133496382629,
+        "relative_interval_width_reduction": 0.0,
+        "confidence_before": 0.7203000650645836,
+        "confidence_after": 0.7203000650645836,
+        "confidence_lift": 0.0
+      },
+      "assumptions": {
+        "share_prior_mean": 0.36,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.5,
+          "base": 1.2,
+          "high": 2.5
+        },
+        "public_anchor_weight": 0.0
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "not available"
+      },
+      "opportunity_id": "E12-collections",
+      "entity_name": "Clicks Group",
+      "sector": "consumer",
+      "top10_probability": 0.0,
+      "forecast_next_quarter_zar": 14994828.53258942,
+      "public_anchor": null
+    }
+  ],
+  "claim_policy": "Use only supplied fields; cite evidence IDs; label inference; abstain when evidence is missing."
+}

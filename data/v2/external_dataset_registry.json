@@ -1,0 +1,97 @@
+{
+  "registry_version": "external-data-registry-1.0.0",
+  "as_of": "2026-08-09",
+  "policy": {
+    "production_e3_requires_direct_multibank_observation": true,
+    "representative_data_may_not_be_labelled_measured_share": true,
+    "client_demo_watermark": "CLIENT DEMONSTRATION — SIMULATED/REPRESENTATIVE DATA — NOT FOR FINANCIAL DECISIONS",
+    "permitted_demo_uses": [
+      "model mechanics validation",
+      "scenario stress testing",
+      "data-contract testing",
+      "GenAI extraction evaluation",
+      "client demonstration"
+    ]
+  },
+  "datasets": [
+    {
+      "dataset_id": "synbank-supplied-banking-data",
+      "provider": "Hackathon supplied data pack",
+      "source_uri": "ref/Data Sets/Data.zip",
+      "revision": "sha256:21f0ed75da260b87abfd17df30f210dd91345068672f8fcf49df1760f2b2df87",
+      "license": "Hackathon terms and supplied-data conditions",
+      "classification": "SYNTHETIC_SIMULATION",
+      "usage_class": "CLIENT_DEMO_AND_VALIDATION",
+      "contains_personal_data": false,
+      "row_count": 3064295,
+      "production_e3_eligible": false,
+      "local_snapshot": "ref/Data Sets/Data.zip",
+      "purpose": "Focal-bank activity, data quality, seasonality and service-contract rehearsal"
+    },
+    {
+      "dataset_id": "corporate-public-evidence-register",
+      "provider": "Official issuer reports",
+      "source_uri": "data/v2/public_sources.json",
+      "revision": "expanded:sha256:b02d1cbcfafc6561df20a9be6050812e5ccca38c32f3fc75fc93db4e846524c7;showcase:sha256:4f3d911731c64edf101d47a3954d38f5dd40d1b152edf894ca4154957052dee2",
+      "license": "Issuer publication terms; facts and citations retained for audit",
+      "classification": "PUBLIC_AUDITED_E1",
+      "usage_class": "CLIENT_DEMO_AND_EVIDENCE_REVIEW",
+      "contains_personal_data": false,
+      "row_count": 82,
+      "production_e3_eligible": false,
+      "local_snapshot": "data/v2/public_facts_expanded.csv",
+      "purpose": "Point-in-time accounting, FX, trade and maturity anchors"
+    },
+    {
+      "dataset_id": "electricsheepafrica/africa-synth-trade-trade-finance-gap-all",
+      "provider": "Hugging Face Hub / Electric Sheep Africa",
+      "source_uri": "https://huggingface.co/datasets/electricsheepafrica/africa-synth-trade-trade-finance-gap-all",
+      "revision": "d58f99fe2947f6613f321418bba5cf91cad805b1",
+      "license": "CC-BY-4.0",
+      "classification": "REPRESENTATIVE_SYNTHETIC_PUBLIC",
+      "usage_class": "CLIENT_DEMO_AND_VALIDATION",
+      "contains_personal_data": false,
+      "row_count": 10000,
+      "production_e3_eligible": false,
+      "local_snapshot": "data/v2/external/africa_trade_finance_gap/data/finance_gap_full.csv",
+      "local_sha256": "b1b5834563d958f6304d159dc17587ce95a299c54ef0409735dd900fbbb42ef4",
+      "purpose": "African trade-finance application, approval, collateral and processing-time stress distributions"
+    },
+    {
+      "dataset_id": "flwrlabs/fed-fraud-paysim-banks",
+      "provider": "Hugging Face Hub / Flower Labs",
+      "source_uri": "https://huggingface.co/datasets/flwrlabs/fed-fraud-paysim-banks",
+      "revision": "7f60bf842217a9ca56ec0afad896fa5b582ac59b",
+      "license": "CC-BY-4.0",
+      "classification": "REPRESENTATIVE_SYNTHETIC_PUBLIC",
+      "usage_class": "REMOTE_SCHEMA_AND_SCALE_VALIDATION",
+      "contains_personal_data": false,
+      "row_count": 6362620,
+      "production_e3_eligible": false,
+      "local_snapshot": null,
+      "purpose": "Federated transaction partition and scale-contract tests; never corporate wallet labels"
+    },
+    {
+      "dataset_id": "ibm-research/finqa",
+      "provider": "Hugging Face Hub / IBM Research",
+      "source_uri": "https://huggingface.co/datasets/ibm-research/finqa",
+      "revision": "1d0076a55b609744218081ff6ea693aefe824677",
+      "upstream_source_revision": "0f16e2867befa6840783e58be38c9efb9229d742",
+      "license": "CC-BY-4.0",
+      "classification": "PUBLIC_RESEARCH_BENCHMARK",
+      "usage_class": "GENAI_VALIDATION_ONLY",
+      "contains_personal_data": false,
+      "row_count": 8281,
+      "production_e3_eligible": false,
+      "local_snapshot": "data/v2/external/finqa/finqa-0f16e2867befa6840783e58be38c9efb9229d742.zip",
+      "local_sha256": "638e662eac9c84c1f2155d1b3624f855e2e02b99215b9d70d0595f8fbcb6613a",
+      "split_counts": {
+        "train": 6251,
+        "development": 883,
+        "test": 1147,
+        "private_test_excluded": 919
+      },
+      "purpose": "Financial-report numerical-reasoning test design; not a source of client facts"
+    }
+  ]
+}

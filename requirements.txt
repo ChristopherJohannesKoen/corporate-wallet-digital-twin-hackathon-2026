@@ -1,0 +1,16 @@
+# Exact judging environment. For the complete locked environment use:
+#   uv sync --frozen --extra genai --extra production --extra dev
+fastapi==0.116.1
+httpx==0.28.1
+numpy==2.0.2
+pandas==2.3.1
+pypdf==6.15.0
+pydantic==2.11.7
+scipy==1.13.1
+uvicorn==0.31.1
+pytest==8.4.2
+nbformat==5.10.4
+nbconvert==7.16.6
+matplotlib==3.9.4
+reportlab>=4.4,<5
+openai>=1.70,<3

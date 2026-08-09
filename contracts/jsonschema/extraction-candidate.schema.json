@@ -1,0 +1,129 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "available_date": {
+      "format": "date",
+      "title": "Available Date",
+      "type": "string"
+    },
+    "bounding_box": {
+      "items": {
+        "type": "number"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "title": "Bounding Box",
+      "type": "array"
+    },
+    "candidate_id": {
+      "title": "Candidate Id",
+      "type": "string"
+    },
+    "concept": {
+      "title": "Concept",
+      "type": "string"
+    },
+    "currency": {
+      "title": "Currency",
+      "type": "string"
+    },
+    "document_hash": {
+      "minLength": 16,
+      "title": "Document Hash",
+      "type": "string"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "extraction_method": {
+      "title": "Extraction Method",
+      "type": "string"
+    },
+    "extraction_model_version": {
+      "title": "Extraction Model Version",
+      "type": "string"
+    },
+    "material": {
+      "default": false,
+      "title": "Material",
+      "type": "boolean"
+    },
+    "page": {
+      "exclusiveMinimum": 0,
+      "title": "Page",
+      "type": "integer"
+    },
+    "period_end": {
+      "format": "date",
+      "title": "Period End",
+      "type": "string"
+    },
+    "period_start": {
+      "format": "date",
+      "title": "Period Start",
+      "type": "string"
+    },
+    "sign": {
+      "maximum": 1,
+      "minimum": -1,
+      "title": "Sign",
+      "type": "integer"
+    },
+    "source_date": {
+      "format": "date",
+      "title": "Source Date",
+      "type": "string"
+    },
+    "source_title": {
+      "title": "Source Title",
+      "type": "string"
+    },
+    "source_url": {
+      "title": "Source Url",
+      "type": "string"
+    },
+    "source_value": {
+      "anyOf": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        }
+      ],
+      "title": "Source Value"
+    },
+    "supporting_text": {
+      "title": "Supporting Text",
+      "type": "string"
+    },
+    "unit": {
+      "title": "Unit",
+      "type": "string"
+    }
+  },
+  "required": [
+    "candidate_id",
+    "entity_id",
+    "concept",
+    "source_value",
+    "currency",
+    "unit",
+    "sign",
+    "period_start",
+    "period_end",
+    "source_date",
+    "available_date",
+    "source_title",
+    "source_url",
+    "document_hash",
+    "page",
+    "bounding_box",
+    "supporting_text",
+    "extraction_method",
+    "extraction_model_version"
+  ],
+  "title": "ExtractionCandidate",
+  "type": "object"
+}

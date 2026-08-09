@@ -1,0 +1,1849 @@
+{
+  "metadata": {
+    "title": "Corporate Wallet Digital Twin",
+    "model_version": "1.1.0",
+    "as_of": "2026-06-30",
+    "period_start": "2023-07-01",
+    "period_end": "2026-06-30",
+    "generated_from": "supplied synthetic banking datasets plus point-in-time audited public facts for three showcase clients",
+    "currency": "ZAR"
+  },
+  "client": {
+    "entity_id": "E01",
+    "entity_name": "BHP Group",
+    "sector": "mining",
+    "observed_ltm_zar": 19845357132.865227,
+    "relationship_breadth": 5,
+    "country_count": 10,
+    "top_countries": [
+      {
+        "name": "China",
+        "value_zar": 1165001591.04
+      },
+      {
+        "name": "Switzerland",
+        "value_zar": 1093915013.569999
+      },
+      {
+        "name": "United Kingdom",
+        "value_zar": 1081543005.710001
+      },
+      {
+        "name": "United Arab Emirates",
+        "value_zar": 1035635896.9699999
+      },
+      {
+        "name": "India",
+        "value_zar": 1020448893.18
+      }
+    ],
+    "top_currencies": [
+      {
+        "name": "CNY/ZAR",
+        "value_zar": 1348024768.13
+      },
+      {
+        "name": "EUR/ZAR",
+        "value_zar": 1284898897.3800006
+      },
+      {
+        "name": "USD/ZAR",
+        "value_zar": 1266182159.4200003
+      },
+      {
+        "name": "GBP/ZAR",
+        "value_zar": 1238693552.3400009
+      },
+      {
+        "name": "AED/ZAR",
+        "value_zar": 1194671845.7199993
+      }
+    ],
+    "monthly": {
+      "Collections": [
+        {
+          "month": "2023-07",
+          "value_zar": 704768806.8809326
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 706699953.6663207
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 732928323.815824
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 628854261.2839587
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 719519146.1423951
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 701181304.7176673
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 696196278.4631692
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 628894872.6547976
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 717143566.2150518
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 671783760.5363072
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 811781673.6213729
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 703895909.4338068
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 853373633.4861145
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 672215766.8930268
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 614482088.3071729
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 775402203.9276944
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 697865558.1362876
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 812989774.9638228
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 737112371.8005084
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 629868260.6166978
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 749592413.9097544
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 651346245.9714836
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 770200431.7389243
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 660317906.2170907
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 767669059.6439272
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 666836757.9355025
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 694891557.1722492
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 698830759.1301693
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 686025879.1415927
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 783871885.4137515
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 801746864.752423
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 675212302.1274196
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 866596796.513129
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 790554602.9364715
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 923862170.6664034
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 829815402.9721857
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2023-07",
+          "value_zar": 535352946.7700002
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 549282698.8599992
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 499221313.2299998
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 496761161.3899996
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 514195662.12000036
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 481043686.7299998
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 512885900.20000076
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 496254074.5800006
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 449770018.9000006
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 514867208.7999998
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 530572272.4199993
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 505241357.97000027
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 536917316.6000003
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 580476275.6400009
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 511477000.4300007
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 549335770.7199998
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 476010017.4899998
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 540407039.59
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 531286335.1900002
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 503050062.7000005
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 542636804.1099992
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 509727762.46000046
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 463505277.1400009
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 527966909.4399997
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 548352695.1600004
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 563177498.3000005
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 540917622.8499999
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 560514811.5399998
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 567326853.3999995
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 710007326.259999
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 595699212.45
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 543837201.2600007
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 659574832.2900008
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 614860855.4499986
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 625558066.7099992
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 605578377.5599998
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2023-07",
+          "value_zar": 620060876.8254668
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 627991326.2631605
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 616074818.5229125
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 562807711.3369787
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 616857404.131197
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 591112495.7238336
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 604541089.3315847
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 562574473.6173992
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 583456792.5575266
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 593325484.6681536
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 671176973.0206859
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 604568633.7019033
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 695145475.0430568
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 626346021.2665135
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 562979544.3685868
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 662368987.3238466
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 586937787.8131433
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 676698407.2769125
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 634199353.4952543
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 566459161.6583488
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 646114609.0098774
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 580537004.2157415
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 616852854.4394624
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 594142407.8285458
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 658010877.401964
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 615007128.1177521
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 617904590.0111246
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 629672785.3350848
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 626676366.2707963
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 746939605.8368752
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 698723038.6012119
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 609524751.69371
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 763085814.401566
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 702707729.1932361
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 774710118.6882012
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 717696890.2660935
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2023-07",
+          "value_zar": 156550882.23999995
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 214156746.02
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 172976583.23000005
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 157715258.32000002
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 172926641.29999998
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 157435499.16000003
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 194608029.64999998
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 190443118.97000003
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 180608273.19999993
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 175564061.59999996
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 165475875.65
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 144799357.64999992
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 138021625.41000003
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 194421758.6200001
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 174616836.70999995
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 135048801.79000002
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 156354534.59
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 173010733.08999994
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 223248333.79000008
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 208550736.9300001
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 141778939.48000002
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 240962188.64999986
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 214447598.91000012
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 169261184.94999993
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 164664195.9700001
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 103293853.15999998
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 145257631.98000005
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 179121054.7499999
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 172698425.69
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 203957314.09999993
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 220988205.51000005
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 151205028.36000007
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 224721301.81000003
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 162091725.07999998
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 148060869.72999996
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 203428016.93999997
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2023-07",
+          "value_zar": 108219057.16
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 75095466.11999997
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 94146463.07
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 102481229.47999999
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 75662538.9
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 105174936.92
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 166755285.20000002
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 101179339.40999998
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 106334075.71000001
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 98731355.71
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 93997986.50999996
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 76436404.84
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 81575348.6
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 112826780.14999996
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 68222485.41
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 92272227.24000002
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 143087960.98
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 112271761.49999997
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 98054701.91000001
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 101344086.40000002
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 124492519.43999998
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 90520941.29999998
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 150936573.20000005
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 103101020.96000004
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 102541075.60999998
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 120368286.29
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 139879421.61999997
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 125992958.00000003
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 158928007.71999997
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 112868042.12
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 87724697.92000002
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 112984795.02000001
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 129479603.25000004
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 122367304.74
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 133273661.39999999
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 98142264.45999998
+        }
+      ]
+    },
+    "forecasts": {
+      "Collections": [
+        {
+          "month": "2026-07",
+          "value_zar": 893714294.600724,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 776326120.2797335,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 808987297.3781877,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2026-07",
+          "value_zar": 649347842.7361984,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 666903065.9035416,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 640543384.9343128,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2026-07",
+          "value_zar": 771614561.1860073,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 721186338.3816905,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 724584038.7301029,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2026-07",
+          "value_zar": 152605003.81697646,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 95729121.70065111,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 134619680.69118953,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2026-07",
+          "value_zar": 104922244.78611678,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 123163432.05369237,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 143127647.41783926,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ]
+    },
+    "latent_state": {
+      "operating_scale": 85.0,
+      "working_capital_intensity": 82.2,
+      "liquidity_volatility": 6.8,
+      "international_exposure": 17.8,
+      "financing_need": 59.4,
+      "event_intensity": 100.0,
+      "relationship_complexity": 94.2
+    },
+    "public_facts": [
+      {
+        "fact_id": "BHP-2025-REV",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "revenue",
+        "value": 51262.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "118",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Consolidated income statement revenue",
+        "fx_to_zar": 17.86,
+        "value_zar": 915539320000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-COST",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "operating_cost_base",
+        "value": 32319.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "118",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Expenses excluding net finance costs",
+        "fx_to_zar": 17.86,
+        "value_zar": 577217340000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-AR-OPEN",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "trade_receivables_open",
+        "value": 3687.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2023-07-01",
+        "period_end": "2024-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "139",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Trade receivables comparative balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 65849820000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-AR-CLOSE",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "trade_receivables_close",
+        "value": 3081.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "139",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Trade receivables closing balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 55026660000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-INV-OPEN",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "inventories_open",
+        "value": 7039.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2023-07-01",
+        "period_end": "2024-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "139",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Total inventories comparative balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 125716540000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-INV-CLOSE",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "inventories_close",
+        "value": 6978.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "139",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Total inventories closing balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 124627080000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-AP-OPEN",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "trade_payables_open",
+        "value": 5338.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2023-07-01",
+        "period_end": "2024-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "139",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Trade payables comparative balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 95336680000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-AP-CLOSE",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "trade_payables_close",
+        "value": 5082.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "139",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Trade payables closing balance",
+        "fx_to_zar": 17.86,
+        "value_zar": 90764520000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-FX",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "fx_exposure",
+        "value": 5123.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "160",
+        "method": "direct audited note",
+        "confidence": 0.95,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Absolute total net non-functional-currency monetary exposure",
+        "fx_to_zar": 17.86,
+        "value_zar": 91496780000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      },
+      {
+        "fact_id": "BHP-2025-DEBT",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "concept": "current_debt",
+        "value": 2018.0,
+        "unit": "million",
+        "currency": "USD",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "source_title": "BHP Annual Report 2025",
+        "source_url": "https://www.bhp.com/-/media/documents/investors/annual-reports/2025/250819_bhpannualreport2025.pdf",
+        "page": "119",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-08-19",
+        "notes": "Current interest-bearing liabilities",
+        "fx_to_zar": 17.86,
+        "value_zar": 36041480000.0,
+        "translation_basis": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore."
+      }
+    ],
+    "public_anchors": {
+      "Collections": {
+        "product": "Collections",
+        "name": "Audited cash-collections identity",
+        "low_zar": 815198982400.0,
+        "base_zar": 926362480000.0,
+        "high_zar": 1037525977600.0001,
+        "weight": 0.84,
+        "formula": "Revenue + opening trade receivables - closing trade receivables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112% to allow non-cash and classification effects.",
+        "fact_ids": [
+          "BHP-2025-REV",
+          "BHP-2025-AR-OPEN",
+          "BHP-2025-AR-CLOSE"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.118",
+          "BHP Annual Report 2025 p.139"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      },
+      "Payments": {
+        "product": "Payments",
+        "name": "Audited supplier-payments identity",
+        "low_zar": 511016035200.0,
+        "base_zar": 580700040000.0,
+        "high_zar": 650384044800.0001,
+        "weight": 0.84,
+        "formula": "Cost base + closing inventory - opening inventory + opening trade payables - closing trade payables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112%; BHP's cost base is expenses excluding net finance costs.",
+        "fact_ids": [
+          "BHP-2025-COST",
+          "BHP-2025-INV-OPEN",
+          "BHP-2025-INV-CLOSE",
+          "BHP-2025-AP-OPEN",
+          "BHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.118",
+          "BHP Annual Report 2025 p.139"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      },
+      "Trade finance": {
+        "product": "Trade finance",
+        "name": "Audited payments base \u00d7 trade-utilisation range",
+        "low_zar": 5807000400.0,
+        "base_zar": 17421001200.0,
+        "high_zar": 34842002400.0,
+        "weight": 0.84,
+        "formula": "Audited supplier-payments proxy \u00d7 declared sector trade-finance utilisation",
+        "transformation_assumption": "Sector utilisation low/base/high = 1.0%/3.0%/6.0%.",
+        "fact_ids": [
+          "BHP-2025-COST",
+          "BHP-2025-INV-OPEN",
+          "BHP-2025-INV-CLOSE",
+          "BHP-2025-AP-OPEN",
+          "BHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.118",
+          "BHP Annual Report 2025 p.139"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      },
+      "Cross-border FX": {
+        "product": "Cross-border FX",
+        "name": "Audited FX exposure/notional turnover range",
+        "low_zar": 91496780000.0,
+        "base_zar": 182993560000.0,
+        "high_zar": 365987120000.0,
+        "weight": 0.84,
+        "formula": "Audited FX point exposure or hedge notional \u00d7 annual turnover multiple",
+        "transformation_assumption": "Annual turnover low/base/high = 1.0x/2.0x/4.0x the disclosed point exposure/notional.",
+        "fact_ids": [
+          "BHP-2025-FX"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.160"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      },
+      "Liquidity": {
+        "product": "Liquidity",
+        "name": "Audited debt-maturity liquidity range",
+        "low_zar": 27031110000.0,
+        "base_zar": 36041480000.0,
+        "high_zar": 54062220000.0,
+        "weight": 0.84,
+        "formula": "Current debt maturity/refinancing amount \u00d7 declared liquidity multiple",
+        "transformation_assumption": "Liquidity low/base/high = 0.75x/1.00x/1.50x current debt and facilities.",
+        "fact_ids": [
+          "BHP-2025-DEBT"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.119"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      }
+    },
+    "debt_maturity_anchor": {
+      "name": "Audited current debt-maturity/refinancing anchor",
+      "base_zar": 36041480000.0,
+      "low_zar": 27031110000.0,
+      "high_zar": 54062220000.0,
+      "fact_ids": [
+        "BHP-2025-DEBT"
+      ],
+      "source_pages": [
+        "BHP Annual Report 2025 p.119"
+      ],
+      "period_end": "2025-06-30",
+      "available_date": "2025-08-19",
+      "audit_status": "audited",
+      "formula": "Current borrowings + disclosed short-term facilities"
+    },
+    "timing": {
+      "trade_events_next_90d": 106,
+      "trade_events_value_zar": 312911296.54,
+      "next_quarter_forecast_zar": 5189989136.299164,
+      "reason": "Audited current debt and facilities of ZAR 36.0bn create a dated refinancing/liquidity anchor; Cross-border FX is the strongest modelled window."
+    },
+    "evidence_summary": {
+      "overall_recurrence": 1.0,
+      "public_facts_available": 10,
+      "active_public_anchors": 5,
+      "data_quality_score": 0.9774478960679848,
+      "minimum_evidence_met": true
+    },
+    "brief": {
+      "product": "Cross-border FX",
+      "headline": "Validate cross-border fx share before proposing a R45.4m base-case gap.",
+      "why_now": "Audited current debt and facilities of ZAR 36.0bn create a dated refinancing/liquidity anchor; Cross-border FX is the strongest modelled window.",
+      "confidence": "High",
+      "questions": [
+        "What activity is held with other banks?",
+        "Which entities and mandates can move first?",
+        "What blocks the target-share scenario?"
+      ]
+    }
+  },
+  "opportunities": [
+    {
+      "entity_id": "E01",
+      "product": "Cross-border FX",
+      "observed_activity_zar": 2079487623.08,
+      "need_propensity": 0.9479205723843631,
+      "current_share": {
+        "p10": 0.012922418695733066,
+        "p50": 0.017407300501101133,
+        "p90": 0.024432882126976314
+      },
+      "total_wallet_zar": {
+        "p10": 85110206247.47168,
+        "p50": 119460662026.0922,
+        "p90": 160920935283.22794
+      },
+      "partial_identification_zar": {
+        "lower": 91496780000.0,
+        "upper": 365987120000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited FX exposure/notional turnover range"
+      },
+      "contestable_activity_zar": {
+        "p10": 30342510955.71125,
+        "p50": 45359170697.59091,
+        "p90": 63810241787.1675
+      },
+      "revenue_gap_zar": {
+        "p10": 25771505.264148347,
+        "p50": 45407420.06106812,
+        "p90": 74401890.23890515
+      },
+      "confidence": 0.9762697845937687,
+      "confidence_label": "High",
+      "fit_score": 1.0,
+      "timing_score": 0.5189571323125715,
+      "priority_score": 23005313.732863795,
+      "recurrence": 1.0,
+      "trend": -0.041588552312738725,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited FX exposure/notional turnover range",
+        "fact_ids": [
+          "BHP-2025-FX"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 3810053738.6440196,
+          "p50": 5641490528.995411,
+          "p90": 9897251442.934431
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 85110206247.47168,
+          "p50": 119460662026.0922,
+          "p90": 160920935283.22794
+        },
+        "prior_relative_interval_width": 1.0790052155550403,
+        "anchored_relative_interval_width": 0.6346083116398429,
+        "relative_interval_width_reduction": 0.41185797576205374,
+        "confidence_before": 0.7162697845937687,
+        "confidence_after": 0.9762697845937687,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.3,
+        "share_prior_concentration": 10,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 4.0,
+          "base": 9.0,
+          "high": 18.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E01-cross-border-fx",
+      "entity_name": "BHP Group",
+      "sector": "mining",
+      "top10_probability": 1.0,
+      "forecast_next_quarter_zar": 382953806.2088171,
+      "public_anchor": {
+        "product": "Cross-border FX",
+        "name": "Audited FX exposure/notional turnover range",
+        "low_zar": 91496780000.0,
+        "base_zar": 182993560000.0,
+        "high_zar": 365987120000.0,
+        "weight": 0.84,
+        "formula": "Audited FX point exposure or hedge notional \u00d7 annual turnover multiple",
+        "transformation_assumption": "Annual turnover low/base/high = 1.0x/2.0x/4.0x the disclosed point exposure/notional.",
+        "fact_ids": [
+          "BHP-2025-FX"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.160"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E01",
+      "product": "Trade finance",
+      "observed_activity_zar": 1444550118.15,
+      "need_propensity": 0.9564848236522651,
+      "current_share": {
+        "p10": 0.06820794540343235,
+        "p50": 0.09467319116243783,
+        "p90": 0.14419052227351734
+      },
+      "total_wallet_zar": {
+        "p10": 10018343182.593367,
+        "p50": 15258280630.917542,
+        "p90": 21178621049.816525
+      },
+      "partial_identification_zar": {
+        "lower": 5807000400.0,
+        "upper": 34842002400.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited payments base \u00d7 trade-utilisation range"
+      },
+      "contestable_activity_zar": {
+        "p10": 2453163799.2319155,
+        "p50": 4651253663.133114,
+        "p90": 7103247870.519075
+      },
+      "revenue_gap_zar": {
+        "p10": 10726901.024508333,
+        "p50": 22097089.679116987,
+        "p90": 38099735.50903758
+      },
+      "confidence": 0.9586482004472565,
+      "confidence_label": "High",
+      "fit_score": 1.0,
+      "timing_score": 0.8218242531471632,
+      "priority_score": 17408978.675934047,
+      "recurrence": 1.0,
+      "trend": 0.12969647304529963,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited payments base \u00d7 trade-utilisation range",
+        "fact_ids": [
+          "BHP-2025-COST",
+          "BHP-2025-INV-OPEN",
+          "BHP-2025-INV-CLOSE",
+          "BHP-2025-AP-OPEN",
+          "BHP-2025-AP-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 2751152150.772994,
+          "p50": 4417330618.699855,
+          "p90": 9110594604.134117
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 10018343182.593367,
+          "p50": 15258280630.917542,
+          "p90": 21178621049.816525
+        },
+        "prior_relative_interval_width": 1.4396573411190323,
+        "anchored_relative_interval_width": 0.7314243417839174,
+        "relative_interval_width_reduction": 0.4919455339175446,
+        "confidence_before": 0.6986482004472565,
+        "confidence_after": 0.9586482004472565,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.26,
+        "share_prior_concentration": 8,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 20.0,
+          "base": 45.0,
+          "high": 85.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E01-trade-finance",
+      "entity_name": "BHP Group",
+      "sector": "mining",
+      "top10_probability": 0.986,
+      "forecast_next_quarter_zar": 371213324.2576484,
+      "public_anchor": {
+        "product": "Trade finance",
+        "name": "Audited payments base \u00d7 trade-utilisation range",
+        "low_zar": 5807000400.0,
+        "base_zar": 17421001200.0,
+        "high_zar": 34842002400.0,
+        "weight": 0.84,
+        "formula": "Audited supplier-payments proxy \u00d7 declared sector trade-finance utilisation",
+        "transformation_assumption": "Sector utilisation low/base/high = 1.0%/3.0%/6.0%.",
+        "fact_ids": [
+          "BHP-2025-COST",
+          "BHP-2025-INV-OPEN",
+          "BHP-2025-INV-CLOSE",
+          "BHP-2025-AP-OPEN",
+          "BHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.118",
+          "BHP Annual Report 2025 p.139"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E01",
+      "product": "Collections",
+      "observed_activity_zar": 9185914038.405226,
+      "need_propensity": 0.920253116315027,
+      "current_share": {
+        "p10": 0.016700916732130124,
+        "p50": 0.01812901483715503,
+        "p90": 0.019625166821517572
+      },
+      "total_wallet_zar": {
+        "p10": 468068074208.5893,
+        "p50": 506696815192.0937,
+        "p90": 550024540288.547
+      },
+      "partial_identification_zar": {
+        "lower": 815198982400.0,
+        "upper": 1037525977600.0001,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited cash-collections identity"
+      },
+      "contestable_activity_zar": {
+        "p10": 164782426439.01904,
+        "p50": 195304200447.3717,
+        "p90": 228285120043.95407
+      },
+      "revenue_gap_zar": {
+        "p10": 16714729.837296361,
+        "p50": 26364765.131916232,
+        "p90": 39761462.11722159
+      },
+      "confidence": 0.9715750297962084,
+      "confidence_label": "High",
+      "fit_score": 0.78,
+      "timing_score": 0.5738491967910704,
+      "priority_score": 11465490.324901793,
+      "recurrence": 1.0,
+      "trend": 0.06506232630054032,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited cash-collections identity",
+        "fact_ids": [
+          "BHP-2025-REV",
+          "BHP-2025-AR-OPEN",
+          "BHP-2025-AR-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 15134268543.123003,
+          "p50": 20857470900.001602,
+          "p90": 32425274183.25163
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 468068074208.5893,
+          "p50": 506696815192.0937,
+          "p90": 550024540288.547
+        },
+        "prior_relative_interval_width": 0.8290077796597715,
+        "anchored_relative_interval_width": 0.16174655853893063,
+        "relative_interval_width_reduction": 0.8048913864170103,
+        "confidence_before": 0.7115750297962083,
+        "confidence_after": 0.9715750297962084,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.36,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.5,
+          "base": 1.2,
+          "high": 2.5
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E01-collections",
+      "entity_name": "BHP Group",
+      "sector": "mining",
+      "top10_probability": 0.988,
+      "forecast_next_quarter_zar": 2479027712.258645,
+      "public_anchor": {
+        "product": "Collections",
+        "name": "Audited cash-collections identity",
+        "low_zar": 815198982400.0,
+        "base_zar": 926362480000.0,
+        "high_zar": 1037525977600.0001,
+        "weight": 0.84,
+        "formula": "Revenue + opening trade receivables - closing trade receivables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112% to allow non-cash and classification effects.",
+        "fact_ids": [
+          "BHP-2025-REV",
+          "BHP-2025-AR-OPEN",
+          "BHP-2025-AR-CLOSE"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.118",
+          "BHP Annual Report 2025 p.139"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E01",
+      "product": "Payments",
+      "observed_activity_zar": 7135405353.229998,
+      "need_propensity": 0.9358757911394563,
+      "current_share": {
+        "p10": 0.019726008774743727,
+        "p50": 0.02149654723604804,
+        "p90": 0.023311650017365005
+      },
+      "total_wallet_zar": {
+        "p10": 306087529164.7208,
+        "p50": 331932626429.6354,
+        "p90": 361725754926.2231
+      },
+      "partial_identification_zar": {
+        "lower": 511016035200.0,
+        "upper": 650384044800.0001,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited supplier-payments identity"
+      },
+      "contestable_activity_zar": {
+        "p10": 106767365760.56834,
+        "p50": 126087269974.03363,
+        "p90": 147294948533.44476
+      },
+      "revenue_gap_zar": {
+        "p10": 6781392.860044406,
+        "p50": 10997002.91697327,
+        "p90": 16477590.834067896
+      },
+      "confidence": 0.9570843304984915,
+      "confidence_label": "High",
+      "fit_score": 0.86,
+      "timing_score": 0.5944048306728328,
+      "priority_score": 5380285.574026801,
+      "recurrence": 1.0,
+      "trend": 0.13751582278912422,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited supplier-payments identity",
+        "fact_ids": [
+          "BHP-2025-COST",
+          "BHP-2025-INV-OPEN",
+          "BHP-2025-INV-CLOSE",
+          "BHP-2025-AP-OPEN",
+          "BHP-2025-AP-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 12324624293.429106,
+          "p50": 17106115751.73721,
+          "p90": 27002641509.45295
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 306087529164.7208,
+          "p50": 331932626429.6354,
+          "p90": 361725754926.2231
+        },
+        "prior_relative_interval_width": 0.8580566990804572,
+        "anchored_relative_interval_width": 0.16761903269336106,
+        "relative_interval_width_reduction": 0.8046527311388731,
+        "confidence_before": 0.6970843304984915,
+        "confidence_after": 0.9570843304984915,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.34,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.3,
+          "base": 0.8,
+          "high": 1.6
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E01-payments",
+      "entity_name": "BHP Group",
+      "sector": "mining",
+      "top10_probability": 0.725,
+      "forecast_next_quarter_zar": 1956794293.5740528,
+      "public_anchor": {
+        "product": "Payments",
+        "name": "Audited supplier-payments identity",
+        "low_zar": 511016035200.0,
+        "base_zar": 580700040000.0,
+        "high_zar": 650384044800.0001,
+        "weight": 0.84,
+        "formula": "Cost base + closing inventory - opening inventory + opening trade payables - closing trade payables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112%; BHP's cost base is expenses excluding net finance costs.",
+        "fact_ids": [
+          "BHP-2025-COST",
+          "BHP-2025-INV-OPEN",
+          "BHP-2025-INV-CLOSE",
+          "BHP-2025-AP-OPEN",
+          "BHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.118",
+          "BHP Annual Report 2025 p.139"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E01",
+      "product": "Liquidity",
+      "observed_activity_zar": 8160659695.817615,
+      "need_propensity": 0.9367784867310733,
+      "current_share": {
+        "p10": 0.18910318880841545,
+        "p50": 0.22694836742592045,
+        "p90": 0.2717289656836923
+      },
+      "total_wallet_zar": {
+        "p10": 30032351229.38252,
+        "p50": 35958222343.44244,
+        "p90": 43154533402.34532
+      },
+      "partial_identification_zar": {
+        "lower": 27031110000.0,
+        "upper": 54062220000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited debt-maturity liquidity range"
+      },
+      "contestable_activity_zar": {
+        "p10": 3290797029.925656,
+        "p50": 6178701369.261648,
+        "p90": 9681181074.475851
+      },
+      "revenue_gap_zar": {
+        "p10": 1755644.3671508955,
+        "p50": 3915530.4648423903,
+        "p90": 7230360.371289363
+      },
+      "confidence": 0.965473548132023,
+      "confidence_label": "High",
+      "fit_score": 0.88,
+      "timing_score": 0.6824348832173462,
+      "priority_score": 2270256.235069412,
+      "recurrence": 1.0,
+      "trend": 0.09556973462146678,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited debt-maturity liquidity range",
+        "fact_ids": [
+          "BHP-2025-DEBT"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 14904656037.994469,
+          "p50": 23340569147.47634,
+          "p90": 43402830637.004906
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 30032351229.38252,
+          "p50": 35958222343.44244,
+          "p90": 43154533402.34532
+        },
+        "prior_relative_interval_width": 1.2209717089136085,
+        "anchored_relative_interval_width": 0.3649285564684163,
+        "relative_interval_width_reduction": 0.7011162881135706,
+        "confidence_before": 0.705473548132023,
+        "confidence_after": 0.965473548132023,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.28,
+        "share_prior_concentration": 9,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 2.0,
+          "base": 6.0,
+          "high": 12.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "accounting-derived",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E01-liquidity",
+      "entity_name": "BHP Group",
+      "sector": "mining",
+      "top10_probability": 0.074,
+      "forecast_next_quarter_zar": 2217384938.2978005,
+      "public_anchor": {
+        "product": "Liquidity",
+        "name": "Audited debt-maturity liquidity range",
+        "low_zar": 27031110000.0,
+        "base_zar": 36041480000.0,
+        "high_zar": 54062220000.0,
+        "weight": 0.84,
+        "formula": "Current debt maturity/refinancing amount \u00d7 declared liquidity multiple",
+        "transformation_assumption": "Liquidity low/base/high = 0.75x/1.00x/1.50x current debt and facilities.",
+        "fact_ids": [
+          "BHP-2025-DEBT"
+        ],
+        "source_pages": [
+          "BHP Annual Report 2025 p.119"
+        ],
+        "period_end": "2025-06-30",
+        "available_date": "2025-08-19",
+        "audit_status": "audited"
+      }
+    }
+  ],
+  "claim_policy": "Use only supplied fields; cite evidence IDs; label inference; abstain when evidence is missing."
+}

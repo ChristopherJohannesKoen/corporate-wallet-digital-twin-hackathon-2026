@@ -1,0 +1,48 @@
+{
+  "entitlements": {
+    "actual_denials": 3,
+    "cases": 3,
+    "expected_denials": 3,
+    "pass_rate": 1.0,
+    "statuses": [
+      403,
+      403,
+      403
+    ]
+  },
+  "generated_at": "2026-08-09T12:04:38.340777+00:00",
+  "load": {
+    "availability": 1.0,
+    "latency_ms": {
+      "maximum": 316.63149999999973,
+      "p50": 185.73985000000093,
+      "p95": 274.4380150000003,
+      "p99": 306.87492399999996
+    },
+    "local_target_pass": true,
+    "production_slo_claim_allowed": false,
+    "requests": 300,
+    "status": "LOCAL_IN_PROCESS_REHEARSAL_ONLY",
+    "successes": 300,
+    "throughput_requests_per_second": 82.67655081366951,
+    "workers": 16
+  },
+  "recovery": {
+    "byte_identical": true,
+    "events": 500,
+    "original_sha256": "448e956687f98407a3f1e39fea0cbc0d4b604b875e70f2dbfcb317f9ba69a708",
+    "production_rpo_rto_claim_allowed": false,
+    "remaining_gate": "bank backup restore and regional failover exercise",
+    "restored_sha256": "448e956687f98407a3f1e39fea0cbc0d4b604b875e70f2dbfcb317f9ba69a708",
+    "status": "LOCAL_SERIALIZATION_RECOVERY_REHEARSAL"
+  },
+  "shadow_period": {
+    "clean_days": 30,
+    "days": 30,
+    "production_consecutive_shadow_days": 0,
+    "production_gate_passed": false,
+    "reason": "Simulated calendar days cannot satisfy an elapsed production operating-period gate.",
+    "status": "SYNTHETIC_30_DAY_CONTROL_REHEARSAL"
+  },
+  "version": "local-operational-rehearsal-1.0.0"
+}

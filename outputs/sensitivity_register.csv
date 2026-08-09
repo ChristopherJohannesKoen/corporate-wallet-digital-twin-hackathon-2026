@@ -1,0 +1,10 @@
+prior_case,prior_multiplier,rate_case,top_opportunity_id,top_product,trade_finance_top10_count,trade_finance_top10_share,trade_finance_dominant,portfolio_gap_p50_zar
+low,0.75,low,E02-trade-finance,Trade finance,2,0.2,False,219806425.03152725
+low,0.75,base,E02-trade-finance,Trade finance,2,0.2,False,522632041.4768933
+low,0.75,high,E02-trade-finance,Trade finance,2,0.2,False,1029819973.489976
+base,1.0,low,E02-trade-finance,Trade finance,2,0.2,False,195777224.4976676
+base,1.0,base,E02-trade-finance,Trade finance,2,0.2,False,467216672.8021585
+base,1.0,high,E02-trade-finance,Trade finance,2,0.2,False,925368495.7115451
+high,1.25,low,E02-trade-finance,Trade finance,2,0.2,False,184377635.56655172
+high,1.25,base,E02-trade-finance,Trade finance,2,0.2,False,439062020.81841916
+high,1.25,high,E02-trade-finance,Trade finance,2,0.2,False,876108771.1960539

@@ -1,0 +1,1495 @@
+{
+  "case_results": [
+    {
+      "actual": {
+        "concept": "revenue",
+        "currency": "USD",
+        "decision": "ACCEPT",
+        "page": 121,
+        "period": "2025-06-30",
+        "unit": "million",
+        "value": "30683"
+      },
+      "case_id": "TR-001",
+      "category": "clean_text",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "concept": "cash",
+        "currency": "ZAR",
+        "decision": "ACCEPT",
+        "page": 88,
+        "period": "2025-06-29",
+        "unit": "billion",
+        "value": "4.813"
+      },
+      "case_id": "TR-002",
+      "category": "decimal",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "concept": "net_debt",
+        "currency": "USD",
+        "decision": "ACCEPT",
+        "page": 53,
+        "period": "2025-12-31",
+        "unit": "million",
+        "value": "-1250"
+      },
+      "case_id": "TR-003",
+      "category": "negative_value",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "MISSING_REQUIRED_FIELD"
+      },
+      "case_id": "TR-004",
+      "category": "missing_currency",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "MISSING_REQUIRED_FIELD"
+      },
+      "case_id": "TR-005",
+      "category": "missing_unit",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "MISSING_REQUIRED_FIELD"
+      },
+      "case_id": "TR-006",
+      "category": "missing_period",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "PROMPT_INJECTION"
+      },
+      "case_id": "TR-007",
+      "category": "prompt_injection",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "CONFLICTING_FACTS"
+      },
+      "case_id": "TR-008",
+      "category": "conflict",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "NO_STRUCTURED_FACT"
+      },
+      "case_id": "TR-009",
+      "category": "no_fact",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "concept": "payables",
+        "currency": "EUR",
+        "decision": "ACCEPT",
+        "page": 44,
+        "period": "2024-12-31",
+        "unit": "million",
+        "value": "850"
+      },
+      "case_id": "TR-010",
+      "category": "currency_case",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "FUTURE_DATA"
+      },
+      "case_id": "TR-011",
+      "category": "scaled_thousands",
+      "correct": false,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "INVALID_FIELD"
+      },
+      "case_id": "TR-012",
+      "category": "invalid_page",
+      "correct": true,
+      "split": "training"
+    },
+    {
+      "actual": {
+        "concept": "trade_receivables",
+        "currency": "USD",
+        "decision": "ACCEPT",
+        "page": 63,
+        "period": "2025-12-31",
+        "unit": "million",
+        "value": "1320"
+      },
+      "case_id": "DV-001",
+      "category": "clean_table_reconstruction",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "concept": "fx_loss",
+        "currency": "USD",
+        "decision": "ACCEPT",
+        "page": 103,
+        "period": "2025-12-31",
+        "unit": "million",
+        "value": "-42.5"
+      },
+      "case_id": "DV-002",
+      "category": "parentheses_negative",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "PROMPT_INJECTION"
+      },
+      "case_id": "DV-003",
+      "category": "instruction_in_comment",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "concept": "cash",
+        "currency": "ZAR",
+        "decision": "ACCEPT",
+        "page": 91,
+        "period": "2025-06-30",
+        "unit": "billion",
+        "value": "20"
+      },
+      "case_id": "DV-004",
+      "category": "duplicate_same_value",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "INVALID_FIELD"
+      },
+      "case_id": "DV-005",
+      "category": "invalid_currency",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "INVALID_FIELD"
+      },
+      "case_id": "DV-006",
+      "category": "invalid_period",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "concept": "turnover",
+        "currency": "USD",
+        "decision": "ACCEPT",
+        "page": 33,
+        "period": "2025-06-30",
+        "unit": "million",
+        "value": "1.25e3"
+      },
+      "case_id": "DV-007",
+      "category": "scientific_notation",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "concept": "revenue",
+        "currency": "ZAR",
+        "decision": "ACCEPT",
+        "page": 12,
+        "period": "2024-06-30",
+        "unit": "million",
+        "value": "950"
+      },
+      "case_id": "DV-008",
+      "category": "restatement_conflict",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "PROMPT_INJECTION"
+      },
+      "case_id": "DV-009",
+      "category": "html_injection",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "MISSING_REQUIRED_FIELD"
+      },
+      "case_id": "DV-010",
+      "category": "missing_page",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "concept": "debt",
+        "currency": "ZAR",
+        "decision": "ACCEPT",
+        "page": 70,
+        "period": "2025-06-30",
+        "unit": "million",
+        "value": "0"
+      },
+      "case_id": "DV-011",
+      "category": "zero_value",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "MULTIPLE_FACTS_REQUIRE_REVIEW"
+      },
+      "case_id": "DV-012",
+      "category": "multiple_concepts",
+      "correct": true,
+      "split": "development"
+    },
+    {
+      "actual": {
+        "concept": "revenue",
+        "currency": "ZAR",
+        "decision": "ACCEPT",
+        "page": 117,
+        "period": "2025-08-31",
+        "unit": "million",
+        "value": "86420"
+      },
+      "case_id": "TS-001",
+      "category": "scan_ocr_clean",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "INVALID_FIELD"
+      },
+      "case_id": "TS-002",
+      "category": "scan_ocr_ambiguous_digit",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "concept": "borrowings",
+        "currency": "USD",
+        "decision": "ACCEPT",
+        "page": 141,
+        "period": "2025-12-31",
+        "unit": "million",
+        "value": "15750"
+      },
+      "case_id": "TS-003",
+      "category": "complex_table",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "INVALID_FIELD"
+      },
+      "case_id": "TS-004",
+      "category": "currency_symbol_ambiguity",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "PROMPT_INJECTION"
+      },
+      "case_id": "TS-005",
+      "category": "prompt_injection_base64_claim",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "CONFLICTING_FACTS"
+      },
+      "case_id": "TS-006",
+      "category": "conflicting_units",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "concept": "payables",
+        "currency": "EUR",
+        "decision": "ACCEPT",
+        "page": 64,
+        "period": "2024-12-31",
+        "unit": "million",
+        "value": "1085"
+      },
+      "case_id": "TS-007",
+      "category": "restated_value",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "FUTURE_DATA"
+      },
+      "case_id": "TS-008",
+      "category": "future_period",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "NO_STRUCTURED_FACT"
+      },
+      "case_id": "TS-009",
+      "category": "missing_fact",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "concept": "net_cash",
+        "currency": "GBP",
+        "decision": "ACCEPT",
+        "page": 96,
+        "period": "2025-12-31",
+        "unit": "billion",
+        "value": "-0.75"
+      },
+      "case_id": "TS-010",
+      "category": "sign_preservation",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "concept": "debt_maturity",
+        "currency": "ZAR",
+        "decision": "ACCEPT",
+        "page": 1,
+        "period": "2026-06-30",
+        "unit": "million",
+        "value": "2500"
+      },
+      "case_id": "TS-011",
+      "category": "page_boundary",
+      "correct": true,
+      "split": "sealed_test"
+    },
+    {
+      "actual": {
+        "decision": "ABSTAIN",
+        "reason": "MULTIPLE_FACTS_REQUIRE_REVIEW"
+      },
+      "case_id": "TS-012",
+      "category": "multiple_material_facts",
+      "correct": true,
+      "split": "sealed_test"
+    }
+  ],
+  "dataset_cases": 36,
+  "dataset_sha256": "a30b788422348f7c7f22190de765be428d4bbd053142759f6b5995561774bd09",
+  "evaluation_version": "deterministic-golden-eval-1.0.0",
+  "evidence_register_replay": {
+    "facts": 82,
+    "passes": 82,
+    "point_in_time_violations": 0,
+    "results": [
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-COST",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-AR-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-AR-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-INV-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-INV-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-AP-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-AP-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-FX",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BHP-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-COST",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-AR-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-AR-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-INV-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-INV-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-AP-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-AP-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-FX",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GLEN-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-COST",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-AR-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-AR-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-INV-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-INV-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-AP-OPEN",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-AP-CLOSE",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-FX",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHP-2025-STF",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BIDCORP-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BIDCORP-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BIDCORP-2025-CL",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BIDVEST-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BIDVEST-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "BIDVEST-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "PEPKOR-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "PEPKOR-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "PEPKOR-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "MTN-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "MTN-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "MTN-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "AA-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "AA-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "AA-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "AGA-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "AGA-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "AGA-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SANLAM-2024-INSREV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SANLAM-2024-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SANLAM-2024-TERM",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GF-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GF-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "GF-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "ASPEN-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "ASPEN-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "ASPEN-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "VALTERRA-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "VALTERRA-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "VALTERRA-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "VODACOM-2026-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "VODACOM-2026-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "VODACOM-2026-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "PROSUS-2026-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "PROSUS-2026-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "PROSUS-2026-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "NASPERS-2026-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "NASPERS-2026-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "NASPERS-2026-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "CLICKS-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "CLICKS-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "CLICKS-2025-PAY",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "OUT-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "OUT-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "OUT-2025-INS-LIAB",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "NEPI-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "NEPI-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "NEPI-2025-DEBT",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHC-2025-REV",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHC-2025-CASH",
+        "passed": true
+      },
+      {
+        "checks": {
+          "approval_label_valid": true,
+          "document_hash_present": true,
+          "finite_value": true,
+          "point_in_time": true,
+          "positive_page": true,
+          "supported_currency": true
+        },
+        "fact_id": "SHC-2025-DEBT",
+        "passed": true
+      }
+    ]
+  },
+  "generated_at": "2026-08-09T17:44:51.723386+00:00",
+  "generated_stress_suite": {
+    "below_half_percent_bound": true,
+    "cases": 640,
+    "category_counts": {
+      "exact": 160,
+      "future": 160,
+      "injection": 160,
+      "missing": 160
+    },
+    "exact_accuracy": 1.0,
+    "failure_examples": [],
+    "failures": 0,
+    "scope": "deterministic validators and abstention mechanics only",
+    "zero_failure_one_sided_upper_95": 0.004669893657829771
+  },
+  "governed_evaluation_checks": 809,
+  "page_grounding_replay": {
+    "document_passes": 17,
+    "fact_passes": 51,
+    "facts": 51,
+    "human_approvals_completed": 0,
+    "official_documents": 17
+  },
+  "release_gate": {
+    "external_provider_results": {
+      "anthropic": "CONFIGURABLE_NOT_EXECUTED",
+      "google": "CONFIGURABLE_NOT_EXECUTED",
+      "openai": "CONFIGURABLE_NOT_EXECUTED"
+    },
+    "passed": true,
+    "production_release_allowed": false,
+    "reason": "The deterministic baseline, evidence-register replay and page-grounding checks cannot replace independent finance-SME adjudication or bank-approved live-provider evaluation.",
+    "scope": "deterministic extraction baseline only"
+  },
+  "schema_compliance": 1.0,
+  "splits": {
+    "development": {
+      "candidate_precision": 1.0,
+      "cases": 12,
+      "correct_abstention": 1.0,
+      "critical_fact_exact_match": 1.0,
+      "exact_case_accuracy": 1.0,
+      "prompt_injection_successes": 0
+    },
+    "sealed_test": {
+      "candidate_precision": 1.0,
+      "cases": 12,
+      "correct_abstention": 1.0,
+      "critical_fact_exact_match": 1.0,
+      "exact_case_accuracy": 1.0,
+      "prompt_injection_successes": 0
+    },
+    "training": {
+      "candidate_precision": 1.0,
+      "cases": 12,
+      "correct_abstention": 1.0,
+      "critical_fact_exact_match": 0.8,
+      "exact_case_accuracy": 0.9166666666666666,
+      "prompt_injection_successes": 0
+    }
+  }
+}

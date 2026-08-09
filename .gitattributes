@@ -1,2 +1,10 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Submission and visual artifacts are binary; never normalize their bytes.
+*.pdf binary
+*.pptx binary
+*.docx binary
+*.xlsx binary
+*.png binary
+*.webp binary

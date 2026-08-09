@@ -1,0 +1,1666 @@
+{
+  "as_of": "2026-06-30",
+  "document_passes": 17,
+  "documents": 17,
+  "documents_detail": {
+    "E03": {
+      "actual_sha256": "362b9ebb43ca8ce3cf0a87f5ba174047ab499c4cd8f5a48eeb1bf83530a176fb",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Anglo American",
+      "expected_sha256": "362b9ebb43ca8ce3cf0a87f5ba174047ab499c4cd8f5a48eeb1bf83530a176fb",
+      "hash_match": true,
+      "indexed_text_pages": 395,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Anglo American Integrated Annual Report 2025",
+      "source_url": "https://www.angloamerican.com/~/media/Files/A/Anglo-American-Group-v9/PLC/investors/annual-reporting/2025/aa-annual-report-full-2025.pdf"
+    },
+    "E04": {
+      "actual_sha256": "958d89150d1125af3eb9032ac7f3c9da2c22c8bfd67e8447c688c8ad0c21dd35",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "AngloGold Ashanti",
+      "expected_sha256": "958d89150d1125af3eb9032ac7f3c9da2c22c8bfd67e8447c688c8ad0c21dd35",
+      "hash_match": true,
+      "indexed_text_pages": 272,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "AngloGold Ashanti Annual Report 2025",
+      "source_url": "https://reports.anglogoldashanti.com/25/download/AGA-AR25.pdf"
+    },
+    "E05": {
+      "actual_sha256": "0819d8e37085aaa5adb8305c3bcdd5b5a9631cf40f594950beaeb6c77077fc0a",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Gold Fields",
+      "expected_sha256": "0819d8e37085aaa5adb8305c3bcdd5b5a9631cf40f594950beaeb6c77077fc0a",
+      "hash_match": true,
+      "indexed_text_pages": 186,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Gold Fields Annual Financial Report 2025",
+      "source_url": "https://www.goldfields.com/pdf/investors/integrated-annual-reports/2025/afs-2025.pdf"
+    },
+    "E06": {
+      "actual_sha256": "84ab45295a07c93d3fa39a24962c05ac600f45ed2c9683b16b4dc2cc7ba170f8",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Valterra Platinum",
+      "expected_sha256": "84ab45295a07c93d3fa39a24962c05ac600f45ed2c9683b16b4dc2cc7ba170f8",
+      "hash_match": true,
+      "indexed_text_pages": 98,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Valterra Platinum Annual Financial Statements 2025",
+      "source_url": "https://www.valterraplatinum.com/wp-content/uploads/2026/05/annual-financial-statements-2025.pdf"
+    },
+    "E07": {
+      "actual_sha256": "3f03545e101a357d73e3f26863473adc341b4b0382ab2b8248b322900ef38b3c",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "OUTsurance Group",
+      "expected_sha256": "3f03545e101a357d73e3f26863473adc341b4b0382ab2b8248b322900ef38b3c",
+      "hash_match": true,
+      "indexed_text_pages": 208,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "OUTsurance Group Annual Financial Statements 2025",
+      "source_url": "https://group.outsurance.co.za/globalassets/documents/investor-relations/reports-and-results/2025/ogl-annual-financial-statements-2025.pdf"
+    },
+    "E08": {
+      "actual_sha256": "fc2487f72420917e9c52f78bc4a7800a1e4270781aa2117632f69680b4ca14da",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Sanlam",
+      "expected_sha256": "fc2487f72420917e9c52f78bc4a7800a1e4270781aa2117632f69680b4ca14da",
+      "hash_match": true,
+      "indexed_text_pages": 133,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Sanlam Annual Financial Statements 2024",
+      "source_url": "https://www.sanlam.com/downloads/integrated-report-and-annual-financial-statements/2024/Sanlam-AFS-2024-spreads.pdf"
+    },
+    "E10": {
+      "actual_sha256": "f2516d780aff52d4a5de8be9a2f02e753e948e13450e77f2b1603784b5215c9f",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Bid Corporation",
+      "expected_sha256": "f2516d780aff52d4a5de8be9a2f02e753e948e13450e77f2b1603784b5215c9f",
+      "hash_match": true,
+      "indexed_text_pages": 71,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Bidcorp Annual Integrated Report 2025",
+      "source_url": "https://www.bidcorpgroup.com/pdf/reports/2025/Bidcorp-2025-AIR.pdf"
+    },
+    "E11": {
+      "actual_sha256": "7715894a86e0e6b06b26b90b6e5bad3ffb85b8cd6166701bf52ddf8e053193d3",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Pepkor Holdings",
+      "expected_sha256": "7715894a86e0e6b06b26b90b6e5bad3ffb85b8cd6166701bf52ddf8e053193d3",
+      "hash_match": true,
+      "indexed_text_pages": 132,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Pepkor Annual Financial Statements 2025",
+      "source_url": "https://pepkor.co.za/wp-content/uploads/Pepkor-annual-financial-statements-2025.pdf"
+    },
+    "E12": {
+      "actual_sha256": "664c3ce033c0d36157277ae5ef9f28a933edd4acebc8cec649069cd20d9c576d",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Clicks Group",
+      "expected_sha256": "664c3ce033c0d36157277ae5ef9f28a933edd4acebc8cec649069cd20d9c576d",
+      "hash_match": true,
+      "indexed_text_pages": 53,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Clicks Group Annual Financial Statements 2025",
+      "source_url": "https://clicksgroup.co.za/iar2025/wp-content/uploads/CGL-YE25-Annual-financial-statements.pdf"
+    },
+    "E13": {
+      "actual_sha256": "4124bee2bfb55a181cda56963bd733605a2cc53a7882b1d6108358b33da479f3",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "NEPI Rockcastle",
+      "expected_sha256": "4124bee2bfb55a181cda56963bd733605a2cc53a7882b1d6108358b33da479f3",
+      "hash_match": true,
+      "indexed_text_pages": 404,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "NEPI Rockcastle Annual Report 2025",
+      "source_url": "https://nepirockcastle.com/wp-content/uploads/2026/03/NEPI_Rockcastle_Annual_Report_2025.pdf"
+    },
+    "E14": {
+      "actual_sha256": "3ea6278d374118f72fe41ac635d4b622bc1b59be44f5db9c0a7bc321ceabf077",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Prosus",
+      "expected_sha256": "3ea6278d374118f72fe41ac635d4b622bc1b59be44f5db9c0a7bc321ceabf077",
+      "hash_match": true,
+      "indexed_text_pages": 256,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Prosus Annual Report 2026",
+      "source_url": "https://www.prosus.com/~/media/Files/P/prosus-corp-v2/results-reports-and-events-archive/annual-report/2026/fy2026-annual-report.pdf"
+    },
+    "E15": {
+      "actual_sha256": "e0d23733f611c2b81f2b8c7362c492178fe52b3109472db1e08efe824298f17b",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Naspers",
+      "expected_sha256": "e0d23733f611c2b81f2b8c7362c492178fe52b3109472db1e08efe824298f17b",
+      "hash_match": true,
+      "indexed_text_pages": 186,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Naspers Annual Financial Statements 2026",
+      "source_url": "https://www.naspers.com/~/media/Files/N/Naspers-Corp-V2/results-reports-and-events-archive/latest-results/fy-2026/naspers-annual-financial-statements-2026.pdf"
+    },
+    "E16": {
+      "actual_sha256": "bea72f5adefd24ecb4dd8ed36e523730e19a3efb2fa9f79b63567bc4fac2e59b",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "MTN Group",
+      "expected_sha256": "bea72f5adefd24ecb4dd8ed36e523730e19a3efb2fa9f79b63567bc4fac2e59b",
+      "hash_match": true,
+      "indexed_text_pages": 148,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "MTN Group Annual Financial Statements 2025",
+      "source_url": "https://www.mtn.com/wp-content/uploads/2026/03/MTN-Group-FY-25-Annual-Financial-Statements.pdf"
+    },
+    "E17": {
+      "actual_sha256": "d6f149d15a1e7a0edc82acd536f2d59644e2c9acce621a65878aa322390fd896",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Vodacom Group",
+      "expected_sha256": "d6f149d15a1e7a0edc82acd536f2d59644e2c9acce621a65878aa322390fd896",
+      "hash_match": true,
+      "indexed_text_pages": 117,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Vodacom Consolidated and Separate Financial Statements 2026",
+      "source_url": "https://vodacom-reports.co.za/integrated-reports/ir-2026/documents/vodacom-consolidated-and-separate-financial-statements-2026.pdf"
+    },
+    "E18": {
+      "actual_sha256": "2a44e26a70a3c05c45814de4aba756ef39bfa15e05137f49edd3ec22b722260a",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "The Bidvest Group",
+      "expected_sha256": "2a44e26a70a3c05c45814de4aba756ef39bfa15e05137f49edd3ec22b722260a",
+      "hash_match": true,
+      "indexed_text_pages": 55,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Bidvest Integrated Report 2025",
+      "source_url": "https://bidvest.co.za/pdf/annual-reports/2025/bidvest-iar-2025.pdf"
+    },
+    "E19": {
+      "actual_sha256": "a091fee4d4b575781836440b929291617c128f8f857b2dd0a7e0dfb4c1bcc53d",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Aspen Pharmacare",
+      "expected_sha256": "a091fee4d4b575781836440b929291617c128f8f857b2dd0a7e0dfb4c1bcc53d",
+      "hash_match": true,
+      "indexed_text_pages": 131,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Aspen Annual Financial Statements 2025",
+      "source_url": "https://www.aspenpharma.com/download/annual-financial-statements-2/"
+    },
+    "E20": {
+      "actual_sha256": "71bcff13a20668eea8842f5ef28273ba787b0042b2fe7e1ea9faeb03b581ed53",
+      "automated_status": "PASS",
+      "available_by_as_of": true,
+      "entity_name": "Shaftesbury Capital plc",
+      "expected_sha256": "71bcff13a20668eea8842f5ef28273ba787b0042b2fe7e1ea9faeb03b581ed53",
+      "hash_match": true,
+      "indexed_text_pages": 47,
+      "pdf_magic_valid": true,
+      "pdf_page_count": null,
+      "source_title": "Shaftesbury Capital Audited Preliminary Results 2025",
+      "source_url": "https://senspdf.jse.co.za/documents/2026/JSE/isse/SHCE/FY25Result.pdf"
+    }
+  },
+  "fact_failures": 0,
+  "fact_passes": 51,
+  "facts": 51,
+  "facts_detail": [
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E10",
+      "entity_name": "Bid Corporation",
+      "fact_id": "BIDCORP-2025-REV",
+      "page": 18,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "f2516d780aff52d4a5de8be9a2f02e753e948e13450e77f2b1603784b5215c9f",
+      "source_url": "https://www.bidcorpgroup.com/pdf/reports/2025/Bidcorp-2025-AIR.pdf",
+      "unit": "million",
+      "value": 235591.182
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E10",
+      "entity_name": "Bid Corporation",
+      "fact_id": "BIDCORP-2025-CASH",
+      "page": 19,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "f2516d780aff52d4a5de8be9a2f02e753e948e13450e77f2b1603784b5215c9f",
+      "source_url": "https://www.bidcorpgroup.com/pdf/reports/2025/Bidcorp-2025-AIR.pdf",
+      "unit": "million",
+      "value": 11767.619
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_liabilities",
+      "currency": "ZAR",
+      "entity_id": "E10",
+      "entity_name": "Bid Corporation",
+      "fact_id": "BIDCORP-2025-CL",
+      "page": 19,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "f2516d780aff52d4a5de8be9a2f02e753e948e13450e77f2b1603784b5215c9f",
+      "source_url": "https://www.bidcorpgroup.com/pdf/reports/2025/Bidcorp-2025-AIR.pdf",
+      "unit": "million",
+      "value": 42998.668
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E18",
+      "entity_name": "The Bidvest Group",
+      "fact_id": "BIDVEST-2025-REV",
+      "page": 40,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "2a44e26a70a3c05c45814de4aba756ef39bfa15e05137f49edd3ec22b722260a",
+      "source_url": "https://bidvest.co.za/pdf/annual-reports/2025/bidvest-iar-2025.pdf",
+      "unit": "million",
+      "value": 126605.406
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E18",
+      "entity_name": "The Bidvest Group",
+      "fact_id": "BIDVEST-2025-CASH",
+      "page": 43,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "2a44e26a70a3c05c45814de4aba756ef39bfa15e05137f49edd3ec22b722260a",
+      "source_url": "https://bidvest.co.za/pdf/annual-reports/2025/bidvest-iar-2025.pdf",
+      "unit": "million",
+      "value": 6193.638
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "ZAR",
+      "entity_id": "E18",
+      "entity_name": "The Bidvest Group",
+      "fact_id": "BIDVEST-2025-DEBT",
+      "page": 44,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "2a44e26a70a3c05c45814de4aba756ef39bfa15e05137f49edd3ec22b722260a",
+      "source_url": "https://bidvest.co.za/pdf/annual-reports/2025/bidvest-iar-2025.pdf",
+      "unit": "million",
+      "value": 5336.113
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E11",
+      "entity_name": "Pepkor Holdings",
+      "fact_id": "PEPKOR-2025-REV",
+      "page": 21,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "7715894a86e0e6b06b26b90b6e5bad3ffb85b8cd6166701bf52ddf8e053193d3",
+      "source_url": "https://pepkor.co.za/wp-content/uploads/Pepkor-annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 95340.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E11",
+      "entity_name": "Pepkor Holdings",
+      "fact_id": "PEPKOR-2025-CASH",
+      "page": 23,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "7715894a86e0e6b06b26b90b6e5bad3ffb85b8cd6166701bf52ddf8e053193d3",
+      "source_url": "https://pepkor.co.za/wp-content/uploads/Pepkor-annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 5066.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "ZAR",
+      "entity_id": "E11",
+      "entity_name": "Pepkor Holdings",
+      "fact_id": "PEPKOR-2025-DEBT",
+      "page": 23,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "7715894a86e0e6b06b26b90b6e5bad3ffb85b8cd6166701bf52ddf8e053193d3",
+      "source_url": "https://pepkor.co.za/wp-content/uploads/Pepkor-annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 1200.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E16",
+      "entity_name": "MTN Group",
+      "fact_id": "MTN-2025-REV",
+      "page": 21,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "bea72f5adefd24ecb4dd8ed36e523730e19a3efb2fa9f79b63567bc4fac2e59b",
+      "source_url": "https://www.mtn.com/wp-content/uploads/2026/03/MTN-Group-FY-25-Annual-Financial-Statements.pdf",
+      "unit": "million",
+      "value": 226707.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E16",
+      "entity_name": "MTN Group",
+      "fact_id": "MTN-2025-CASH",
+      "page": 23,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "bea72f5adefd24ecb4dd8ed36e523730e19a3efb2fa9f79b63567bc4fac2e59b",
+      "source_url": "https://www.mtn.com/wp-content/uploads/2026/03/MTN-Group-FY-25-Annual-Financial-Statements.pdf",
+      "unit": "million",
+      "value": 42625.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "ZAR",
+      "entity_id": "E16",
+      "entity_name": "MTN Group",
+      "fact_id": "MTN-2025-DEBT",
+      "page": 23,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "bea72f5adefd24ecb4dd8ed36e523730e19a3efb2fa9f79b63567bc4fac2e59b",
+      "source_url": "https://www.mtn.com/wp-content/uploads/2026/03/MTN-Group-FY-25-Annual-Financial-Statements.pdf",
+      "unit": "million",
+      "value": 17755.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "USD",
+      "entity_id": "E03",
+      "entity_name": "Anglo American",
+      "fact_id": "AA-2025-REV",
+      "page": 272,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "362b9ebb43ca8ce3cf0a87f5ba174047ab499c4cd8f5a48eeb1bf83530a176fb",
+      "source_url": "https://www.angloamerican.com/~/media/Files/A/Anglo-American-Group-v9/PLC/investors/annual-reporting/2025/aa-annual-report-full-2025.pdf",
+      "unit": "million",
+      "value": 18546.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "USD",
+      "entity_id": "E03",
+      "entity_name": "Anglo American",
+      "fact_id": "AA-2025-CASH",
+      "page": 274,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "362b9ebb43ca8ce3cf0a87f5ba174047ab499c4cd8f5a48eeb1bf83530a176fb",
+      "source_url": "https://www.angloamerican.com/~/media/Files/A/Anglo-American-Group-v9/PLC/investors/annual-reporting/2025/aa-annual-report-full-2025.pdf",
+      "unit": "million",
+      "value": 6436.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "USD",
+      "entity_id": "E03",
+      "entity_name": "Anglo American",
+      "fact_id": "AA-2025-DEBT",
+      "page": 274,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "362b9ebb43ca8ce3cf0a87f5ba174047ab499c4cd8f5a48eeb1bf83530a176fb",
+      "source_url": "https://www.angloamerican.com/~/media/Files/A/Anglo-American-Group-v9/PLC/investors/annual-reporting/2025/aa-annual-report-full-2025.pdf",
+      "unit": "million",
+      "value": 1075.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "USD",
+      "entity_id": "E04",
+      "entity_name": "AngloGold Ashanti",
+      "fact_id": "AGA-2025-REV",
+      "page": 158,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "958d89150d1125af3eb9032ac7f3c9da2c22c8bfd67e8447c688c8ad0c21dd35",
+      "source_url": "https://reports.anglogoldashanti.com/25/download/AGA-AR25.pdf",
+      "unit": "million",
+      "value": 9893.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "USD",
+      "entity_id": "E04",
+      "entity_name": "AngloGold Ashanti",
+      "fact_id": "AGA-2025-CASH",
+      "page": 160,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "958d89150d1125af3eb9032ac7f3c9da2c22c8bfd67e8447c688c8ad0c21dd35",
+      "source_url": "https://reports.anglogoldashanti.com/25/download/AGA-AR25.pdf",
+      "unit": "million",
+      "value": 2905.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "USD",
+      "entity_id": "E04",
+      "entity_name": "AngloGold Ashanti",
+      "fact_id": "AGA-2025-DEBT",
+      "page": 160,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "958d89150d1125af3eb9032ac7f3c9da2c22c8bfd67e8447c688c8ad0c21dd35",
+      "source_url": "https://reports.anglogoldashanti.com/25/download/AGA-AR25.pdf",
+      "unit": "million",
+      "value": 19.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "insurance_revenue",
+      "currency": "ZAR",
+      "entity_id": "E08",
+      "entity_name": "Sanlam",
+      "fact_id": "SANLAM-2024-INSREV",
+      "page": 42,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "fc2487f72420917e9c52f78bc4a7800a1e4270781aa2117632f69680b4ca14da",
+      "source_url": "https://www.sanlam.com/downloads/integrated-report-and-annual-financial-statements/2024/Sanlam-AFS-2024-spreads.pdf",
+      "unit": "million",
+      "value": 93475.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E08",
+      "entity_name": "Sanlam",
+      "fact_id": "SANLAM-2024-CASH",
+      "page": 42,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "fc2487f72420917e9c52f78bc4a7800a1e4270781aa2117632f69680b4ca14da",
+      "source_url": "https://www.sanlam.com/downloads/integrated-report-and-annual-financial-statements/2024/Sanlam-AFS-2024-spreads.pdf",
+      "unit": "million",
+      "value": 34602.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "term_finance",
+      "currency": "ZAR",
+      "entity_id": "E08",
+      "entity_name": "Sanlam",
+      "fact_id": "SANLAM-2024-TERM",
+      "page": 42,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "fc2487f72420917e9c52f78bc4a7800a1e4270781aa2117632f69680b4ca14da",
+      "source_url": "https://www.sanlam.com/downloads/integrated-report-and-annual-financial-statements/2024/Sanlam-AFS-2024-spreads.pdf",
+      "unit": "million",
+      "value": 19769.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "USD",
+      "entity_id": "E05",
+      "entity_name": "Gold Fields",
+      "fact_id": "GF-2025-REV",
+      "page": 72,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "0819d8e37085aaa5adb8305c3bcdd5b5a9631cf40f594950beaeb6c77077fc0a",
+      "source_url": "https://www.goldfields.com/pdf/investors/integrated-annual-reports/2025/afs-2025.pdf",
+      "unit": "million",
+      "value": 8751.3
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "USD",
+      "entity_id": "E05",
+      "entity_name": "Gold Fields",
+      "fact_id": "GF-2025-CASH",
+      "page": 74,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "0819d8e37085aaa5adb8305c3bcdd5b5a9631cf40f594950beaeb6c77077fc0a",
+      "source_url": "https://www.goldfields.com/pdf/investors/integrated-annual-reports/2025/afs-2025.pdf",
+      "unit": "million",
+      "value": 1779.2
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "USD",
+      "entity_id": "E05",
+      "entity_name": "Gold Fields",
+      "fact_id": "GF-2025-DEBT",
+      "page": 74,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "0819d8e37085aaa5adb8305c3bcdd5b5a9631cf40f594950beaeb6c77077fc0a",
+      "source_url": "https://www.goldfields.com/pdf/investors/integrated-annual-reports/2025/afs-2025.pdf",
+      "unit": "million",
+      "value": 178.7
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E19",
+      "entity_name": "Aspen Pharmacare",
+      "fact_id": "ASPEN-2025-REV",
+      "page": 16,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "a091fee4d4b575781836440b929291617c128f8f857b2dd0a7e0dfb4c1bcc53d",
+      "source_url": "https://www.aspenpharma.com/download/annual-financial-statements-2/",
+      "unit": "million",
+      "value": 43363.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E19",
+      "entity_name": "Aspen Pharmacare",
+      "fact_id": "ASPEN-2025-CASH",
+      "page": 15,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "a091fee4d4b575781836440b929291617c128f8f857b2dd0a7e0dfb4c1bcc53d",
+      "source_url": "https://www.aspenpharma.com/download/annual-financial-statements-2/",
+      "unit": "million",
+      "value": 6409.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "ZAR",
+      "entity_id": "E19",
+      "entity_name": "Aspen Pharmacare",
+      "fact_id": "ASPEN-2025-DEBT",
+      "page": 15,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "a091fee4d4b575781836440b929291617c128f8f857b2dd0a7e0dfb4c1bcc53d",
+      "source_url": "https://www.aspenpharma.com/download/annual-financial-statements-2/",
+      "unit": "million",
+      "value": 4612.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E06",
+      "entity_name": "Valterra Platinum",
+      "fact_id": "VALTERRA-2025-REV",
+      "page": 24,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "84ab45295a07c93d3fa39a24962c05ac600f45ed2c9683b16b4dc2cc7ba170f8",
+      "source_url": "https://www.valterraplatinum.com/wp-content/uploads/2026/05/annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 116330.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E06",
+      "entity_name": "Valterra Platinum",
+      "fact_id": "VALTERRA-2025-CASH",
+      "page": 25,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "84ab45295a07c93d3fa39a24962c05ac600f45ed2c9683b16b4dc2cc7ba170f8",
+      "source_url": "https://www.valterraplatinum.com/wp-content/uploads/2026/05/annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 16602.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "ZAR",
+      "entity_id": "E06",
+      "entity_name": "Valterra Platinum",
+      "fact_id": "VALTERRA-2025-DEBT",
+      "page": 25,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "84ab45295a07c93d3fa39a24962c05ac600f45ed2c9683b16b4dc2cc7ba170f8",
+      "source_url": "https://www.valterraplatinum.com/wp-content/uploads/2026/05/annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 4046.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E17",
+      "entity_name": "Vodacom Group",
+      "fact_id": "VODACOM-2026-REV",
+      "page": 19,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "d6f149d15a1e7a0edc82acd536f2d59644e2c9acce621a65878aa322390fd896",
+      "source_url": "https://vodacom-reports.co.za/integrated-reports/ir-2026/documents/vodacom-consolidated-and-separate-financial-statements-2026.pdf",
+      "unit": "million",
+      "value": 167652.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E17",
+      "entity_name": "Vodacom Group",
+      "fact_id": "VODACOM-2026-CASH",
+      "page": 21,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "d6f149d15a1e7a0edc82acd536f2d59644e2c9acce621a65878aa322390fd896",
+      "source_url": "https://vodacom-reports.co.za/integrated-reports/ir-2026/documents/vodacom-consolidated-and-separate-financial-statements-2026.pdf",
+      "unit": "million",
+      "value": 31209.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "ZAR",
+      "entity_id": "E17",
+      "entity_name": "Vodacom Group",
+      "fact_id": "VODACOM-2026-DEBT",
+      "page": 21,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "d6f149d15a1e7a0edc82acd536f2d59644e2c9acce621a65878aa322390fd896",
+      "source_url": "https://vodacom-reports.co.za/integrated-reports/ir-2026/documents/vodacom-consolidated-and-separate-financial-statements-2026.pdf",
+      "unit": "million",
+      "value": 8781.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "USD",
+      "entity_id": "E14",
+      "entity_name": "Prosus",
+      "fact_id": "PROSUS-2026-REV",
+      "page": 141,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "3ea6278d374118f72fe41ac635d4b622bc1b59be44f5db9c0a7bc321ceabf077",
+      "source_url": "https://www.prosus.com/~/media/Files/P/prosus-corp-v2/results-reports-and-events-archive/annual-report/2026/fy2026-annual-report.pdf",
+      "unit": "million",
+      "value": 9705.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "USD",
+      "entity_id": "E14",
+      "entity_name": "Prosus",
+      "fact_id": "PROSUS-2026-CASH",
+      "page": 140,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "3ea6278d374118f72fe41ac635d4b622bc1b59be44f5db9c0a7bc321ceabf077",
+      "source_url": "https://www.prosus.com/~/media/Files/P/prosus-corp-v2/results-reports-and-events-archive/annual-report/2026/fy2026-annual-report.pdf",
+      "unit": "million",
+      "value": 6682.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "USD",
+      "entity_id": "E14",
+      "entity_name": "Prosus",
+      "fact_id": "PROSUS-2026-DEBT",
+      "page": 140,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "3ea6278d374118f72fe41ac635d4b622bc1b59be44f5db9c0a7bc321ceabf077",
+      "source_url": "https://www.prosus.com/~/media/Files/P/prosus-corp-v2/results-reports-and-events-archive/annual-report/2026/fy2026-annual-report.pdf",
+      "unit": "million",
+      "value": 1953.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "USD",
+      "entity_id": "E15",
+      "entity_name": "Naspers",
+      "fact_id": "NASPERS-2026-REV",
+      "page": 33,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "e0d23733f611c2b81f2b8c7362c492178fe52b3109472db1e08efe824298f17b",
+      "source_url": "https://www.naspers.com/~/media/Files/N/Naspers-Corp-V2/results-reports-and-events-archive/latest-results/fy-2026/naspers-annual-financial-statements-2026.pdf",
+      "unit": "million",
+      "value": 10848.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "USD",
+      "entity_id": "E15",
+      "entity_name": "Naspers",
+      "fact_id": "NASPERS-2026-CASH",
+      "page": 32,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "e0d23733f611c2b81f2b8c7362c492178fe52b3109472db1e08efe824298f17b",
+      "source_url": "https://www.naspers.com/~/media/Files/N/Naspers-Corp-V2/results-reports-and-events-archive/latest-results/fy-2026/naspers-annual-financial-statements-2026.pdf",
+      "unit": "million",
+      "value": 6820.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "USD",
+      "entity_id": "E15",
+      "entity_name": "Naspers",
+      "fact_id": "NASPERS-2026-DEBT",
+      "page": 32,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "e0d23733f611c2b81f2b8c7362c492178fe52b3109472db1e08efe824298f17b",
+      "source_url": "https://www.naspers.com/~/media/Files/N/Naspers-Corp-V2/results-reports-and-events-archive/latest-results/fy-2026/naspers-annual-financial-statements-2026.pdf",
+      "unit": "million",
+      "value": 1987.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "ZAR",
+      "entity_id": "E12",
+      "entity_name": "Clicks Group",
+      "fact_id": "CLICKS-2025-REV",
+      "page": 10,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "664c3ce033c0d36157277ae5ef9f28a933edd4acebc8cec649069cd20d9c576d",
+      "source_url": "https://clicksgroup.co.za/iar2025/wp-content/uploads/CGL-YE25-Annual-financial-statements.pdf",
+      "unit": "million",
+      "value": 51426.992
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E12",
+      "entity_name": "Clicks Group",
+      "fact_id": "CLICKS-2025-CASH",
+      "page": 10,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "664c3ce033c0d36157277ae5ef9f28a933edd4acebc8cec649069cd20d9c576d",
+      "source_url": "https://clicksgroup.co.za/iar2025/wp-content/uploads/CGL-YE25-Annual-financial-statements.pdf",
+      "unit": "million",
+      "value": 3255.77
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "trade_payables",
+      "currency": "ZAR",
+      "entity_id": "E12",
+      "entity_name": "Clicks Group",
+      "fact_id": "CLICKS-2025-PAY",
+      "page": 10,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "664c3ce033c0d36157277ae5ef9f28a933edd4acebc8cec649069cd20d9c576d",
+      "source_url": "https://clicksgroup.co.za/iar2025/wp-content/uploads/CGL-YE25-Annual-financial-statements.pdf",
+      "unit": "million",
+      "value": 10912.537
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "insurance_revenue",
+      "currency": "ZAR",
+      "entity_id": "E07",
+      "entity_name": "OUTsurance Group",
+      "fact_id": "OUT-2025-REV",
+      "page": 19,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "3f03545e101a357d73e3f26863473adc341b4b0382ab2b8248b322900ef38b3c",
+      "source_url": "https://group.outsurance.co.za/globalassets/documents/investor-relations/reports-and-results/2025/ogl-annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 37131.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "ZAR",
+      "entity_id": "E07",
+      "entity_name": "OUTsurance Group",
+      "fact_id": "OUT-2025-CASH",
+      "page": 21,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "3f03545e101a357d73e3f26863473adc341b4b0382ab2b8248b322900ef38b3c",
+      "source_url": "https://group.outsurance.co.za/globalassets/documents/investor-relations/reports-and-results/2025/ogl-annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 1865.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "insurance_liabilities",
+      "currency": "ZAR",
+      "entity_id": "E07",
+      "entity_name": "OUTsurance Group",
+      "fact_id": "OUT-2025-INS-LIAB",
+      "page": 21,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "3f03545e101a357d73e3f26863473adc341b4b0382ab2b8248b322900ef38b3c",
+      "source_url": "https://group.outsurance.co.za/globalassets/documents/investor-relations/reports-and-results/2025/ogl-annual-financial-statements-2025.pdf",
+      "unit": "million",
+      "value": 16229.0
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "gross_rental_income",
+      "currency": "EUR",
+      "entity_id": "E13",
+      "entity_name": "NEPI Rockcastle",
+      "fact_id": "NEPI-2025-REV",
+      "page": 311,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "4124bee2bfb55a181cda56963bd733605a2cc53a7882b1d6108358b33da479f3",
+      "source_url": "https://nepirockcastle.com/wp-content/uploads/2026/03/NEPI_Rockcastle_Annual_Report_2025.pdf",
+      "unit": "million",
+      "value": 624.348
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "EUR",
+      "entity_id": "E13",
+      "entity_name": "NEPI Rockcastle",
+      "fact_id": "NEPI-2025-CASH",
+      "page": 310,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "4124bee2bfb55a181cda56963bd733605a2cc53a7882b1d6108358b33da479f3",
+      "source_url": "https://nepirockcastle.com/wp-content/uploads/2026/03/NEPI_Rockcastle_Annual_Report_2025.pdf",
+      "unit": "million",
+      "value": 313.994
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": false,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "EUR",
+      "entity_id": "E13",
+      "entity_name": "NEPI Rockcastle",
+      "fact_id": "NEPI-2025-DEBT",
+      "page": 310,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "4124bee2bfb55a181cda56963bd733605a2cc53a7882b1d6108358b33da479f3",
+      "source_url": "https://nepirockcastle.com/wp-content/uploads/2026/03/NEPI_Rockcastle_Annual_Report_2025.pdf",
+      "unit": "million",
+      "value": 284.059
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "revenue",
+      "currency": "GBP",
+      "entity_id": "E20",
+      "entity_name": "Shaftesbury Capital plc",
+      "fact_id": "SHC-2025-REV",
+      "page": 21,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "71bcff13a20668eea8842f5ef28273ba787b0042b2fe7e1ea9faeb03b581ed53",
+      "source_url": "https://senspdf.jse.co.za/documents/2026/JSE/isse/SHCE/FY25Result.pdf",
+      "unit": "million",
+      "value": 238.9
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "cash_and_cash_equivalents",
+      "currency": "GBP",
+      "entity_id": "E20",
+      "entity_name": "Shaftesbury Capital plc",
+      "fact_id": "SHC-2025-CASH",
+      "page": 22,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "71bcff13a20668eea8842f5ef28273ba787b0042b2fe7e1ea9faeb03b581ed53",
+      "source_url": "https://senspdf.jse.co.za/documents/2026/JSE/isse/SHCE/FY25Result.pdf",
+      "unit": "million",
+      "value": 361.4
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "automated_status": "PASS",
+      "checks": {
+        "concept_term_on_page": true,
+        "currency_consistent": true,
+        "document_hash_match": true,
+        "page_exists": true,
+        "point_in_time_eligible": true,
+        "source_hash_consistent": true,
+        "value_exact_on_page": true
+      },
+      "concept": "current_debt",
+      "currency": "GBP",
+      "entity_id": "E20",
+      "entity_name": "Shaftesbury Capital plc",
+      "fact_id": "SHC-2025-DEBT",
+      "page": 22,
+      "required_reviewers": [
+        "FINANCE_SME",
+        "INDEPENDENT_EVIDENCE_APPROVER"
+      ],
+      "review_state": "READY_FOR_FINANCE_SME",
+      "source_hash": "71bcff13a20668eea8842f5ef28273ba787b0042b2fe7e1ea9faeb03b581ed53",
+      "source_url": "https://senspdf.jse.co.za/documents/2026/JSE/isse/SHCE/FY25Result.pdf",
+      "unit": "million",
+      "value": 438.4
+    }
+  ],
+  "generated_at": "2026-08-09T17:44:46.257324+00:00",
+  "human_approvals_completed": 0,
+  "production_approval_claim_allowed": false,
+  "qa_version": "public-evidence-qa-1.0.0",
+  "ready_for_finance_sme": 51
+}

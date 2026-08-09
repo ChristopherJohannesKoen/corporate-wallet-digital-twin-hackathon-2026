@@ -1,0 +1,67 @@
+{
+  "aa_diagnostic": {
+    "itt_estimate": 0.002350453328028166,
+    "passes_no_mechanical_effect": true,
+    "randomization_p_value": 0.9141716566866267
+  },
+  "analysis": {
+    "analysis_version": "cluster-encouragement-analysis-1.0.0",
+    "causal_claim_allowed": false,
+    "censoring_rate": 0.09548611111111116,
+    "covariate_balance": {
+      "baseline_score": {
+        "passes_0_10": true,
+        "standardized_mean_difference": 0.06638767654917763
+      }
+    },
+    "data_classification": "SYNTHETIC_OPERATIONAL_REHEARSAL",
+    "effective_sample_size": 1042.0,
+    "first_stage": 0.505866923079757,
+    "itt": {
+      "ci95": [
+        -0.039379179389973464,
+        0.05569972522565526
+      ],
+      "cluster_robust_se": 0.024254822606027734,
+      "clusters": 48,
+      "estimate": 0.008160272917840897,
+      "observations": 1042,
+      "two_sided_p_value": 0.7365396992889424
+    },
+    "label": "REHEARSAL_ONLY",
+    "preregistration": {
+      "analysis": "cluster-robust ITT, randomization inference, covariate balance, first-stage diagnostic",
+      "causal_label_gate": "independent validation plus adequate overlap/effective sample size",
+      "censoring": "inverse-probability weighting when outcome ascertainment is incomplete",
+      "exclusions": [
+        "ineligible at assignment",
+        "test accounts",
+        "withdrawn client consent"
+      ],
+      "horizons_days": [
+        30,
+        60,
+        90
+      ],
+      "locked": true,
+      "primary_estimand": "intention-to-treat risk difference",
+      "primary_outcome": "qualified RM action within 30 days of eligibility",
+      "secondary_estimand": "Wald treatment-on-treated only with first-stage >= 0.10",
+      "sha256": "d79de6383662d1d8a2fea6f0982d517be4eb02d66da7049b2f39b9ae98dcb554",
+      "treatment": "encouragement to use an eligible wallet recommendation",
+      "unit_of_randomization": "RM team",
+      "version": "rm-encouragement-preregistration-1.0.0"
+    },
+    "randomization_inference": {
+      "draws": 1000,
+      "seed": 20260809,
+      "two_sided_p_value": 0.7382617382617382
+    },
+    "wald_treatment_on_treated": 0.016131264064787085,
+    "weak_instrument": false
+  },
+  "event_records": 1152,
+  "production_claim_allowed": false,
+  "remaining_gate": "powered live cluster-randomized trial with reconciled RM actions and outcomes",
+  "status": "PRODUCTION_ANALYSIS_REHEARSED_WITH_SYNTHETIC_EVENTS"
+}

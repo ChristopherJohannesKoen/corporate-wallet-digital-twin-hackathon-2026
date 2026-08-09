@@ -1,0 +1,77 @@
+{
+  "model_version": "1.1.0",
+  "as_of_policy": "maximum date present across supplied data",
+  "monte_carlo_draws": 2000,
+  "rank_draws": 1000,
+  "minimum_evidence_to_recommend": 0.45,
+  "sensitivity_draws": 600,
+  "public_anchor_model": {
+    "anchor_weight": 0.84,
+    "currency_to_zar": {"ZAR": 1.0, "USD": 17.86},
+    "currency_translation_note": "USD facts are translated at ZAR17.86/USD, the 29 June 2025 closing rate disclosed on page 1 of Shoprite's 2025 AFS; this is a common model translation assumption, not an audited ZAR amount for BHP or Glencore.",
+    "accounting_bounds": [0.88, 1.0, 1.12],
+    "fx_turnover_multiples": [1.0, 2.0, 4.0],
+    "debt_liquidity_multiples": [0.75, 1.0, 1.5],
+    "trade_utilisation_by_sector": {
+      "mining": [0.01, 0.03, 0.06],
+      "consumer": [0.005, 0.015, 0.04],
+      "default": [0.005, 0.02, 0.05]
+    }
+  },
+  "sensitivity": {
+    "prior_multipliers": {"low": 0.75, "base": 1.0, "high": 1.25},
+    "rate_cases": ["low", "base", "high"],
+    "dominance_definition": "Trade finance occupies at least 5 of the top 10 ranked opportunities"
+  },
+  "target_share": {"low": 0.30, "base": 0.40, "high": 0.50},
+  "products": {
+    "Collections": {
+      "share_prior_mean": 0.36,
+      "share_prior_concentration": 12,
+      "economic_rate_bps": [0.5, 1.2, 2.5],
+      "source": "transactional_banking: collections/inbound"
+    },
+    "Payments": {
+      "share_prior_mean": 0.34,
+      "share_prior_concentration": 12,
+      "economic_rate_bps": [0.3, 0.8, 1.6],
+      "source": "transactional_banking: supplier_payments, payroll and tax/outbound"
+    },
+    "Liquidity": {
+      "share_prior_mean": 0.28,
+      "share_prior_concentration": 9,
+      "economic_rate_bps": [2.0, 6.0, 12.0],
+      "source": "derived gross-flow and monthly net-liquidity proxy"
+    },
+    "Cross-border FX": {
+      "share_prior_mean": 0.30,
+      "share_prior_concentration": 10,
+      "economic_rate_bps": [4.0, 9.0, 18.0],
+      "source": "cross_border_payments"
+    },
+    "Trade finance": {
+      "share_prior_mean": 0.26,
+      "share_prior_concentration": 8,
+      "economic_rate_bps": [20.0, 45.0, 85.0],
+      "source": "trade_finance"
+    }
+  },
+  "evidence_weights": {
+    "synthetic_bank_observation": 1.0,
+    "audited_public_statement": 0.95,
+    "direct_public_note": 0.90,
+    "accounting_identity": 0.80,
+    "sector_benchmark": 0.60,
+    "model_extrapolation": 0.50,
+    "generic_prior": 0.30
+  },
+  "sector_fit": {
+    "mining": {"Collections": 0.78, "Payments": 0.86, "Liquidity": 0.88, "Cross-border FX": 1.0, "Trade finance": 1.0},
+    "insurance": {"Collections": 0.93, "Payments": 0.84, "Liquidity": 1.0, "Cross-border FX": 0.66, "Trade finance": 0.38},
+    "consumer": {"Collections": 1.0, "Payments": 1.0, "Liquidity": 0.92, "Cross-border FX": 0.83, "Trade finance": 0.77},
+    "real_estate": {"Collections": 0.86, "Payments": 0.86, "Liquidity": 1.0, "Cross-border FX": 0.78, "Trade finance": 0.48},
+    "tech": {"Collections": 0.86, "Payments": 0.90, "Liquidity": 0.88, "Cross-border FX": 1.0, "Trade finance": 0.46},
+    "telecoms": {"Collections": 0.92, "Payments": 0.94, "Liquidity": 0.92, "Cross-border FX": 0.96, "Trade finance": 0.68},
+    "industrials_pharma": {"Collections": 0.83, "Payments": 0.96, "Liquidity": 0.88, "Cross-border FX": 0.94, "Trade finance": 0.92}
+  }
+}

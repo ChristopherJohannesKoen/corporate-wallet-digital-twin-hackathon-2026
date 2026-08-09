@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: { name: {{ .Values.runtime.configMapName }} }
+data:
+  WALLET_OIDC_ISSUER: {{ .Values.runtime.oidcIssuer | quote }}
+  WALLET_OIDC_AUDIENCE: {{ .Values.runtime.oidcAudience | quote }}
+  WALLET_OPA_URL: {{ .Values.runtime.opaUrl | quote }}
+  OTEL_EXPORTER_OTLP_ENDPOINT: {{ .Values.runtime.otelEndpoint | quote }}
+  WALLET_MLFLOW_REGISTRY_URI: {{ .Values.runtime.mlflowRegistryUri | quote }}
+  WALLET_UNITY_CATALOG: {{ .Values.runtime.unityCatalog | quote }}
+  GENAI_PROVIDER: "deterministic"

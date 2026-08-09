@@ -1,0 +1,34 @@
+import { getChatGPTUser } from "@/app/chatgpt-auth";
+import fixtureJson from "@/app/data/shadow-fixture.json";
+import type { Opportunity, ShadowFixture } from "./contracts";
+
+export const fixture = fixtureJson as unknown as ShadowFixture;
+
+export async function proxyWalletApi(path: string, init?: RequestInit): Promise<Response | null> {
+  const baseUrl = process.env.WALLET_API_BASE_URL;
+  if (!baseUrl) return null;
+  const user = await getChatGPTUser();
+  if (!user) return new Response(JSON.stringify({ detail: "authenticated bank identity required" }), { status: 401 });
+  const headers = new Headers(init?.headers);
+  headers.set("content-type", "application/json");
+  headers.set("x-user-id", user.userId);
+  headers.set("x-user-roles", process.env.WALLET_USER_ROLES ?? "SHADOW_OPERATOR,MODEL_VALIDATOR");
+  headers.set("x-user-team", process.env.WALLET_USER_TEAM ?? "model-risk");
+  headers.set("x-user-clients", process.env.WALLET_USER_CLIENTS ?? "*");
+  headers.set("x-user-products", process.env.WALLET_USER_PRODUCTS ?? "*");
+  return fetch(`${baseUrl.replace(/\/$/, "")}${path}`, { ...init, headers, cache: "no-store" });
+}
+
+export function pointInTime(asOf: string | null): Response | null {
+  if (!asOf) return Response.json({ detail: "as_of is required" }, { status: 422 });
+  if (asOf !== fixture.metadata.as_of) return Response.json({ detail: `snapshot unavailable: ${asOf}` }, { status: 404 });
+  return null;
+}
+
+export function findOpportunity(id: string): Opportunity | undefined {
+  return fixture.opportunities.find((item) => item.opportunity_id === id);
+}
+
+export function numeric(value: number | string | null | undefined): number {
+  return value == null ? 0 : Number(value);
+}

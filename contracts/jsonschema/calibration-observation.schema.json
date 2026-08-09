@@ -1,0 +1,158 @@
+{
+  "$defs": {
+    "CuratedMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "business_key": {
+          "title": "Business Key",
+          "type": "string"
+        },
+        "data_owner": {
+          "title": "Data Owner",
+          "type": "string"
+        },
+        "entitlement_domain": {
+          "title": "Entitlement Domain",
+          "type": "string"
+        },
+        "event_time": {
+          "format": "date-time",
+          "title": "Event Time",
+          "type": "string"
+        },
+        "ingestion_time": {
+          "format": "date-time",
+          "title": "Ingestion Time",
+          "type": "string"
+        },
+        "quality_status": {
+          "$ref": "#/$defs/QualityStatus",
+          "default": "VALID"
+        },
+        "source_hash": {
+          "minLength": 16,
+          "title": "Source Hash",
+          "type": "string"
+        },
+        "source_system_key": {
+          "title": "Source System Key",
+          "type": "string"
+        },
+        "transformation_version": {
+          "title": "Transformation Version",
+          "type": "string"
+        },
+        "valid_from": {
+          "format": "date-time",
+          "title": "Valid From",
+          "type": "string"
+        },
+        "valid_to": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid To"
+        }
+      },
+      "required": [
+        "business_key",
+        "source_system_key",
+        "event_time",
+        "valid_from",
+        "source_hash",
+        "transformation_version",
+        "data_owner",
+        "entitlement_domain"
+      ],
+      "title": "CuratedMetadata",
+      "type": "object"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "QualityStatus": {
+      "enum": [
+        "VALID",
+        "QUARANTINED",
+        "LEGACY_INCOMPLETE"
+      ],
+      "title": "QualityStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "measured_share": {
+      "exclusiveMaximum": 1,
+      "exclusiveMinimum": 0,
+      "title": "Measured Share",
+      "type": "number"
+    },
+    "metadata": {
+      "$ref": "#/$defs/CuratedMetadata"
+    },
+    "observation_id": {
+      "title": "Observation Id",
+      "type": "string"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "sector": {
+      "title": "Sector",
+      "type": "string"
+    },
+    "selection_weight": {
+      "exclusiveMinimum": 0,
+      "title": "Selection Weight",
+      "type": "number"
+    },
+    "tier": {
+      "$ref": "#/$defs/EvidenceTier"
+    },
+    "total_wallet": {
+      "exclusiveMinimum": 0,
+      "title": "Total Wallet",
+      "type": "number"
+    }
+  },
+  "required": [
+    "observation_id",
+    "entity_id",
+    "product",
+    "sector",
+    "measured_share",
+    "total_wallet",
+    "tier",
+    "selection_weight",
+    "as_of",
+    "metadata"
+  ],
+  "title": "CalibrationObservation",
+  "type": "object"
+}

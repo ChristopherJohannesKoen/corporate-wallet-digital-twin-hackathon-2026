@@ -1,0 +1,21 @@
+entity_id,entity_name,current_max_tier,curation_status,approved_fact_count,pending_review_fact_count,required_next_action,production_eligible
+E01,BHP Group,E1,CURATED_POINT_IN_TIME,10,0,Finance SME four-eyes approval and E2/E3 observation,false
+E02,Glencore,E1,CURATED_POINT_IN_TIME,10,0,Finance SME four-eyes approval and E2/E3 observation,false
+E09,Shoprite Holdings,E1,CURATED_POINT_IN_TIME,11,0,Finance SME four-eyes approval and E2/E3 observation,false
+E10,Bid Corporation,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E18,The Bidvest Group,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E11,Pepkor Holdings,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E16,MTN Group,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E03,Anglo American,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E04,AngloGold Ashanti,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E08,Sanlam,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E05,Gold Fields,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E19,Aspen Pharmacare,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E06,Valterra Platinum,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E17,Vodacom Group,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E14,Prosus,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E15,Naspers,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E12,Clicks Group,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E07,OUTsurance Group,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E13,NEPI Rockcastle,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false
+E20,Shaftesbury Capital plc,E1,CURATED_HASHED_PENDING_SME,0,3,Finance SME four-eyes approval and product-specific extension,false

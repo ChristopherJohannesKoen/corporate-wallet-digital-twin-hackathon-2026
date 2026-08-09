@@ -1,0 +1,1440 @@
+{
+  "as_of": "2026-06-30",
+  "benchmark_economics": {
+    "claim_class": "SCENARIO",
+    "evidence_tier": "E0",
+    "packs": {
+      "conservative": {
+        "break_even_target_share": {
+          "definition": "current share plus capture required to recover explicit acquisition cost",
+          "maximum": 0.41874351247493935,
+          "median": 0.11405130729864814,
+          "note": "Benchmark acquisition cost is zero; bank implementation costs must be supplied before production."
+        },
+        "concentration": {
+          "product_hhi": 0.2846886690970129,
+          "top_product_share": 0.3885795657508792
+        },
+        "margin_waterfalls": {
+          "Collections": {
+            "costs_bps": {
+              "capital_bps": 0.05,
+              "client_discount_bps": 0.06,
+              "execution_bps": 0.015,
+              "expected_loss_bps": 0.03,
+              "ftp_bps": 0.05,
+              "hedging_bps": 0.02,
+              "liquidity_bps": 0.04,
+              "operating_cost_bps": 0.05,
+              "servicing_bps": 0.03,
+              "tax_bps": 0.025
+            },
+            "gross_price_bps": 0.5,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 0.13,
+            "net_contribution_bps": 0.13,
+            "total_cost_bps": 0.37
+          },
+          "Cross-border FX": {
+            "costs_bps": {
+              "capital_bps": 0.4,
+              "client_discount_bps": 0.48,
+              "execution_bps": 0.12,
+              "expected_loss_bps": 0.24,
+              "ftp_bps": 0.4,
+              "hedging_bps": 0.16,
+              "liquidity_bps": 0.32,
+              "operating_cost_bps": 0.4,
+              "servicing_bps": 0.24,
+              "tax_bps": 0.2
+            },
+            "gross_price_bps": 4.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 1.04,
+            "net_contribution_bps": 1.04,
+            "total_cost_bps": 2.96
+          },
+          "Liquidity": {
+            "costs_bps": {
+              "capital_bps": 0.2,
+              "client_discount_bps": 0.24,
+              "execution_bps": 0.06,
+              "expected_loss_bps": 0.12,
+              "ftp_bps": 0.2,
+              "hedging_bps": 0.08,
+              "liquidity_bps": 0.16,
+              "operating_cost_bps": 0.2,
+              "servicing_bps": 0.12,
+              "tax_bps": 0.1
+            },
+            "gross_price_bps": 2.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 0.52,
+            "net_contribution_bps": 0.52,
+            "total_cost_bps": 1.48
+          },
+          "Payments": {
+            "costs_bps": {
+              "capital_bps": 0.03,
+              "client_discount_bps": 0.036,
+              "execution_bps": 0.009,
+              "expected_loss_bps": 0.018,
+              "ftp_bps": 0.03,
+              "hedging_bps": 0.012,
+              "liquidity_bps": 0.024,
+              "operating_cost_bps": 0.03,
+              "servicing_bps": 0.018,
+              "tax_bps": 0.015
+            },
+            "gross_price_bps": 0.3,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 0.078,
+            "net_contribution_bps": 0.078,
+            "total_cost_bps": 0.222
+          },
+          "Trade finance": {
+            "costs_bps": {
+              "capital_bps": 2.0,
+              "client_discount_bps": 2.4,
+              "execution_bps": 0.6,
+              "expected_loss_bps": 1.2,
+              "ftp_bps": 2.0,
+              "hedging_bps": 0.8,
+              "liquidity_bps": 1.6,
+              "operating_cost_bps": 2.0,
+              "servicing_bps": 1.2,
+              "tax_bps": 1.0
+            },
+            "gross_price_bps": 20.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 5.2,
+            "net_contribution_bps": 5.2,
+            "total_cost_bps": 14.8
+          }
+        },
+        "portfolio_frontier": [
+          {
+            "scenario_value_zar": 7921073.330331773,
+            "target_share": 0.25
+          },
+          {
+            "scenario_value_zar": 11533093.509555345,
+            "target_share": 0.3
+          },
+          {
+            "scenario_value_zar": 15773815.481515992,
+            "target_share": 0.35
+          },
+          {
+            "scenario_value_zar": 20185192.95051505,
+            "target_share": 0.4
+          },
+          {
+            "scenario_value_zar": 24687367.408771038,
+            "target_share": 0.45
+          },
+          {
+            "scenario_value_zar": 29235368.889402054,
+            "target_share": 0.5
+          },
+          {
+            "scenario_value_zar": 38331371.85066401,
+            "target_share": 0.6
+          }
+        ],
+        "portfolio_observed_contribution_zar": 16244645.916907879,
+        "portfolio_scenario_value_zar": 11533093.509555345,
+        "product_observed_contribution_zar": {
+          "Collections": 577080.7436399563,
+          "Cross-border FX": 4661602.301538001,
+          "Liquidity": 3356100.2490491522,
+          "Payments": 660581.6285307717,
+          "Trade finance": 6989280.994150001
+        },
+        "product_scenario_value_zar": {
+          "Collections": 1019141.4639661692,
+          "Cross-border FX": 4481524.4677073,
+          "Liquidity": 1939461.1205441868,
+          "Payments": 528808.7358781245,
+          "Trade finance": 3564157.721459561
+        },
+        "reconciliation": {
+          "difference_zar": 3.725290298461914e-09,
+          "passes": true,
+          "product_sum_zar": 11533093.509555342
+        },
+        "sample_frontiers": [
+          {
+            "opportunity_id": "E02-trade-finance",
+            "points": [
+              {
+                "scenario_value_zar": 1774404.9095908806,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 2164178.771096361,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 2553952.632601842,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 2943726.494107322,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 3333500.3556128014,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E01-trade-finance",
+            "points": [
+              {
+                "scenario_value_zar": 641442.2984676611,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 873543.6917852715,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 1105645.0851028818,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 1337746.478420492,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 1569847.871738102,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E02-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 665796.3803717819,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 816987.9299262923,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 968179.4794808025,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 1119371.0290353128,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 1270562.578589823,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E16-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 451816.77893507323,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 634557.8147922787,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 817298.8506494843,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 1000039.8865066901,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 1182780.9223638957,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E01-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 529187.780687855,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 653430.1962692174,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 777672.6118505801,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 901915.0274319425,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 1026157.443013305,
+                "target_share": 0.5
+              }
+            ]
+          }
+        ],
+        "target_share": 0.3,
+        "top_product": "Cross-border FX"
+      },
+      "reference": {
+        "break_even_target_share": {
+          "definition": "current share plus capture required to recover explicit acquisition cost",
+          "maximum": 0.41874351247493935,
+          "median": 0.11405130729864814,
+          "note": "Benchmark acquisition cost is zero; bank implementation costs must be supplied before production."
+        },
+        "concentration": {
+          "product_hhi": 0.27451123831575885,
+          "top_product_share": 0.34747712517735896
+        },
+        "margin_waterfalls": {
+          "Collections": {
+            "costs_bps": {
+              "capital_bps": 0.084,
+              "client_discount_bps": 0.096,
+              "execution_bps": 0.024,
+              "expected_loss_bps": 0.048,
+              "ftp_bps": 0.084,
+              "hedging_bps": 0.036,
+              "liquidity_bps": 0.06,
+              "operating_cost_bps": 0.084,
+              "servicing_bps": 0.048,
+              "tax_bps": 0.036
+            },
+            "gross_price_bps": 1.2,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 0.6,
+            "net_contribution_bps": 0.6,
+            "total_cost_bps": 0.6
+          },
+          "Cross-border FX": {
+            "costs_bps": {
+              "capital_bps": 0.63,
+              "client_discount_bps": 0.72,
+              "execution_bps": 0.18,
+              "expected_loss_bps": 0.36,
+              "ftp_bps": 0.63,
+              "hedging_bps": 0.27,
+              "liquidity_bps": 0.45,
+              "operating_cost_bps": 0.63,
+              "servicing_bps": 0.36,
+              "tax_bps": 0.27
+            },
+            "gross_price_bps": 9.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 4.5,
+            "net_contribution_bps": 4.5,
+            "total_cost_bps": 4.5
+          },
+          "Liquidity": {
+            "costs_bps": {
+              "capital_bps": 0.42,
+              "client_discount_bps": 0.48,
+              "execution_bps": 0.12,
+              "expected_loss_bps": 0.24,
+              "ftp_bps": 0.42,
+              "hedging_bps": 0.18,
+              "liquidity_bps": 0.3,
+              "operating_cost_bps": 0.42,
+              "servicing_bps": 0.24,
+              "tax_bps": 0.18
+            },
+            "gross_price_bps": 6.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 3.0,
+            "net_contribution_bps": 3.0,
+            "total_cost_bps": 3.0
+          },
+          "Payments": {
+            "costs_bps": {
+              "capital_bps": 0.056,
+              "client_discount_bps": 0.064,
+              "execution_bps": 0.016,
+              "expected_loss_bps": 0.032,
+              "ftp_bps": 0.056,
+              "hedging_bps": 0.024,
+              "liquidity_bps": 0.04,
+              "operating_cost_bps": 0.056,
+              "servicing_bps": 0.032,
+              "tax_bps": 0.024
+            },
+            "gross_price_bps": 0.8,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 0.4,
+            "net_contribution_bps": 0.4,
+            "total_cost_bps": 0.4
+          },
+          "Trade finance": {
+            "costs_bps": {
+              "capital_bps": 3.15,
+              "client_discount_bps": 3.6,
+              "execution_bps": 0.9,
+              "expected_loss_bps": 1.8,
+              "ftp_bps": 3.15,
+              "hedging_bps": 1.35,
+              "liquidity_bps": 2.25,
+              "operating_cost_bps": 3.15,
+              "servicing_bps": 1.8,
+              "tax_bps": 1.35
+            },
+            "gross_price_bps": 45.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 22.5,
+            "net_contribution_bps": 22.5,
+            "total_cost_bps": 22.5
+          }
+        },
+        "portfolio_frontier": [
+          {
+            "scenario_value_zar": 36589221.110759184,
+            "target_share": 0.25
+          },
+          {
+            "scenario_value_zar": 53417816.21112528,
+            "target_share": 0.3
+          },
+          {
+            "scenario_value_zar": 72977824.0014401,
+            "target_share": 0.35
+          },
+          {
+            "scenario_value_zar": 93297225.11432014,
+            "target_share": 0.4
+          },
+          {
+            "scenario_value_zar": 114140148.290262,
+            "target_share": 0.45
+          },
+          {
+            "scenario_value_zar": 135247458.13375193,
+            "target_share": 0.5
+          },
+          {
+            "scenario_value_zar": 177462077.82073176,
+            "target_share": 0.6
+          }
+        ],
+        "portfolio_observed_contribution_zar": 75825640.30114758,
+        "portfolio_scenario_value_zar": 93297225.11432014,
+        "product_observed_contribution_zar": {
+          "Collections": 2663449.5860305675,
+          "Cross-border FX": 20170394.573962495,
+          "Liquidity": 19362116.82143742,
+          "Payments": 3387598.095029597,
+          "Trade finance": 30242081.2246875
+        },
+        "product_scenario_value_zar": {
+          "Collections": 7159456.306930207,
+          "Cross-border FX": 32418651.56974886,
+          "Liquidity": 19190295.183236893,
+          "Payments": 4559411.901434656,
+          "Trade finance": 29969410.152969502
+        },
+        "reconciliation": {
+          "difference_zar": 2.9802322387695312e-08,
+          "passes": true,
+          "product_sum_zar": 93297225.11432011
+        },
+        "sample_frontiers": [
+          {
+            "opportunity_id": "E02-trade-finance",
+            "points": [
+              {
+                "scenario_value_zar": 7677713.551114388,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 9364235.06724387,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 11050756.583373353,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 12737278.099502835,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 14423799.615632314,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E01-trade-finance",
+            "points": [
+              {
+                "scenario_value_zar": 2775471.483754303,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 3779756.3586862707,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 4784041.233618238,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 5788326.108550206,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 6792610.983482173,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E02-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 2880849.7227625176,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 3535043.927565688,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 4189238.1323688575,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 4843432.337172027,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 5497626.541975196,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E16-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 1954976.4473152207,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 2745682.8524665907,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 3536389.257617961,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 4327095.662769332,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 5117802.0679207025,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E01-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 2289754.820283988,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 2827342.195395652,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 3364929.570507318,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 3902516.9456189824,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 4440104.320730646,
+                "target_share": 0.5
+              }
+            ]
+          }
+        ],
+        "target_share": 0.4,
+        "top_product": "Cross-border FX"
+      },
+      "upside": {
+        "break_even_target_share": {
+          "definition": "current share plus capture required to recover explicit acquisition cost",
+          "maximum": 0.41874351247493935,
+          "median": 0.11405130729864814,
+          "note": "Benchmark acquisition cost is zero; bank implementation costs must be supplied before production."
+        },
+        "concentration": {
+          "product_hhi": 0.27299010848003774,
+          "top_product_share": 0.34222298271150164
+        },
+        "margin_waterfalls": {
+          "Collections": {
+            "costs_bps": {
+              "capital_bps": 0.125,
+              "client_discount_bps": 0.15,
+              "execution_bps": 0.05,
+              "expected_loss_bps": 0.075,
+              "ftp_bps": 0.125,
+              "hedging_bps": 0.05,
+              "liquidity_bps": 0.1,
+              "operating_cost_bps": 0.125,
+              "servicing_bps": 0.075,
+              "tax_bps": 0.05
+            },
+            "gross_price_bps": 2.5,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 1.575,
+            "net_contribution_bps": 1.575,
+            "total_cost_bps": 0.925
+          },
+          "Cross-border FX": {
+            "costs_bps": {
+              "capital_bps": 0.9,
+              "client_discount_bps": 1.08,
+              "execution_bps": 0.36,
+              "expected_loss_bps": 0.54,
+              "ftp_bps": 0.9,
+              "hedging_bps": 0.36,
+              "liquidity_bps": 0.72,
+              "operating_cost_bps": 0.9,
+              "servicing_bps": 0.54,
+              "tax_bps": 0.36
+            },
+            "gross_price_bps": 18.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 11.34,
+            "net_contribution_bps": 11.34,
+            "total_cost_bps": 6.66
+          },
+          "Liquidity": {
+            "costs_bps": {
+              "capital_bps": 0.6,
+              "client_discount_bps": 0.72,
+              "execution_bps": 0.24,
+              "expected_loss_bps": 0.36,
+              "ftp_bps": 0.6,
+              "hedging_bps": 0.24,
+              "liquidity_bps": 0.48,
+              "operating_cost_bps": 0.6,
+              "servicing_bps": 0.36,
+              "tax_bps": 0.24
+            },
+            "gross_price_bps": 12.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 7.56,
+            "net_contribution_bps": 7.56,
+            "total_cost_bps": 4.4399999999999995
+          },
+          "Payments": {
+            "costs_bps": {
+              "capital_bps": 0.08,
+              "client_discount_bps": 0.096,
+              "execution_bps": 0.032,
+              "expected_loss_bps": 0.048,
+              "ftp_bps": 0.08,
+              "hedging_bps": 0.032,
+              "liquidity_bps": 0.064,
+              "operating_cost_bps": 0.08,
+              "servicing_bps": 0.048,
+              "tax_bps": 0.032
+            },
+            "gross_price_bps": 1.6,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 1.008,
+            "net_contribution_bps": 1.008,
+            "total_cost_bps": 0.592
+          },
+          "Trade finance": {
+            "costs_bps": {
+              "capital_bps": 4.25,
+              "client_discount_bps": 5.1,
+              "execution_bps": 1.7,
+              "expected_loss_bps": 2.55,
+              "ftp_bps": 4.25,
+              "hedging_bps": 1.7,
+              "liquidity_bps": 3.4,
+              "operating_cost_bps": 4.25,
+              "servicing_bps": 2.55,
+              "tax_bps": 1.7
+            },
+            "gross_price_bps": 85.0,
+            "hurdle_bps": 0.0,
+            "hurdle_headroom_bps": 53.55,
+            "net_contribution_bps": 53.55,
+            "total_cost_bps": 31.45
+          }
+        },
+        "portfolio_frontier": [
+          {
+            "scenario_value_zar": 91096303.26404196,
+            "target_share": 0.25
+          },
+          {
+            "scenario_value_zar": 132947731.40330425,
+            "target_share": 0.3
+          },
+          {
+            "scenario_value_zar": 181384917.43370476,
+            "target_share": 0.35
+          },
+          {
+            "scenario_value_zar": 231665032.7788986,
+            "target_share": 0.4
+          },
+          {
+            "scenario_value_zar": 283264423.72300833,
+            "target_share": 0.45
+          },
+          {
+            "scenario_value_zar": 335530069.06933886,
+            "target_share": 0.5
+          },
+          {
+            "scenario_value_zar": 440061359.76200044,
+            "target_share": 0.6
+          }
+        ],
+        "portfolio_observed_contribution_zar": 187126384.39396876,
+        "portfolio_scenario_value_zar": 335530069.06933886,
+        "product_observed_contribution_zar": {
+          "Collections": 6991555.163330242,
+          "Cross-border FX": 50829394.326385505,
+          "Liquidity": 48792534.39002229,
+          "Payments": 8536747.199474588,
+          "Trade finance": 71976153.31475626
+        },
+        "product_scenario_value_zar": {
+          "Collections": 25239854.7979473,
+          "Cross-border FX": 114826101.0263053,
+          "Liquidity": 71814745.42192523,
+          "Payments": 16496334.289387817,
+          "Trade finance": 107153033.53377336
+        },
+        "reconciliation": {
+          "difference_zar": -1.7881393432617188e-07,
+          "passes": true,
+          "product_sum_zar": 335530069.06933904
+        },
+        "sample_frontiers": [
+          {
+            "opportunity_id": "E02-trade-finance",
+            "points": [
+              {
+                "scenario_value_zar": 18272958.25165224,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 22286879.46004041,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 26300800.66842858,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 30314721.87681675,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 34328643.08520491,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E01-trade-finance",
+            "points": [
+              {
+                "scenario_value_zar": 6605622.131335241,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 8995820.133673325,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 11386018.136011407,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 13776216.13834949,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 16166414.140687572,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E02-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 7259741.301361545,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 8908310.697465533,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 10556880.09356952,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 12205449.489673508,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 13854018.885777496,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E16-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 4926540.647234356,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 6919120.788215809,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 8911700.929197261,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 10904281.070178716,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 12896861.21116017,
+                "target_share": 0.5
+              }
+            ]
+          },
+          {
+            "opportunity_id": "E01-cross-border-fx",
+            "points": [
+              {
+                "scenario_value_zar": 5770182.14711565,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 7124902.332397044,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 8479622.51767844,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 9834342.702959836,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 11189062.88824123,
+                "target_share": 0.5
+              }
+            ]
+          }
+        ],
+        "target_share": 0.5,
+        "top_product": "Cross-border FX"
+      }
+    },
+    "production_eligible": false,
+    "registry_version": "e0-benchmark-rate-cards-1.0.0",
+    "watermark": "SIMULATED BENCHMARK ECONOMICS \u2014 NOT BANK-APPROVED PRICING"
+  },
+  "causal_trial_simulation": {
+    "assumptions": {
+      "assumed_complier_effect": 0.07,
+      "censoring": 0.12,
+      "clusters": 48,
+      "control_action_rate": 0.18,
+      "control_contamination": 0.1,
+      "encouragement_compliance": 0.62,
+      "intracluster_correlation": 0.08,
+      "opportunities_per_cluster": 24
+    },
+    "causal_claim_allowed": false,
+    "design": "cluster-randomized encouragement by RM team",
+    "power_curve": [
+      {
+        "clusters": 24,
+        "mde_absolute_percentage_points": 16.113267016333506
+      },
+      {
+        "clusters": 36,
+        "mde_absolute_percentage_points": 13.15642742641181
+      },
+      {
+        "clusters": 48,
+        "mde_absolute_percentage_points": 11.39380037431895
+      },
+      {
+        "clusters": 60,
+        "mde_absolute_percentage_points": 10.190924863615889
+      },
+      {
+        "clusters": 72,
+        "mde_absolute_percentage_points": 9.302999049404468
+      },
+      {
+        "clusters": 96,
+        "mde_absolute_percentage_points": 8.056633508166753
+      }
+    ],
+    "powered_mde_absolute_percentage_points": 11.39380037431895,
+    "pre_registration_required": [
+      "treatment",
+      "primary outcome",
+      "horizon",
+      "exclusions",
+      "censoring",
+      "ITT analysis"
+    ],
+    "seed": 20260809,
+    "single_simulated_trial": {
+      "complete_cases": 1019,
+      "first_stage": 0.5544582043343653,
+      "itt_absolute_effect": 0.013533281733746128,
+      "iv_label": "DIAGNOSTIC_ONLY_NOT_AN_ESTIMATE_FROM_REAL_OUTCOMES",
+      "wald_iv_complier_effect": 0.024408118822938182
+    },
+    "status": "SIMULATED_TRIAL_DESIGN_ONLY"
+  },
+  "generated_at": "2026-08-09T17:45:19.673379+00:00",
+  "global_watermark": "SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE \u2014 NOT BANK-VALIDATED",
+  "historical_validation": {
+    "entities": 20,
+    "interpretation": "Evaluates temporal mechanics and stability only; supplied histories are synthetic and contain no recommendation/action/outcome labels.",
+    "leave_one_client_out_sector_product_log_mae": 1.3930255342061688,
+    "monthly_records": 3540,
+    "period_end": "2026-06",
+    "period_start": "2023-07",
+    "production_claim_allowed": false,
+    "products": 5,
+    "ranking_stability": {
+      "adjacent_month_top10_jaccard_mean": 0.8121116978259835,
+      "adjacent_month_top10_jaccard_min": 0.42857142857142855,
+      "first_ranked_product_month_frequency": {
+        "Collections": 1.0
+      }
+    },
+    "raw_rows_read": {
+      "cross_border_payments": 241117,
+      "trade_finance": 20303,
+      "transactional_banking": 2802875
+    },
+    "rolling_origin_seasonal_naive": {
+      "by_product": {
+        "Collections": {
+          "coverage_90": 0.7958333333333333,
+          "mae_zar": 36284170.58368727,
+          "median_smape": 0.13095460464577596,
+          "n": 480
+        },
+        "Cross-border FX": {
+          "coverage_90": 0.8333333333333334,
+          "mae_zar": 33513926.665604167,
+          "median_smape": 0.1813706928425557,
+          "n": 480
+        },
+        "Liquidity": {
+          "coverage_90": 0.78125,
+          "mae_zar": 24959370.112699065,
+          "median_smape": 0.3924091443166783,
+          "n": 480
+        },
+        "Payments": {
+          "coverage_90": 0.8020833333333334,
+          "mae_zar": 25749653.435208336,
+          "median_smape": 0.1410043853805215,
+          "n": 480
+        },
+        "Trade finance": {
+          "coverage_90": 0.8071428571428572,
+          "mae_zar": 19888630.101595238,
+          "median_smape": 0.38113802248460177,
+          "n": 420
+        }
+      },
+      "mae_zar": 28289163.51509634,
+      "median_smape": 0.20421586166977346,
+      "n_forecasts": 2340,
+      "nominal_90_interval_coverage": 0.8038461538461539
+    },
+    "status": "SUPPLIED_SYNTHETIC_TRANSACTION_HISTORY",
+    "timing_surrogate": {
+      "decision": "RETAIN_SEASONAL_BASELINE",
+      "discrete_time_challenger": {
+        "brier_improvement": 0.07376393710106549,
+        "challenger": {
+          "brier": 0.10196777754077942,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 559,
+              "observed": 0.046511627906976744,
+              "predicted": 0.043800640405160886
+            },
+            {
+              "bin": 1,
+              "n": 162,
+              "observed": 0.19135802469135801,
+              "predicted": 0.1406364946761993
+            },
+            {
+              "bin": 2,
+              "n": 72,
+              "observed": 0.3472222222222222,
+              "predicted": 0.242686978356085
+            },
+            {
+              "bin": 3,
+              "n": 33,
+              "observed": 0.2727272727272727,
+              "predicted": 0.3511900890812787
+            },
+            {
+              "bin": 4,
+              "n": 19,
+              "observed": 0.3684210526315789,
+              "predicted": 0.44733395783277247
+            },
+            {
+              "bin": 5,
+              "n": 10,
+              "observed": 0.5,
+              "predicted": 0.5523231002172235
+            },
+            {
+              "bin": 6,
+              "n": 12,
+              "observed": 0.5833333333333334,
+              "predicted": 0.6451637648974782
+            },
+            {
+              "bin": 7,
+              "n": 8,
+              "observed": 0.5,
+              "predicted": 0.7406297922570398
+            },
+            {
+              "bin": 8,
+              "n": 6,
+              "observed": 0.3333333333333333,
+              "predicted": 0.8370981494868034
+            },
+            {
+              "bin": 9,
+              "n": 2,
+              "observed": 0.5,
+              "predicted": 0.9186854487785878
+            }
+          ],
+          "expected_calibration_error": 0.03216045287238259,
+          "log_loss": 0.3356651049236432
+        },
+        "mean_surrogate_probability": {
+          "30d": 0.12557185166211607,
+          "60d": 0.23537541339437962,
+          "90d": 0.33139073856082735
+        },
+        "model": "L2-regularized discrete-time logistic hazard",
+        "optimizer_converged": true,
+        "production_claim_allowed": false,
+        "promotion_gate": {
+          "decision": "RETAIN_SEASONAL_BASELINE",
+          "qualified_rm_outcomes_pass": false,
+          "surrogate_performance_pass": true
+        },
+        "seasonal_baseline": {
+          "brier": 0.11008832588707523,
+          "calibration": [
+            {
+              "bin": 0,
+              "n": 377,
+              "observed": 0.050397877984084884,
+              "predicted": 0.05865672621112803
+            },
+            {
+              "bin": 1,
+              "n": 309,
+              "observed": 0.17475728155339806,
+              "predicted": 0.1445910920162278
+            },
+            {
+              "bin": 2,
+              "n": 177,
+              "observed": 0.22033898305084745,
+              "predicted": 0.22904809712530272
+            },
+            {
+              "bin": 3,
+              "n": 20,
+              "observed": 0.25,
+              "predicted": 0.3891638988247318
+            }
+          ],
+          "expected_calibration_error": 0.018980441128260583,
+          "log_loss": 0.36610617456800826
+        },
+        "status": "SURROGATE_CHALLENGER_NOT_PROMOTABLE",
+        "temporal_split_month": "2025-10",
+        "test_events": 117,
+        "test_records": 883,
+        "train_records": 1957
+      },
+      "event_definitions": {
+        "ACTIVATION": "first month with observed product activity",
+        "DORMANCY_80": "monthly volume at most 20% of prior six-month median",
+        "VOLUME_UPLIFT_50": "monthly volume at least 150% of prior six-month median"
+      },
+      "qualified_rm_action_gate": {
+        "decision": "RETAIN_SEASONAL_BASELINE",
+        "eligible_events": 3440,
+        "minimum_eligible_events": 200,
+        "minimum_outcome_events": 80,
+        "outcome_events": 0,
+        "passed": false
+      },
+      "reason": "Transaction-derived events are useful covariates/surrogates but are not recommendation, action or outcome labels.",
+      "start_stop_intervals": 3440,
+      "surrogate_event_counts": {
+        "ACTIVATION": 100,
+        "DORMANCY_80": 45,
+        "VOLUME_UPLIFT_50": 316
+      },
+      "surrogate_gate_if_labels_were_valid": {
+        "decision": "COX_ELIGIBLE",
+        "eligible_events": 3440,
+        "minimum_eligible_events": 200,
+        "minimum_outcome_events": 80,
+        "outcome_events": 361,
+        "passed": true
+      }
+    }
+  },
+  "report_version": "offline-validation-1.0.0",
+  "residual_bank_gates": [
+    "representative E3 multibank calibration panel",
+    "approved Product Finance/Treasury/risk rate inputs",
+    "real eligibility/exposure/action/outcome history",
+    "qualified RM-action timing labels"
+  ],
+  "synthetic_calibration": {
+    "comparisons": {
+      "e1_anchor_coverage_preserved": true,
+      "e1_anchor_median_wallet_interval_narrowing": 0.44449052078203144,
+      "selection_weighted_share_crps_improvement_vs_frozen_prior": 0.029419989112364833
+    },
+    "entities": 240,
+    "gate_interpretation": "Mechanics can be assessed; E3 portfolio calibration gate remains open because the truth and panel are synthetic.",
+    "holdout_entities": 92,
+    "metrics": {
+      "biased_panel_unweighted": {
+        "by_product": {
+          "Collections": {
+            "n": 92,
+            "share_90_coverage": 0.9565217391304348,
+            "share_bias": 0.018234609193043014,
+            "wallet_90_coverage": 0.9565217391304348
+          },
+          "Cross-border FX": {
+            "n": 92,
+            "share_90_coverage": 0.9239130434782609,
+            "share_bias": -0.0021526504036030424,
+            "wallet_90_coverage": 0.9239130434782609
+          },
+          "Liquidity": {
+            "n": 92,
+            "share_90_coverage": 0.9021739130434783,
+            "share_bias": -0.0027982521821962626,
+            "wallet_90_coverage": 0.9021739130434783
+          },
+          "Payments": {
+            "n": 92,
+            "share_90_coverage": 0.8586956521739131,
+            "share_bias": -0.016936738596513214,
+            "wallet_90_coverage": 0.8586956521739131
+          },
+          "Trade finance": {
+            "n": 92,
+            "share_90_coverage": 0.8695652173913043,
+            "share_bias": -0.012587891954021184,
+            "wallet_90_coverage": 0.8695652173913043
+          }
+        },
+        "mean_within_client_rank_spearman": -0.3914770029385311,
+        "median_share_interval_width": 0.4895817369932042,
+        "median_wallet_relative_interval_width": 2.381313013785171,
+        "n_holdout_records": 460,
+        "share_90_coverage": 0.9021739130434783,
+        "share_bias": -0.003248184788658135,
+        "share_crps": 0.08439111076044586,
+        "wallet_90_coverage": 0.9021739130434783,
+        "wallet_scaled_crps": 0.33028616926303817
+      },
+      "frozen_prior": {
+        "by_product": {
+          "Collections": {
+            "n": 92,
+            "share_90_coverage": 0.8586956521739131,
+            "share_bias": 0.029555727056433168,
+            "wallet_90_coverage": 0.8586956521739131
+          },
+          "Cross-border FX": {
+            "n": 92,
+            "share_90_coverage": 0.8152173913043478,
+            "share_bias": -0.003909980114848282,
+            "wallet_90_coverage": 0.8152173913043478
+          },
+          "Liquidity": {
+            "n": 92,
+            "share_90_coverage": 0.8804347826086957,
+            "share_bias": -0.01513333800208665,
+            "wallet_90_coverage": 0.8804347826086957
+          },
+          "Payments": {
+            "n": 92,
+            "share_90_coverage": 0.8260869565217391,
+            "share_bias": -0.04285959040698226,
+            "wallet_90_coverage": 0.8260869565217391
+          },
+          "Trade finance": {
+            "n": 92,
+            "share_90_coverage": 0.8152173913043478,
+            "share_bias": 0.007911261547097863,
+            "wallet_90_coverage": 0.8152173913043478
+          }
+        },
+        "mean_within_client_rank_spearman": -0.45896426849042943,
+        "median_share_interval_width": 0.44981261786794036,
+        "median_wallet_relative_interval_width": 2.120017223263742,
+        "n_holdout_records": 460,
+        "share_90_coverage": 0.8391304347826087,
+        "share_bias": -0.004887183984077233,
+        "share_crps": 0.08658916345930275,
+        "wallet_90_coverage": 0.8391304347826087,
+        "wallet_scaled_crps": 0.32928490816534145
+      },
+      "selection_weighted_panel": {
+        "by_product": {
+          "Collections": {
+            "n": 92,
+            "share_90_coverage": 0.9456521739130435,
+            "share_bias": 0.0011765764394965127,
+            "wallet_90_coverage": 0.9456521739130435
+          },
+          "Cross-border FX": {
+            "n": 92,
+            "share_90_coverage": 0.8695652173913043,
+            "share_bias": -0.010112188901553463,
+            "wallet_90_coverage": 0.8695652173913043
+          },
+          "Liquidity": {
+            "n": 92,
+            "share_90_coverage": 0.8913043478260869,
+            "share_bias": -0.017265704290194143,
+            "wallet_90_coverage": 0.8913043478260869
+          },
+          "Payments": {
+            "n": 92,
+            "share_90_coverage": 0.8478260869565217,
+            "share_bias": -0.027880111733379183,
+            "wallet_90_coverage": 0.8478260869565217
+          },
+          "Trade finance": {
+            "n": 92,
+            "share_90_coverage": 0.8586956521739131,
+            "share_bias": -0.027963688921792376,
+            "wallet_90_coverage": 0.8586956521739131
+          }
+        },
+        "mean_within_client_rank_spearman": -0.3783455332064251,
+        "median_share_interval_width": 0.4825809864270958,
+        "median_wallet_relative_interval_width": 2.6280919879823132,
+        "n_holdout_records": 460,
+        "share_90_coverage": 0.8826086956521739,
+        "share_bias": -0.016409023481484528,
+        "share_crps": 0.08404171121308128,
+        "wallet_90_coverage": 0.8826086956521739,
+        "wallet_scaled_crps": 0.3491518300282305
+      },
+      "selection_weighted_plus_e1_anchor": {
+        "by_product": {
+          "Collections": {
+            "n": 92,
+            "share_90_coverage": 0.9565217391304348,
+            "share_bias": -0.007690157109897106,
+            "wallet_90_coverage": 0.9565217391304348
+          },
+          "Cross-border FX": {
+            "n": 92,
+            "share_90_coverage": 0.8586956521739131,
+            "share_bias": -0.017865437079459007,
+            "wallet_90_coverage": 0.8586956521739131
+          },
+          "Liquidity": {
+            "n": 92,
+            "share_90_coverage": 0.8913043478260869,
+            "share_bias": -0.019926328253276608,
+            "wallet_90_coverage": 0.8913043478260869
+          },
+          "Payments": {
+            "n": 92,
+            "share_90_coverage": 0.8478260869565217,
+            "share_bias": -0.024623354650280874,
+            "wallet_90_coverage": 0.8478260869565217
+          },
+          "Trade finance": {
+            "n": 92,
+            "share_90_coverage": 0.8804347826086957,
+            "share_bias": -0.03291186473546245,
+            "wallet_90_coverage": 0.8804347826086957
+          }
+        },
+        "mean_within_client_rank_spearman": 0.5025740821363233,
+        "median_share_interval_width": 0.3106407341806271,
+        "median_wallet_relative_interval_width": 1.4599300115809706,
+        "n_holdout_records": 460,
+        "share_90_coverage": 0.8869565217391304,
+        "share_bias": -0.020603428365675205,
+        "share_crps": 0.054972699708170626,
+        "wallet_90_coverage": 0.8869565217391304,
+        "wallet_scaled_crps": 0.2204098555979246
+      }
+    },
+    "panel_entities": 148,
+    "production_claim_allowed": false,
+    "records": 1200,
+    "seed": 20260809,
+    "selection_weight_policy": "inverse estimated inclusion probability, clipped at 6.0",
+    "split_conformal_audit": {
+      "calibration_evaluation_entity_disjoint": true,
+      "entity_disjoint_from_model_fit": true,
+      "production_claim_allowed": false,
+      "share": {
+        "by_sector": {
+          "consumer": {
+            "coverage_90": 1.0,
+            "n": 20
+          },
+          "industrials_pharma": {
+            "coverage_90": 0.9,
+            "n": 30
+          },
+          "insurance": {
+            "coverage_90": 0.9,
+            "n": 30
+          },
+          "mining": {
+            "coverage_90": 0.95,
+            "n": 40
+          },
+          "real_estate": {
+            "coverage_90": 0.96,
+            "n": 25
+          },
+          "tech": {
+            "coverage_90": 0.96,
+            "n": 25
+          },
+          "telecoms": {
+            "coverage_90": 0.9166666666666666,
+            "n": 60
+          }
+        },
+        "calibration_records": 230,
+        "conformal_coverage_90": 0.9347826086956522,
+        "conformal_scale_factor": 1.1051136688879768,
+        "evaluation_records": 230,
+        "median_width_increase": 0.1051136688879768,
+        "raw_coverage_90": 0.9
+      },
+      "status": "SYNTHETIC_SPLIT_CONFORMAL_AUDIT",
+      "wallet": {
+        "by_sector": {
+          "consumer": {
+            "coverage_90": 1.0,
+            "n": 20
+          },
+          "industrials_pharma": {
+            "coverage_90": 0.8666666666666667,
+            "n": 30
+          },
+          "insurance": {
+            "coverage_90": 0.8666666666666667,
+            "n": 30
+          },
+          "mining": {
+            "coverage_90": 0.9,
+            "n": 40
+          },
+          "real_estate": {
+            "coverage_90": 0.92,
+            "n": 25
+          },
+          "tech": {
+            "coverage_90": 0.96,
+            "n": 25
+          },
+          "telecoms": {
+            "coverage_90": 0.9166666666666666,
+            "n": 60
+          }
+        },
+        "calibration_records": 230,
+        "conformal_coverage_90": 0.9130434782608695,
+        "conformal_scale_factor": 1.035388879753664,
+        "evaluation_records": 230,
+        "median_width_increase": 0.03538887975366389,
+        "raw_coverage_90": 0.9
+      }
+    },
+    "status": "SYNTHETIC_KNOWN_TRUTH_ONLY",
+    "stress_tests": {
+      "missing_public_anchor": {
+        "anchored_interval_narrowing": 0.44449052078203144,
+        "anchored_wallet_coverage_90": 0.8869565217391304,
+        "unanchored_wallet_coverage_90": 0.8826086956521739
+      },
+      "selection_bias": {
+        "unweighted_share_crps": 0.08439111076044586,
+        "weighted_share_crps": 0.08404171121308128
+      }
+    }
+  }
+}

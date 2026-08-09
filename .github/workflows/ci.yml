@@ -1,0 +1,55 @@
+name: v2-control-plane-ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+        with: { version: "0.9.2", enable-cache: true }
+      - run: uv lock --check
+      - run: uv sync --frozen --extra genai --extra production
+      - run: uv run python scripts/export_v2_contracts.py
+      - run: uv run pytest --cov=wallet_twin_v2 --cov-report=term-missing
+      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json
+  workbench:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: dashboard } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22.14", cache: npm, cache-dependency-path: dashboard/package-lock.json }
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm audit --omit=dev --audit-level=high
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --pull --tag wallet-twin:${{ github.sha }} .
+      - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2"
+      - uses: anchore/sbom-action@v0
+        with: { image: "wallet-twin:${{ github.sha }}", format: spdx-json, output-file: sbom.spdx.json }
+      - uses: aquasecurity/trivy-action@0.28.0
+        with:
+          image-ref: "wallet-twin:${{ github.sha }}"
+          severity: "CRITICAL,HIGH"
+          exit-code: "1"
+          ignore-unfixed: true
+      # Bank CI must additionally sign and attest the promoted artifact.
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: gitleaks/gitleaks-action@v2

@@ -1,0 +1,56 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "event_name": {
+      "title": "Event Name",
+      "type": "string"
+    },
+    "maturity_days": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Maturity Days"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "recurrence": {
+      "default": 0.5,
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Recurrence",
+      "type": "number"
+    },
+    "seasonal_ratio": {
+      "exclusiveMinimum": 0,
+      "title": "Seasonal Ratio",
+      "type": "number"
+    }
+  },
+  "required": [
+    "entity_id",
+    "product",
+    "as_of",
+    "event_name",
+    "seasonal_ratio"
+  ],
+  "title": "TimingRequest",
+  "type": "object"
+}

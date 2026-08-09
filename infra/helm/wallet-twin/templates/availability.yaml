@@ -1,0 +1,28 @@
+{{- range .Values.services }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata: { name: wallet-{{ .name }} }
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels: { app.kubernetes.io/name: wallet-{{ .name }} }
+{{- if $.Values.autoscaling.enabled }}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata: { name: wallet-{{ .name }} }
+spec:
+  scaleTargetRef: { apiVersion: apps/v1, kind: Deployment, name: wallet-{{ .name }} }
+  minReplicas: {{ $.Values.autoscaling.minReplicas }}
+  maxReplicas: {{ $.Values.autoscaling.maxReplicas }}
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target: { type: Utilization, averageUtilization: {{ $.Values.autoscaling.cpuUtilization }} }
+{{- end }}
+{{- end }}

@@ -1,0 +1,85 @@
+{
+  "generated_at": "2026-08-09T17:45:24.803201+00:00",
+  "team": "Corporate Wallet Digital Twin",
+  "member": "Christopher Koen",
+  "solution_version": "V2.1",
+  "history_mode": "supplied-confidential-archive",
+  "checks": [
+    {
+      "command": "scripts/run_client_demo.py",
+      "status": "passed",
+      "stdout_tail": [
+        "    \"entitlement_negative_tests\": true,",
+        "    \"recovery_rehearsal_byte_identical\": true,",
+        "    \"no_false_e3_claim\": true,",
+        "    \"no_false_causal_claim\": true,",
+        "    \"bank_production_remains_fail_closed\": true",
+        "  },",
+        "  \"bank_production_release_allowed\": false",
+        "}"
+      ]
+    },
+    {
+      "command": "scripts/run_evidence_qa.py",
+      "status": "passed",
+      "stdout_tail": [
+        "{",
+        "  \"documents\": 17,",
+        "  \"document_passes\": 17,",
+        "  \"facts\": 51,",
+        "  \"fact_passes\": 51,",
+        "  \"ready_for_finance_sme\": 51,",
+        "  \"production_approval_claim_allowed\": false",
+        "}"
+      ]
+    },
+    {
+      "command": "scripts/run_genai_evals.py",
+      "status": "passed",
+      "stdout_tail": [
+        "      \"openai\": \"CONFIGURABLE_NOT_EXECUTED\",",
+        "      \"anthropic\": \"CONFIGURABLE_NOT_EXECUTED\",",
+        "      \"google\": \"CONFIGURABLE_NOT_EXECUTED\"",
+        "    },",
+        "    \"production_release_allowed\": false,",
+        "    \"reason\": \"The deterministic baseline, evidence-register replay and page-grounding checks cannot replace independent finance-SME adjudication or bank-approved live-provider evaluation.\"",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "command": "scripts/export_v2_contracts.py",
+      "status": "passed",
+      "stdout_tail": [
+        "{\"schemas\": 15, \"opportunities\": 100, \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\dashboard\\\\app\\\\data\"}"
+      ]
+    },
+    {
+      "command": "scripts/validate_production_target.py",
+      "status": "passed",
+      "stdout_tail": [
+        "    \"aws_account_provisioned\": false,",
+        "    \"databricks_workspace_provisioned\": false,",
+        "    \"bank_sso_federated\": false,",
+        "    \"unity_catalog_policies_applied\": false,",
+        "    \"siem_destination_connected\": false,",
+        "    \"production_feeds_connected\": false",
+        "  }",
+        "}"
+      ]
+    },
+    {
+      "command": "scripts/run_offline_validation.py --data-zip C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\ref\\Data Sets\\Data.zip",
+      "status": "passed",
+      "stdout_tail": [
+        "{",
+        "  \"report_version\": \"offline-validation-1.0.0\",",
+        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v2_validation\\\\offline_validation_report.json\",",
+        "  \"watermark\": \"SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE \\u2014 NOT BANK-VALIDATED\"",
+        "}"
+      ]
+    }
+  ],
+  "status": "PASSED",
+  "claim_boundary": "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE BENCHMARKS"
+}

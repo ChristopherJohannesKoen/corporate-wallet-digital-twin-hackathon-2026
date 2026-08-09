@@ -1,0 +1,107 @@
+{
+  "artifacts": {
+    "outcomes": {
+      "path": "outputs\\client_demo\\simulated_trial_outcomes.csv",
+      "sha256": "3629fda439cb5c43b07b2aeae694b68b867b5e7b37a83b5b493923cb62ff8ec6"
+    },
+    "panel": {
+      "path": "outputs\\client_demo\\representative_multibank_analog.csv",
+      "sha256": "dfecddf995a9ac4b0a0ac8fd7a6d71d68b10698ab056f252d6df7092ce47b344"
+    }
+  },
+  "as_of": "2026-08-09",
+  "claim_boundary": {
+    "bank_production_ready": false,
+    "causal_uplift_label_allowed": false,
+    "client_demo_ready": true,
+    "financial_decision_use_allowed": false,
+    "measured_share_label_allowed": false
+  },
+  "registry_validation": {
+    "datasets": 5,
+    "findings": [],
+    "local_snapshots_verified": 4,
+    "passed": true,
+    "production_e3_claim_allowed": false,
+    "registry_version": "external-data-registry-1.0.0"
+  },
+  "representative_panel": {
+    "known_truth": true,
+    "observations": 1500,
+    "production_e3_eligible": false,
+    "products": 5,
+    "relationships": 300,
+    "selection_weighted": true,
+    "strata": {
+      "geography": {
+        "Global": 255,
+        "Rest of Africa": 275,
+        "SADC": 285,
+        "South Africa": 685
+      },
+      "product": {
+        "Collections": 300,
+        "Cross-border FX": 300,
+        "Liquidity": 300,
+        "Payments": 300,
+        "Trade finance": 300
+      },
+      "relationship_maturity": {
+        "developing": 525,
+        "established": 675,
+        "new": 300
+      },
+      "sector": {
+        "consumer": 355,
+        "industrials_pharma": 125,
+        "insurance": 125,
+        "mining": 445,
+        "real_estate": 205,
+        "tech": 135,
+        "telecoms": 110
+      },
+      "size_bucket": {
+        "large": 385,
+        "mid": 480,
+        "upper_mid": 635
+      }
+    }
+  },
+  "source_estate": {
+    "audited_public_e1_facts": 82,
+    "finqa_numerical_reasoning_cases": 8281,
+    "named_client_competitor_observations": 0,
+    "remote_federated_transaction_rows": 6362620,
+    "representative_trade_finance_rows": 10000,
+    "synbank_rows": 3064295
+  },
+  "status": "CLIENT_DEMO_DATA_READY",
+  "trade_finance_reference": {
+    "approval_rate": 0.4654,
+    "classification": "REPRESENTATIVE_SYNTHETIC_PUBLIC",
+    "collateral_rate": 0.5902,
+    "countries": 40,
+    "processing_days": {
+      "p10": 8.900000000000091,
+      "p50": 21.0,
+      "p90": 37.0
+    },
+    "records": 10000,
+    "requested_amount_usd": {
+      "p10": 5000.0,
+      "p50": 21939.025,
+      "p90": 151366.16100000005
+    },
+    "source_revision": "d58f99fe2947f6613f321418bba5cf91cad805b1"
+  },
+  "trial_analog": {
+    "clusters": 30,
+    "eligible_opportunities": 1500,
+    "pipeline_milestones_60d": 356,
+    "production_causal_claim_allowed": false,
+    "qualified_actions_30d": 387,
+    "reconciled_outcomes_90d": 192
+  },
+  "version": "client-demo-data-estate-1.0.0",
+  "watermark": "CLIENT DEMONSTRATION \u2014 SIMULATED/REPRESENTATIVE DATA \u2014 NOT FOR FINANCIAL DECISIONS"
+}

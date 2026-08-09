@@ -1,0 +1,47 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.venv/
+
+# Credentials and local configuration.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Supplied hackathon material is confidential and must not be published.
+ref/
+
+# Downloaded third-party datasets and source repositories are reproducible from
+# data/v2/external_dataset_registry.json and are intentionally excluded.
+data/v2/external/
+
+# Local build/runtime caches.
+tmp/
+outputs/cache/
+outputs/v2_validation_smoke/
+dashboard/node_modules/
+dashboard/.next/
+dashboard/dist/
+dashboard/.wrangler/
+
+# Render-and-verify intermediates; keep only final judging artifacts.
+output/presentation/slide-*.png
+output/presentation/slide-*.layout.json
+output/presentation/*montage*
+output/presentation/*.inspect.ndjson
+output/presentation/Corporate-Wallet-Digital-Twin/
+output/pdf/rendered/
+~$*.docx
+
+# OS/editor noise.
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

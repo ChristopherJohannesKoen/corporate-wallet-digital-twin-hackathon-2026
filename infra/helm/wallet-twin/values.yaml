@@ -1,0 +1,34 @@
+image:
+  repository: 000000000000.dkr.ecr.af-south-1.amazonaws.com/wallet-twin
+  digest: "sha256:REQUIRED"
+replicaCount: 2
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 8
+  cpuUtilization: 65
+environment: SHADOW
+shadowMode: true
+runtime:
+  configMapName: wallet-runtime-config
+  existingSecretName: wallet-runtime-secrets
+  otelEndpoint: "https://REQUIRED"
+  oidcIssuer: "https://REQUIRED"
+  oidcAudience: "wallet-twin"
+  opaUrl: "https://wallet-opa.wallet-system.svc.cluster.local:8181"
+  unityCatalog: "wallet_twin"
+  mlflowRegistryUri: "databricks-uc"
+resources:
+  requests: { cpu: 250m, memory: 512Mi }
+  limits: { cpu: "1", memory: 1Gi }
+services:
+  - { name: ingestion, app: ingestion_app, irsaRoleArn: "REQUIRED_INGESTION_ROLE" }
+  - { name: evidence, app: evidence_app, irsaRoleArn: "REQUIRED_EVIDENCE_ROLE" }
+  - { name: economics, app: economics_app, irsaRoleArn: "REQUIRED_ECONOMICS_ROLE" }
+  - { name: wallet-model, app: wallet_model_app, irsaRoleArn: "REQUIRED_WALLET_MODEL_ROLE" }
+  - { name: timing, app: timing_app, irsaRoleArn: "REQUIRED_TIMING_ROLE" }
+  - { name: recommendation, app: recommendation_app, irsaRoleArn: "REQUIRED_RECOMMENDATION_ROLE" }
+  - { name: experiment, app: experiment_app, irsaRoleArn: "REQUIRED_EXPERIMENT_ROLE" }
+  - { name: genai, app: genai_app, irsaRoleArn: "REQUIRED_GENAI_ROLE" }
+  - { name: entitlement, app: entitlement_app, irsaRoleArn: "REQUIRED_ENTITLEMENT_ROLE" }
+  - { name: workbench-bff, app: workbench_bff_app, irsaRoleArn: "REQUIRED_WORKBENCH_ROLE" }

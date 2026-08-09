@@ -1,0 +1,30 @@
+{
+  "version": "e0-benchmark-rate-cards-1.0.0",
+  "as_of": "2026-06-30",
+  "claim_class": "SCENARIO",
+  "evidence_tier": "E0",
+  "approval_status": "DRAFT",
+  "production_eligible": false,
+  "watermark": "SIMULATED BENCHMARK ECONOMICS — NOT BANK-APPROVED PRICING",
+  "method": "Transparent conservative/reference/upside benchmark packs derived from the frozen V1 governed ranges. Cost allocations are explicit modelling assumptions, not Standard Bank rates.",
+  "packs": {
+    "conservative": {
+      "target_share": 0.30,
+      "gross_price_bps": {"Collections": 0.5, "Payments": 0.3, "Liquidity": 2.0, "Cross-border FX": 4.0, "Trade finance": 20.0},
+      "cost_fraction_of_gross": {"client_discount": 0.12, "ftp": 0.10, "liquidity": 0.08, "expected_loss": 0.06, "capital": 0.10, "hedging": 0.04, "execution": 0.03, "servicing": 0.06, "operating_cost": 0.10, "tax": 0.05},
+      "hurdle_bps": 0.0
+    },
+    "reference": {
+      "target_share": 0.40,
+      "gross_price_bps": {"Collections": 1.2, "Payments": 0.8, "Liquidity": 6.0, "Cross-border FX": 9.0, "Trade finance": 45.0},
+      "cost_fraction_of_gross": {"client_discount": 0.08, "ftp": 0.07, "liquidity": 0.05, "expected_loss": 0.04, "capital": 0.07, "hedging": 0.03, "execution": 0.02, "servicing": 0.04, "operating_cost": 0.07, "tax": 0.03},
+      "hurdle_bps": 0.0
+    },
+    "upside": {
+      "target_share": 0.50,
+      "gross_price_bps": {"Collections": 2.5, "Payments": 1.6, "Liquidity": 12.0, "Cross-border FX": 18.0, "Trade finance": 85.0},
+      "cost_fraction_of_gross": {"client_discount": 0.06, "ftp": 0.05, "liquidity": 0.04, "expected_loss": 0.03, "capital": 0.05, "hedging": 0.02, "execution": 0.02, "servicing": 0.03, "operating_cost": 0.05, "tax": 0.02},
+      "hurdle_bps": 0.0
+    }
+  }
+}

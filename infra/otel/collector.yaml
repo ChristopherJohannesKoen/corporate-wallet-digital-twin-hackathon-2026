@@ -1,0 +1,22 @@
+receivers:
+  otlp:
+    protocols:
+      grpc: {}
+      http: {}
+processors:
+  memory_limiter: { check_interval: 1s, limit_percentage: 75, spike_limit_percentage: 15 }
+  batch: { send_batch_size: 1024, timeout: 5s }
+  attributes/redact:
+    actions:
+      - { key: client.name, action: delete }
+      - { key: user.email, action: delete }
+      - { key: document.content, action: delete }
+exporters:
+  otlphttp/approved_observability:
+    endpoint: ${env:OTEL_APPROVED_ENDPOINT}
+    headers: { Authorization: "Bearer ${env:OTEL_EXPORT_TOKEN}" }
+service:
+  pipelines:
+    traces: { receivers: [otlp], processors: [memory_limiter, attributes/redact, batch], exporters: [otlphttp/approved_observability] }
+    metrics: { receivers: [otlp], processors: [memory_limiter, batch], exporters: [otlphttp/approved_observability] }
+    logs: { receivers: [otlp], processors: [memory_limiter, attributes/redact, batch], exporters: [otlphttp/approved_observability] }

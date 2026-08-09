@@ -1,0 +1,71 @@
+name: wallet-twin-v2-local
+
+services:
+  postgres:
+    image: postgres:16.4-alpine
+    environment:
+      POSTGRES_DB: wallet_twin
+      POSTGRES_USER: wallet_local
+      POSTGRES_PASSWORD: local-only-change-me
+    ports: ["127.0.0.1:5432:5432"]
+    volumes:
+      - ../sql/001_operational_schemas.sql:/docker-entrypoint-initdb.d/001_operational_schemas.sql:ro
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U wallet_local -d wallet_twin"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  redpanda:
+    image: redpandadata/redpanda:v24.1.15
+    command: ["redpanda", "start", "--overprovisioned", "--smp", "1", "--memory", "768M", "--reserve-memory", "0M", "--node-id", "0", "--check=false", "--kafka-addr", "0.0.0.0:9092", "--advertise-kafka-addr", "redpanda:9092"]
+    ports: ["127.0.0.1:9092:9092"]
+    healthcheck:
+      test: ["CMD-SHELL", "rpk cluster health | grep -q 'Healthy:.*true'"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  minio:
+    image: minio/minio:RELEASE.2024-07-16T23-46-41Z
+    command: server /data --console-address :9001
+    environment:
+      MINIO_ROOT_USER: local-minio
+      MINIO_ROOT_PASSWORD: local-only-change-me
+    ports: ["127.0.0.1:9000:9000", "127.0.0.1:9001:9001"]
+    volumes: ["minio-data:/data"]
+
+  opa:
+    image: openpolicyagent/opa:0.68.0-static
+    command: ["run", "--server", "--addr=0.0.0.0:8181", "/policies/client_entitlements.rego"]
+    ports: ["127.0.0.1:8181:8181"]
+    volumes:
+      - ../policy/client_entitlements.rego:/policies/client_entitlements.rego:ro
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.106.1
+    command: ["--config=/etc/otelcol-contrib/config.yaml"]
+    ports: ["127.0.0.1:4317:4317", "127.0.0.1:4318:4318"]
+    volumes:
+      - ./otel-collector.yaml:/etc/otelcol-contrib/config.yaml:ro
+
+  integration-mocks:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    command: ["uvicorn", "wallet_twin_v2.mock_integrations:app", "--host", "0.0.0.0", "--port", "8088"]
+    environment:
+      GENAI_PROVIDER: deterministic
+    ports: ["127.0.0.1:8088:8088"]
+
+  spark:
+    image: bitnami/spark:3.5.1
+    profiles: ["delta"]
+    environment:
+      SPARK_MODE: master
+    ports: ["127.0.0.1:7077:7077", "127.0.0.1:8080:8080"]
+
+volumes:
+  postgres-data: {}
+  minio-data: {}

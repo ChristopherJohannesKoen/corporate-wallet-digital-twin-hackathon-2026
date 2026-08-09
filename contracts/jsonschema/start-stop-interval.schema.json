@@ -1,0 +1,60 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "censored": {
+      "title": "Censored",
+      "type": "boolean"
+    },
+    "covariates": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Covariates",
+      "type": "object"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "event_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Event Code"
+    },
+    "opportunity_id": {
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "start_at": {
+      "format": "date-time",
+      "title": "Start At",
+      "type": "string"
+    },
+    "stop_at": {
+      "format": "date-time",
+      "title": "Stop At",
+      "type": "string"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "entity_id",
+    "product",
+    "start_at",
+    "stop_at",
+    "censored"
+  ],
+  "title": "StartStopInterval",
+  "type": "object"
+}

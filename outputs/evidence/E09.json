@@ -1,0 +1,1876 @@
+{
+  "metadata": {
+    "title": "Corporate Wallet Digital Twin",
+    "model_version": "1.1.0",
+    "as_of": "2026-06-30",
+    "period_start": "2023-07-01",
+    "period_end": "2026-06-30",
+    "generated_from": "supplied synthetic banking datasets plus point-in-time audited public facts for three showcase clients",
+    "currency": "ZAR"
+  },
+  "client": {
+    "entity_id": "E09",
+    "entity_name": "Shoprite Holdings",
+    "sector": "consumer",
+    "observed_ltm_zar": 15217941009.390005,
+    "relationship_breadth": 5,
+    "country_count": 21,
+    "top_countries": [
+      {
+        "name": "Ghana",
+        "value_zar": 901171291.8000016
+      },
+      {
+        "name": "Zambia",
+        "value_zar": 782329443.0500009
+      },
+      {
+        "name": "Switzerland",
+        "value_zar": 781849059.7299997
+      },
+      {
+        "name": "Malawi",
+        "value_zar": 781801454.7300005
+      },
+      {
+        "name": "Lesotho",
+        "value_zar": 770889631.5400006
+      }
+    ],
+    "top_currencies": [
+      {
+        "name": "USD/ZAR",
+        "value_zar": 2118592931.7
+      },
+      {
+        "name": "GBP/ZAR",
+        "value_zar": 2055583709.649997
+      },
+      {
+        "name": "EUR/ZAR",
+        "value_zar": 2019572284.439999
+      },
+      {
+        "name": "CNY/ZAR",
+        "value_zar": 1972637271.3500009
+      },
+      {
+        "name": "AED/ZAR",
+        "value_zar": 1942334036.8299968
+      }
+    ],
+    "monthly": {
+      "Collections": [
+        {
+          "month": "2023-07",
+          "value_zar": 214058846.15999967
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 207569626.54999998
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 198253977.1199999
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 218365013.53999966
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 358757189.0500003
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 364633186.7600009
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 140872240.78999984
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 153191407.26999995
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 188504076.8300002
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 215488111.15999988
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 204651510.5100002
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 194525013.12
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 217047509.27999967
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 212688216.24999988
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 203252871.3800003
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 225132402.9200001
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 333081748.3899995
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 351266148.77999985
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 130069788.38999994
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 136921785.8899999
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 161256889.37000018
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 206436417.7499998
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 209610678.9000001
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 206134869.10000023
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 206457592.2400001
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 215131782.5800001
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 212197484.65999976
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 214165358.7899995
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 356081986.2599998
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 367234009.92
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 132217753.33
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 155431922.74999985
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 166824039.8499998
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 206559903.20000023
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 228652776.04999992
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 212540479.22999987
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2023-07",
+          "value_zar": 617607858.2300005
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 611261677.0999993
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 573388171.5600005
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 638478982.0999999
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 1011472367.5799998
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 1088214860.8200004
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 367916618.3000006
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 454719003.6599994
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 515770104.7000011
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 610199695.9000002
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 557369284.4800006
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 615855118.2799987
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 587580174.3699999
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 615928463.4399999
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 583398039.4800012
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 592411216.4499998
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 977942256.8000015
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 1026162567.0399983
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 401249205.5199996
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 445444840.19000006
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 490966930.82000005
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 585599148.2300004
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 618137096.8899983
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 584568665.8800001
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 613956776.0600034
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 644099974.4399993
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 587454494.1400014
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 615987845.35
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 1040268679.7200006
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 950144948.1400014
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 380833922.2299996
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 450860354.5
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 470749284.99000007
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 592908691.0899991
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 680651625.0499989
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 630001377.9000008
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2023-07",
+          "value_zar": 415833352.1949999
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 409415651.8249996
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 385821074.34000015
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 428421997.8200003
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 685114778.3150004
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 726424023.7899996
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 254394429.54499993
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 303955205.46500015
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 352137090.76500034
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 412843903.5300002
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 381010397.495
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 405190065.7000005
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 402313841.82500017
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 414308339.8450003
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 393325455.4299998
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 408771809.68499976
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 655512002.5950005
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 688714357.9099998
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 265659496.95499995
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 291183313.0399999
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 326111910.0949996
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 396017782.9899997
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 413873887.89500034
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 395351767.4899997
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 410207184.15
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 429615878.51000035
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 399825989.4000006
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 415076602.0700004
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 698175332.9900004
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 658689479.0300002
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 256525837.77999985
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 303146138.62499994
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 318786662.4199996
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 399734297.1449998
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 454652200.55000013
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 421270928.5649997
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2023-07",
+          "value_zar": 279938943.99999994
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 309418528.7000002
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 323350048.1000001
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 233864006.50999996
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 306723999.66999996
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 248310665.4500001
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 286775647.48000014
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 274618346.15999997
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 259569035.53000027
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 221532074.9300001
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 305072574.7399998
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 256683607.1900001
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 335367649.8000001
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 235162818.94000012
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 257009833.74000007
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 273022229.90999997
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 268357169.25999993
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 278830834.83000004
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 323275805.8899996
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 249063201.87000012
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 336377763.75000024
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 310508073.81999964
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 346250442.9900002
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 242199570.3000001
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 266341760.6500001
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 255249371.93000022
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 275482904.20000005
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 283892505.7100003
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 229030433.5399998
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 339893970.3699999
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 277778001.09999996
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 287417732.08000016
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 388825061.9
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 278150790.69000006
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 225751570.19000003
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 239623258.05
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2023-07",
+          "value_zar": 90829143.07000001
+        },
+        {
+          "month": "2023-08",
+          "value_zar": 128534044.19
+        },
+        {
+          "month": "2023-09",
+          "value_zar": 77476061.66999997
+        },
+        {
+          "month": "2023-10",
+          "value_zar": 122068347.52999997
+        },
+        {
+          "month": "2023-11",
+          "value_zar": 81025632.23
+        },
+        {
+          "month": "2023-12",
+          "value_zar": 111545641.39999999
+        },
+        {
+          "month": "2024-01",
+          "value_zar": 129505449.97
+        },
+        {
+          "month": "2024-02",
+          "value_zar": 112180105.09000003
+        },
+        {
+          "month": "2024-03",
+          "value_zar": 91753726.03999999
+        },
+        {
+          "month": "2024-04",
+          "value_zar": 103143727.71000002
+        },
+        {
+          "month": "2024-05",
+          "value_zar": 89211046.63000004
+        },
+        {
+          "month": "2024-06",
+          "value_zar": 96021240.56999996
+        },
+        {
+          "month": "2024-07",
+          "value_zar": 109848950.74000001
+        },
+        {
+          "month": "2024-08",
+          "value_zar": 140861815.28000003
+        },
+        {
+          "month": "2024-09",
+          "value_zar": 148764626.89000002
+        },
+        {
+          "month": "2024-10",
+          "value_zar": 109317346.19000001
+        },
+        {
+          "month": "2024-11",
+          "value_zar": 88302898.71000002
+        },
+        {
+          "month": "2024-12",
+          "value_zar": 168500474.7
+        },
+        {
+          "month": "2025-01",
+          "value_zar": 91462495.48
+        },
+        {
+          "month": "2025-02",
+          "value_zar": 132129298.90000002
+        },
+        {
+          "month": "2025-03",
+          "value_zar": 95762370.16999996
+        },
+        {
+          "month": "2025-04",
+          "value_zar": 138906095.7800001
+        },
+        {
+          "month": "2025-05",
+          "value_zar": 141942065.53
+        },
+        {
+          "month": "2025-06",
+          "value_zar": 107233936.82999997
+        },
+        {
+          "month": "2025-07",
+          "value_zar": 116360678.64000002
+        },
+        {
+          "month": "2025-08",
+          "value_zar": 153519286.02
+        },
+        {
+          "month": "2025-09",
+          "value_zar": 115752249.2
+        },
+        {
+          "month": "2025-10",
+          "value_zar": 163971652.54999998
+        },
+        {
+          "month": "2025-11",
+          "value_zar": 119662305.54
+        },
+        {
+          "month": "2025-12",
+          "value_zar": 91819434.68
+        },
+        {
+          "month": "2026-01",
+          "value_zar": 175752723.81000003
+        },
+        {
+          "month": "2026-02",
+          "value_zar": 86707960.21000002
+        },
+        {
+          "month": "2026-03",
+          "value_zar": 102513373.98
+        },
+        {
+          "month": "2026-04",
+          "value_zar": 150544869.79
+        },
+        {
+          "month": "2026-05",
+          "value_zar": 133062168.82999995
+        },
+        {
+          "month": "2026-06",
+          "value_zar": 129423883.26000004
+        }
+      ]
+    },
+    "forecasts": {
+      "Collections": [
+        {
+          "month": "2026-07",
+          "value_zar": 216637961.1859609,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 225739873.5438852,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 222660886.17411038,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Payments": [
+        {
+          "month": "2026-07",
+          "value_zar": 629676945.1995325,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 660591950.6438316,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 602496080.730056,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Liquidity": [
+        {
+          "month": "2026-07",
+          "value_zar": 423156146.27317774,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 443177512.6141644,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 412447249.5647409,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Cross-border FX": [
+        {
+          "month": "2026-07",
+          "value_zar": 250115499.7739343,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 239698889.39477813,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 258699740.1196231,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ],
+      "Trade finance": [
+        {
+          "month": "2026-07",
+          "value_zar": 127967977.07245386,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-08",
+          "value_zar": 168833257.96308577,
+          "method": "seasonal_naive_with_capped_trend"
+        },
+        {
+          "month": "2026-09",
+          "value_zar": 127298855.11873089,
+          "method": "seasonal_naive_with_capped_trend"
+        }
+      ]
+    },
+    "latent_state": {
+      "operating_scale": 75.0,
+      "working_capital_intensity": 67.9,
+      "liquidity_volatility": 5.9,
+      "international_exposure": 32.1,
+      "financing_need": 10.4,
+      "event_intensity": 100.0,
+      "relationship_complexity": 100.0
+    },
+    "public_facts": [
+      {
+        "fact_id": "SHP-2025-REV",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "revenue",
+        "value": 256682.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "19",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Consolidated statement of comprehensive income revenue",
+        "fx_to_zar": 1.0,
+        "value_zar": 256682000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-COST",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "operating_cost_base",
+        "value": 191259.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "19",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Cost of sales",
+        "fx_to_zar": 1.0,
+        "value_zar": 191259000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-AR-OPEN",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "trade_receivables_open",
+        "value": 6714.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2023-07-01",
+        "period_end": "2024-06-30",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Current plus non-current trade and other receivables comparative balance",
+        "fx_to_zar": 1.0,
+        "value_zar": 6714000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-AR-CLOSE",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "trade_receivables_close",
+        "value": 6291.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Current plus non-current trade and other receivables closing balance",
+        "fx_to_zar": 1.0,
+        "value_zar": 6291000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-INV-OPEN",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "inventories_open",
+        "value": 28366.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2023-07-01",
+        "period_end": "2024-06-30",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Inventories comparative balance",
+        "fx_to_zar": 1.0,
+        "value_zar": 28366000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-INV-CLOSE",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "inventories_close",
+        "value": 29748.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Inventories closing balance",
+        "fx_to_zar": 1.0,
+        "value_zar": 29748000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-AP-OPEN",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "trade_payables_open",
+        "value": 32544.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2023-07-01",
+        "period_end": "2024-06-30",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited comparative",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Current plus non-current trade and other payables comparative balance",
+        "fx_to_zar": 1.0,
+        "value_zar": 32544000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-AP-CLOSE",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "trade_payables_close",
+        "value": 34160.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Current plus non-current trade and other payables closing balance",
+        "fx_to_zar": 1.0,
+        "value_zar": 34160000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-FX",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "fx_exposure",
+        "value": 3572.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "118-119",
+        "method": "direct audited note",
+        "confidence": 0.95,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Sum of absolute significant net monetary currency concentrations",
+        "fx_to_zar": 1.0,
+        "value_zar": 3572000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-DEBT",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "current_debt",
+        "value": 489.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Current borrowings",
+        "fx_to_zar": 1.0,
+        "value_zar": 489000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      },
+      {
+        "fact_id": "SHP-2025-STF",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "concept": "short_term_facilities",
+        "value": 1863.0,
+        "unit": "million",
+        "currency": "ZAR",
+        "period_start": "2024-07-01",
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "source_title": "Shoprite Holdings Annual Financial Statements 2025",
+        "source_url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf",
+        "page": "18",
+        "method": "direct audited line item",
+        "confidence": 0.99,
+        "audit_status": "audited",
+        "source_date": "2025-10-01",
+        "notes": "Bank overdrafts and other short-term facilities",
+        "fx_to_zar": 1.0,
+        "value_zar": 1863000000.0,
+        "translation_basis": "identity: source currency is ZAR"
+      }
+    ],
+    "public_anchors": {
+      "Collections": {
+        "product": "Collections",
+        "name": "Audited cash-collections identity",
+        "low_zar": 226252400000.0,
+        "base_zar": 257105000000.0,
+        "high_zar": 287957600000.0,
+        "weight": 0.84,
+        "formula": "Revenue + opening trade receivables - closing trade receivables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112% to allow non-cash and classification effects.",
+        "fact_ids": [
+          "SHP-2025-REV",
+          "SHP-2025-AR-OPEN",
+          "SHP-2025-AR-CLOSE"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18",
+          "Shoprite Holdings Annual Financial Statements 2025 p.19"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      },
+      "Payments": {
+        "product": "Payments",
+        "name": "Audited supplier-payments identity",
+        "low_zar": 168102000000.0,
+        "base_zar": 191025000000.0,
+        "high_zar": 213948000000.00003,
+        "weight": 0.84,
+        "formula": "Cost base + closing inventory - opening inventory + opening trade payables - closing trade payables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112%; BHP's cost base is expenses excluding net finance costs.",
+        "fact_ids": [
+          "SHP-2025-COST",
+          "SHP-2025-INV-OPEN",
+          "SHP-2025-INV-CLOSE",
+          "SHP-2025-AP-OPEN",
+          "SHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18",
+          "Shoprite Holdings Annual Financial Statements 2025 p.19"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      },
+      "Trade finance": {
+        "product": "Trade finance",
+        "name": "Audited payments base \u00d7 trade-utilisation range",
+        "low_zar": 955125000.0,
+        "base_zar": 2865375000.0,
+        "high_zar": 7641000000.0,
+        "weight": 0.84,
+        "formula": "Audited supplier-payments proxy \u00d7 declared sector trade-finance utilisation",
+        "transformation_assumption": "Sector utilisation low/base/high = 0.5%/1.5%/4.0%.",
+        "fact_ids": [
+          "SHP-2025-COST",
+          "SHP-2025-INV-OPEN",
+          "SHP-2025-INV-CLOSE",
+          "SHP-2025-AP-OPEN",
+          "SHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18",
+          "Shoprite Holdings Annual Financial Statements 2025 p.19"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      },
+      "Cross-border FX": {
+        "product": "Cross-border FX",
+        "name": "Audited FX exposure/notional turnover range",
+        "low_zar": 3572000000.0,
+        "base_zar": 7144000000.0,
+        "high_zar": 14288000000.0,
+        "weight": 0.84,
+        "formula": "Audited FX point exposure or hedge notional \u00d7 annual turnover multiple",
+        "transformation_assumption": "Annual turnover low/base/high = 1.0x/2.0x/4.0x the disclosed point exposure/notional.",
+        "fact_ids": [
+          "SHP-2025-FX"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.118-119"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      },
+      "Liquidity": {
+        "product": "Liquidity",
+        "name": "Audited debt-maturity liquidity range",
+        "low_zar": 1764000000.0,
+        "base_zar": 2352000000.0,
+        "high_zar": 3528000000.0,
+        "weight": 0.84,
+        "formula": "Current debt maturity/refinancing amount \u00d7 declared liquidity multiple",
+        "transformation_assumption": "Liquidity low/base/high = 0.75x/1.00x/1.50x current debt and facilities.",
+        "fact_ids": [
+          "SHP-2025-DEBT",
+          "SHP-2025-STF"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      }
+    },
+    "debt_maturity_anchor": {
+      "name": "Audited current debt-maturity/refinancing anchor",
+      "base_zar": 2352000000.0,
+      "low_zar": 1764000000.0,
+      "high_zar": 3528000000.0,
+      "fact_ids": [
+        "SHP-2025-DEBT",
+        "SHP-2025-STF"
+      ],
+      "source_pages": [
+        "Shoprite Holdings Annual Financial Statements 2025 p.18"
+      ],
+      "period_end": "2025-06-29",
+      "available_date": "2025-10-13",
+      "audit_status": "audited",
+      "formula": "Current borrowings + disclosed short-term facilities"
+    },
+    "timing": {
+      "trade_events_next_90d": 152,
+      "trade_events_value_zar": 342974456.46,
+      "next_quarter_forecast_zar": 3730417916.9199834,
+      "reason": "Audited current debt and facilities of ZAR 2.4bn create a dated refinancing/liquidity anchor; Collections is the strongest modelled window."
+    },
+    "evidence_summary": {
+      "overall_recurrence": 1.0,
+      "public_facts_available": 11,
+      "active_public_anchors": 5,
+      "data_quality_score": 0.9774478960679848,
+      "minimum_evidence_met": true
+    },
+    "brief": {
+      "product": "Collections",
+      "headline": "Validate collections share before proposing a R7.3m base-case gap.",
+      "why_now": "Audited current debt and facilities of ZAR 2.4bn create a dated refinancing/liquidity anchor; Collections is the strongest modelled window.",
+      "confidence": "High",
+      "questions": [
+        "What activity is held with other banks?",
+        "Which entities and mandates can move first?",
+        "What blocks the target-share scenario?"
+      ]
+    }
+  },
+  "opportunities": [
+    {
+      "entity_id": "E09",
+      "product": "Collections",
+      "observed_activity_zar": 2673495088.8599987,
+      "need_propensity": 0.9515541629719173,
+      "current_share": {
+        "p10": 0.01732879012252096,
+        "p50": 0.018877072136088524,
+        "p90": 0.020365576569325212
+      },
+      "total_wallet_zar": {
+        "p10": 131275197628.37103,
+        "p50": 141626577848.1211,
+        "p90": 154280539936.05923
+      },
+      "partial_identification_zar": {
+        "lower": 226252400000.0,
+        "upper": 287957600000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited cash-collections identity"
+      },
+      "contestable_activity_zar": {
+        "p10": 45818213816.84645,
+        "p50": 54091467882.22838,
+        "p90": 63474002519.14672
+      },
+      "revenue_gap_zar": {
+        "p10": 4463824.616437749,
+        "p50": 7323448.009037809,
+        "p90": 11136480.895341355
+      },
+      "confidence": 0.9783708431686475,
+      "confidence_label": "High",
+      "fit_score": 1.0,
+      "timing_score": 0.5864044998120648,
+      "priority_score": 4201616.39062424,
+      "recurrence": 1.0,
+      "trend": 0.031083259438344335,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited cash-collections identity",
+        "fact_ids": [
+          "SHP-2025-REV",
+          "SHP-2025-AR-OPEN",
+          "SHP-2025-AR-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 4390360498.2374325,
+          "p50": 6194654980.740055,
+          "p90": 9545863060.050587
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 131275197628.37103,
+          "p50": 141626577848.1211,
+          "p90": 154280539936.05923
+        },
+        "prior_relative_interval_width": 0.8322501540186251,
+        "anchored_relative_interval_width": 0.16243661788085353,
+        "relative_interval_width_reduction": 0.8048223636889609,
+        "confidence_before": 0.7183708431686475,
+        "confidence_after": 0.9783708431686475,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.36,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.5,
+          "base": 1.2,
+          "high": 2.5
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E09-collections",
+      "entity_name": "Shoprite Holdings",
+      "sector": "consumer",
+      "top10_probability": 0.453,
+      "forecast_next_quarter_zar": 665038720.9039565,
+      "public_anchor": {
+        "product": "Collections",
+        "name": "Audited cash-collections identity",
+        "low_zar": 226252400000.0,
+        "base_zar": 257105000000.0,
+        "high_zar": 287957600000.0,
+        "weight": 0.84,
+        "formula": "Revenue + opening trade receivables - closing trade receivables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112% to allow non-cash and classification effects.",
+        "fact_ids": [
+          "SHP-2025-REV",
+          "SHP-2025-AR-OPEN",
+          "SHP-2025-AR-CLOSE"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18",
+          "Shoprite Holdings Annual Financial Statements 2025 p.19"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E09",
+      "product": "Payments",
+      "observed_activity_zar": 7657917973.610004,
+      "need_propensity": 0.9509889577987677,
+      "current_share": {
+        "p10": 0.05325520512639738,
+        "p50": 0.05817033389723078,
+        "p90": 0.06282316485921109
+      },
+      "total_wallet_zar": {
+        "p10": 121896405654.89195,
+        "p50": 131646450362.72772,
+        "p90": 143796610250.99673
+      },
+      "partial_identification_zar": {
+        "lower": 168102000000.0,
+        "upper": 213948000000.00003,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited supplier-payments identity"
+      },
+      "contestable_activity_zar": {
+        "p10": 37047858306.2221,
+        "p50": 44949361356.472984,
+        "p90": 53401943962.613304
+      },
+      "revenue_gap_zar": {
+        "p10": 2409302.655189038,
+        "p50": 3959922.036137947,
+        "p90": 5988330.184439345
+      },
+      "confidence": 0.9806316638612459,
+      "confidence_label": "High",
+      "fit_score": 1.0,
+      "timing_score": 0.5786387558648128,
+      "priority_score": 2246984.445165624,
+      "recurrence": 1.0,
+      "trend": 0.019779155975352403,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited supplier-payments identity",
+        "fact_ids": [
+          "SHP-2025-COST",
+          "SHP-2025-INV-OPEN",
+          "SHP-2025-INV-CLOSE",
+          "SHP-2025-AP-OPEN",
+          "SHP-2025-AP-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 13153293245.529104,
+          "p50": 18132282465.037003,
+          "p90": 29016198172.296417
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 121896405654.89195,
+          "p50": 131646450362.72772,
+          "p90": 143796610250.99673
+        },
+        "prior_relative_interval_width": 0.8748432502832699,
+        "anchored_relative_interval_width": 0.1663562104087332,
+        "relative_interval_width_reduction": 0.8098445517469925,
+        "confidence_before": 0.7206316638612459,
+        "confidence_after": 0.9806316638612459,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.34,
+        "share_prior_concentration": 12,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 0.3,
+          "base": 0.8,
+          "high": 1.6
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E09-payments",
+      "entity_name": "Shoprite Holdings",
+      "sector": "consumer",
+      "top10_probability": 0.027,
+      "forecast_next_quarter_zar": 1892764976.5734203,
+      "public_anchor": {
+        "product": "Payments",
+        "name": "Audited supplier-payments identity",
+        "low_zar": 168102000000.0,
+        "base_zar": 191025000000.0,
+        "high_zar": 213948000000.00003,
+        "weight": 0.84,
+        "formula": "Cost base + closing inventory - opening inventory + opening trade payables - closing trade payables",
+        "transformation_assumption": "Accounting proxy bounded at 88%/112%; BHP's cost base is expenses excluding net finance costs.",
+        "fact_ids": [
+          "SHP-2025-COST",
+          "SHP-2025-INV-OPEN",
+          "SHP-2025-INV-CLOSE",
+          "SHP-2025-AP-OPEN",
+          "SHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18",
+          "Shoprite Holdings Annual Financial Statements 2025 p.19"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E09",
+      "product": "Trade finance",
+      "observed_activity_zar": 1539090586.5099998,
+      "need_propensity": 0.9177422525269016,
+      "current_share": {
+        "p10": 0.2646490813623773,
+        "p50": 0.38270931225141785,
+        "p90": 0.5664030637416924
+      },
+      "total_wallet_zar": {
+        "p10": 2717306396.8046637,
+        "p50": 4021565569.390711,
+        "p90": 5815590383.917686
+      },
+      "partial_identification_zar": {
+        "lower": 1539090586.5099998,
+        "upper": 7641000000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited payments base \u00d7 trade-utilisation range"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 51959758.0838057,
+        "p90": 799877771.045496
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 259227.2565506025,
+        "p90": 4073765.705807699
+      },
+      "confidence": 0.9756184849487103,
+      "confidence_label": "High",
+      "fit_score": 0.77,
+      "timing_score": 0.8164319648846939,
+      "priority_score": 158990.5855912681,
+      "recurrence": 1.0,
+      "trend": 0.044845050538030895,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited payments base \u00d7 trade-utilisation range",
+        "fact_ids": [
+          "SHP-2025-COST",
+          "SHP-2025-INV-OPEN",
+          "SHP-2025-INV-CLOSE",
+          "SHP-2025-AP-OPEN",
+          "SHP-2025-AP-CLOSE"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 2837122006.6042457,
+          "p50": 4620820520.582694,
+          "p90": 9386229497.035862
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 2717306396.8046637,
+          "p50": 4021565569.390711,
+          "p90": 5815590383.917686
+        },
+        "prior_relative_interval_width": 1.417304018033092,
+        "anchored_relative_interval_width": 0.7704173744411756,
+        "relative_interval_width_reduction": 0.4564205247154055,
+        "confidence_before": 0.7156184849487102,
+        "confidence_after": 0.9756184849487103,
+        "confidence_lift": 0.2600000000000001
+      },
+      "assumptions": {
+        "share_prior_mean": 0.26,
+        "share_prior_concentration": 8,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 20.0,
+          "base": 45.0,
+          "high": 85.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E09-trade-finance",
+      "entity_name": "Shoprite Holdings",
+      "sector": "consumer",
+      "top10_probability": 0.011,
+      "forecast_next_quarter_zar": 424100090.1542705,
+      "public_anchor": {
+        "product": "Trade finance",
+        "name": "Audited payments base \u00d7 trade-utilisation range",
+        "low_zar": 955125000.0,
+        "base_zar": 2865375000.0,
+        "high_zar": 7641000000.0,
+        "weight": 0.84,
+        "formula": "Audited supplier-payments proxy \u00d7 declared sector trade-finance utilisation",
+        "transformation_assumption": "Sector utilisation low/base/high = 0.5%/1.5%/4.0%.",
+        "fact_ids": [
+          "SHP-2025-COST",
+          "SHP-2025-INV-OPEN",
+          "SHP-2025-INV-CLOSE",
+          "SHP-2025-AP-OPEN",
+          "SHP-2025-AP-CLOSE"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18",
+          "Shoprite Holdings Annual Financial Statements 2025 p.19"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E09",
+      "product": "Liquidity",
+      "observed_activity_zar": 5165706531.235001,
+      "need_propensity": 0.9391340259380518,
+      "current_share": {
+        "p10": 0.7652217214901014,
+        "p50": 0.844206021346015,
+        "p90": 0.9080788921315924
+      },
+      "total_wallet_zar": {
+        "p10": 5688609850.968635,
+        "p50": 6119011733.048494,
+        "p90": 6750601034.046429
+      },
+      "partial_identification_zar": {
+        "lower": 5165706531.235001,
+        "upper": 5165706531.235001,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited debt-maturity liquidity range"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 0.0
+      },
+      "confidence": 0.9800513913041092,
+      "confidence_label": "High",
+      "fit_score": 0.92,
+      "timing_score": 0.6805876465818081,
+      "priority_score": 0.0,
+      "recurrence": 1.0,
+      "trend": 0.02268051876103616,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited debt-maturity liquidity range",
+        "fact_ids": [
+          "SHP-2025-DEBT",
+          "SHP-2025-STF"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 9437508368.029625,
+          "p50": 14887678477.275253,
+          "p90": 27508011445.195713
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 5688609850.968635,
+          "p50": 6119011733.048494,
+          "p90": 6750601034.046429
+        },
+        "prior_relative_interval_width": 1.213789181755177,
+        "anchored_relative_interval_width": 0.17355599717876494,
+        "relative_interval_width_reduction": 0.8570130630693235,
+        "confidence_before": 0.7200513913041091,
+        "confidence_after": 0.9800513913041092,
+        "confidence_lift": 0.2600000000000001
+      },
+      "assumptions": {
+        "share_prior_mean": 0.28,
+        "share_prior_concentration": 9,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 2.0,
+          "base": 6.0,
+          "high": 12.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "accounting-derived",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E09-liquidity",
+      "entity_name": "Shoprite Holdings",
+      "sector": "consumer",
+      "top10_probability": 0.0,
+      "forecast_next_quarter_zar": 1278780908.452083,
+      "public_anchor": {
+        "product": "Liquidity",
+        "name": "Audited debt-maturity liquidity range",
+        "low_zar": 1764000000.0,
+        "base_zar": 2352000000.0,
+        "high_zar": 3528000000.0,
+        "weight": 0.84,
+        "formula": "Current debt maturity/refinancing amount \u00d7 declared liquidity multiple",
+        "transformation_assumption": "Liquidity low/base/high = 0.75x/1.00x/1.50x current debt and facilities.",
+        "fact_ids": [
+          "SHP-2025-DEBT",
+          "SHP-2025-STF"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.18"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      }
+    },
+    {
+      "entity_id": "E09",
+      "product": "Cross-border FX",
+      "observed_activity_zar": 3347437360.410001,
+      "need_propensity": 0.9229374133088919,
+      "current_share": {
+        "p10": 0.3024197554286098,
+        "p50": 0.407104549041159,
+        "p90": 0.5538160735772791
+      },
+      "total_wallet_zar": {
+        "p10": 6044312407.137767,
+        "p50": 8222549729.243729,
+        "p90": 11068845103.991476
+      },
+      "partial_identification_zar": {
+        "lower": 3572000000.0,
+        "upper": 14288000000.0,
+        "basis": "Audited public anchor range pooled with the explicit share prior: Audited FX exposure/notional turnover range"
+      },
+      "contestable_activity_zar": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 1173967168.6670547
+      },
+      "revenue_gap_zar": {
+        "p10": 0.0,
+        "p50": 0.0,
+        "p90": 1184435.790390691
+      },
+      "confidence": 0.9783371482918842,
+      "confidence_label": "High",
+      "fit_score": 0.83,
+      "timing_score": 0.5816102235827777,
+      "priority_score": 0.0,
+      "recurrence": 1.0,
+      "trend": -0.03125173382216084,
+      "anchor_impact": {
+        "active": true,
+        "anchor_name": "Audited FX exposure/notional turnover range",
+        "fact_ids": [
+          "SHP-2025-FX"
+        ],
+        "prior_only_total_wallet_zar": {
+          "p10": 5989120369.5041065,
+          "p50": 8878150031.948036,
+          "p90": 15029011727.210594
+        },
+        "anchored_total_wallet_zar": {
+          "p10": 6044312407.137767,
+          "p50": 8222549729.243729,
+          "p90": 11068845103.991476
+        },
+        "prior_relative_interval_width": 1.0182179085931669,
+        "anchored_relative_interval_width": 0.6110674744822543,
+        "relative_interval_width_reduction": 0.39986571702854545,
+        "confidence_before": 0.7183371482918842,
+        "confidence_after": 0.9783371482918842,
+        "confidence_lift": 0.26
+      },
+      "assumptions": {
+        "share_prior_mean": 0.3,
+        "share_prior_concentration": 10,
+        "target_share": {
+          "low": 0.3,
+          "base": 0.4,
+          "high": 0.5
+        },
+        "economic_rate_bps": {
+          "low": 4.0,
+          "base": 9.0,
+          "high": 18.0
+        },
+        "public_anchor_weight": 0.84
+      },
+      "provenance": {
+        "observed_activity_zar": "observed",
+        "current_share": "model-estimated",
+        "total_wallet_zar": "model-estimated",
+        "partial_identification_zar": "assumption-bounded",
+        "revenue_gap_zar": "model-estimated",
+        "target_share": "assumption",
+        "economic_rate_bps": "assumption",
+        "public_anchor": "audited-public-facts plus declared transformation assumptions"
+      },
+      "opportunity_id": "E09-cross-border-fx",
+      "entity_name": "Shoprite Holdings",
+      "sector": "consumer",
+      "top10_probability": 0.0,
+      "forecast_next_quarter_zar": 748514129.2883356,
+      "public_anchor": {
+        "product": "Cross-border FX",
+        "name": "Audited FX exposure/notional turnover range",
+        "low_zar": 3572000000.0,
+        "base_zar": 7144000000.0,
+        "high_zar": 14288000000.0,
+        "weight": 0.84,
+        "formula": "Audited FX point exposure or hedge notional \u00d7 annual turnover multiple",
+        "transformation_assumption": "Annual turnover low/base/high = 1.0x/2.0x/4.0x the disclosed point exposure/notional.",
+        "fact_ids": [
+          "SHP-2025-FX"
+        ],
+        "source_pages": [
+          "Shoprite Holdings Annual Financial Statements 2025 p.118-119"
+        ],
+        "period_end": "2025-06-29",
+        "available_date": "2025-10-13",
+        "audit_status": "audited"
+      }
+    }
+  ],
+  "claim_policy": "Use only supplied fields; cite evidence IDs; label inference; abstain when evidence is missing."
+}

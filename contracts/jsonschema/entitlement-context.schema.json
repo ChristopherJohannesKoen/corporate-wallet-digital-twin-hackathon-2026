@@ -1,0 +1,75 @@
+{
+  "$defs": {
+    "DeploymentEnvironment": {
+      "enum": [
+        "FIXTURE",
+        "DEVELOPMENT",
+        "CLIENT_DEMO",
+        "SHADOW",
+        "PILOT",
+        "PRODUCTION"
+      ],
+      "title": "DeploymentEnvironment",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "client_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Client Ids",
+      "type": "array"
+    },
+    "environment": {
+      "$ref": "#/$defs/DeploymentEnvironment"
+    },
+    "legal_entities": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Legal Entities",
+      "type": "array"
+    },
+    "products": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Products",
+      "type": "array"
+    },
+    "regions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Regions",
+      "type": "array"
+    },
+    "roles": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Roles",
+      "type": "array"
+    },
+    "team": {
+      "title": "Team",
+      "type": "string"
+    },
+    "user_id": {
+      "title": "User Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "user_id",
+    "roles",
+    "team",
+    "regions",
+    "client_ids",
+    "environment"
+  ],
+  "title": "EntitlementContext",
+  "type": "object"
+}

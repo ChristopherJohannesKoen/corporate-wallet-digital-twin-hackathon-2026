@@ -1,0 +1,73 @@
+{{- range .Values.services }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: wallet-{{ .name }}
+  annotations:
+    eks.amazonaws.com/role-arn: {{ .irsaRoleArn | quote }}
+automountServiceAccountToken: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wallet-{{ .name }}
+  labels: { app.kubernetes.io/name: wallet-{{ .name }} }
+spec:
+  replicas: {{ $.Values.replicaCount }}
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxUnavailable: 0, maxSurge: 1 }
+  selector:
+    matchLabels: { app.kubernetes.io/name: wallet-{{ .name }} }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/name: wallet-{{ .name }} }
+      annotations:
+        instrumentation.opentelemetry.io/inject-python: "wallet-system/wallet-otel"
+    spec:
+      terminationGracePeriodSeconds: 30
+      serviceAccountName: wallet-{{ .name }}
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: app
+          image: "{{ $.Values.image.repository }}@{{ $.Values.image.digest }}"
+          imagePullPolicy: IfNotPresent
+          env:
+            - { name: WALLET_SERVICE_APP, value: {{ .app | quote }} }
+            - { name: WALLET_DEPLOYMENT_MODE, value: {{ $.Values.environment | quote }} }
+            - { name: WALLET_SHADOW_MODE, value: {{ $.Values.shadowMode | quote }} }
+          envFrom:
+            - configMapRef: { name: {{ $.Values.runtime.configMapName | quote }} }
+            - secretRef: { name: {{ $.Values.runtime.existingSecretName | quote }} }
+          ports: [{ name: http, containerPort: 8080 }]
+          startupProbe: { httpGet: { path: /health, port: http }, failureThreshold: 30, periodSeconds: 2 }
+          readinessProbe: { httpGet: { path: /ready, port: http }, failureThreshold: 3, periodSeconds: 10 }
+          livenessProbe: { httpGet: { path: /health, port: http }, periodSeconds: 30 }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: ["ALL"] }
+          resources: {{- toYaml $.Values.resources | nindent 12 }}
+          volumeMounts:
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: tmp
+          emptyDir: { sizeLimit: 256Mi }
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels: { app.kubernetes.io/name: wallet-{{ .name }} }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: wallet-{{ .name }} }
+spec:
+  selector: { app.kubernetes.io/name: wallet-{{ .name }} }
+  ports: [{ name: http, port: 80, targetPort: http }]
+{{- end }}

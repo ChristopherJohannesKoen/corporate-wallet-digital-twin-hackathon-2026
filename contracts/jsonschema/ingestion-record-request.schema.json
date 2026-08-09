@@ -1,0 +1,56 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "contract_version": {
+      "title": "Contract Version",
+      "type": "string"
+    },
+    "event_time": {
+      "format": "date-time",
+      "title": "Event Time",
+      "type": "string"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "title": "Payload",
+      "type": "object"
+    },
+    "record_id": {
+      "title": "Record Id",
+      "type": "string"
+    },
+    "required_fields": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Fields",
+      "type": "array"
+    },
+    "source_hash": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Source Hash",
+      "type": "string"
+    },
+    "source_system": {
+      "title": "Source System",
+      "type": "string"
+    }
+  },
+  "required": [
+    "record_id",
+    "source_system",
+    "contract_version",
+    "event_time",
+    "as_of",
+    "source_hash",
+    "payload"
+  ],
+  "title": "IngestionRecordRequest",
+  "type": "object"
+}

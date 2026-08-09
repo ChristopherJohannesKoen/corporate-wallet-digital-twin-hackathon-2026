@@ -1,0 +1,26 @@
+{
+  "forecasting": {
+    "method": "12-month seasonal naive",
+    "client_product_series": 100,
+    "median_wape": 0.18276726368275983,
+    "p90_wape": 0.5524309799812185
+  },
+  "synthetic_latent_recovery": {
+    "n": 2000,
+    "p10_p90_coverage": 0.802,
+    "rank_correlation": 0.8665770486442621,
+    "median_absolute_percentage_error": 0.28120867103441183
+  },
+  "accounting_consistency": {
+    "observed_not_greater_than_modelled_wallet": true,
+    "shares_in_unit_interval": true,
+    "nonnegative_revenue_gaps": true
+  },
+  "known_limitations": [
+    "Audited public statements are activated for three showcase clients only; the other 17 clients remain prior-led.",
+    "Liquidity is a flow-derived opportunity proxy, not a deposit-balance estimate.",
+    "Share and total wallet remain partially identified; public anchors narrow but do not eliminate model sensitivity.",
+    "USD-to-ZAR translation uses one declared point-in-time rate and is not an audited ZAR restatement of BHP or Glencore.",
+    "Opportunity ranking estimates economic gap and timing, not causal conversion uplift."
+  ]
+}

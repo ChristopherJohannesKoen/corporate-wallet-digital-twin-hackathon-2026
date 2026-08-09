@@ -1,0 +1,73 @@
+{
+  "bank_production_external_gates": [
+    "finance-SME and independent approval of pending E1 facts",
+    "representative, consented E3 multibank calibration panel",
+    "approved Treasury/Product Finance/FTP/risk/capital/cost/hurdle inputs",
+    "bank SSO, Unity Catalog, SIEM, network and infrastructure validation",
+    "bank-approved live-provider evaluation on sealed independently adjudicated documents",
+    "at least five supervised RM pilot sessions and a powered live randomized trial",
+    "30 elapsed clean production shadow days"
+  ],
+  "bank_production_release_allowed": false,
+  "claim": "Client-ready governed demonstration using SynBank simulation, audited public evidence and pinned representative references; not bank-production data.",
+  "client_demo_release_allowed": true,
+  "data_estate": {
+    "audited_public_e1_facts": 82,
+    "finqa_numerical_reasoning_cases": 8281,
+    "named_client_competitor_observations": 0,
+    "remote_federated_transaction_rows": 6362620,
+    "representative_trade_finance_rows": 10000,
+    "synbank_rows": 3064295
+  },
+  "demo_capability_scores": {
+    "causal_learning": {
+      "basis": "30-cluster trial analog, eligibility-to-outcome chain and analysis gates; no live causal claim",
+      "score": 8.0
+    },
+    "economics": {
+      "basis": "complete scenario engine, rate-card packs, frontiers and 10,000-draw sensitivity; demo inputs are not bank-approved",
+      "score": 9.0
+    },
+    "genai": {
+      "basis": "three controlled adapters and 809 governed checks; approved live-provider adjudication remains external",
+      "score": 9.0
+    },
+    "platform_security": {
+      "basis": "deployable AWS/Databricks/EKS/MSK/OPA/OTel target, fail-closed runtime and entitlement/recovery rehearsals",
+      "score": 9.0
+    },
+    "public_evidence": {
+      "basis": "82 E1 facts cover all 20 clients; 51 expanded facts are page-grounded and ready for four-eyes review",
+      "score": 9.0
+    },
+    "rm_experience": {
+      "basis": "private interactive workbench supports opportunity, evidence, scenario and gate walkthroughs; no real banker adoption evidence",
+      "score": 7.5
+    },
+    "timing": {
+      "basis": "30/60/90 probabilities, temporal validation and 1,500 additional simulated action histories; no real RM outcomes",
+      "score": 8.5
+    },
+    "wallet_modelling": {
+      "basis": "five product models plus a 1,500-row stratified known-truth multibank analog; direct E3 remains absent",
+      "score": 9.0
+    }
+  },
+  "demo_gates": {
+    "all_20_clients_have_public_e1": true,
+    "bank_production_remains_fail_closed": true,
+    "dataset_registry_valid": true,
+    "entitlement_negative_tests": true,
+    "genai_deterministic_release_gate": true,
+    "known_truth_wallet_coverage_in_range": true,
+    "no_false_causal_claim": true,
+    "no_false_e3_claim": true,
+    "recovery_rehearsal_byte_identical": true,
+    "representative_panel_all_five_products": true,
+    "representative_panel_stratified": true
+  },
+  "generated_at": "2026-08-09T17:44:41.133749+00:00",
+  "status": "CLIENT_DEMO_READY",
+  "version": "client-demo-scorecard-1.0.0",
+  "watermark": "CLIENT DEMONSTRATION \u2014 SIMULATED/REPRESENTATIVE DATA \u2014 NOT FOR FINANCIAL DECISIONS"
+}
