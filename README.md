@@ -22,10 +22,17 @@ worth acquiring next**.
 - `output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf` - one-page submission.
 - `output/presentation/Corporate-Wallet-Digital-Twin.pptx` - 10-minute judging deck.
 - `notebooks/01_wallet_twin_demo.ipynb` - executed V3 judging notebook.
-- `deliverables/Corporate_Wallet_Digital_Twin_V2_Technical_Foundations.docx` -
-  detailed methodology, theory, architecture and limitations.
+- `deliverables/Corporate_Wallet_Digital_Twin_V3_System_Dossier.docx` -
+  authoritative end-to-end V3 product, control, validation and handoff record.
+- `deliverables/Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.docx` -
+  detailed V3 statistical theory, latent-network models, decision engineering,
+  production architecture and literature traceability.
 - `dashboard/` - entitled portfolio and client workbench.
-- `docs/v3_methodology.md` - V3 theory, algorithms, contracts and literature.
+- `docs/Corporate_Wallet_Digital_Twin_V3_System_Dossier.md` - source edition of
+  the complete V3 dossier.
+- `docs/Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md` - source
+  edition of the V3 technical white paper.
+- `docs/v3_methodology.md` - concise V3 theory, algorithms, contracts and literature.
 - `docs/v3_implementation_status.md` - implemented/external-gate status register.
 
 ## What the current demonstration proves
