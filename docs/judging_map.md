@@ -2,10 +2,9 @@
 
 | Criterion | Evidence in solution |
 |---|---|
-| Business value (40%) | who/what/when/why register, contestable economics, scenario lab, next actions, 20 client twins |
-| Analytical rigour (30%) | A=qT identification, explicit priors, Monte Carlo intervals, temporal backtest, synthetic recovery, rank stability, limitations |
-| GenAI (20%) | structured evidence packs, hybrid retrieval seam, grounded prompt, citations, abstention, deterministic fallback, eval rubric |
-| Storytelling (10%) | executive portfolio, client drill-down, explainable numbers, one-page PDF and judging deck |
+| Business value (40%) | latent-wallet reconstruction, 12-action capacity-constrained RM portfolio, leakage signals, positive-net-VOI evidence queue and 20 client twins |
+| Analytical rigour (30%) | A=qT identification, entropy-constrained transport, PU learning, Bayesian online change-points, CVaR scenarios, exact mass balance and explicit claim boundaries |
+| GenAI (20%) | decision-directed retrieval policy, structured evidence packs, evidence-cited claim compiler, three provider adapters, abstention and deterministic fallback |
+| Storytelling (10%) | V3 Decision Lab, anonymous shadow network, decision portfolio, evidence queue, one-page PDF and judging deck |
 
-The live demo path is: Portfolio → open a top hypothesis → inspect latent state → switch product → explain total wallet → move target-share/rate sliders → read “why now” → show Methodology validation.
-
+The live demo path is: Decision Lab → open Glencore Trade Finance → inspect its anonymous Shadow Wallet → show the PU need and change-point signal → explain the 12-action CVaR portfolio → open the eight-item evidence queue → switch to Evidence Twin for citations → close on Models & Gates.

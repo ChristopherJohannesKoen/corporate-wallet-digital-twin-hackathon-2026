@@ -1,0 +1,200 @@
+{
+  "$defs": {
+    "AmountInterval": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "minimum": 0,
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "minimum": 0,
+          "title": "Median",
+          "type": "number"
+        },
+        "upper": {
+          "minimum": 0,
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "AmountInterval",
+      "type": "object"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "DataProvenanceClass": {
+      "enum": [
+        "BANK_OBSERVED",
+        "PUBLIC_AUDITED",
+        "CLIENT_ATTESTED",
+        "MULTIBANK_OBSERVED",
+        "REPRESENTATIVE_PUBLIC",
+        "SYNTHETIC_SIMULATION"
+      ],
+      "title": "DataProvenanceClass",
+      "type": "string"
+    },
+    "ShadowFlow": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/AmountInterval"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "corridor": {
+          "title": "Corridor",
+          "type": "string"
+        },
+        "edge_id": {
+          "title": "Edge Id",
+          "type": "string"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "observed_by_bank": {
+          "title": "Observed By Bank",
+          "type": "boolean"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/DataProvenanceClass"
+        },
+        "provider_node": {
+          "title": "Provider Node",
+          "type": "string"
+        }
+      },
+      "required": [
+        "edge_id",
+        "entity_id",
+        "product",
+        "corridor",
+        "provider_node",
+        "amount",
+        "observed_by_bank",
+        "claim_class",
+        "provenance"
+      ],
+      "title": "ShadowFlow",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "bank_share": {
+      "$ref": "#/$defs/AmountInterval"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass",
+      "default": "SCENARIO"
+    },
+    "ensemble_draws": {
+      "minimum": 32,
+      "title": "Ensemble Draws",
+      "type": "integer"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "flows": {
+      "items": {
+        "$ref": "#/$defs/ShadowFlow"
+      },
+      "title": "Flows",
+      "type": "array"
+    },
+    "latent_external_wallet": {
+      "$ref": "#/$defs/AmountInterval"
+    },
+    "measurement_status": {
+      "default": "RECONSTRUCTED_NOT_MEASURED",
+      "title": "Measurement Status",
+      "type": "string"
+    },
+    "method": {
+      "title": "Method",
+      "type": "string"
+    },
+    "normalized_entropy": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Normalized Entropy",
+      "type": "number"
+    },
+    "observed_bank_flow": {
+      "minimum": 0,
+      "title": "Observed Bank Flow",
+      "type": "number"
+    },
+    "opportunity_id": {
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "provenance": {
+      "$ref": "#/$defs/DataProvenanceClass",
+      "default": "SYNTHETIC_SIMULATION"
+    },
+    "reconstruction_id": {
+      "title": "Reconstruction Id",
+      "type": "string"
+    },
+    "total_wallet": {
+      "$ref": "#/$defs/AmountInterval"
+    }
+  },
+  "required": [
+    "reconstruction_id",
+    "opportunity_id",
+    "entity_id",
+    "product",
+    "as_of",
+    "observed_bank_flow",
+    "total_wallet",
+    "latent_external_wallet",
+    "bank_share",
+    "flows",
+    "normalized_entropy",
+    "ensemble_draws",
+    "method"
+  ],
+  "title": "ShadowWalletReconstruction",
+  "type": "object"
+}

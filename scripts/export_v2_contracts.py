@@ -29,6 +29,16 @@ from wallet_twin_v2.contracts import (
     TimingRequest,
 )
 from wallet_twin_v2.repository import repository
+from wallet_twin_v3.contracts import (
+    ChangePointSignal,
+    EvidenceAcquisitionPlan,
+    LeakageAlarm,
+    ProductNeedEstimate,
+    RobustActionPortfolio,
+    ShadowWalletReconstruction,
+    V3OpportunityView,
+)
+from wallet_twin_v3.repository import repository as v3_repository
 
 
 CONTRACTS = ROOT / "contracts"
@@ -78,6 +88,13 @@ def main() -> None:
         "access-evaluation-request": AccessEvaluationRequest,
         "pilot-session-request": PilotSessionRequest,
         "pilot-feedback-request": PilotFeedbackRequest,
+        "v3-shadow-wallet-reconstruction": ShadowWalletReconstruction,
+        "v3-product-need-estimate": ProductNeedEstimate,
+        "v3-change-point-signal": ChangePointSignal,
+        "v3-leakage-alarm": LeakageAlarm,
+        "v3-robust-action-portfolio": RobustActionPortfolio,
+        "v3-evidence-acquisition-plan": EvidenceAcquisitionPlan,
+        "v3-opportunity-view": V3OpportunityView,
     }
     for name, model in models.items():
         write_json(SCHEMAS / f"{name}.schema.json", model.model_json_schema())
@@ -102,7 +119,23 @@ def main() -> None:
         "release": repository.release,
     }
     write_json(DASHBOARD_DATA / "shadow-fixture.json", canonical_dashboard_value(payload))
-    print(json.dumps({"schemas": len(models), "opportunities": len(repository.opportunities), "output": str(DASHBOARD_DATA)}))
+    v3_payload = {
+        "metadata": v3_repository.metadata,
+        "opportunities": [item.model_dump(mode="json") for item in v3_repository.opportunities],
+        "treasury_graphs": v3_repository.treasury_graphs,
+        "action_portfolio": v3_repository.action_portfolio.model_dump(mode="json"),
+        "evidence_acquisition": v3_repository.evidence_acquisition.model_dump(mode="json"),
+        "public_sensors": v3_repository.public_sensors,
+        "validation": v3_repository.validation,
+        "release": v3_repository.release,
+    }
+    write_json(DASHBOARD_DATA / "v3-fixture.json", canonical_dashboard_value(v3_payload))
+    print(json.dumps({
+        "schemas": len(models),
+        "v2_opportunities": len(repository.opportunities),
+        "v3_opportunities": len(v3_repository.opportunities),
+        "output": str(DASHBOARD_DATA),
+    }))
 
 
 if __name__ == "__main__":

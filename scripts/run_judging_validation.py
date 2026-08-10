@@ -40,6 +40,7 @@ def main() -> None:
         run("scripts/run_evidence_qa.py"),
         run("scripts/run_genai_evals.py"),
         run("scripts/export_v2_contracts.py"),
+        run("scripts/run_v3_validation.py"),
         run("scripts/validate_production_target.py"),
     ]
     offline_args = ["scripts/run_offline_validation.py"]
@@ -58,11 +59,11 @@ def main() -> None:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "team": "Corporate Wallet Digital Twin",
         "member": "Christopher Koen",
-        "solution_version": "V2.1",
+        "solution_version": "V3.0",
         "history_mode": history_mode,
         "checks": checks,
         "status": "PASSED",
-        "claim_boundary": "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE BENCHMARKS",
+        "claim_boundary": "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE PRIORS — RECONSTRUCTED COMPETITOR FLOWS ARE NOT MEASURED",
     }
     output = ROOT / "outputs" / "judging_validation_manifest.json"
     output.parent.mkdir(parents=True, exist_ok=True)

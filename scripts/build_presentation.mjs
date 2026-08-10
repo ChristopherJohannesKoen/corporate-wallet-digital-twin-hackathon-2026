@@ -1,433 +1,379 @@
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
-import { Presentation, PresentationFile } from "@oai/artifact-tool";
+import { pathToFileURL } from "node:url";
+
+async function loadArtifactTool() {
+  try {
+    return await import("@oai/artifact-tool");
+  } catch {
+    const dependencies = process.env.CODEX_RUNTIME_DEPENDENCIES || path.join(
+      os.homedir(), ".cache", "codex-runtimes", "codex-primary-runtime", "dependencies",
+    );
+    const entrypoint = path.join(
+      dependencies, "node", "node_modules", "@oai", "artifact-tool", "dist", "artifact_tool.mjs",
+    );
+    return import(pathToFileURL(entrypoint).href);
+  }
+}
+
+const { FileBlob, PresentationFile } = await loadArtifactTool();
 
 const ROOT = path.resolve(process.argv[2] || process.cwd());
+const SOURCE = path.join(ROOT, "assets", "presentation", "Corporate-Wallet-Digital-Twin-V2.1-Template.pptx");
 const OUT = path.join(ROOT, "output", "presentation");
-const PORTFOLIO = JSON.parse(await fs.readFile(path.join(ROOT, "outputs", "data", "portfolio.json"), "utf8"));
-const MANIFEST = JSON.parse(await fs.readFile(path.join(ROOT, "outputs", "client_demo", "client_demo_data_manifest.json"), "utf8"));
-const OFFLINE = JSON.parse(await fs.readFile(path.join(ROOT, "outputs", "v2_validation", "offline_validation_report.json"), "utf8"));
-const GENAI = JSON.parse(await fs.readFile(path.join(ROOT, "outputs", "v2_validation", "genai_golden_eval.json"), "utf8"));
-const FIXTURE = JSON.parse(await fs.readFile(path.join(ROOT, "dashboard", "app", "data", "shadow-fixture.json"), "utf8"));
-const SUBMISSION = JSON.parse(await fs.readFile(path.join(ROOT, "config", "submission.json"), "utf8"));
-const COVER = path.join(ROOT, "output", "assets", "wallet-twin-cover.png");
+const COVER = path.join(ROOT, "dashboard", "public", "og.png");
 
-const W = 1280;
-const H = 720;
-const C = {
-  navy: "#071321", ink: "#0C1728", muted: "#627086", line: "#D7DEE8",
-  panel: "#F1F4F8", paleBlue: "#EAF3FF", blue: "#0B63E5", blue2: "#69A7F7",
-  teal: "#008B83", amber: "#E2951C", violet: "#7658D6", white: "#FFFFFF",
-  greenPale: "#E7F5F2", amberPale: "#FFF4DF", violetPale: "#F0EDFF",
-};
+const presentation = await PresentationFile.importPptx(await FileBlob.load(SOURCE));
+const inspected = await presentation.inspect({
+  kind: "slide,textbox,shape,image,chart",
+  include: "id,slide,name,text,bbox,chartType",
+  maxChars: 200000,
+});
+const records = inspected.ndjson
+  .split(/\r?\n/)
+  .filter(Boolean)
+  .map((line) => JSON.parse(line));
+const byName = new Map(records.filter((record) => record.name).map((record) => [record.name, record]));
 
-const deck = Presentation.create({ slideSize: { width: W, height: H } });
+function setText(name, value) {
+  const record = byName.get(name);
+  if (!record) throw new Error(`Missing text shape: ${name}`);
+  const shape = presentation.resolve(record.id);
+  shape.text.replace(record.text ?? "", value);
+}
 
-async function bytes(file) {
-  const value = await fs.readFile(file);
-  return value.buffer.slice(value.byteOffset, value.byteOffset + value.byteLength);
+function setMany(values) {
+  for (const [name, value] of Object.entries(values)) setText(name, value);
 }
-async function writeBlob(file, blob) {
-  await fs.writeFile(file, new Uint8Array(await blob.arrayBuffer()));
-}
-function rect(slide, name, left, top, width, height, fill, lineFill = "none", radius = undefined) {
-  return slide.shapes.add({
-    geometry: radius ? "roundRect" : "rect", name,
-    position: { left, top, width, height }, fill,
-    line: { style: "solid", fill: lineFill, width: lineFill === "none" ? 0 : 1 },
-    ...(radius ? { borderRadius: radius } : {}),
-  });
-}
-function rule(slide, name, left, top, width, fill = C.line, weight = 1) {
-  return slide.shapes.add({
-    geometry: "straightConnector1", name,
-    position: { left, top, width, height: 0 }, fill: "none",
-    line: { style: "solid", fill, width: weight },
-  });
-}
-function text(slide, name, value, left, top, width, height, fontSize = 20, color = C.ink, bold = false, align = "left") {
-  const box = slide.shapes.add({
-    geometry: "textbox", name,
-    position: { left, top, width, height }, fill: "none",
-    line: { style: "solid", fill: "none", width: 0 },
-  });
-  box.text = value;
-  box.text.style = {
-    fontSize, typeface: "Arial", color, bold, alignment: align,
-    verticalAlignment: "top", autoFit: "shrinkText",
+
+function styledText(name, value, { fontSize, color, bold = false }) {
+  const record = byName.get(name);
+  if (!record) throw new Error(`Missing text shape: ${name}`);
+  const shape = presentation.resolve(record.id);
+  shape.text = value;
+  shape.text.style = {
+    fontSize,
+    typeface: "Arial",
+    color,
+    bold,
+    alignment: "left",
+    verticalAlignment: "top",
+    autoFit: "shrinkText",
   };
-  return box;
-}
-function footer(slide, number) {
-  text(slide, `footer-team-${number}`, `TEAM: ${SUBMISSION.team_name} | ${SUBMISSION.team_members.join(", ")} | ${SUBMISSION.solution_version}`, 64, 681, 720, 18, 11, C.muted, true);
-  text(slide, `footer-data-${number}`, "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE BENCHMARKS", 786, 681, 390, 18, 10, C.muted, true, "right");
-  text(slide, `footer-page-${number}`, String(number).padStart(2, "0"), 1185, 681, 32, 18, 11, C.muted, true, "right");
-}
-function slideTitle(slide, value, number, eyebrow) {
-  text(slide, `eyebrow-${number}`, eyebrow.toUpperCase(), 64, 34, 740, 22, 13, C.blue, true);
-  text(slide, `title-${number}`, value, 64, 69, 1120, 58, 42, C.ink, true);
-  rule(slide, `title-rule-${number}`, 64, 145, 1152, C.line, 1);
-  footer(slide, number);
-}
-function metric(slide, name, x, y, w, value, label, accent, note = "") {
-  rule(slide, `${name}-rule`, x, y, w, accent, 4);
-  text(slide, `${name}-value`, value, x, y + 18, w, 52, 37, C.ink, true);
-  text(slide, `${name}-label`, label, x, y + 74, w, 28, 17, C.ink, true);
-  if (note) text(slide, `${name}-note`, note, x, y + 108, w, 54, 15, C.muted, false);
-}
-function notes(slide, sourceLines, presenter) {
-  slide.speakerNotes.textFrame.setText(`${presenter}\n\n[Sources]\n${sourceLines.map((source) => `- ${source}`).join("\n")}`);
-}
-function money(value, digits = 1) {
-  if (Math.abs(value) >= 1e9) return `R${(value / 1e9).toFixed(digits)}bn`;
-  if (Math.abs(value) >= 1e6) return `R${(value / 1e6).toFixed(digits)}m`;
-  return `R${value.toFixed(0)}`;
-}
-const pct = (value, digits = 0) => `${(value * 100).toFixed(digits)}%`;
-
-const ranked = [...PORTFOLIO.opportunities].sort((a, b) => b.priority_score - a.priority_score);
-const top5 = ranked.slice(0, 5);
-const bhpFx = PORTFOLIO.opportunities.find((row) => row.entity_id === "E01" && row.product === "Cross-border FX");
-const calibration = OFFLINE.synthetic_calibration;
-const timing = OFFLINE.historical_validation.timing_surrogate;
-const globalSensitivity = FIXTURE.sensitivity;
-
-// 1. Cover.
-{
-  const slide = deck.slides.add();
-  slide.background.fill = C.navy;
-  slide.images.add({
-    blob: await bytes(COVER), contentType: "image/png",
-    alt: "Abstract digital corporate wallet with transaction flows",
-    fit: "cover", position: { left: 0, top: 0, width: W, height: H },
-  });
-  rect(slide, "cover-field", 0, 0, 690, H, C.navy);
-  text(slide, "cover-kicker", "STANDARD BANK HACKATHON 2026", 64, 54, 480, 24, 14, "#7CB6FF", true);
-  text(slide, "cover-title", "Corporate Wallet\nDigital Twin", 64, 138, 560, 176, 64, C.white, true);
-  text(slide, "cover-subtitle", "See the wallet. Size the gap.\nChoose the moment.", 64, 354, 540, 86, 29, "#C7D5E8", false);
-  rule(slide, "cover-rule", 64, 486, 440, "#2D4C6D", 1);
-  text(slide, "cover-proof", "Evidence-first opportunity intelligence for corporate relationship teams", 64, 510, 520, 58, 19, C.white, false);
-  text(slide, "cover-team", `TEAM: ${SUBMISSION.team_name}`, 64, 605, 520, 22, 14, C.white, true);
-  text(slide, "cover-member", `MEMBER: ${SUBMISSION.team_members.join(", ")}`, 64, 635, 520, 22, 13, "#B9C8D9", false);
-  text(slide, "cover-version", "V2.1 | AS OF 9 AUGUST 2026 | SYN BANK SIMULATION + PUBLIC E1", 64, 676, 650, 18, 11, "#8FA5BD", true);
-  notes(slide, [
-    "output/assets/wallet-twin-cover.png",
-    "config/submission.json",
-  ], "Open with the business decision: the bank sees its own activity but not the client's full wallet.");
 }
 
-// 2. Identification problem.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "One observed number cannot identify the full wallet", 2, "The decision problem");
-  text(slide, "s2-thesis", "Syn Bank observes product activity. It does not observe total client wallet or competitor share. A single point estimate would hide that identification problem.", 64, 181, 485, 116, 24, C.ink, false);
-  rect(slide, "s2-equation", 608, 176, 608, 224, C.navy);
-  text(slide, "s2-A", "A", 650, 218, 100, 80, 62, C.white, true, "center");
-  text(slide, "s2-eq", "=", 764, 232, 55, 60, 42, "#7CB6FF", true, "center");
-  text(slide, "s2-q", "q", 835, 218, 100, 80, 62, C.white, true, "center");
-  text(slide, "s2-x", "x", 949, 232, 55, 60, 42, "#7CB6FF", true, "center");
-  text(slide, "s2-T", "T", 1021, 218, 100, 80, 62, C.white, true, "center");
-  text(slide, "s2-label-A", "observed", 646, 311, 110, 24, 16, "#AFC0D4", false, "center");
-  text(slide, "s2-label-q", "bank share", 825, 311, 120, 24, 16, "#AFC0D4", false, "center");
-  text(slide, "s2-label-T", "total wallet", 1005, 311, 130, 24, 16, "#AFC0D4", false, "center");
-  text(slide, "s2-answer", "Our answer is a claim ladder, not false precision", 64, 345, 490, 40, 27, C.ink, true);
-  const claims = [
-    ["OBSERVED", "Syn Bank activity", C.teal],
-    ["BOUND", "Assumption-light interval", C.blue],
-    ["POSTERIOR", "Prior + evidence", C.violet],
-    ["SCENARIO", "Contestable economics", C.amber],
-    ["CAUSAL", "Only after a trial", C.ink],
-  ];
-  claims.forEach((item, index) => {
-    const x = 64 + index * 230;
-    rule(slide, `s2-claim-rule-${index}`, x, 468, 196, item[2], 4);
-    text(slide, `s2-claim-${index}`, item[0], x, 490, 196, 22, 13, item[2], true);
-    text(slide, `s2-claim-copy-${index}`, item[1], x, 526, 196, 54, 18, C.ink, true);
-  });
-  rect(slide, "s2-proof", 64, 608, 1152, 42, C.paleBlue);
-  text(slide, "s2-proof-text", "Every ranked value retains evidence tier, as-of time, interval, model version and commercial-input version.", 84, 619, 1110, 22, 17, C.blue, true);
-  notes(slide, [
-    "docs/Corporate_Wallet_Digital_Twin_V2_Technical_Foundations.md - sections on identification and claim classes",
-    "docs/v2_model_validation.md",
-    "contracts/jsonschema/claim.schema.json",
-  ], "Pause on A=qT. One observation and two unknowns is the reason the system reports bounds and posteriors separately.");
+function slideAt(oneBased) {
+  return presentation.slides.getItem(oneBased - 1);
 }
 
-// 3. Ranked commercial decision.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "The first call is Glencore Trade Finance", 3, "Portfolio action");
-  rect(slide, "s3-callout", 64, 179, 392, 412, C.navy);
-  text(slide, "s3-call-label", "NEXT CONVERSATION", 92, 207, 300, 22, 13, "#7CB6FF", true);
-  text(slide, "s3-call-client", "Glencore", 92, 260, 320, 46, 36, C.white, true);
-  text(slide, "s3-call-product", "Trade Finance", 92, 314, 320, 42, 31, C.white, true);
-  text(slide, "s3-call-gap", money(top5[0].revenue_gap_zar.p50), 92, 388, 280, 55, 44, C.amber, true);
-  text(slide, "s3-call-gap-label", "median scenario contribution gap", 92, 449, 280, 30, 16, "#B9C8D9", false);
-  text(slide, "s3-call-confidence", `${pct(top5[0].top10_probability)} P(top 10) | E1 anchor`, 92, 503, 300, 26, 17, C.teal, true);
-  text(slide, "s3-call-action", "Verify instrument mix and competitor concentration before meeting the client.", 92, 535, 300, 48, 16, C.white, false);
-
-  text(slide, "s3-chart-title", "Top five uncertainty-adjusted opportunities", 500, 182, 650, 30, 22, C.ink, true);
-  slide.charts.add("bar", {
-    name: "s3-top5-chart",
-    position: { left: 500, top: 226, width: 680, height: 314 },
-    categories: top5.map((row) => `${row.entity_name} - ${row.product}`),
-    series: [{ name: "Scenario gap (R m)", values: top5.map((row) => Number((row.revenue_gap_zar.p50 / 1e6).toFixed(1))), fill: C.blue }],
-    hasLegend: false,
-    dataLabels: { showValue: true, position: "outEnd", numberFormatCode: "0.0" },
-    xAxis: { title: "Median scenario contribution gap (R million)", majorGridlines: { style: "solid", fill: C.line, width: 1 } },
-    yAxis: { reverseOrder: true },
-  });
-  rect(slide, "s3-pack", 500, 565, 680, 64, C.paleBlue);
-  text(slide, "s3-pack-copy", "The recommendation pack supplies who, product, interval, evidence, timing window and the exact assumption to verify.", 520, 582, 640, 32, 17, C.blue, true);
-  notes(slide, [
-    "outputs/data/portfolio.json - opportunities sorted by priority_score",
-    "outputs/opportunity_register.csv",
-    "config/assumptions.json - scenario economics",
-  ], "Lead with the decision, then explain that P(top 10) is rank uncertainty, not win probability.");
+function setNotes(oneBased, presenter, sources) {
+  slideAt(oneBased).speakerNotes.textFrame.setText([
+    presenter,
+    "",
+    "[Sources]",
+    ...sources.map((source) => `- ${source}`),
+  ].join("\n"));
 }
 
-// 4. BHP worked evidence twin.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "BHP evidence materially narrows the FX interval", 4, "Auditable client walkthrough");
-  const metrics = [
-    [money(bhpFx.observed_activity_zar), "observed FX activity", C.teal],
-    [pct(bhpFx.current_share.p50, 1), "posterior share median", C.violet],
-    [money(bhpFx.total_wallet_zar.p50), "wallet median", C.blue],
-    [money(bhpFx.revenue_gap_zar.p50), "scenario gap median", C.amber],
-  ];
-  const metricXs = [64, 350, 636, 944];
-  metrics.forEach((item, index) => metric(slide, `s4-metric-${index}`, metricXs[index], 178, index === 3 ? 218 : 240, item[0], item[1], item[2]));
-
-  text(slide, "s4-width-title", "Relative wallet interval width", 64, 361, 400, 30, 22, C.ink, true);
-  const priorWidth = bhpFx.anchor_impact.prior_relative_interval_width;
-  const anchoredWidth = bhpFx.anchor_impact.anchored_relative_interval_width;
-  text(slide, "s4-prior-label", "Prior-led", 64, 411, 140, 24, 17, C.muted, true);
-  rect(slide, "s4-prior-bar", 214, 409, 390 * priorWidth, 27, "#B7C2D0");
-  text(slide, "s4-prior-value", priorWidth.toFixed(2), 214 + 390 * priorWidth + 12, 411, 80, 24, 17, C.ink, true);
-  text(slide, "s4-anchor-label", "With FX anchor", 64, 464, 140, 24, 17, C.muted, true);
-  rect(slide, "s4-anchor-bar", 214, 462, 390 * anchoredWidth, 27, C.teal);
-  text(slide, "s4-anchor-value", anchoredWidth.toFixed(2), 214 + 390 * anchoredWidth + 12, 464, 80, 24, 17, C.ink, true);
-  text(slide, "s4-reduction", `-${pct(bhpFx.anchor_impact.relative_interval_width_reduction)} width`, 64, 527, 310, 42, 32, C.teal, true);
-  text(slide, "s4-confidence", `+${pct(bhpFx.anchor_impact.confidence_lift)} confidence`, 350, 527, 310, 42, 32, C.blue, true);
-
-  rect(slide, "s4-source", 744, 355, 442, 250, C.paleBlue);
-  text(slide, "s4-source-label", "POINT-IN-TIME ANCHOR", 774, 384, 350, 22, 13, C.blue, true);
-  text(slide, "s4-source-title", "Audited multi-currency revenue", 774, 426, 350, 56, 27, C.ink, true);
-  text(slide, "s4-source-body", "BHP Annual Report 2025 p.160\nPeriod end: 30 June 2025\nAvailable: 19 August 2025\nCurrency, unit and FX policy retained", 774, 496, 350, 104, 16, C.muted, false);
-  notes(slide, [
-    "outputs/evidence/E01.json - BHP Cross-border FX opportunity",
-    "data/public_facts.csv - BHP-2025-FX",
-    "BHP Annual Report 2025 p.160 (registered source; report file excluded from GitHub)",
-  ], "Make the evidence trace explicit: page, period and available date. The anchor narrows the interval but does not become an exact wallet label.");
+for (const n of [2, 3, 4, 5, 6, 7, 8, 9]) {
+  const sourceNo = { 2: 2, 3: 4, 4: 3, 5: 9, 6: 5, 7: 7, 8: 6, 9: 8 }[n];
+  setText(`footer-team-${sourceNo}`, "TEAM: Corporate Wallet Digital Twin | Christopher Koen | V3.0");
+  setText(`footer-data-${sourceNo}`, "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE PRIORS");
+  setText(`footer-page-${sourceNo}`, String(n).padStart(2, "0"));
 }
 
-// 5. Public evidence coverage.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "E1 evidence now covers all 20 relationships", 5, "Evidence expansion");
-  metric(slide, "s5-facts", 64, 180, 290, "82", "point-in-time E1 facts", C.blue, "Page, period, available date and source hash retained");
-  metric(slide, "s5-clients", 438, 180, 290, "20 / 20", "relationships covered", C.teal, "All portfolio clients now have governed public evidence");
-  metric(slide, "s5-review", 812, 180, 290, "51", "facts pending SME review", C.amber, "Page-grounded candidates; not relabelled as approved");
+// 1 — opening thesis.
+setMany({
+  "cover-proof": "Latent-network reconstruction and decision intelligence for corporate relationship teams",
+  "cover-version": "V3.0 | AS OF 10 AUGUST 2026 | SYN BANK SIMULATION + PUBLIC E1",
+});
+styledText("cover-subtitle", "Reconstruct the unseen wallet.\nDecide what matters next.", { fontSize: 29, color: "#C7D5E8" });
+const coverImageRecord = records.find((record) => record.kind === "image" && record.slide === 1);
+if (!coverImageRecord) throw new Error("Missing cover image");
+const coverImage = presentation.resolve(coverImageRecord.id);
+const placement = {
+  frame: coverImage.frame,
+  crop: coverImage.crop,
+  fit: coverImage.fit,
+  alt: coverImage.alt,
+  prompt: coverImage.prompt,
+  geometry: coverImage.geometry,
+  borderRadius: coverImage.borderRadius,
+  rotation: coverImage.rotation,
+  flipHorizontal: coverImage.flipHorizontal,
+  flipVertical: coverImage.flipVertical,
+  lockAspectRatio: coverImage.lockAspectRatio,
+};
+coverImage.replace({
+  blob: await fs.readFile(COVER),
+  contentType: "image/png",
+  alt: "Abstract latent corporate financial network with observed and reconstructed flows",
+  fit: placement.fit || "cover",
+  prompt: "Premium abstract corporate-finance network: observed bank node and partially hidden wallet flows, deep navy with cyan, violet and amber accents; no text or logos.",
+});
+coverImage.frame = placement.frame;
+coverImage.crop = placement.crop;
+coverImage.geometry = placement.geometry;
+coverImage.borderRadius = placement.borderRadius;
+coverImage.rotation = placement.rotation;
+coverImage.flipHorizontal = placement.flipHorizontal;
+coverImage.flipVertical = placement.flipVertical;
+coverImage.lockAspectRatio = placement.lockAspectRatio;
+setNotes(1, "Open with the V3 shift: the system no longer stops at a wallet estimate. It reconstructs an anonymous latent network, detects time-sensitive signals, allocates RM capacity, and requests only decision-relevant evidence.", [
+  "docs/v3_methodology.md",
+  "dashboard/app/data/v3-fixture.json",
+  "config/submission.json",
+]);
 
-  text(slide, "s5-progress-title", "Coverage grew without weakening the evidence label", 64, 385, 660, 34, 25, C.ink, true);
-  rect(slide, "s5-original", 64, 446, 390, 52, C.blue);
-  text(slide, "s5-original-text", "31 seed facts | BHP, Glencore, Shoprite", 82, 461, 350, 24, 16, C.white, true);
-  rect(slide, "s5-expanded", 454, 446, 646, 52, C.teal);
-  text(slide, "s5-expanded-text", "+51 page-grounded facts | remaining 17 relationships", 474, 461, 610, 24, 16, C.white, true);
-  text(slide, "s5-total", "= 82 E1 facts", 1115, 459, 100, 28, 18, C.ink, true, "right");
+// 2 — partial-observation problem and claim ladder.
+setMany({
+  "eyebrow-2": "THE PARTIAL-OBSERVATION PROBLEM",
+  "title-2": "Partial observation cannot reveal the full financial system",
+  "s2-thesis": "Syn Bank observes its own product activity—not the total client wallet, external allocation or response to an RM action. V3 makes that partial-observation boundary explicit.",
+  "s2-answer": "V3 preserves the claim ladder—and reconstructs only as scenario",
+  "s2-claim-copy-1": "Accounting interval",
+  "s2-claim-copy-2": "Wallet distribution",
+  "s2-claim-copy-3": "Anonymous shadow network",
+  "s2-proof-text": "All 1,500 external edges remain SCENARIO, SYNTHETIC_SIMULATION and RECONSTRUCTED_NOT_MEASURED; causal value remains withheld.",
+});
+setNotes(2, "Explain A = q × T as an identification problem. Public and accounting anchors constrain T, but they do not observe competitor transactions. The Shadow Wallet is therefore an auditable scenario reconstruction, never measured share.", [
+  "docs/v3_methodology.md",
+  "src/wallet_twin_v3/contracts.py",
+  "src/wallet_twin_v3/shadow_network.py",
+  "Anand, Craig and von Peter, BIS Working Paper 455 (2014)",
+]);
 
-  const tierItems = [
-    ["E0", "governed prior", C.muted],
-    ["E1", "audited public", C.blue],
-    ["E2", "client / RM attested", C.violet],
-    ["E3", "multibank observed", C.teal],
-    ["E4", "reconciled outcome", C.amber],
-  ];
-  tierItems.forEach((item, index) => {
-    const x = 64 + index * 230;
-    rule(slide, `s5-tier-rule-${index}`, x, 564, 196, item[2], 4);
-    text(slide, `s5-tier-${index}`, item[0], x, 582, 44, 26, 17, item[2], true);
-    text(slide, `s5-tier-copy-${index}`, item[1], x + 48, 582, 148, 34, 16, C.ink, true);
-  });
-  notes(slide, [
-    "outputs/client_demo/client_demo_data_manifest.json - source_estate",
-    "outputs/v2_validation/public_evidence_qa.json",
-    "data/v2/public_evidence_coverage.csv",
-    "data/v2/public_facts_expanded.csv",
-  ], "State the honest distinction: all 20 have E1 coverage, while 51 expanded facts still await finance-SME approval.");
-}
+// 3 — entropy-constrained Shadow Wallet.
+setMany({
+  "eyebrow-4": "SHADOW WALLET RECONSTRUCTION",
+  "title-4": "The Shadow Wallet balances every reconstructed flow",
+  "s4-metric-0-value": "R1.1bn",
+  "s4-metric-0-label": "observed Syn Bank flow",
+  "s4-metric-1-value": "7.2%",
+  "s4-metric-1-label": "scenario bank-share median",
+  "s4-metric-2-value": "R15.0bn",
+  "s4-metric-2-label": "total-wallet median",
+  "s4-metric-3-value": "R13.9bn",
+  "s4-metric-3-label": "latent external median",
+  "s4-width-title": "External-wallet reconciliation",
+  "s4-prior-label": "Posterior total",
+  "s4-prior-value": "R15.0bn",
+  "s4-anchor-label": "Observed + latent",
+  "s4-anchor-value": "R15.0bn",
+  "s4-reduction": "R0 balance error",
+  "s4-confidence": "256 ensemble draws",
+  "s4-source-label": "METHOD",
+  "s4-source-title": "Entropy-regularised transport",
+});
+styledText("s4-source-body", "5 corridors × 3 anonymous providers\nPosterior supplies total mass\nSinkhorn preserves marginals\nNo competitor identities inferred", { fontSize: 16, color: "#627086" });
+const shadowTotalBar = presentation.resolve(byName.get("s4-prior-bar").id);
+const shadowComponentsBar = presentation.resolve(byName.get("s4-anchor-bar").id);
+shadowComponentsBar.frame = { ...shadowComponentsBar.frame, width: shadowTotalBar.frame.width };
+setNotes(3, "Use Glencore Trade Finance as the worked example. The reconstruction distributes posterior-constrained external mass over five corridor priors and three anonymous provider nodes. Exact reconciliation is a mechanical property, not proof that the individual edges are true.", [
+  "dashboard/app/data/v3-fixture.json — E02-trade-finance",
+  "src/wallet_twin_v3/shadow_network.py",
+  "Cuturi, Sinkhorn Distances, NeurIPS 2013",
+  "docs/v3_methodology.md",
+]);
 
-// 6. Model validation.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "Coverage survives the corrected validation design", 6, "Wallet-model evidence");
-  metric(slide, "s6-wallet", 64, 182, 290, pct(calibration.split_conformal_audit.wallet.conformal_coverage_90, 1), "wallet interval coverage", C.teal, "Nominal 90%; entity-disjoint calibration and evaluation");
-  metric(slide, "s6-share", 438, 182, 290, pct(calibration.split_conformal_audit.share.conformal_coverage_90, 1), "share interval coverage", C.blue, "Nominal 90%; evaluated across sectors");
-  metric(slide, "s6-narrow", 812, 182, 290, pct(calibration.comparisons.e1_anchor_median_wallet_interval_narrowing, 1), "median E1 narrowing", C.violet, "Coverage retained in the known-truth stress lab");
+// 4 — robust portfolio action.
+setMany({
+  "eyebrow-3": "ROBUST RM PORTFOLIO",
+  "title-3": "Twelve RM actions survive capacity and downside risk",
+  "s3-call-label": "NEXT ACTION",
+  "s3-call-client": "Glencore",
+  "s3-call-product": "Trade Finance",
+  "s3-call-gap": "R11.1m",
+  "s3-call-gap-label": "expected scenario value",
+  "s3-call-confidence": "R5.0m downside CVaR | 100% need",
+  "s3-call-action": "Verify external wallet and instrument mix before contact; causal incremental value is withheld.",
+  "s3-chart-title": "Top five CVaR-aware action values",
+  "s3-pack-copy": "Capacity: 12. At most one action per client, four per product and four per sector. The selected portfolio contains four Trade Finance, four FX and four Liquidity actions.",
+});
+const chartRecord = records.find((record) => record.kind === "chart" && record.slide === 4);
+if (!chartRecord) throw new Error("Missing portfolio chart");
+const chart = presentation.resolve(chartRecord.id);
+chart.series.getItemAt(0).categories = [
+  "Glencore – TF",
+  "BHP – TF",
+  "MTN – FX",
+  "Bid Corp – FX",
+  "Anglo American – Liquidity",
+];
+chart.series.getItemAt(0).values = [11.1, 4.6, 3.7, 2.6, 2.6];
+chart.xAxis = { numberFormatCode: "0.0\"m\"" };
+setNotes(4, "Lead with the scarce-capacity decision. V3 optimizes a portfolio rather than ranking 100 independent rows. The robust score combines expected scenario value with lower-tail CVaR and enforces client, product and sector constraints.", [
+  "dashboard/app/data/v3-fixture.json — action_portfolio",
+  "src/wallet_twin_v3/decision_portfolio.py",
+  "docs/v3_methodology.md",
+]);
 
-  rect(slide, "s6-design", 64, 390, 690, 221, C.paleBlue);
-  text(slide, "s6-design-label", "CORRECTED DESIGN", 90, 416, 280, 22, 13, C.blue, true);
-  const designLines = [
-    "Client-disjoint model fit, conformal calibration and evaluation",
-    "Selection-weighted panel corrects the simulated inclusion mechanism",
-    "Product and sector coverage reported, not only a portfolio average",
-    "Posterior draws, CRPS and interval widths remain reproducible",
-  ];
-  designLines.forEach((value, index) => {
-    rect(slide, `s6-dot-${index}`, 92, 459 + index * 34, 10, 10, C.teal, "none", "rounded-full");
-    text(slide, `s6-line-${index}`, value, 120, 452 + index * 34, 600, 26, 17, C.ink, false);
-  });
+// 5 — BOCPD and leakage signal.
+setMany({
+  "eyebrow-9": "TEMPORAL DYNAMICS",
+  "title-9": "Change-points surface leakage risk without claiming leakage",
+  "s9-timing-label": "GLENCORE TRADE FINANCE — MODELLED SIGNAL",
+  "s9-h-value-0": "4.6%",
+  "s9-h-label-0": "CURRENT CP",
+  "s9-h-value-1": "17.6%",
+  "s9-h-label-1": "RECENT PEAK",
+  "s9-h-value-2": "30.6%",
+  "s9-h-label-2": "90-DAY EVENT",
+  "s9-timing-title": "100 Bayesian run-length series",
+  "s9-timing-copy": "Each 36-month client-product sequence updates a run-length posterior. Observed decline scales the alarm; no decline means no leakage signal.",
+  "s9-timing-decision": "Decision: route the signal to RM verification",
+  "s9-causal-label": "CLAIM BOUNDARY",
+  "s9-zero": "0",
+  "s9-zero-label": "confirmed leakage events",
+  "s9-prohibit": "No competitor transfer, churn or causal-loss claim is permitted from the change-point score alone.",
+});
+styledText("s9-trial", "MODELLED SIGNAL\nNot confirmed leakage; needs named events and RM outcomes.", { fontSize: 18, color: "#C7D5E8" });
+setNotes(5, "The leakage alarm multiplies recent change-point evidence, observed decline and reconstructed external-wallet exposure. It is a prioritization signal for verification, not evidence that a competitor captured flow.", [
+  "src/wallet_twin_v3/event_dynamics.py",
+  "dashboard/app/data/v3-fixture.json — E02-trade-finance",
+  "Adams and MacKay, Bayesian Online Changepoint Detection (2007)",
+]);
 
-  rect(slide, "s6-boundary", 790, 390, 396, 221, C.amberPale);
-  text(slide, "s6-boundary-label", "CLAIM BOUNDARY", 816, 416, 280, 22, 13, C.amber, true);
-  text(slide, "s6-boundary-title", "Strong mechanics,\nnot empirical E3 accuracy", 816, 455, 330, 84, 28, C.ink, true);
-  text(slide, "s6-boundary-copy", "The 1,500-row panel contains known synthetic truth. It cannot establish actual competitor share or bank-production calibration.", 816, 548, 330, 64, 17, C.muted, false);
-  notes(slide, [
-    "outputs/v2_validation/offline_validation_report.json - synthetic_calibration",
-    "outputs/client_demo/representative_multibank_analog.csv",
-    "docs/v2_model_validation.md",
-  ], "Use the headline numbers, then immediately disclose that the panel validates mechanics rather than real-world competitor-share accuracy.");
-}
+// 6 — value-of-information queue.
+setMany({
+  "eyebrow-5": "DECISION-DIRECTED EVIDENCE",
+  "title-5": "Retrieve evidence only when it can change the portfolio",
+  "s5-facts-value": "8",
+  "s5-facts-label": "positive-net-VOI requests",
+  "s5-facts-note": "Selected after utility, evidence cost and latency",
+  "s5-clients-value": "R43.3m",
+  "s5-clients-label": "expected net information value",
+  "s5-clients-note": "Representative decision value—not booked or causal value",
+  "s5-review-value": "0",
+  "s5-review-label": "autonomous retrievals",
+  "s5-review-note": "Approval remains mandatory for every acquisition",
+  "s5-progress-title": "Value comes from decision change—not semantic relevance",
+  "s5-original-text": "Score rank uncertainty and portfolio sensitivity",
+  "s5-expanded-text": "Subtract acquisition cost and latency penalty",
+  "s5-total": "= 8 evidence requests",
+  "s5-tier-0": "E3",
+  "s5-tier-copy-0": "multibank observation",
+  "s5-tier-1": "RATE",
+  "s5-tier-copy-1": "approved economics",
+  "s5-tier-2": "E2",
+  "s5-tier-copy-2": "client / RM attestation",
+  "s5-tier-3": "PIT",
+  "s5-tier-copy-3": "point-in-time source",
+  "s5-tier-4": "4EYE",
+  "s5-tier-copy-4": "human approval",
+});
+setNotes(6, "This is Decision-Directed RAG. Evidence acquisition is selected only when its expected impact on portfolio utility exceeds cost and delay. Retrieval remains non-autonomous and subject to approval and entitlement controls.", [
+  "src/wallet_twin_v3/voi.py",
+  "dashboard/app/data/v3-fixture.json — evidence_acquisition",
+  "Bilgic and Getoor, Value of Information Lattice (2014)",
+  "docs/v3_methodology.md",
+]);
 
-// 7. Sensitivity.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "Trade Finance wins first rank, not portfolio majority", 7, "Rate and prior sensitivity");
-  rect(slide, "s7-left", 64, 180, 500, 423, C.navy);
-  text(slide, "s7-left-label", "FROZEN 3 x 3 BENCHMARK", 92, 209, 350, 22, 13, "#7CB6FF", true);
-  text(slide, "s7-left-main", "#1 in 9 / 9", 92, 258, 350, 62, 46, C.white, true);
-  text(slide, "s7-left-sub", "Trade Finance is the first-ranked product across low/base/high rate and prior cases.", 92, 333, 410, 82, 21, "#C7D5E8", false);
-  const matrixX = 92; const matrixY = 442; const cellW = 121; const cellH = 42;
-  ["LOW RATE", "BASE", "HIGH RATE"].forEach((label, col) => text(slide, `s7-col-${col}`, label, matrixX + col * (cellW + 8), matrixY - 26, cellW, 18, 11, "#8FA5BD", true, "center"));
-  ["LOW PRIOR", "BASE", "HIGH PRIOR"].forEach((label, row) => {
-    for (let col = 0; col < 3; col += 1) {
-      rect(slide, `s7-cell-${row}-${col}`, matrixX + col * (cellW + 8), matrixY + row * (cellH + 8), cellW, cellH, row === 1 && col === 1 ? C.amber : "#17304A");
-      const cellLabel = col === 0 ? `${["LOW P", "BASE P", "HIGH P"][row]} | TF #1` : "TF #1";
-      text(slide, `s7-cell-text-${row}-${col}`, cellLabel, matrixX + col * (cellW + 8), matrixY + 12 + row * (cellH + 8), cellW, 18, col === 0 ? 10 : 14, C.white, true, "center");
-    }
-  });
+// 7 — sensitivity continuity and diversified action portfolio.
+setMany({
+  "title-7": "Trade Finance stays first-ranked, not portfolio-dominant",
+  "s7-left-sub": "Trade Finance remains the first-ranked product across all frozen low/base/high rate and prior cases.",
+  "s7-conclusion": "V3 selects four Trade Finance, four FX and four Liquidity actions—diversified under scarce RM capacity.",
+});
+setNotes(7, "Preserve the V2 continuity benchmark. Trade Finance survives all nine rate/prior cases as the first-ranked product, yet the 10,000-draw global sensitivity and the V3 constrained portfolio both argue against treating it as the entire strategy.", [
+  "dashboard/app/data/shadow-fixture.json — sensitivity",
+  "docs/v3_methodology.md",
+  "outputs/v2_validation/global_sensitivity.json",
+]);
 
-  text(slide, "s7-global-label", "10,000-DRAW GLOBAL SENSITIVITY", 612, 190, 520, 22, 13, C.violet, true);
-  metric(slide, "s7-first", 612, 230, 250, pct(globalSensitivity.product_summary["Trade finance"].first_rank_frequency), "TF first-rank frequency", C.violet, "Stable single highest-ranked product");
-  metric(slide, "s7-top10", 914, 230, 250, pct(globalSensitivity.product_summary["Trade finance"].mean_top10_share, 1), "TF mean top-10 share", C.amber, "Important, but not a portfolio majority");
-  metric(slide, "s7-fx", 612, 416, 250, pct(globalSensitivity.product_summary["Cross-border FX"].majority_dominance_frequency, 1), "FX majority frequency", C.blue, "The wider top 10 concentrates in FX");
-  metric(slide, "s7-econ", 914, 416, 250, money(globalSensitivity.product_summary["Trade finance"].absolute_economics.p50), "TF absolute economics", C.teal, "Median across approved-shape scenario distributions");
-  text(slide, "s7-conclusion", "Conclusion: start with the Trade Finance conversation; keep portfolio capacity diversified across FX and Liquidity.", 612, 590, 552, 46, 18, C.ink, true);
-  notes(slide, [
-    "outputs/data/portfolio.json - sensitivity.scenarios",
-    "dashboard/app/data/shadow-fixture.json - sensitivity",
-    "outputs/sensitivity_register.csv",
-  ], "Give both conclusions. Trade Finance is the stable first product, but Cross-border FX dominates the breadth of the top ten in many global draws.");
-}
+// 8 — representative validation and honest boundaries.
+setMany({
+  "eyebrow-6": "V3 MECHANICAL VALIDATION",
+  "title-6": "V3 adds structure without inventing empirical truth",
+  "s6-wallet-value": "1,500",
+  "s6-wallet-label": "shadow-wallet edges",
+  "s6-wallet-note": "Exact flow reconciliation across 100 client-product networks",
+  "s6-share-value": "100",
+  "s6-share-label": "change-point series",
+  "s6-share-note": "Deterministic temporal replay; not RM-outcome calibrated",
+  "s6-narrow-value": "8 / 8",
+  "s6-narrow-label": "selected VOI positive",
+  "s6-narrow-note": "All retrieval remains non-autonomous",
+  "s6-design-label": "CONTROLLED DESIGN",
+  "s6-line-0": "256-draw entropy transport uses anonymous provider nodes",
+  "s6-line-1": "PU probabilities retain their SCAR assumption and selection constant",
+  "s6-line-2": "CVaR portfolio enforces client, product and sector capacity caps",
+  "s6-line-3": "All /v3 routes inherit deny-by-default ABAC and as-of contracts",
+  "s6-boundary-title": "Strong mechanics,\nnot measured competitors",
+  "s6-boundary-copy": "No E3 competitor share, bank-approved economics or causal RM outcomes exist. V3 reports zero measured-share and zero causal-value claims.",
+});
+setNotes(8, "Separate mechanical validation from empirical calibration. V3 proves mass balance, constraints, deterministic replay, provenance and claim suppression. It does not claim representative-bank accuracy without E3 and RM outcomes.", [
+  "dashboard/app/data/v3-fixture.json — validation",
+  "tests/test_v3_decision_intelligence.py",
+  "docs/v3_implementation_status.md",
+]);
 
-// 8. GenAI controls.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "Controls, not GenAI, decide what publishes", 8, "Production-style GenAI");
-  const stages = [
-    ["1", "Extract", "Structured extraction candidate", C.blue],
-    ["2", "Validate", "Currency, unit, period, arithmetic", C.teal],
-    ["3", "Review", "Four-eyes evidence approval", C.amber],
-    ["4", "Compile", "Only approved claims and citations", C.violet],
-    ["5", "Brief", "Grounded narrative or fallback", C.ink],
-  ];
-  // Connectors first so they stay behind the nodes.
-  for (let index = 0; index < stages.length - 1; index += 1) {
-    rule(slide, `s8-link-${index}`, 182 + index * 225, 305, 93, C.line, 3);
-  }
-  stages.forEach((stage, index) => {
-    const x = 64 + index * 225;
-    rect(slide, `s8-stage-${index}`, x, 218, 190, 175, index % 2 === 0 ? C.paleBlue : C.greenPale, C.line, "rounded-lg");
-    text(slide, `s8-num-${index}`, stage[0], x + 16, 238, 36, 32, 22, stage[3], true);
-    text(slide, `s8-title-${index}`, stage[1], x + 16, 282, 156, 34, 25, C.ink, true);
-    text(slide, `s8-copy-${index}`, stage[2], x + 16, 329, 156, 52, 16, C.muted, false);
-  });
-  metric(slide, "s8-checks", 64, 466, 250, "809", "governed checks", C.blue, "Schema, evidence, page grounding and stress");
-  metric(slide, "s8-cases", 356, 466, 250, "36", "golden-set cases", C.violet, "Sealed split protocol and adjudication structure");
-  metric(slide, "s8-stress", 648, 466, 250, "640", "stress cases", C.amber, "Exact, future, injection and missing evidence");
-  metric(slide, "s8-fail", 940, 466, 250, "0", "validator failures", C.teal, "Deterministic scope; live-provider approval stays separate");
-  notes(slide, [
-    "outputs/v2_validation/genai_golden_eval.json",
-    "src/wallet_twin_v2/genai_gateway.py",
-    "src/wallet_twin_v2/genai_eval.py",
-    "prompts/evidence_extraction.txt",
-  ], "Explain that the model never publishes facts or acts in CRM. Deterministic checks and approval status control publication.");
-}
+// 9 — decision-directed RAG and governed brief.
+setMany({
+  "eyebrow-8": "DECISION-DIRECTED RAG + GENAI",
+  "title-8": "Ask for evidence before asking for prose",
+  "s8-title-0": "Score",
+  "s8-copy-0": "Portfolio sensitivity and uncertainty",
+  "s8-title-1": "Value",
+  "s8-copy-1": "Expected utility gain minus cost",
+  "s8-title-2": "Acquire",
+  "s8-copy-2": "Approved, entitled evidence only",
+  "s8-title-3": "Compile",
+  "s8-copy-3": "Claims, numbers and citations",
+  "s8-title-4": "Brief",
+  "s8-copy-4": "LLM gateway or deterministic fallback",
+  "s8-checks-value": "8",
+  "s8-checks-label": "VOI requests",
+  "s8-checks-note": "Decision-selected, never autonomous",
+  "s8-cases-value": "809",
+  "s8-cases-label": "governed checks",
+  "s8-cases-note": "Schema, evidence, page grounding and stress",
+  "s8-stress-value": "640",
+  "s8-stress-label": "stress cases",
+  "s8-stress-note": "Exact, future, injection and missing evidence",
+  "s8-fail-value": "0",
+  "s8-fail-label": "autonomous actions",
+  "s8-fail-note": "No CRM, client, pricing or retrieval action is delegated",
+});
+setNotes(9, "The LLM is last, not first. V3 selects evidence by value of information, requires approval, compiles a closed claim pack, and permits the model only to narrate approved content. Deterministic fallback remains operational.", [
+  "src/wallet_twin_v3/briefing.py",
+  "src/wallet_twin_v2/genai.py",
+  "prompts/v3_decision_brief.schema.json",
+  "outputs/v2_validation/genai_golden_eval.json",
+]);
 
-// 9. Timing and causal boundary.
-{
-  const slide = deck.slides.add();
-  slideTitle(slide, "Timing is usable; causal value stays prohibited", 9, "When to act and what not to claim");
-  text(slide, "s9-timing-label", "TRANSACTION-DERIVED EVENT PROBABILITY", 64, 183, 520, 22, 13, C.blue, true);
-  const horizons = [
-    ["30 DAYS", timing.discrete_time_challenger.mean_surrogate_probability["30d"], C.blue],
-    ["60 DAYS", timing.discrete_time_challenger.mean_surrogate_probability["60d"], C.teal],
-    ["90 DAYS", timing.discrete_time_challenger.mean_surrogate_probability["90d"], C.violet],
-  ];
-  horizons.forEach((item, index) => {
-    const x = 64 + index * 224;
-    rule(slide, `s9-h-rule-${index}`, x, 229, 190, item[2], 4);
-    text(slide, `s9-h-value-${index}`, pct(item[1], 1), x, 252, 190, 50, 37, C.ink, true);
-    text(slide, `s9-h-label-${index}`, item[0], x, 309, 190, 24, 15, item[2], true);
-  });
-  rect(slide, "s9-timing-boundary", 64, 376, 640, 214, C.paleBlue);
-  text(slide, "s9-timing-title", "3,440 start-stop intervals", 92, 406, 360, 42, 29, C.ink, true);
-  text(slide, "s9-timing-copy", "Activation, dormancy and volume-uplift events support a transparent seasonal baseline and named 30/60/90-day windows.", 92, 463, 560, 62, 19, C.muted, false);
-  text(slide, "s9-timing-decision", "Decision: retain seasonal baseline", 92, 546, 520, 28, 18, C.blue, true);
-
-  rect(slide, "s9-causal", 752, 180, 434, 410, C.navy);
-  text(slide, "s9-causal-label", "CAUSAL GATE", 782, 211, 280, 22, 13, "#7CB6FF", true);
-  text(slide, "s9-zero", "0", 782, 255, 170, 74, 58, C.amber, true);
-  text(slide, "s9-zero-label", "qualified RM outcomes", 782, 332, 310, 30, 18, C.white, true);
-  text(slide, "s9-trial", "Trial instrumentation rehearsed:\n30 clusters | 1,500 eligible opportunities", 782, 393, 350, 70, 20, "#C7D5E8", false);
-  text(slide, "s9-prohibit", "No uplift, optimal-share or causal incremental-value label is permitted.", 782, 505, 350, 72, 20, C.white, true);
-  notes(slide, [
-    "outputs/v2_validation/offline_validation_report.json - historical_validation.timing_surrogate",
-    "outputs/client_demo/client_demo_data_manifest.json - trial_analog",
-    "docs/v2_pilot_protocol.md",
-  ], "The timing layer can prioritize a conversation, but transaction-derived events are not banker outcomes. The causal label remains closed.");
-}
-
-// 10. Close and pilot.
-{
-  const slide = deck.slides.add();
-  slide.background.fill = C.navy;
-  text(slide, "s10-kicker", "THE DECISION", 64, 48, 320, 22, 14, "#7CB6FF", true);
-  text(slide, "s10-title", "Pilot the strongest twins\nunder controlled evidence", 64, 112, 760, 132, 54, C.white, true);
-  text(slide, "s10-subtitle", "The hackathon solution is ready to demonstrate now. The next milestone converts governed scenarios into observed banker actions without overstating production readiness.", 64, 277, 780, 92, 24, "#C7D5E8", false);
-  const steps = [
-    ["01", "Start with evidence-rich clients", "BHP, Glencore and Shoprite plus the highest-value E1-covered relationships."],
-    ["02", "Measure the recommendation", "Eligibility, exposure, evidence verification, RM action and outcome events."],
-    ["03", "Promote only after gates pass", "Real E3 calibration, approved economics, identity controls and causal evidence."],
-  ];
-  steps.forEach((step, index) => {
-    const x = 64 + index * 378;
-    rule(slide, `s10-step-rule-${index}`, x, 435, 326, index === 2 ? C.amber : C.blue2, 4);
-    text(slide, `s10-step-num-${index}`, step[0], x, 460, 44, 25, 14, "#7CB6FF", true);
-    text(slide, `s10-step-title-${index}`, step[1], x, 497, 326, 50, 22, C.white, true);
-    text(slide, `s10-step-copy-${index}`, step[2], x, 560, 326, 72, 17, "#9FB1C9", false);
-  });
-  text(slide, "s10-close", "A transparent commercial hypothesis today. A measurable learning system tomorrow.", 64, 666, 1000, 24, 17, C.white, true);
-  text(slide, "s10-team", `${SUBMISSION.team_name} | ${SUBMISSION.team_members.join(", ")} | ${SUBMISSION.solution_version}`, 850, 666, 366, 24, 12, "#8FA5BD", true, "right");
-  text(slide, "s10-repository", `CODE: ${SUBMISSION.repository_url}`, 64, 638, 860, 18, 11, "#7CB6FF", true);
-  notes(slide, [
-    "docs/client_demo_release.md",
-    "docs/v2_pilot_protocol.md",
-    "docs/production_deployment_runbook.md",
-    "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-    "notebooks/01_wallet_twin_demo.ipynb",
-  ], "Close on the controlled pilot. The system is a strong, transparent hackathon solution now; bank production requires the external gates already documented.");
-}
+// 10 — summary and explicit production gates.
+setMany({
+  "s10-step-title-0": "Reconstruct the unseen wallet",
+  "s10-step-copy-0": "100 client-product networks, 1,500 anonymous external edges and exact mass balance.",
+  "s10-step-title-1": "Allocate scarce attention",
+  "s10-step-copy-1": "Twelve CVaR-aware actions plus eight positive-net-value evidence requests.",
+  "s10-step-title-2": "Close external gates",
+  "s10-step-copy-2": "E3 calibration, approved economics, bank identity/infrastructure, live evaluation and RM trial.",
+  "s10-close": "A better decision today. A measurable learning system tomorrow.",
+  "s10-team": "Corporate Wallet Digital Twin | Christopher Koen | V3.0",
+});
+styledText("s10-title", "Demonstrate the latent decision lab\nthen earn production", { fontSize: 54, color: "#FFFFFF", bold: true });
+styledText("s10-subtitle", "V3 turns partial observations into reconstructed wallets, temporal signals, constrained actions and a deliberate evidence queue—without overstating what was measured.", { fontSize: 24, color: "#C7D5E8" });
+setNotes(10, "Close on the implemented V3 decision loop and the remaining external gates. The client demo is complete and reproducible; production claims remain deliberately fail-closed until bank data, controls and supervised outcomes exist.", [
+  "docs/v3_implementation_status.md",
+  "docs/production_deployment_runbook.md",
+  "notebooks/01_wallet_twin_demo.ipynb",
+  "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+]);
 
 await fs.mkdir(OUT, { recursive: true });
-for (const [index, slide] of deck.slides.items.entries()) {
+for (let index = 0; index < presentation.slides.count; index += 1) {
+  const slide = presentation.slides.getItem(index);
   const stem = `slide-${String(index + 1).padStart(2, "0")}`;
-  await writeBlob(path.join(OUT, `${stem}.png`), await deck.export({ slide, format: "png", scale: 1 }));
+  const png = await presentation.export({ slide, format: "png", scale: 1 });
+  await fs.writeFile(path.join(OUT, `${stem}.png`), new Uint8Array(await png.arrayBuffer()));
   const layout = await slide.export({ format: "layout" });
   await fs.writeFile(path.join(OUT, `${stem}.layout.json`), await layout.text());
 }
-await writeBlob(path.join(OUT, "wallet-twin-deck-montage.webp"), await deck.export({ format: "webp", montage: true, scale: 1 }));
-const pptx = await PresentationFile.exportPptx(deck);
+const montage = await presentation.export({ format: "webp", montage: true, scale: 1 });
+await fs.writeFile(path.join(OUT, "wallet-twin-deck-montage.webp"), new Uint8Array(await montage.arrayBuffer()));
+const pptx = await PresentationFile.exportPptx(presentation);
 await pptx.save(path.join(OUT, "Corporate-Wallet-Digital-Twin.pptx"));
-console.log(JSON.stringify({ slides: deck.slides.items.length, output: path.join(OUT, "Corporate-Wallet-Digital-Twin.pptx") }, null, 2));
+console.log(JSON.stringify({ slides: presentation.slides.count, output: path.join(OUT, "Corporate-Wallet-Digital-Twin.pptx") }, null, 2));

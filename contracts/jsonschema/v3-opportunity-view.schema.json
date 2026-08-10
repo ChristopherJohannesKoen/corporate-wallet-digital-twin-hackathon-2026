@@ -1,0 +1,520 @@
+{
+  "$defs": {
+    "AmountInterval": {
+      "additionalProperties": false,
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "minimum": 0,
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "minimum": 0,
+          "title": "Median",
+          "type": "number"
+        },
+        "upper": {
+          "minimum": 0,
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "AmountInterval",
+      "type": "object"
+    },
+    "ChangePointSignal": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date",
+          "title": "As Of",
+          "type": "string"
+        },
+        "calibration_status": {
+          "title": "Calibration Status",
+          "type": "string"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "POSTERIOR"
+        },
+        "current_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Current Probability",
+          "type": "number"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "opportunity_id": {
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "probability_30d": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability 30D",
+          "type": "number"
+        },
+        "probability_60d": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability 60D",
+          "type": "number"
+        },
+        "probability_90d": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability 90D",
+          "type": "number"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "recent_peak_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Recent Peak Probability",
+          "type": "number"
+        },
+        "run_length_mode_months": {
+          "minimum": 0,
+          "title": "Run Length Mode Months",
+          "type": "integer"
+        },
+        "signed_level_shift": {
+          "title": "Signed Level Shift",
+          "type": "number"
+        }
+      },
+      "required": [
+        "opportunity_id",
+        "entity_id",
+        "product",
+        "as_of",
+        "current_probability",
+        "recent_peak_probability",
+        "run_length_mode_months",
+        "signed_level_shift",
+        "probability_30d",
+        "probability_60d",
+        "probability_90d",
+        "method",
+        "calibration_status"
+      ],
+      "title": "ChangePointSignal",
+      "type": "object"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "DataProvenanceClass": {
+      "enum": [
+        "BANK_OBSERVED",
+        "PUBLIC_AUDITED",
+        "CLIENT_ATTESTED",
+        "MULTIBANK_OBSERVED",
+        "REPRESENTATIVE_PUBLIC",
+        "SYNTHETIC_SIMULATION"
+      ],
+      "title": "DataProvenanceClass",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "LeakageAlarm": {
+      "additionalProperties": false,
+      "properties": {
+        "alarm_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Alarm Probability",
+          "type": "number"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "POSTERIOR"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "expected_external_flow_at_risk_zar": {
+          "minimum": 0,
+          "title": "Expected External Flow At Risk Zar",
+          "type": "number"
+        },
+        "measurement_status": {
+          "default": "MODELLED_SIGNAL_NOT_CONFIRMED_LEAKAGE",
+          "title": "Measurement Status",
+          "type": "string"
+        },
+        "observed_level_decline": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Observed Level Decline",
+          "type": "number"
+        },
+        "opportunity_id": {
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "reason_codes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Reason Codes",
+          "type": "array"
+        },
+        "severity": {
+          "title": "Severity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "opportunity_id",
+        "entity_id",
+        "product",
+        "alarm_probability",
+        "expected_external_flow_at_risk_zar",
+        "observed_level_decline",
+        "severity",
+        "reason_codes"
+      ],
+      "title": "LeakageAlarm",
+      "type": "object"
+    },
+    "ProductNeedEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "POSTERIOR"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/EvidenceTier",
+          "default": "E0"
+        },
+        "labelled_positive_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Labelled Positive Probability",
+          "type": "number"
+        },
+        "method": {
+          "default": "Elkan-Noto SCAR correction over transparent logistic base learner",
+          "title": "Method",
+          "type": "string"
+        },
+        "opportunity_id": {
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "positive_label_observed": {
+          "title": "Positive Label Observed",
+          "type": "boolean"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "product_need_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Product Need Probability",
+          "type": "number"
+        },
+        "selection_constant": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Selection Constant",
+          "type": "number"
+        }
+      },
+      "required": [
+        "opportunity_id",
+        "entity_id",
+        "product",
+        "positive_label_observed",
+        "labelled_positive_probability",
+        "product_need_probability",
+        "selection_constant",
+        "assumptions"
+      ],
+      "title": "ProductNeedEstimate",
+      "type": "object"
+    },
+    "ShadowFlow": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/AmountInterval"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "corridor": {
+          "title": "Corridor",
+          "type": "string"
+        },
+        "edge_id": {
+          "title": "Edge Id",
+          "type": "string"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "observed_by_bank": {
+          "title": "Observed By Bank",
+          "type": "boolean"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/DataProvenanceClass"
+        },
+        "provider_node": {
+          "title": "Provider Node",
+          "type": "string"
+        }
+      },
+      "required": [
+        "edge_id",
+        "entity_id",
+        "product",
+        "corridor",
+        "provider_node",
+        "amount",
+        "observed_by_bank",
+        "claim_class",
+        "provenance"
+      ],
+      "title": "ShadowFlow",
+      "type": "object"
+    },
+    "ShadowWalletReconstruction": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date",
+          "title": "As Of",
+          "type": "string"
+        },
+        "bank_share": {
+          "$ref": "#/$defs/AmountInterval"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "SCENARIO"
+        },
+        "ensemble_draws": {
+          "minimum": 32,
+          "title": "Ensemble Draws",
+          "type": "integer"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "flows": {
+          "items": {
+            "$ref": "#/$defs/ShadowFlow"
+          },
+          "title": "Flows",
+          "type": "array"
+        },
+        "latent_external_wallet": {
+          "$ref": "#/$defs/AmountInterval"
+        },
+        "measurement_status": {
+          "default": "RECONSTRUCTED_NOT_MEASURED",
+          "title": "Measurement Status",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "normalized_entropy": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Normalized Entropy",
+          "type": "number"
+        },
+        "observed_bank_flow": {
+          "minimum": 0,
+          "title": "Observed Bank Flow",
+          "type": "number"
+        },
+        "opportunity_id": {
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "provenance": {
+          "$ref": "#/$defs/DataProvenanceClass",
+          "default": "SYNTHETIC_SIMULATION"
+        },
+        "reconstruction_id": {
+          "title": "Reconstruction Id",
+          "type": "string"
+        },
+        "total_wallet": {
+          "$ref": "#/$defs/AmountInterval"
+        }
+      },
+      "required": [
+        "reconstruction_id",
+        "opportunity_id",
+        "entity_id",
+        "product",
+        "as_of",
+        "observed_bank_flow",
+        "total_wallet",
+        "latent_external_wallet",
+        "bank_share",
+        "flows",
+        "normalized_entropy",
+        "ensemble_draws",
+        "method"
+      ],
+      "title": "ShadowWalletReconstruction",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "change_point": {
+      "$ref": "#/$defs/ChangePointSignal"
+    },
+    "commercial_status": {
+      "title": "Commercial Status",
+      "type": "string"
+    },
+    "decision_score": {
+      "title": "Decision Score",
+      "type": "number"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "entity_name": {
+      "title": "Entity Name",
+      "type": "string"
+    },
+    "evidence_tier": {
+      "$ref": "#/$defs/EvidenceTier"
+    },
+    "leakage": {
+      "$ref": "#/$defs/LeakageAlarm"
+    },
+    "need": {
+      "$ref": "#/$defs/ProductNeedEstimate"
+    },
+    "opportunity_id": {
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "sector": {
+      "title": "Sector",
+      "type": "string"
+    },
+    "shadow_wallet": {
+      "$ref": "#/$defs/ShadowWalletReconstruction"
+    },
+    "v2_rank": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "V2 Rank"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "entity_id",
+    "entity_name",
+    "sector",
+    "product",
+    "as_of",
+    "v2_rank",
+    "need",
+    "shadow_wallet",
+    "change_point",
+    "leakage",
+    "decision_score",
+    "evidence_tier",
+    "commercial_status"
+  ],
+  "title": "V3OpportunityView",
+  "type": "object"
+}

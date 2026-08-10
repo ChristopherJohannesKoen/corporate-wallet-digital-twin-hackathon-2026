@@ -1,0 +1,103 @@
+{
+  "$defs": {
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "calibration_status": {
+      "title": "Calibration Status",
+      "type": "string"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass",
+      "default": "POSTERIOR"
+    },
+    "current_probability": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Current Probability",
+      "type": "number"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "method": {
+      "title": "Method",
+      "type": "string"
+    },
+    "opportunity_id": {
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "probability_30d": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Probability 30D",
+      "type": "number"
+    },
+    "probability_60d": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Probability 60D",
+      "type": "number"
+    },
+    "probability_90d": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Probability 90D",
+      "type": "number"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "recent_peak_probability": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Recent Peak Probability",
+      "type": "number"
+    },
+    "run_length_mode_months": {
+      "minimum": 0,
+      "title": "Run Length Mode Months",
+      "type": "integer"
+    },
+    "signed_level_shift": {
+      "title": "Signed Level Shift",
+      "type": "number"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "entity_id",
+    "product",
+    "as_of",
+    "current_probability",
+    "recent_peak_probability",
+    "run_length_mode_months",
+    "signed_level_shift",
+    "probability_30d",
+    "probability_60d",
+    "probability_90d",
+    "method",
+    "calibration_status"
+  ],
+  "title": "ChangePointSignal",
+  "type": "object"
+}

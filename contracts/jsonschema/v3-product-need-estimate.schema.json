@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass",
+      "default": "POSTERIOR"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "evidence_tier": {
+      "$ref": "#/$defs/EvidenceTier",
+      "default": "E0"
+    },
+    "labelled_positive_probability": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Labelled Positive Probability",
+      "type": "number"
+    },
+    "method": {
+      "default": "Elkan-Noto SCAR correction over transparent logistic base learner",
+      "title": "Method",
+      "type": "string"
+    },
+    "opportunity_id": {
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "positive_label_observed": {
+      "title": "Positive Label Observed",
+      "type": "boolean"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "product_need_probability": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Product Need Probability",
+      "type": "number"
+    },
+    "selection_constant": {
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "title": "Selection Constant",
+      "type": "number"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "entity_id",
+    "product",
+    "positive_label_observed",
+    "labelled_positive_probability",
+    "product_need_probability",
+    "selection_constant",
+    "assumptions"
+  ],
+  "title": "ProductNeedEstimate",
+  "type": "object"
+}

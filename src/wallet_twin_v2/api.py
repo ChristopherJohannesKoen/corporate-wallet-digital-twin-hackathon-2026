@@ -41,9 +41,9 @@ from .timing import TimingService
 
 
 app = FastAPI(
-    title="Corporate Wallet Digital Twin V2",
-    version="2.0.0",
-    description="Private, entitlement-aware shadow decision-support API",
+    title="Corporate Wallet Digital Twin V3",
+    version="3.0.0",
+    description="Private, entitlement-aware latent-wallet reconstruction and decision-support API",
     docs_url="/internal/docs",
     redoc_url=None,
 )
@@ -588,3 +588,11 @@ def evaluate_access(request: AccessEvaluationRequest, context: EntitlementContex
 def list_events(context: EntitlementContext = Depends(principal)) -> dict:
     authorize(context, action="events:read", resource_type="event-log", resource_id="shadow")
     return {"count": len(events.list()), "items": [event.model_dump(mode="json") for event in events.list()]}
+
+
+# V3 is an additive decision-intelligence layer.  Including its router here
+# preserves every governed V1/V2 endpoint while exposing the new latent-network,
+# leakage, portfolio and evidence-acquisition surfaces from one internal API.
+from wallet_twin_v3.api import router as v3_router  # noqa: E402
+
+app.include_router(v3_router)

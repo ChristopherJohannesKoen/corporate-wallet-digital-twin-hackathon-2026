@@ -7,9 +7,10 @@ import type {
   ProductSensitivity,
   PublicFact,
   ShadowFixture,
+  V3Fixture,
 } from "@/lib/contracts";
 
-type View = "Client demo" | "Evidence twin" | "Models & gates";
+type View = "Decision lab" | "Evidence twin" | "Models & gates";
 type Explanation = {
   opportunity: Opportunity;
   facts: PublicFact[];
@@ -127,9 +128,10 @@ function EmptyState({ message }: { message: string }) {
 }
 
 export default function Dashboard({ viewer, asOf }: { viewer: string; asOf: string }) {
-  const [view, setView] = useState<View>("Client demo");
+  const [view, setView] = useState<View>("Decision lab");
   const [portfolio, setPortfolio] = useState<OpportunityListResponse | null>(null);
   const [sensitivity, setSensitivity] = useState<SensitivityResponse | null>(null);
+  const [v3, setV3] = useState<V3Fixture | null>(null);
   const [selectedId, setSelectedId] = useState("");
   const [explanation, setExplanation] = useState<Explanation | null>(null);
   const [product, setProduct] = useState("All products");
@@ -170,6 +172,17 @@ export default function Dashboard({ viewer, asOf }: { viewer: string; asOf: stri
       .then((data: SensitivityResponse) => setSensitivity(data));
   }, [view, sensitivity, asOf]);
 
+  useEffect(() => {
+    if (view !== "Decision lab" || v3) return;
+    fetch(`/api/v3/decision-lab?as_of=${asOf}`, { cache: "no-store" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`V3 decision API returned ${response.status}`);
+        return response.json() as Promise<V3Fixture>;
+      })
+      .then((data) => setV3(data))
+      .catch((reason: Error) => setError(reason.message));
+  }, [view, v3, asOf]);
+
   const visible = useMemo(() => {
     if (!portfolio) return [];
     return portfolio.items.filter((item) =>
@@ -179,6 +192,7 @@ export default function Dashboard({ viewer, asOf }: { viewer: string; asOf: stri
   }, [portfolio, product, evidence]);
 
   const selected = portfolio?.items.find((item) => item.opportunity_id === selectedId) ?? portfolio?.items[0];
+  const selectedV3 = v3?.opportunities.find((item) => item.opportunity_id === selectedId) ?? v3?.opportunities[0];
   const publiclyAnchoredCount = portfolio?.items.filter((item) => item.calibration_status === "PUBLICLY_ANCHORED").length ?? 0;
 
   async function evaluateScenario() {
@@ -211,7 +225,7 @@ export default function Dashboard({ viewer, asOf }: { viewer: string; asOf: stri
       <header className="masthead">
         <div className="brand">
           <span className="brand-mark"><i /><i /><i /></span>
-          <div><b>Corporate Wallet</b><small>Digital Twin · V2</small></div>
+          <div><b>Corporate Wallet</b><small>Digital Twin · V3</small></div>
         </div>
         <div className="environment">
           <Pill tone="demo">Client demo</Pill>
@@ -226,33 +240,95 @@ export default function Dashboard({ viewer, asOf }: { viewer: string; asOf: stri
         <b>{portfolio.metadata.watermark}</b>
       </div>
 
-      <nav className="primary-nav" aria-label="V2 workbench views">
-        {(["Client demo", "Evidence twin", "Models & gates"] as View[]).map((item) => (
+      <nav className="primary-nav" aria-label="V3 workbench views">
+        {(["Decision lab", "Evidence twin", "Models & gates"] as View[]).map((item) => (
           <button key={item} className={view === item ? "active" : ""} onClick={() => setView(item)}>
-            <span>{item === "Client demo" ? "01" : item === "Evidence twin" ? "02" : "03"}</span>{item}
+            <span>{item === "Decision lab" ? "01" : item === "Evidence twin" ? "02" : "03"}</span>{item}
           </button>
         ))}
       </nav>
 
-      {view === "Client demo" && (
+      {view === "Decision lab" && (
         <main>
           <section className="intro">
             <div>
-              <p className="kicker">Governed client demonstration</p>
-              <h1>Explore the wallet.<br /><em>See every assumption.</em></h1>
+              <p className="kicker">Latent corporate financial system</p>
+              <h1>Reconstruct what is unseen.<br /><em>Decide what matters next.</em></h1>
             </div>
             <div className="intro-copy">
-              <p>V2 combines SynBank activity, audited public evidence and licensed representative references while keeping observation, bounds, posterior inference, scenarios and causal value visibly separate.</p>
-              <div><span className="pulse" />Private API · point-in-time · deny by default</div>
+              <p>{v3?.metadata.central_idea ?? "Loading the governed V3 decision layer."}</p>
+              <div><span className="pulse" />Entropy reconstruction · BOCPD · robust portfolio · decision-directed RAG</div>
             </div>
           </section>
 
           <section className="stats-grid">
-            <Stat label="Demo hypotheses" value={String(portfolio.count)} note="20 clients × 5 initial products" />
-            <Stat label="Public evidence" value={`${portfolio.evidence_coverage.e1_facts} facts`} note={`${portfolio.evidence_coverage.e1_clients}/20 clients · ${portfolio.evidence_coverage.pending_sme_facts} pending SME review`} tone="cyan" />
-            <Stat label="Representative analog" value="1,500 rows" note="300 simulated peers × all five products" tone="amber" />
-            <Stat label="Demo release" value="Ready" note={`Bank production remains blocked by ${portfolio.release.blocking_gates.length} external gate families`} tone="cyan" />
+            <Stat label="Shadow network" value={v3 ? v3.validation.shadow_flow_edges.toLocaleString() : "—"} note="anonymous corridor × provider edges; exact mass balance" />
+            <Stat label="RM capacity plan" value={v3 ? `${v3.action_portfolio.selected_actions.length}/${v3.action_portfolio.capacity}` : "—"} note="CVaR-aware actions under client, sector and product caps" tone="cyan" />
+            <Stat label="Downside portfolio" value={v3 ? money(v3.action_portfolio.downside_cvar_zar) : "—"} note="representative lower-tail scenario value; not causal" tone="amber" />
+            <Stat label="Evidence queue" value={v3 ? String(v3.evidence_acquisition.selected.length) : "—"} note="positive-net-VOI requests; no autonomous retrieval" tone="cyan" />
           </section>
+
+          {v3 && selectedV3 ? (
+            <>
+              <section className="v3-grid">
+                <article className="panel latent-panel">
+                  <div className="panel-head">
+                    <div><p className="kicker">Entropy-constrained shadow wallet</p><h2>{selectedV3.entity_name} · {selectedV3.product}</h2></div>
+                    <Pill tone="scenario">Reconstructed</Pill>
+                  </div>
+                  <select className="v3-select" value={selectedV3.opportunity_id} onChange={(event) => selectTwin(event.target.value)}>
+                    {v3.opportunities.map((item) => <option key={item.opportunity_id} value={item.opportunity_id}>{item.entity_name} · {item.product}</option>)}
+                  </select>
+                  <div className="v3-kpis">
+                    <div><span>Observed Syn Bank</span><b>{money(selectedV3.shadow_wallet.observed_bank_flow)}</b></div>
+                    <div><span>Latent external median</span><b>{money(selectedV3.shadow_wallet.latent_external_wallet.median)}</b></div>
+                    <div><span>Inferred bank share</span><b>{pct(selectedV3.shadow_wallet.bank_share.median, 1)}</b></div>
+                    <div><span>Network entropy</span><b>{pct(selectedV3.shadow_wallet.normalized_entropy, 1)}</b></div>
+                  </div>
+                  <div className="shadow-flows">
+                    {selectedV3.shadow_wallet.flows.slice().sort((a, b) => b.amount.median - a.amount.median).slice(0, 8).map((flow) => (
+                      <div key={flow.edge_id}>
+                        <span>{flow.corridor}<small>{flow.provider_node}</small></span>
+                        <i><em style={{ width: pct(flow.amount.median / Math.max(selectedV3.shadow_wallet.latent_external_wallet.median, 1)) }} /></i>
+                        <b>{money(flow.amount.median)}</b>
+                      </div>
+                    ))}
+                  </div>
+                  <footer className="panel-foot"><span>256-member ensemble</span><p>Anonymous providers only. No edge is measured competitor activity.</p></footer>
+                </article>
+
+                <aside className="v3-signals">
+                  <article className="panel signal-card"><p className="kicker">PU product need</p><strong>{pct(selectedV3.need.product_need_probability, 1)}</strong><span>SCAR-corrected probability</span><p>Known positives + unlabelled relationships; 33 transparent fixture positives.</p></article>
+                  <article className="panel signal-card"><p className="kicker">Wallet leakage alarm</p><strong>{pct(selectedV3.leakage.alarm_probability, 1)}</strong><span>{selectedV3.leakage.severity} · modelled signal</span><p>{pct(selectedV3.leakage.observed_level_decline, 1)} observed level decline; {money(selectedV3.leakage.expected_external_flow_at_risk_zar)} scenario flow at risk.</p></article>
+                  <article className="panel signal-card"><p className="kicker">Change-point horizon</p><strong>{pct(selectedV3.change_point.probability_90d, 1)}</strong><span>90-day event probability</span><p>Run-length mode {selectedV3.change_point.run_length_mode_months} months; representative replay, not RM-outcome calibrated.</p></article>
+                </aside>
+              </section>
+
+              <section className="panel v3-actions">
+                <div className="panel-head"><div><p className="kicker">Robust decision-focused optimization</p><h2>RM attention portfolio</h2></div><Pill tone="scenario">CVaR constrained</Pill></div>
+                <div className="table-wrap"><table><thead><tr><th>#</th><th>Client / action</th><th>Need</th><th>Leakage</th><th>Expected scenario</th><th>Downside CVaR</th><th>Evidence</th></tr></thead><tbody>
+                  {v3.action_portfolio.selected_actions.map((action, index) => <tr key={action.action_id}>
+                    <td><span className="rank">{String(index + 1).padStart(2, "0")}</span></td><td><b>{action.entity_name}</b><small>{action.product} · {title(action.sector)}</small></td>
+                    <td>{pct(action.need_probability, 1)}</td><td>{pct(action.leakage_probability, 1)}</td><td><b>{money(action.expected_scenario_value_zar)}</b><small>representative</small></td><td>{money(action.downside_cvar_zar)}</td><td><Pill tone={action.evidence_tier.toLowerCase()}>{action.evidence_tier}</Pill></td>
+                  </tr>)}</tbody></table></div>
+                <footer className="panel-foot"><span>{v3.action_portfolio.causal_status.replaceAll("_", " ")}</span><p>At most one action per client, four per product and four per sector.</p></footer>
+              </section>
+
+              <section className="v3-lower">
+                <article className="panel voi-panel">
+                  <div className="panel-head"><div><p className="kicker">Decision-directed evidence</p><h2>Retrieve only when information can change the decision</h2></div><Pill tone="posterior">Positive net VOI</Pill></div>
+                  {v3.evidence_acquisition.selected.map((item) => <div className="voi-row" key={item.candidate_id}>
+                    <div><b>{item.evidence_type}</b><span>{item.entity_id} · {item.product}</span></div><strong>{money(item.net_value_of_information_zar)}</strong><small>{pct(item.expected_interval_width_reduction)} width reduction · {item.required_approval}</small>
+                  </div>)}
+                  <footer className="panel-foot"><span>Autonomous retrieval disabled</span><p>{v3.evidence_acquisition.policy}</p></footer>
+                </article>
+                <aside className="panel sensor-panel">
+                  <div className="panel-head"><div><p className="kicker">Registered public sensors</p><h2>Point-in-time priors</h2></div><Pill tone="blocked">Not connected</Pill></div>
+                  {v3.public_sensors.sensors.map((sensor) => <a key={sensor.sensor_id} href={sensor.official_url} target="_blank" rel="noreferrer"><b>{sensor.owner}</b><span>{sensor.v3_use}</span><small>{sensor.claim_boundary}</small></a>)}
+                </aside>
+              </section>
+            </>
+          ) : <section className="panel"><EmptyState message="Loading the V3 point-in-time decision projection…" /></section>}
 
           <section className="panel control-panel">
             <div className="panel-head">
@@ -533,7 +609,7 @@ export default function Dashboard({ viewer, asOf }: { viewer: string; asOf: stri
         </main>
       )}
 
-      <footer className="app-footer"><span>Corporate Wallet Digital Twin V2</span><p>Client demonstration · no financial decision, credit, pricing, booking, employee performance or automated client action</p><b>Schema v1 · Platform v2.1.0</b></footer>
+      <footer className="app-footer"><span>Corporate Wallet Digital Twin V3</span><p>Client demonstration · no financial decision, credit, pricing, booking, employee performance or automated client action</p><b>Schema v3 · Platform v3.0.0</b></footer>
     </div>
   );
 }

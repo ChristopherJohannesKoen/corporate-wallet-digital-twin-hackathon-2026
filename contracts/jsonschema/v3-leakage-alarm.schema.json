@@ -1,0 +1,79 @@
+{
+  "$defs": {
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "alarm_probability": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Alarm Probability",
+      "type": "number"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass",
+      "default": "POSTERIOR"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "expected_external_flow_at_risk_zar": {
+      "minimum": 0,
+      "title": "Expected External Flow At Risk Zar",
+      "type": "number"
+    },
+    "measurement_status": {
+      "default": "MODELLED_SIGNAL_NOT_CONFIRMED_LEAKAGE",
+      "title": "Measurement Status",
+      "type": "string"
+    },
+    "observed_level_decline": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Observed Level Decline",
+      "type": "number"
+    },
+    "opportunity_id": {
+      "title": "Opportunity Id",
+      "type": "string"
+    },
+    "product": {
+      "title": "Product",
+      "type": "string"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "severity": {
+      "title": "Severity",
+      "type": "string"
+    }
+  },
+  "required": [
+    "opportunity_id",
+    "entity_id",
+    "product",
+    "alarm_probability",
+    "expected_external_flow_at_risk_zar",
+    "observed_level_decline",
+    "severity",
+    "reason_codes"
+  ],
+  "title": "LeakageAlarm",
+  "type": "object"
+}

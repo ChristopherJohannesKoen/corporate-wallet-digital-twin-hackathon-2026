@@ -1,18 +1,19 @@
-# Corporate Wallet Digital Twin V2.1
+# Corporate Wallet Digital Twin V3
 
 **Team:** Corporate Wallet Digital Twin  
 **Team member:** Christopher Koen  
 **Event:** Standard Bank Hackathon 2026  
 **Repository:** <https://github.com/ChristopherJohannesKoen/corporate-wallet-digital-twin-hackathon-2026>
 
-Corporate Wallet Digital Twin converts Syn Bank activity, audited public evidence
-and governed assumptions into an uncertainty-aware list of corporate transaction-
-banking conversations. It answers four questions for a relationship manager:
-**who** to call, **what** product to discuss, **when** to act and **why** the
-recommendation is defensible.
+Corporate Wallet Digital Twin reconstructs the latent corporate financial system
+from one bank's partial observations, then decides where scarce RM and evidence-
+acquisition capacity has the greatest robust value. It combines Syn Bank activity,
+audited public evidence and governed priors to answer **what is unseen**, **what is
+changing**, **which actions survive uncertainty** and **which missing evidence is
+worth acquiring next**.
 
 > **Data boundary:** client-facing results are a governed demonstration using the
-> supplied Syn Bank simulation, public E1 evidence and representative benchmark
+> supplied Syn Bank simulation, public E1 evidence and representative priors
 > data. They are not measured competitor share, bank-approved pricing or causal
 > incremental value.
 
@@ -20,10 +21,12 @@ recommendation is defensible.
 
 - `output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf` - one-page submission.
 - `output/presentation/Corporate-Wallet-Digital-Twin.pptx` - 10-minute judging deck.
-- `notebooks/01_wallet_twin_demo.ipynb` - executed V2 judging notebook.
+- `notebooks/01_wallet_twin_demo.ipynb` - executed V3 judging notebook.
 - `deliverables/Corporate_Wallet_Digital_Twin_V2_Technical_Foundations.docx` -
   detailed methodology, theory, architecture and limitations.
 - `dashboard/` - entitled portfolio and client workbench.
+- `docs/v3_methodology.md` - V3 theory, algorithms, contracts and literature.
+- `docs/v3_implementation_status.md` - implemented/external-gate status register.
 
 ## What the current demonstration proves
 
@@ -38,6 +41,14 @@ recommendation is defensible.
 - 30/60/90-day timing outputs and 3,440 transaction-derived start-stop intervals.
 - Three controlled GenAI adapters, deterministic validation and 809 governed
   checks, including a 640-case stress suite with zero validator failures.
+- 1,500 entropy-constrained anonymous shadow-flow edges across 100 client-product
+  reconstructions, all satisfying exact wallet mass balance.
+- Positive-unlabelled product-need estimates with the SCAR assumption exposed.
+- 100 Bayesian online change-point replays and explicitly modelled leakage alarms.
+- A 12-action RM portfolio satisfying client, product and sector concentration
+  constraints under 512 commercial scenarios and lower-tail CVaR.
+- An eight-request decision-directed evidence queue containing only positive-net-
+  value-of-information requests; autonomous retrieval remains disabled.
 
 ## Reproduce the judging evidence
 
@@ -47,7 +58,10 @@ environment:
 ```powershell
 uv sync --frozen --extra dev --extra genai --extra production
 uv run python scripts/run_judging_validation.py
-uv run jupyter nbconvert --execute --to notebook --inplace notebooks/01_wallet_twin_demo.ipynb
+uv run python scripts/run_v3_validation.py
+uv run python scripts/build_v3_notebook.py
+# With the bundled @oai/artifact-tool available:
+node scripts/build_presentation.mjs .
 ```
 
 If the confidential hackathon archive is available, point the pipeline to it
@@ -104,5 +118,5 @@ exact wallet labels. Scenario economics fail closed when approved inputs are
 missing. "Uplift", "optimal" and "expected incremental value" remain prohibited
 until the registered causal gates pass.
 
-Start with `docs/judging_map.md`, `docs/v2_model_validation.md` and
-`docs/client_demo_release.md` for the concise evidence map.
+Start with `docs/v3_methodology.md`, `docs/v3_implementation_status.md` and
+`docs/judging_map.md` for the concise evidence map.

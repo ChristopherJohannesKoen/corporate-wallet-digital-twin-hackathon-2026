@@ -1,0 +1,193 @@
+{
+  "$defs": {
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "PortfolioAction": {
+      "additionalProperties": false,
+      "properties": {
+        "action_id": {
+          "title": "Action Id",
+          "type": "string"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "SCENARIO"
+        },
+        "downside_cvar_zar": {
+          "minimum": 0,
+          "title": "Downside Cvar Zar",
+          "type": "number"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "entity_name": {
+          "title": "Entity Name",
+          "type": "string"
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/EvidenceTier"
+        },
+        "expected_scenario_value_zar": {
+          "minimum": 0,
+          "title": "Expected Scenario Value Zar",
+          "type": "number"
+        },
+        "leakage_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Leakage Probability",
+          "type": "number"
+        },
+        "need_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Need Probability",
+          "type": "number"
+        },
+        "opportunity_id": {
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "robust_score": {
+          "title": "Robust Score",
+          "type": "number"
+        },
+        "sector": {
+          "title": "Sector",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action_id",
+        "opportunity_id",
+        "entity_id",
+        "entity_name",
+        "sector",
+        "product",
+        "robust_score",
+        "expected_scenario_value_zar",
+        "downside_cvar_zar",
+        "need_probability",
+        "leakage_probability",
+        "evidence_tier"
+      ],
+      "title": "PortfolioAction",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "capacity": {
+      "exclusiveMinimum": 0,
+      "title": "Capacity",
+      "type": "integer"
+    },
+    "causal_status": {
+      "default": "CAUSAL_INCREMENTAL_VALUE_WITHHELD",
+      "title": "Causal Status",
+      "type": "string"
+    },
+    "commercial_status": {
+      "default": "REPRESENTATIVE_SCENARIO_NOT_BANK_APPROVED",
+      "title": "Commercial Status",
+      "type": "string"
+    },
+    "constraints": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Constraints",
+      "type": "object"
+    },
+    "downside_cvar_zar": {
+      "minimum": 0,
+      "title": "Downside Cvar Zar",
+      "type": "number"
+    },
+    "expected_scenario_value_zar": {
+      "minimum": 0,
+      "title": "Expected Scenario Value Zar",
+      "type": "number"
+    },
+    "method": {
+      "title": "Method",
+      "type": "string"
+    },
+    "portfolio_id": {
+      "title": "Portfolio Id",
+      "type": "string"
+    },
+    "product_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Product Counts",
+      "type": "object"
+    },
+    "scenario_draws": {
+      "minimum": 100,
+      "title": "Scenario Draws",
+      "type": "integer"
+    },
+    "sector_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Sector Counts",
+      "type": "object"
+    },
+    "selected_actions": {
+      "items": {
+        "$ref": "#/$defs/PortfolioAction"
+      },
+      "title": "Selected Actions",
+      "type": "array"
+    }
+  },
+  "required": [
+    "portfolio_id",
+    "as_of",
+    "capacity",
+    "selected_actions",
+    "expected_scenario_value_zar",
+    "downside_cvar_zar",
+    "product_counts",
+    "sector_counts",
+    "constraints",
+    "scenario_draws",
+    "method"
+  ],
+  "title": "RobustActionPortfolio",
+  "type": "object"
+}

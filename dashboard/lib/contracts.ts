@@ -257,3 +257,156 @@ export type OpportunityListResponse = {
   evidence_coverage: ShadowFixture["evidence_coverage"];
   release: ShadowFixture["release"];
 };
+
+export type AmountInterval = { lower: number; median: number; upper: number; currency: string };
+
+export type V3Opportunity = {
+  opportunity_id: string;
+  entity_id: string;
+  entity_name: string;
+  sector: string;
+  product: string;
+  as_of: string;
+  v2_rank: number | null;
+  evidence_tier: EvidenceTier;
+  decision_score: number;
+  commercial_status: string;
+  need: {
+    positive_label_observed: boolean;
+    labelled_positive_probability: number;
+    product_need_probability: number;
+    selection_constant: number;
+    assumptions: string[];
+    method: string;
+  };
+  shadow_wallet: {
+    reconstruction_id: string;
+    observed_bank_flow: number;
+    total_wallet: AmountInterval;
+    latent_external_wallet: AmountInterval;
+    bank_share: AmountInterval;
+    normalized_entropy: number;
+    ensemble_draws: number;
+    method: string;
+    measurement_status: string;
+    flows: Array<{
+      edge_id: string;
+      corridor: string;
+      provider_node: string;
+      amount: AmountInterval;
+      observed_by_bank: boolean;
+      claim_class: ClaimClass;
+      provenance: string;
+    }>;
+  };
+  change_point: {
+    current_probability: number;
+    recent_peak_probability: number;
+    run_length_mode_months: number;
+    signed_level_shift: number;
+    probability_30d: number;
+    probability_60d: number;
+    probability_90d: number;
+    calibration_status: string;
+  };
+  leakage: {
+    alarm_probability: number;
+    expected_external_flow_at_risk_zar: number;
+    observed_level_decline: number;
+    severity: string;
+    reason_codes: string[];
+    measurement_status: string;
+  };
+};
+
+export type V3Fixture = {
+  metadata: {
+    title: string;
+    version: string;
+    as_of: string;
+    central_idea: string;
+    deployment_mode: string;
+    watermark: string;
+  };
+  opportunities: V3Opportunity[];
+  treasury_graphs: Record<string, {
+    entity_id: string;
+    treasury_complexity_index: number;
+    measurement_status: string;
+    gleif_resolution_status: string;
+    nodes: Array<{ node_id: string; label: string; node_type: string }>;
+    edges: Array<{ source: string; target: string; weight: number; claim_class: string; provenance: string }>;
+  }>;
+  action_portfolio: {
+    capacity: number;
+    expected_scenario_value_zar: number;
+    downside_cvar_zar: number;
+    commercial_status: string;
+    causal_status: string;
+    constraints: Record<string, number>;
+    selected_actions: Array<{
+      action_id: string;
+      opportunity_id: string;
+      entity_id: string;
+      entity_name: string;
+      sector: string;
+      product: string;
+      robust_score: number;
+      expected_scenario_value_zar: number;
+      downside_cvar_zar: number;
+      need_probability: number;
+      leakage_probability: number;
+      evidence_tier: EvidenceTier;
+    }>;
+  };
+  evidence_acquisition: {
+    capacity: number;
+    total_expected_net_voi_zar: number;
+    policy: string;
+    autonomous_external_retrieval: boolean;
+    selected: Array<{
+      candidate_id: string;
+      opportunity_id: string;
+      entity_id: string;
+      product: string;
+      evidence_type: string;
+      expected_decision_value_zar: number;
+      acquisition_cost_zar: number;
+      latency_penalty_zar: number;
+      net_value_of_information_zar: number;
+      expected_interval_width_reduction: number;
+      expected_rank_flip_probability: number;
+      retrieve: boolean;
+      required_approval: string;
+    }>;
+  };
+  public_sensors: {
+    ingestion_status: string;
+    sensors: Array<{
+      sensor_id: string;
+      owner: string;
+      official_url: string;
+      dimensions: string[];
+      v3_use: string;
+      claim_boundary: string;
+    }>;
+  };
+  validation: {
+    opportunities: number;
+    clients: number;
+    shadow_flow_edges: number;
+    max_mass_balance_error_zar: number;
+    pu_labelled_positives: number;
+    change_point_series: number;
+    rm_actions_selected: number;
+    positive_net_voi_requests: number;
+    measured_competitor_share_claims: number;
+    causal_value_claims: number;
+  };
+  release: {
+    client_demo_status: string;
+    bank_production_status: string;
+    new_v3_capabilities: string[];
+    blocking_external_gates: string[];
+  };
+};

@@ -1,10 +1,19 @@
-"""Corporate Wallet Digital Twin V2 production-reference package.
+"""Corporate Wallet Digital Twin governed evidence/economics substrate.
 
-V2 does not import or execute the V1 modelling runtime. V1 artefacts are used
-only as frozen non-production fixtures and transparent regression baselines.
+The API object is loaded lazily so analytical modules and the additive V3 layer
+can import V2 contracts without creating an API/router import cycle.
 """
 
-from .api import app
+from typing import Any
+
 
 __all__ = ["app"]
-__version__ = "2.0.0"
+__version__ = "3.0.0"
+
+
+def __getattr__(name: str) -> Any:
+    if name == "app":
+        from .api import app
+
+        return app
+    raise AttributeError(name)

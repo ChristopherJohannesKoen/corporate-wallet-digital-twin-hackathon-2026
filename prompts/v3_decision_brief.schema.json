@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wallet-twin.example.internal/schemas/v3-decision-brief.json",
+  "title": "V3DecisionBrief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["headline", "decision", "claims", "citations", "missing_evidence", "claim_boundary"],
+  "properties": {
+    "headline": {"type": "string", "maxLength": 160},
+    "decision": {"type": "string", "maxLength": 600},
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["text", "claim_class", "support_id"],
+        "properties": {
+          "text": {"type": "string"},
+          "claim_class": {"enum": ["OBSERVED", "IDENTIFIED_BOUND", "POSTERIOR", "SCENARIO"]},
+          "support_id": {"type": "string"}
+        }
+      }
+    },
+    "citations": {"type": "array", "items": {"type": "string"}},
+    "missing_evidence": {"type": "array", "items": {"type": "string"}},
+    "claim_boundary": {"type": "string"}
+  }
+}

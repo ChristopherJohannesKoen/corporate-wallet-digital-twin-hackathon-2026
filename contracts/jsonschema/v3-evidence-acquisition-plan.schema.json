@@ -1,0 +1,141 @@
+{
+  "$defs": {
+    "EvidenceAcquisitionCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "acquisition_cost_zar": {
+          "minimum": 0,
+          "title": "Acquisition Cost Zar",
+          "type": "number"
+        },
+        "candidate_id": {
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "evidence_type": {
+          "title": "Evidence Type",
+          "type": "string"
+        },
+        "expected_decision_value_zar": {
+          "minimum": 0,
+          "title": "Expected Decision Value Zar",
+          "type": "number"
+        },
+        "expected_interval_width_reduction": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Expected Interval Width Reduction",
+          "type": "number"
+        },
+        "expected_rank_flip_probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Expected Rank Flip Probability",
+          "type": "number"
+        },
+        "latency_penalty_zar": {
+          "minimum": 0,
+          "title": "Latency Penalty Zar",
+          "type": "number"
+        },
+        "net_value_of_information_zar": {
+          "title": "Net Value Of Information Zar",
+          "type": "number"
+        },
+        "opportunity_id": {
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "required_approval": {
+          "title": "Required Approval",
+          "type": "string"
+        },
+        "retrieve": {
+          "title": "Retrieve",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "opportunity_id",
+        "entity_id",
+        "product",
+        "evidence_type",
+        "expected_decision_value_zar",
+        "acquisition_cost_zar",
+        "latency_penalty_zar",
+        "net_value_of_information_zar",
+        "expected_interval_width_reduction",
+        "expected_rank_flip_probability",
+        "retrieve",
+        "required_approval"
+      ],
+      "title": "EvidenceAcquisitionCandidate",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "autonomous_external_retrieval": {
+      "default": false,
+      "title": "Autonomous External Retrieval",
+      "type": "boolean"
+    },
+    "capacity": {
+      "exclusiveMinimum": 0,
+      "title": "Capacity",
+      "type": "integer"
+    },
+    "deferred": {
+      "items": {
+        "$ref": "#/$defs/EvidenceAcquisitionCandidate"
+      },
+      "title": "Deferred",
+      "type": "array"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "policy": {
+      "title": "Policy",
+      "type": "string"
+    },
+    "selected": {
+      "items": {
+        "$ref": "#/$defs/EvidenceAcquisitionCandidate"
+      },
+      "title": "Selected",
+      "type": "array"
+    },
+    "total_expected_net_voi_zar": {
+      "minimum": 0,
+      "title": "Total Expected Net Voi Zar",
+      "type": "number"
+    }
+  },
+  "required": [
+    "plan_id",
+    "as_of",
+    "capacity",
+    "selected",
+    "deferred",
+    "total_expected_net_voi_zar",
+    "policy"
+  ],
+  "title": "EvidenceAcquisitionPlan",
+  "type": "object"
+}

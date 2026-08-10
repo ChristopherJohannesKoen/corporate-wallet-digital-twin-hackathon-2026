@@ -1,8 +1,10 @@
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import fixtureJson from "@/app/data/shadow-fixture.json";
-import type { Opportunity, ShadowFixture } from "./contracts";
+import v3FixtureJson from "@/app/data/v3-fixture.json";
+import type { Opportunity, ShadowFixture, V3Fixture } from "./contracts";
 
 export const fixture = fixtureJson as unknown as ShadowFixture;
+export const v3Fixture = v3FixtureJson as unknown as V3Fixture;
 
 export async function proxyWalletApi(path: string, init?: RequestInit): Promise<Response | null> {
   const baseUrl = process.env.WALLET_API_BASE_URL;

@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-08-09T18:05:56.215489+00:00",
+  "generated_at": "2026-08-10T09:40:38.176514+00:00",
   "team": "Corporate Wallet Digital Twin",
   "member": "Christopher Koen",
-  "solution_version": "V2.1",
+  "solution_version": "V3.0",
   "history_mode": "supplied-confidential-archive",
   "checks": [
     {
@@ -51,7 +51,21 @@
       "command": "scripts/export_v2_contracts.py",
       "status": "passed",
       "stdout_tail": [
-        "{\"schemas\": 15, \"opportunities\": 100, \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\dashboard\\\\app\\\\data\"}"
+        "{\"schemas\": 22, \"v2_opportunities\": 100, \"v3_opportunities\": 100, \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\dashboard\\\\app\\\\data\"}"
+      ]
+    },
+    {
+      "command": "scripts/run_v3_validation.py",
+      "status": "passed",
+      "stdout_tail": [
+        "    \"rm_capacity_respected\": true,",
+        "    \"positive_net_voi_requests\": 8,",
+        "    \"all_selected_voi_positive\": true,",
+        "    \"anonymous_provider_nodes_only\": true,",
+        "    \"measured_competitor_share_claims\": 0,",
+        "    \"causal_value_claims\": 0",
+        "  }",
+        "}"
       ]
     },
     {
@@ -81,5 +95,5 @@
     }
   ],
   "status": "PASSED",
-  "claim_boundary": "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE BENCHMARKS"
+  "claim_boundary": "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE PRIORS \u2014 RECONSTRUCTED COMPETITOR FLOWS ARE NOT MEASURED"
 }

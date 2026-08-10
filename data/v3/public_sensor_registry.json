@@ -1,0 +1,52 @@
+{
+  "registry_version": "3.0.0",
+  "as_of": "2026-06-30",
+  "ingestion_status": "REGISTERED_NOT_CONNECTED",
+  "sensors": [
+    {
+      "sensor_id": "sars-trade-statistics",
+      "owner": "South African Revenue Service",
+      "official_url": "https://www.sars.gov.za/customs-and-excise/trade-statistics/reports/",
+      "dimensions": ["month", "import/export", "country", "tariff/commodity"],
+      "v3_use": "sector-corridor prior and revision-aware trade intensity signal",
+      "point_in_time_rule": "retain publication timestamp and every revised vintage",
+      "claim_boundary": "aggregate public sensor; never a client transaction label"
+    },
+    {
+      "sensor_id": "un-comtrade-api",
+      "owner": "United Nations Statistics Division",
+      "official_url": "https://uncomtrade.org/docs/un-comtrade-api/",
+      "dimensions": ["reporter", "partner", "period", "flow", "HS/SITC/BEC product"],
+      "v3_use": "global corridor and commodity prior",
+      "point_in_time_rule": "pin API query, classification, extraction date and release vintage",
+      "claim_boundary": "country-product aggregate; no corporate identity inference"
+    },
+    {
+      "sensor_id": "gleif-level-2",
+      "owner": "Global Legal Entity Identifier Foundation",
+      "official_url": "https://www.gleif.org/en/lei-data/gleif-api/",
+      "dimensions": ["legal entity", "direct parent", "ultimate parent", "relationship status"],
+      "v3_use": "reviewed corporate-structure graph seed",
+      "point_in_time_rule": "retain Golden Copy date, relationship record and exception state",
+      "claim_boundary": "identity resolution requires deterministic match plus human review"
+    },
+    {
+      "sensor_id": "jse-sens",
+      "owner": "Johannesburg Stock Exchange",
+      "official_url": "https://www.jse.co.za/market-data/market-announcements",
+      "dimensions": ["issuer", "announcement time", "event type", "document"],
+      "v3_use": "event intensity prior for capital, refinancing and corporate actions",
+      "point_in_time_rule": "licensed feed only; retain dissemination time and corrections",
+      "claim_boundary": "no redistribution or commercial reuse without JSE licence"
+    },
+    {
+      "sensor_id": "sarb-statistics",
+      "owner": "South African Reserve Bank",
+      "official_url": "https://www.resbank.co.za/en/home/what-we-do/statistics/releases/online-statistical-query",
+      "dimensions": ["time-series code", "frequency", "version", "release date"],
+      "v3_use": "macro, rates, FX and liquidity regime covariates",
+      "point_in_time_rule": "retain KBP code, vintage and availability timestamp",
+      "claim_boundary": "macro covariate; not relationship-level evidence"
+    }
+  ]
+}

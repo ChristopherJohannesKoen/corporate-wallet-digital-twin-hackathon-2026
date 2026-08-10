@@ -18,9 +18,9 @@ test("server-renders the wallet workbench shell", async () => {
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
-  assert.match(html, /<title>Corporate Wallet Digital Twin V2 · Client Demonstration<\/title>/i);
+  assert.match(html, /<title>Corporate Wallet Digital Twin V3 · Latent Decision Lab<\/title>/i);
   assert.match(html, /Loading governed point-in-time snapshot/i);
-  assert.match(html, /Governed client demonstration for evidence-first corporate wallet calibration/i);
+  assert.match(html, /Reconstruct latent corporate wallets/i);
 });
 
 test("removes starter metadata and preserves product metadata", async () => {
@@ -30,7 +30,7 @@ test("removes starter metadata and preserves product metadata", async () => {
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
   assert.match(page, /<Dashboard viewer=/);
-  assert.match(layout, /Corporate Wallet Digital Twin V2/);
-  assert.match(packageJson, /"version": "2.1.0"/);
+  assert.match(layout, /Corporate Wallet Digital Twin V3/);
+  assert.match(packageJson, /"version": "3.0.0"/);
   assert.doesNotMatch(page + layout, /codex-preview|_sites-preview|Starter Project/);
 });
