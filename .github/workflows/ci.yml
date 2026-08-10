@@ -1,4 +1,4 @@
-name: v2-control-plane-ci
+name: v3-control-plane-ci
 on:
   pull_request:
   push:
@@ -18,9 +18,11 @@ jobs:
         with: { version: "0.9.2", enable-cache: true }
       - run: uv lock --check
       - run: uv sync --frozen --extra dev --extra genai --extra production
-      - run: uv run python scripts/export_v2_contracts.py
-      - run: uv run pytest --cov=wallet_twin_v2 --cov-report=term-missing
-      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json
+      - run: uv run python scripts/export_v3_contracts.py
+      - run: uv run python scripts/run_v3_validation.py
+      - run: uv run ruff check src tests scripts
+      - run: uv run pytest --cov=wallet_twin_v2 --cov=wallet_twin_v3 --cov-report=term-missing
+      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json dashboard/app/data/v3-fixture.json outputs/v3 outputs/v3_validation/v3_validation_report.json
   workbench:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: dashboard } }
@@ -37,7 +39,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker build --pull --tag wallet-twin:${{ github.sha }} .
-      - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2"
+      - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2, wallet_twin_v3; from wallet_twin_v2.service_apps import workbench_bff_app; assert any(route.path == '/v3/decision-lab' for route in workbench_bff_app.routes)"
+      - run: docker run --detach --name wallet-twin-smoke --publish 18080:8080 wallet-twin:${{ github.sha }}
+      - run: |
+          for attempt in $(seq 1 20); do
+            if docker exec wallet-twin-smoke python -c "import json,urllib.request; assert json.load(urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=2))['version'] == '3.0.0'; payload=json.load(urllib.request.urlopen('http://127.0.0.1:8080/v3/decision-lab?as_of=2026-06-30', timeout=5)); assert payload['metadata']['version'] == '3.0.0'"; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker logs wallet-twin-smoke
+          exit 1
+      - if: always()
+        run: docker rm --force wallet-twin-smoke || true
       - uses: anchore/sbom-action@v0
         with: { image: "wallet-twin:${{ github.sha }}", format: spdx-json, output-file: sbom.spdx.json }
       - uses: aquasecurity/trivy-action@v0.36.0

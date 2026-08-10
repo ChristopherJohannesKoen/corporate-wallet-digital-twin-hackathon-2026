@@ -1,6 +1,6 @@
 # Architecture
 
-> **Archived V1 architecture.** V2 uses entitled server-side APIs, ten service boundaries and the AWS/Databricks target in [`v2_architecture.md`](v2_architecture.md). The browser-side JSON design below is retained only as a frozen regression reference.
+> **Archived V1 architecture.** The composed V3 target is documented in [`Corporate_Wallet_Digital_Twin_V3_System_Dossier.md`](Corporate_Wallet_Digital_Twin_V3_System_Dossier.md) and [`Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md`](Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md). The browser-side JSON design below is retained only as a frozen regression reference.
 
 ```mermaid
 flowchart LR

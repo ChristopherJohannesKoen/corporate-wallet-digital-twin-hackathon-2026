@@ -14,6 +14,19 @@ from .repository import repository
 router = APIRouter(prefix="/v3", tags=["V3 decision intelligence"])
 
 
+@router.get("/decision-lab")
+def decision_lab(
+    as_of: date = Query(...), context: EntitlementContext = Depends(principal)
+) -> dict:
+    authorize(
+        context,
+        action="v3:decision-lab:read",
+        resource_type="v3-portfolio",
+        resource_id="decision-lab",
+    )
+    return repository.decision_lab(as_of, context.client_ids)
+
+
 @router.get("/opportunities")
 def opportunities(
     as_of: date = Query(...),
@@ -29,9 +42,7 @@ def opportunities(
         resource_id="decision-lab",
     )
     repository.check_as_of(as_of)
-    values = repository.opportunities
-    if "*" not in context.client_ids:
-        values = [item for item in values if item.entity_id in context.client_ids]
+    values = repository.entitled_opportunities(context.client_ids)
     if client_id:
         values = [item for item in values if item.entity_id == client_id]
     if product:
@@ -74,7 +85,7 @@ def leakage(
     )
     repository.check_as_of(as_of)
     values = sorted(
-        repository.opportunities,
+        repository.entitled_opportunities(context.client_ids),
         key=lambda item: (-item.leakage.alarm_probability, item.opportunity_id),
     )
     return {
@@ -94,7 +105,7 @@ def action_portfolio(
         resource_id="current",
     )
     repository.check_as_of(as_of)
-    return repository.action_portfolio.model_dump(mode="json")
+    return repository.action_portfolio_projection(context.client_ids)
 
 
 @router.get("/evidence-acquisition")
@@ -108,7 +119,7 @@ def evidence_acquisition(
         resource_id="current",
     )
     repository.check_as_of(as_of)
-    return repository.evidence_acquisition.model_dump(mode="json")
+    return repository.evidence_acquisition_projection(context.client_ids)
 
 
 @router.get("/opportunities/{opportunity_id}/brief")

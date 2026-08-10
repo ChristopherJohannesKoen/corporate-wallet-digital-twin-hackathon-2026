@@ -4,7 +4,6 @@ import argparse
 import csv
 import io
 import json
-import math
 import zipfile
 from collections import Counter, defaultdict
 from dataclasses import replace
@@ -474,7 +473,6 @@ def model_portfolio(
     data_quality, quality_summary = source_quality(agg)
     all_months = iter_months(month_key(agg.min_date), month_key(agg.max_date))
     ltm_months = all_months[-12:]
-    prior_ltm_months = all_months[-24:-12]
     as_of = agg.max_date
     as_of_date = date.fromisoformat(as_of)
     target_cfg = assumptions["target_share"]
@@ -907,9 +905,9 @@ def run_pipeline(input_path: Path, output_dir: Path, dashboard_data: Path, assum
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Build the Corporate Wallet Digital Twin analytical outputs")
     parser.add_argument("--input", type=Path, default=Path("ref/Data Sets/Data.zip"))
-    parser.add_argument("--output", type=Path, default=Path("outputs"))
-    parser.add_argument("--dashboard-data", type=Path, default=Path("dashboard/public/data"))
-    parser.add_argument("--assumptions", type=Path, default=Path("config/assumptions.json"))
+    parser.add_argument("--output", type=Path, default=Path("legacy/v1/outputs/runtime"))
+    parser.add_argument("--dashboard-data", type=Path, default=Path("legacy/v1/outputs/runtime/dashboard-data"))
+    parser.add_argument("--assumptions", type=Path, default=Path("legacy/v1/config/assumptions.json"))
     parser.add_argument("--public-facts", type=Path, default=Path("data/public_facts.csv"))
     return parser.parse_args()
 

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Iterable, List, Mapping, Optional
+from typing import Dict, Iterable, List, Optional
 
 import numpy as np
 from scipy.stats import norm, qmc, spearmanr

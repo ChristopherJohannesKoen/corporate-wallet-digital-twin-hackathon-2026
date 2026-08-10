@@ -64,9 +64,10 @@ environment:
 
 ```powershell
 uv sync --frozen --extra dev --extra genai --extra production
-uv run python scripts/run_judging_validation.py
+uv run python scripts/export_v3_contracts.py
+uv run --extra dev python scripts/run_judging_validation.py
 uv run python scripts/run_v3_validation.py
-uv run python scripts/build_v3_notebook.py
+uv run --extra dev python scripts/build_v3_notebook.py
 # With the bundled @oai/artifact-tool available:
 node scripts/build_presentation.mjs .
 ```
@@ -76,7 +77,7 @@ without moving it into the repository:
 
 ```powershell
 $env:SYNBANK_DATA_ZIP = "C:\secure\hackathon\Data.zip"
-uv run python scripts/run_judging_validation.py
+uv run --extra dev python scripts/run_judging_validation.py
 ```
 
 Without that archive, the runner reproduces the public/representative validation
@@ -92,7 +93,8 @@ pinned paths in `data/v2/external_dataset_registry.json` to rerun that source au
 Run the API and workbench:
 
 ```powershell
-uv run uvicorn wallet_twin_v2.api:app --host 127.0.0.1 --port 8000
+$env:WALLET_DEPLOYMENT_MODE = "FIXTURE"
+uv run uvicorn wallet_twin_v2.service_apps:workbench_bff_app --host 127.0.0.1 --port 8000
 Set-Location dashboard
 npm ci
 npm run dev
@@ -107,6 +109,11 @@ npm ci
 npm run lint
 npm test
 ```
+
+The active machine outputs are `outputs/v3/`, the composed contract is
+`contracts/openapi.json`, and the V3 evidence workbook is
+`outputs/audit/Public-Facts-Anchor-Register.xlsx`. Frozen V1 assumptions,
+fixtures and expected outputs are regression-only assets under `legacy/v1/`.
 
 ## Repository safety
 

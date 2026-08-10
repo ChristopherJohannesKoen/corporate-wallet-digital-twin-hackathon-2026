@@ -1,0 +1,61 @@
+{
+  "decision": "Prioritise for governed RM review",
+  "headline": "AngloGold Ashanti \u00b7 Liquidity",
+  "llm_contract": {
+    "allowed_input": "this claim pack only",
+    "autonomous_action": false,
+    "external_tools": false,
+    "fallback": "this deterministic brief",
+    "publication": false,
+    "required_output": "schema-constrained prose preserving every number and citation"
+  },
+  "missing_evidence": [
+    "direct E3 multibank share observation",
+    "approved bank economics",
+    "qualified RM action and outcome history"
+  ],
+  "model_claims": [
+    {
+      "claim": "Estimated latent external wallet is ZAR 8,755,051,215 at the scenario median.",
+      "claim_class": "SCENARIO",
+      "support": "shadow:E04-liquidity:v3.0.0"
+    },
+    {
+      "claim": "PU product-need probability is 18.8% under the SCAR assumption.",
+      "claim_class": "POSTERIOR",
+      "support": "pu-need-v3.0.0"
+    },
+    {
+      "claim": "Modelled wallet-leakage alarm probability is 13.8%.",
+      "claim_class": "POSTERIOR",
+      "support": "bocpd-leakage-v3.0.0"
+    }
+  ],
+  "observed": {
+    "activity_zar": 967211658.3771498,
+    "claim_class": "OBSERVED",
+    "provenance": "SYN_BANK_SIMULATION"
+  },
+  "opportunity_id": "E04-liquidity",
+  "prohibited_phrases": [
+    "measured competitor share",
+    "causal uplift",
+    "optimal target share"
+  ],
+  "public_evidence": [
+    {
+      "approval_status": "PENDING_REVIEW",
+      "available_date": "2026-03-26",
+      "fact_id": "AGA-2025-CASH",
+      "label": "AngloGold Ashanti Annual Report 2025 p.160",
+      "url": "https://reports.anglogoldashanti.com/25/download/AGA-AR25.pdf"
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "available_date": "2026-03-26",
+      "fact_id": "AGA-2025-DEBT",
+      "label": "AngloGold Ashanti Annual Report 2025 p.160",
+      "url": "https://reports.anglogoldashanti.com/25/download/AGA-AR25.pdf"
+    }
+  ]
+}

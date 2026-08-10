@@ -6,10 +6,9 @@ from typing import Iterable
 
 from PIL import Image, ImageDraw, ImageFont
 from docx import Document
-from docx.enum.section import WD_SECTION
 from docx.enum.style import WD_STYLE_TYPE
-from docx.enum.table import WD_ALIGN_VERTICAL, WD_CELL_VERTICAL_ALIGNMENT, WD_ROW_HEIGHT_RULE, WD_TABLE_ALIGNMENT
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_BREAK, WD_LINE_SPACING
+from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT, WD_TABLE_ALIGNMENT
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
@@ -743,9 +742,8 @@ def add_markdown_table(doc, rows):
         row = table.rows[r_idx]
         if r_idx == 0:
             repeat_table_header(row)
-        # Body rows may split across pages.  Some reference-table cells are
-        # intentionally long; forcing cantSplit can create non-terminating
-        # pagination in Word when a row is taller than the usable page.
+        # Body rows remain splittable because some reference cells can exceed
+        # the usable page height in Word.
         for c_idx, value in enumerate(row_values):
             cell = row.cells[c_idx]
             cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER

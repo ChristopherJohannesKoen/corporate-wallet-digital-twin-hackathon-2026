@@ -105,6 +105,11 @@ class EventType(str, Enum):
     OUTCOME_RECORDED = "OutcomeRecorded"
     EVIDENCE_APPROVED = "EvidenceApproved"
     ACCESS_DECISION_LOGGED = "AccessDecisionLogged"
+    SHADOW_WALLET_RECONSTRUCTED = "ShadowWalletReconstructed"
+    LEAKAGE_SIGNAL_PUBLISHED = "LeakageSignalPublished"
+    ACTION_PORTFOLIO_SELECTED = "ActionPortfolioSelected"
+    EVIDENCE_ACQUISITION_APPROVED = "EvidenceAcquisitionApproved"
+    DECISION_BRIEF_COMPILED = "DecisionBriefCompiled"
 
 
 class CuratedMetadata(StrictModel):

@@ -142,7 +142,12 @@
         "PipelineMilestoneRecorded",
         "OutcomeRecorded",
         "EvidenceApproved",
-        "AccessDecisionLogged"
+        "AccessDecisionLogged",
+        "ShadowWalletReconstructed",
+        "LeakageSignalPublished",
+        "ActionPortfolioSelected",
+        "EvidenceAcquisitionApproved",
+        "DecisionBriefCompiled"
       ],
       "title": "EventType",
       "type": "string"

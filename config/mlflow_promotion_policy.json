@@ -1,5 +1,5 @@
 {
-  "policy_version": "mlflow-promotion-policy-1.0.0",
+  "policy_version": "mlflow-promotion-policy-3.0.0",
   "registry_uri": "databricks-uc",
   "registered_model_prefix": "wallet_twin.models",
   "aliases": ["candidate", "shadow", "champion", "rollback"],
@@ -12,6 +12,13 @@
     "posterior-diagnostics",
     "validation-report",
     "model-card",
+    "shadow-wallet-transport-manifest",
+    "pu-selection-mechanism-manifest",
+    "change-point-hazard-manifest",
+    "public-sensor-snapshot",
+    "cvar-scenario-policy",
+    "voi-policy",
+    "composed-v3-validation-report",
     "sbom",
     "container-signature"
   ],
@@ -19,6 +26,16 @@
     "candidate_to_shadow": [
       "independent_reproduction",
       "zero_point_in_time_leakage",
+      "shadow_wallet_mass_balance_exact",
+      "transport_marginals_costs_and_regularization_registered",
+      "provider_nodes_anonymous_and_nonattributable",
+      "pu_selection_mechanism_and_class_prior_registered",
+      "bocpd_hazard_and_baseline_registered",
+      "public_sensor_snapshot_point_in_time_eligible",
+      "cvar_scenarios_seeded_and_constraints_satisfied",
+      "voi_policy_positive_net_value_and_human_approval_required",
+      "no_measured_competitor_share_without_e3",
+      "no_causal_incremental_value_without_trial_validation",
       "90pct_coverage_between_85pct_and_95pct",
       "crps_improvement_at_least_10pct",
       "no_material_segment_severe_undercoverage"
@@ -27,6 +44,10 @@
       "all_candidate_to_shadow_gates",
       "approved_e3_calibration_panel",
       "approved_economics",
+      "v3_transport_and_pu_independent_validation",
+      "v3_change_point_false_alarm_validation",
+      "v3_portfolio_policy_stress_validation",
+      "v3_voi_policy_validation",
       "security_and_entitlement_approval",
       "30_elapsed_clean_shadow_days",
       "model_risk_approval"
@@ -36,4 +57,3 @@
   "automatic_rollback": false,
   "rollback_alias_required": true
 }
-

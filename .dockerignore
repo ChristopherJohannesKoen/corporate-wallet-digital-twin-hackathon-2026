@@ -9,8 +9,6 @@ notebooks
 output
 data/v2/external
 outputs/**
-!outputs/data
-!outputs/data/portfolio.json
 ref
 tests
 tmp

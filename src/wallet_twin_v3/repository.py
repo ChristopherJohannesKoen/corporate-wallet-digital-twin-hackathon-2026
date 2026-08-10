@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from collections import Counter
 from datetime import date
 from typing import Any
 
@@ -38,6 +39,67 @@ class V3Repository:
     def check_as_of(self, as_of: date) -> None:
         if as_of != self.as_of:
             raise KeyError(f"point-in-time snapshot unavailable: {as_of.isoformat()}")
+
+    @staticmethod
+    def _allowed(entity_id: str, client_ids: list[str]) -> bool:
+        return "*" in client_ids or entity_id in client_ids
+
+    def entitled_opportunities(self, client_ids: list[str]) -> list[V3OpportunityView]:
+        return [
+            item
+            for item in self.opportunities
+            if self._allowed(item.entity_id, client_ids)
+        ]
+
+    def action_portfolio_projection(self, client_ids: list[str]) -> dict[str, Any]:
+        payload = self.action_portfolio.model_dump(mode="json")
+        actions = [
+            item
+            for item in payload["selected_actions"]
+            if self._allowed(item["entity_id"], client_ids)
+        ]
+        payload["selected_actions"] = actions
+        payload["expected_scenario_value_zar"] = sum(
+            item["expected_scenario_value_zar"] for item in actions
+        )
+        payload["downside_cvar_zar"] = sum(
+            item["downside_cvar_zar"] for item in actions
+        )
+        payload["product_counts"] = dict(Counter(item["product"] for item in actions))
+        payload["sector_counts"] = dict(Counter(item["sector"] for item in actions))
+        return payload
+
+    def evidence_acquisition_projection(self, client_ids: list[str]) -> dict[str, Any]:
+        payload = self.evidence_acquisition.model_dump(mode="json")
+        for field in ("selected", "deferred"):
+            payload[field] = [
+                item
+                for item in payload[field]
+                if self._allowed(item["entity_id"], client_ids)
+            ]
+        payload["total_expected_net_voi_zar"] = sum(
+            item["net_value_of_information_zar"] for item in payload["selected"]
+        )
+        return payload
+
+    def decision_lab(self, as_of: date, client_ids: list[str]) -> dict[str, Any]:
+        self.check_as_of(as_of)
+        opportunities = self.entitled_opportunities(client_ids)
+        allowed_ids = {item.entity_id for item in opportunities}
+        return {
+            "metadata": self.metadata,
+            "opportunities": [item.model_dump(mode="json") for item in opportunities],
+            "treasury_graphs": {
+                entity_id: graph
+                for entity_id, graph in self.treasury_graphs.items()
+                if entity_id in allowed_ids
+            },
+            "action_portfolio": self.action_portfolio_projection(client_ids),
+            "evidence_acquisition": self.evidence_acquisition_projection(client_ids),
+            "public_sensors": self.public_sensors,
+            "validation": self.validation,
+            "release": self.release,
+        }
 
     def opportunity(self, opportunity_id: str, as_of: date) -> V3OpportunityView:
         self.check_as_of(as_of)

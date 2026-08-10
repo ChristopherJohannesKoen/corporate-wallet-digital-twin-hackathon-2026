@@ -3,6 +3,199 @@ CREATE SCHEMA IF NOT EXISTS wallet_twin.conformed;
 CREATE SCHEMA IF NOT EXISTS wallet_twin.training;
 CREATE SCHEMA IF NOT EXISTS wallet_twin.registry;
 
+-- V3 decision-intelligence products are point-in-time and append-only. Draws
+-- remain reproducible from their seed, policy, source snapshot and model refs.
+CREATE TABLE IF NOT EXISTS wallet_twin.features.shadow_wallet_draw (
+  reconstruction_id STRING NOT NULL,
+  draw_id BIGINT NOT NULL,
+  as_of DATE NOT NULL,
+  client_id STRING NOT NULL,
+  product STRING NOT NULL,
+  latent_wallet_amount DECIMAL(38,9) NOT NULL,
+  focal_bank_share DOUBLE NOT NULL,
+  measurement_status STRING NOT NULL,
+  evidence_tier STRING NOT NULL,
+  model_version STRING NOT NULL,
+  transport_policy_version STRING NOT NULL,
+  random_seed BIGINT NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  available_date DATE NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.features.shadow_wallet_edge (
+  reconstruction_id STRING NOT NULL,
+  edge_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  client_id STRING NOT NULL,
+  product STRING NOT NULL,
+  provider_node_id STRING NOT NULL,
+  provider_is_anonymous BOOLEAN NOT NULL,
+  flow_amount DECIMAL(38,9) NOT NULL,
+  transport_cost DOUBLE NOT NULL,
+  regularization DOUBLE NOT NULL,
+  marginal_residual DOUBLE NOT NULL,
+  model_version STRING NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  available_date DATE NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.features.product_need_estimate (
+  estimate_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  client_id STRING NOT NULL,
+  product STRING NOT NULL,
+  lower DOUBLE NOT NULL,
+  median DOUBLE NOT NULL,
+  upper DOUBLE NOT NULL,
+  positive_unlabelled_probability DOUBLE NOT NULL,
+  selection_mechanism STRING NOT NULL,
+  class_prior DOUBLE NOT NULL,
+  model_version STRING NOT NULL,
+  measurement_status STRING NOT NULL,
+  available_date DATE NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.features.change_point_state (
+  state_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  client_id STRING NOT NULL,
+  product STRING NOT NULL,
+  run_length INT NOT NULL,
+  change_probability DOUBLE NOT NULL,
+  hazard_configuration_version STRING NOT NULL,
+  baseline_version STRING NOT NULL,
+  model_version STRING NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  available_date DATE NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.monitoring.leakage_alarm (
+  alarm_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  client_id STRING NOT NULL,
+  product STRING NOT NULL,
+  severity STRING NOT NULL,
+  leakage_probability DOUBLE NOT NULL,
+  change_probability DOUBLE NOT NULL,
+  threshold_policy_version STRING NOT NULL,
+  reason_codes ARRAY<STRING> NOT NULL,
+  status STRING NOT NULL,
+  published_at TIMESTAMP NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.features.treasury_graph_snapshot (
+  graph_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  client_id STRING NOT NULL,
+  graph_version STRING NOT NULL,
+  node_count INT NOT NULL,
+  edge_count INT NOT NULL,
+  concentration_index DOUBLE NOT NULL,
+  graph_payload VARIANT NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  available_date DATE NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.curated.portfolio_scenario (
+  scenario_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  scenario_index INT NOT NULL,
+  policy_version STRING NOT NULL,
+  random_seed BIGINT NOT NULL,
+  scenario_probability DOUBLE NOT NULL,
+  opportunity_values VARIANT NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  available_date DATE NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.curated.portfolio_selection (
+  selection_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  opportunity_id STRING NOT NULL,
+  client_id STRING NOT NULL,
+  product STRING NOT NULL,
+  selected BOOLEAN NOT NULL,
+  expected_value DECIMAL(38,9) NOT NULL,
+  value_at_risk DECIMAL(38,9) NOT NULL,
+  conditional_value_at_risk DECIMAL(38,9) NOT NULL,
+  marginal_capacity_cost DECIMAL(38,9) NOT NULL,
+  constraint_reason_codes ARRAY<STRING> NOT NULL,
+  policy_version STRING NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  selected_at TIMESTAMP NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
+CREATE TABLE IF NOT EXISTS wallet_twin.curated.evidence_acquisition_plan (
+  plan_id STRING NOT NULL,
+  candidate_id STRING NOT NULL,
+  as_of DATE NOT NULL,
+  client_id STRING NOT NULL,
+  product STRING,
+  fact_concept STRING NOT NULL,
+  acquisition_cost DECIMAL(38,9) NOT NULL,
+  expected_value_of_information DECIMAL(38,9) NOT NULL,
+  expected_net_value_of_information DECIMAL(38,9) NOT NULL,
+  selected BOOLEAN NOT NULL,
+  approval_status STRING NOT NULL,
+  policy_version STRING NOT NULL,
+  source_snapshot_hash STRING NOT NULL,
+  available_date DATE NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA
+TBLPROPERTIES (
+  'delta.enableChangeDataFeed' = 'true',
+  'delta.appendOnly' = 'true',
+  'wallet_entitled' = 'true'
+);
+
 CREATE TABLE IF NOT EXISTS wallet_twin.curated.client_product_activity (
   activity_id STRING NOT NULL,
   client_id STRING NOT NULL,
@@ -142,3 +335,23 @@ SET TAG ON COLUMN wallet_twin.curated.effective_rate_card.expected_loss_bps wall
 SET TAG ON COLUMN wallet_twin.curated.effective_rate_card.capital_bps wallet_data_class = sensitive_economics;
 SET TAG ON COLUMN wallet_twin.curated.effective_rate_card.total_cost_bps wallet_data_class = sensitive_economics;
 SET TAG ON COLUMN wallet_twin.curated.effective_rate_card.hurdle_bps wallet_data_class = sensitive_economics;
+
+SET TAG ON TABLE wallet_twin.features.shadow_wallet_draw wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.features.shadow_wallet_draw.client_id wallet_client_id;
+SET TAG ON TABLE wallet_twin.features.shadow_wallet_edge wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.features.shadow_wallet_edge.client_id wallet_client_id;
+SET TAG ON TABLE wallet_twin.features.product_need_estimate wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.features.product_need_estimate.client_id wallet_client_id;
+SET TAG ON TABLE wallet_twin.features.change_point_state wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.features.change_point_state.client_id wallet_client_id;
+SET TAG ON TABLE wallet_twin.monitoring.leakage_alarm wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.monitoring.leakage_alarm.client_id wallet_client_id;
+SET TAG ON TABLE wallet_twin.features.treasury_graph_snapshot wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.features.treasury_graph_snapshot.client_id wallet_client_id;
+SET TAG ON TABLE wallet_twin.curated.portfolio_selection wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.curated.portfolio_selection.client_id wallet_client_id;
+SET TAG ON COLUMN wallet_twin.curated.portfolio_selection.expected_value wallet_data_class = sensitive_economics;
+SET TAG ON COLUMN wallet_twin.curated.portfolio_selection.value_at_risk wallet_data_class = sensitive_economics;
+SET TAG ON COLUMN wallet_twin.curated.portfolio_selection.conditional_value_at_risk wallet_data_class = sensitive_economics;
+SET TAG ON TABLE wallet_twin.curated.evidence_acquisition_plan wallet_entitled = true;
+SET TAG ON COLUMN wallet_twin.curated.evidence_acquisition_plan.client_id wallet_client_id;

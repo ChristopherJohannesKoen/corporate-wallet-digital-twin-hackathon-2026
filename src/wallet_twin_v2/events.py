@@ -4,7 +4,7 @@ import hashlib
 import threading
 import uuid
 from datetime import date
-from typing import Iterable, List, Optional
+from typing import List, Optional
 
 from .contracts import ArtifactReference, EntitlementContext, EventEnvelope, EventType
 

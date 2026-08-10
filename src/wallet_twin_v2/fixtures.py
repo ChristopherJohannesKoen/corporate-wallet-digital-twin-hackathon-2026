@@ -5,7 +5,7 @@ import json
 from datetime import date, datetime, timezone
 from decimal import Decimal
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 from .contracts import (
     ApprovalStatus,
@@ -26,7 +26,7 @@ from .wallet_model import HierarchicalWalletModel
 
 
 ROOT = Path(__file__).resolve().parents[2]
-V1_BASELINE = ROOT / "outputs" / "data" / "portfolio.json"
+V1_BASELINE = ROOT / "legacy" / "v1" / "fixtures" / "portfolio.json"
 
 
 def _hash(value: str) -> str:

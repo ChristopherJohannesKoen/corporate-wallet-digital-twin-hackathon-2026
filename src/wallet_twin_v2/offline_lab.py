@@ -7,7 +7,7 @@ import zipfile
 from collections import defaultdict
 from datetime import date, datetime, timezone
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence, Tuple
+from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
 import pandas as pd
@@ -434,7 +434,6 @@ def discrete_time_surrogate_challenger(monthly: pd.DataFrame) -> dict:
     """
     rows = []
     product_names = sorted(monthly["product"].unique())
-    product_index = {product: index for index, product in enumerate(product_names)}
     for (entity_id, product), group in monthly.groupby(["entity_id", "product"]):
         group = group.sort_values("month").reset_index(drop=True)
         values = group.amount_zar.to_numpy(dtype=float)

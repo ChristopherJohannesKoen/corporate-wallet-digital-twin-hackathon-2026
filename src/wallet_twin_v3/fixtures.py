@@ -19,7 +19,7 @@ from .treasury_graph import build_treasury_graph
 from .voi import DecisionDirectedEvidencePlanner
 
 
-BASELINE = ROOT / "outputs" / "data" / "portfolio.json"
+BASELINE = ROOT / "legacy" / "v1" / "fixtures" / "portfolio.json"
 SENSOR_REGISTRY = ROOT / "data" / "v3" / "public_sensor_registry.json"
 
 

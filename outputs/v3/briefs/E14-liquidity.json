@@ -1,0 +1,61 @@
+{
+  "decision": "Prioritise for governed RM review",
+  "headline": "Prosus \u00b7 Liquidity",
+  "llm_contract": {
+    "allowed_input": "this claim pack only",
+    "autonomous_action": false,
+    "external_tools": false,
+    "fallback": "this deterministic brief",
+    "publication": false,
+    "required_output": "schema-constrained prose preserving every number and citation"
+  },
+  "missing_evidence": [
+    "direct E3 multibank share observation",
+    "approved bank economics",
+    "qualified RM action and outcome history"
+  ],
+  "model_claims": [
+    {
+      "claim": "Estimated latent external wallet is ZAR 12,742,211,040 at the scenario median.",
+      "claim_class": "SCENARIO",
+      "support": "shadow:E14-liquidity:v3.0.0"
+    },
+    {
+      "claim": "PU product-need probability is 17.2% under the SCAR assumption.",
+      "claim_class": "POSTERIOR",
+      "support": "pu-need-v3.0.0"
+    },
+    {
+      "claim": "Modelled wallet-leakage alarm probability is 7.1%.",
+      "claim_class": "POSTERIOR",
+      "support": "bocpd-leakage-v3.0.0"
+    }
+  ],
+  "observed": {
+    "activity_zar": 942680094.65,
+    "claim_class": "OBSERVED",
+    "provenance": "SYN_BANK_SIMULATION"
+  },
+  "opportunity_id": "E14-liquidity",
+  "prohibited_phrases": [
+    "measured competitor share",
+    "causal uplift",
+    "optimal target share"
+  ],
+  "public_evidence": [
+    {
+      "approval_status": "PENDING_REVIEW",
+      "available_date": "2026-06-29",
+      "fact_id": "PROSUS-2026-CASH",
+      "label": "Prosus Annual Report 2026 p.140",
+      "url": "https://www.prosus.com/~/media/Files/P/prosus-corp-v2/results-reports-and-events-archive/annual-report/2026/fy2026-annual-report.pdf"
+    },
+    {
+      "approval_status": "PENDING_REVIEW",
+      "available_date": "2026-06-29",
+      "fact_id": "PROSUS-2026-DEBT",
+      "label": "Prosus Annual Report 2026 p.140",
+      "url": "https://www.prosus.com/~/media/Files/P/prosus-corp-v2/results-reports-and-events-archive/annual-report/2026/fy2026-annual-report.pdf"
+    }
+  ]
+}

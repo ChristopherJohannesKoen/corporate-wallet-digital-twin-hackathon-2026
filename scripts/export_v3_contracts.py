@@ -10,7 +10,6 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from wallet_twin_v2.api import app
 from wallet_twin_v2.contracts import (
     AccessEvaluationRequest,
     CalibrationObservation,
@@ -29,6 +28,7 @@ from wallet_twin_v2.contracts import (
     TimingRequest,
 )
 from wallet_twin_v2.repository import repository
+from wallet_twin_v2.service_apps import workbench_bff_app
 from wallet_twin_v3.contracts import (
     ChangePointSignal,
     EvidenceAcquisitionPlan,
@@ -44,6 +44,7 @@ from wallet_twin_v3.repository import repository as v3_repository
 CONTRACTS = ROOT / "contracts"
 SCHEMAS = CONTRACTS / "jsonschema"
 DASHBOARD_DATA = ROOT / "dashboard" / "app" / "data"
+V3_OUTPUTS = ROOT / "outputs" / "v3"
 LONG_DECIMAL = re.compile(r"^-?\d+\.\d{9,}$")
 
 
@@ -98,7 +99,7 @@ def main() -> None:
     }
     for name, model in models.items():
         write_json(SCHEMAS / f"{name}.schema.json", model.model_json_schema())
-    write_json(CONTRACTS / "openapi.json", app.openapi())
+    write_json(CONTRACTS / "openapi.json", workbench_bff_app.openapi())
     payload = {
         "metadata": repository.metadata,
         "opportunities": [item.model_dump(mode="json") for item in repository.opportunities],
@@ -130,11 +131,27 @@ def main() -> None:
         "release": v3_repository.release,
     }
     write_json(DASHBOARD_DATA / "v3-fixture.json", canonical_dashboard_value(v3_payload))
+    canonical_v3 = canonical_dashboard_value(v3_payload)
+    write_json(V3_OUTPUTS / "decision-lab.json", canonical_v3)
+    write_json(
+        V3_OUTPUTS / "validation.json",
+        {
+            "metadata": canonical_v3["metadata"],
+            "validation": canonical_v3["validation"],
+            "release": canonical_v3["release"],
+        },
+    )
+    for action in v3_repository.action_portfolio.selected_actions:
+        write_json(
+            V3_OUTPUTS / "briefs" / f"{action.opportunity_id}.json",
+            v3_repository.brief(action.opportunity_id, v3_repository.as_of),
+        )
     print(json.dumps({
         "schemas": len(models),
-        "v2_opportunities": len(repository.opportunities),
+        "substrate_opportunities": len(repository.opportunities),
         "v3_opportunities": len(v3_repository.opportunities),
-        "output": str(DASHBOARD_DATA),
+        "dashboard_output": str(DASHBOARD_DATA),
+        "canonical_v3_output": str(V3_OUTPUTS),
     }))
 
 

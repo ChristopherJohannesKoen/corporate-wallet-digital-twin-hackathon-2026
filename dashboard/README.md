@@ -1,8 +1,10 @@
-# Corporate Wallet Digital Twin V2 workbench
+# Corporate Wallet Digital Twin V3 workbench
 
-Private client-demonstration workbench for the governed V2 wallet platform. It
+Private client-demonstration workbench for the composed V3 decision-intelligence platform. It
 serves a point-in-time demo snapshot locally and can proxy the entitled bank API
-when `WALLET_API_BASE_URL` is configured. The bundled snapshot combines the
+when `WALLET_API_BASE_URL` is configured. The `/api/v3/decision-lab` route returns
+the live, entitlement-filtered `/v3/decision-lab` response when connected and
+uses the checked-in fixture only when no bank API is configured. The bundled snapshot combines the
 supplied SynBank simulation, audited public evidence and licensed representative
 references; it is not bank-production data or a financial-decision system.
 
@@ -20,7 +22,7 @@ npm run build
 
 This starter does not use `wrangler.jsonc`.
 
-## Included Shape
+## Included shape
 
 - edit site code under `app/`
 - `.openai/hosting.json` declares optional Sites D1 and R2 bindings

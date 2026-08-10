@@ -14,7 +14,7 @@ from .contracts import PRODUCTS
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "data" / "v2" / "external_dataset_registry.json"
-BASELINE_PATH = ROOT / "outputs" / "data" / "portfolio.json"
+BASELINE_PATH = ROOT / "legacy" / "v1" / "fixtures" / "portfolio.json"
 TRADE_REFERENCE_PATH = (
     ROOT / "data" / "v2" / "external" / "africa_trade_finance_gap" / "data" / "finance_gap_full.csv"
 )

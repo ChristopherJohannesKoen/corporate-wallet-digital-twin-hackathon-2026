@@ -1,6 +1,6 @@
 # Grounded GenAI design
 
-> **Archived V1 design note.** The current V2 implementation supports fail-closed OpenAI, Anthropic and Google adapters plus the governed golden-set workflow in [`v2_security_and_genai.md`](v2_security_and_genai.md). Model names and enablement rules below are retained only as a V1 regression reference.
+> **Archived V1 design note.** The current V3 implementation uses the governed V2 provider gateway plus V3 decision-directed evidence acquisition and closed claim-pack compilation, documented in [`Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md`](Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md). Model names and enablement rules below are retained only as a V1 regression reference.
 
 ## Principle
 

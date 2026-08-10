@@ -1,6 +1,6 @@
 # Methodology
 
-> **Archived V1 methodology.** Its three-client evidence counts, browser/runtime architecture, confidence score and prototype calculations are frozen regression benchmarks. The implemented V2 method and current 20-client/82-fact state are documented in [`v2_model_validation.md`](v2_model_validation.md) and [`v2_implementation_status.md`](v2_implementation_status.md).
+> **Archived V1 methodology.** Its three-client evidence counts, browser/runtime architecture, confidence score and prototype calculations are frozen regression benchmarks under `legacy/v1`. The current V3 method is documented in [`v3_methodology.md`](v3_methodology.md), with full theory in [`Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md`](Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md).
 
 ## 1. Decision objective
 
@@ -77,7 +77,7 @@ where `A` is observed Standard Bank activity, `q` is the bank share, and `T` is 
 2. **Audited-anchor envelope where available:** low/high bounds derived from the relevant accounting, FX, debt or trade-utilisation transformation.
 3. **Model-based posterior:** Monte Carlo P10, median and P90. For anchored opportunities, the share-prior wallet and audited-anchor distribution are precision-pooled geometrically at the declared 0.84 anchor weight.
 
-The posterior is not relabelled as observed truth. Product priors live in `config/assumptions.json`; no prior is hidden in code.
+The posterior is not relabelled as observed truth. The frozen V1 priors live in `legacy/v1/config/assumptions.json`; no prior is hidden in code.
 
 Share is sampled as:
 

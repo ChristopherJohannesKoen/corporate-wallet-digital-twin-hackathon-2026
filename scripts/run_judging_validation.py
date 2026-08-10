@@ -39,8 +39,9 @@ def main() -> None:
         run("scripts/run_client_demo.py"),
         run("scripts/run_evidence_qa.py"),
         run("scripts/run_genai_evals.py"),
-        run("scripts/export_v2_contracts.py"),
+        run("scripts/export_v3_contracts.py"),
         run("scripts/run_v3_validation.py"),
+        run("scripts/build_v3_notebook.py"),
         run("scripts/validate_production_target.py"),
     ]
     offline_args = ["scripts/run_offline_validation.py"]

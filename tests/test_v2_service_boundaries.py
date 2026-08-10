@@ -1,5 +1,7 @@
 from fastapi.routing import APIRoute
 
+from fastapi.testclient import TestClient
+
 from wallet_twin_v2.service_apps import evidence_app, recommendation_app, workbench_bff_app
 
 
@@ -18,5 +20,13 @@ def test_recommendation_and_bff_contracts_are_scoped():
     recommendation_paths = _paths(recommendation_app)
     bff_paths = _paths(workbench_bff_app)
     assert "/v1/opportunities" in recommendation_paths
+    assert "/v3/decision-lab" in recommendation_paths
     assert "/v1/clients/{client_id}/twin" in bff_paths
+    assert "/v3/decision-lab" in bff_paths
     assert not any(path.startswith("/v1/evidence") for path in bff_paths)
+
+
+def test_composed_service_health_reports_v3() -> None:
+    response = TestClient(workbench_bff_app).get("/health")
+    assert response.status_code == 200
+    assert response.json()["version"] == "3.0.0"

@@ -197,7 +197,7 @@ An audited figure can be restated. The evidence service represents the original 
 
 ### 4.5 Implemented data products
 
-The repository defines curated Delta tables for client-product activity, calibration observations, effective rate cards, recommendation events and promotion decisions in `infra/databricks/curated_tables.sql` and `data_products.sql`. Unity Catalog tags and policies are specified in `unity_catalog_controls.sql`. The implementation is a deployable definition, not evidence that a bank metastore has been provisioned or that a production feed has reconciled.
+The repository defines curated Delta tables for client-product activity, calibration observations, effective rate cards, recommendation events and promotion decisions in `infra/databricks/curated_tables.sql` and `data_products.sql`. The V3 extension adds Shadow Wallet draws and edges, PU product-need estimates, Bayesian change-point state, leakage alarms, Treasury graph snapshots, portfolio scenarios and selections, and evidence-acquisition plans. Unity Catalog tags and policies are specified in `unity_catalog_controls.sql`, including client-level and sensitive-economics tags on the new products. The implementation is a deployable definition, not evidence that a bank metastore has been provisioned or that a production feed has reconciled.
 
 ## 5. Deterministic partial identification
 
@@ -781,11 +781,11 @@ Services communicate through versioned APIs and MSK events. Each owns its operat
 
 ### 15.2 API semantics
 
-Core endpoints include opportunity lists, client twin views, explanations, scenario evaluation, interactions, outcomes, evidence candidates/reviews, model validation and rate cards. All modeled reads require `as_of`. Identity is established at the gateway, but object-level authorization is re-evaluated in the service and query layer. Idempotency keys protect write endpoints from client retries.
+Core endpoints include opportunity lists, client twin views, explanations, scenario evaluation, interactions, outcomes, evidence candidates/reviews, model validation and rate cards. The composed V3 surface adds eight entitled routes: Decision Lab aggregate, opportunities, client latent network, leakage, action portfolio, evidence acquisition, decision brief and V3 validation. All modeled reads require `as_of`. Identity is established at the gateway, but object-level authorization is re-evaluated in the service and query layer. Idempotency keys protect write endpoints from client retries.
 
 ### 15.3 Event-driven learning surface
 
-MSK topics carry `EligibilityRecorded`, `RecommendationAssigned`, `RecommendationDisplayed`, `RecommendationOpened`, `RecommendationDismissed`, `BankerActionRecorded`, `PipelineMilestoneRecorded`, `OutcomeRecorded`, `EvidenceApproved` and `AccessDecisionLogged`. The event envelope has a stable event ID, schema version, producer, event time, as-of time and correlation/causation identifiers.
+MSK topics carry `EligibilityRecorded`, `RecommendationAssigned`, `RecommendationDisplayed`, `RecommendationOpened`, `RecommendationDismissed`, `BankerActionRecorded`, `PipelineMilestoneRecorded`, `OutcomeRecorded`, `EvidenceApproved` and `AccessDecisionLogged`. V3 adds `ShadowWalletReconstructed`, `LeakageSignalPublished`, `ActionPortfolioSelected`, `EvidenceAcquisitionApproved` and `DecisionBriefCompiled`. The same governed event envelope supplies a stable event ID, schema version, producer, event time, as-of time, artifact versions, entitlement context and correlation/causation identifiers.
 
 At-least-once delivery means consumers must be idempotent. Exactly-once business semantics are achieved through deterministic IDs, unique constraints, deduplication and reconciliation rather than assuming the broker can eliminate every duplicate across external side effects.
 
@@ -1385,7 +1385,7 @@ The provider is permitted to transform only this pack into a schema-constrained 
 
 ### 31.2 V3 API and schema surface
 
-V3 preserves all `/v1` routes and adds seven entitled reads: opportunities, client latent network, leakage, action portfolio, evidence acquisition, opportunity brief and validation. Seven JSON Schemas describe the change-point signal, evidence plan, leakage alarm, composed opportunity view, PU need estimate, robust portfolio and Shadow Wallet, bringing the total catalogue to 22.
+V3 preserves all `/v1` routes and adds eight entitled reads: the composed Decision Lab aggregate, opportunities, client latent network, leakage, action portfolio, evidence acquisition, opportunity brief and validation. Seven JSON Schemas describe the change-point signal, evidence plan, leakage alarm, composed opportunity view, PU need estimate, robust portfolio and Shadow Wallet, bringing the total catalogue to 22.
 
 All modelled reads require `as_of`. Every endpoint executes object-level authorization and records the access decision. Large model arrays are not delivered to the browser; the backend-for-frontend returns entitled summaries and artifact references. Invalid client, region, product or sensitive-economics combinations fail closed.
 
@@ -1393,11 +1393,11 @@ All modelled reads require `as_of`. Every endpoint executes object-level authori
 
 The ten-service target remains valid. V3 model code can initially be deployed inside the Wallet-model, Timing, Recommendation and GenAI service boundaries rather than creating one microservice per algorithm. This preserves operational simplicity while ownership and load are modest. Split-out is justified only by independent scale, failure isolation or release cadence.
 
-Delta data products should add Shadow Wallet draws/quantiles, PU features/predictions, change-point run-length summaries, leakage alarms, treasury graph snapshots, portfolio scenarios/selections and VOI candidates/plans. PostgreSQL stores current workflow and review state; MSK carries eligibility, assignment, display, interaction, action, outcome, evidence approval and access decisions. No service may query another service's database directly.
+Delta data products now define Shadow Wallet draws and edges, PU product-need estimates, change-point run-length state, leakage alarms, Treasury graph snapshots, portfolio scenarios/selections and VOI plans. PostgreSQL adds versioned reconstruction runs, signal publications, portfolio selections, evidence-acquisition approvals and brief compilations. MSK carries both the legacy learning events and five V3 completion/publication/selection/approval/compilation events. No service may query another service's database directly.
 
 ### 31.4 Registry and promotion
 
-MLflow model versions must register training data, code, environment, hyperparameters, prior/transport/hazard policies, validation report, subgroup results, owner and approval state. Promotion is model-family-specific:
+MLflow model versions must register training data, code, environment, hyperparameters, prior/transport/hazard policies, validation report, subgroup results, owner and approval state. The V3 promotion policy makes the transport manifest, PU selection mechanism, change-point hazard, public-sensor snapshot, CVaR scenario policy, VOI policy and composed V3 validation report mandatory artifacts. Promotion is model-family-specific:
 
 - Shadow Wallet: mass balance plus E3 structural calibration and density challengers;
 - PU need: label audit, selection-mechanism review and held-out calibration;
@@ -1416,7 +1416,7 @@ Rollback is versioned independently for data contract, transformation, model, pr
 
 ### 31.6 Current validation and remaining gates
 
-The current repository passes 70 backend tests, frontend lint/build, rendered interface checks and zero production dependency audit findings. V3 validation asserts 100 opportunities, 100 reconstructions, 1,500 anonymous edges, zero median mass-balance error, 33 selected PU positives, 100 change-point series, 12 capacity-respecting actions, eight positive-net-VOI requests, zero measured competitor-share claims and zero causal-value claims.
+The current repository passes the complete backend suite across the V1 regression boundary, V2 substrate and V3 layer, plus frontend lint/build, rendered interface checks and zero production dependency audit findings. V3 validation asserts 100 opportunities, 100 reconstructions, 1,500 anonymous edges, zero median mass-balance error, 33 selected PU positives, 100 change-point series, 12 capacity-respecting actions, eight positive-net-VOI requests, zero measured competitor-share claims and zero causal-value claims.
 
 These are implementation and representative-validation claims. Bank production still requires signed approval of 51 facts, a representative E3 multibank panel, approved economics, bank AWS/Databricks/SSO/Unity Catalog/SIEM deployment, live-provider adjudication, qualified RM outcomes, a supervised pilot, a powered randomized encouragement trial and 30 clean shadow days. No amount of additional synthetic data can truthfully satisfy those operating gates.
 

@@ -3,16 +3,14 @@ from __future__ import annotations
 import hashlib
 import json
 import os
-import uuid
 from datetime import date
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, status
 from fastapi.responses import JSONResponse
 
 from .contracts import (
     AccessEvaluationRequest,
-    ApprovalStatus,
     DeploymentEnvironment,
     EntitlementContext,
     EventEnvelope,

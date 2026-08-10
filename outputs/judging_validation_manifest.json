@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-10T09:40:38.176514+00:00",
+  "generated_at": "2026-08-10T20:02:12.994359+00:00",
   "team": "Corporate Wallet Digital Twin",
   "member": "Christopher Koen",
   "solution_version": "V3.0",
@@ -48,10 +48,10 @@
       ]
     },
     {
-      "command": "scripts/export_v2_contracts.py",
+      "command": "scripts/export_v3_contracts.py",
       "status": "passed",
       "stdout_tail": [
-        "{\"schemas\": 22, \"v2_opportunities\": 100, \"v3_opportunities\": 100, \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\dashboard\\\\app\\\\data\"}"
+        "{\"schemas\": 22, \"substrate_opportunities\": 100, \"v3_opportunities\": 100, \"dashboard_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\dashboard\\\\app\\\\data\", \"canonical_v3_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v3\"}"
       ]
     },
     {
@@ -65,6 +65,18 @@
         "    \"measured_competitor_share_claims\": 0,",
         "    \"causal_value_claims\": 0",
         "  }",
+        "}"
+      ]
+    },
+    {
+      "command": "scripts/build_v3_notebook.py",
+      "status": "passed",
+      "stdout_tail": [
+        "{",
+        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\notebooks\\\\01_wallet_twin_demo.ipynb\",",
+        "  \"html_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\output\\\\notebook\\\\01_wallet_twin_demo.html\",",
+        "  \"cells\": 20,",
+        "  \"stored_outputs\": 17",
         "}"
       ]
     },

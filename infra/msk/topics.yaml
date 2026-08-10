@@ -17,6 +17,11 @@ topics:
   - { name: wallet.outcome-recorded.v1 }
   - { name: wallet.evidence-approved.v1 }
   - { name: wallet.access-decision-logged.v1, partitions: 24 }
+  - { name: wallet.shadow-wallet-reconstructed.v1 }
+  - { name: wallet.leakage-signal-published.v1 }
+  - { name: wallet.action-portfolio-selected.v1 }
+  - { name: wallet.evidence-acquisition-approved.v1 }
+  - { name: wallet.decision-brief-compiled.v1 }
 dead_letter_topics:
   - { name: wallet.contract-quarantine.v1, retention_ms: 7776000000 }
   - { name: wallet.integration-dead-letter.v1, retention_ms: 7776000000 }

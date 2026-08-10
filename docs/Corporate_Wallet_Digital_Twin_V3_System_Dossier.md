@@ -92,7 +92,7 @@ The solution currently contains:
 - Twenty client/corridor treasury graphs with a simulation-labelled Treasury Complexity Index and registered, not silently connected, GLEIF, SARS, UN Comtrade, JSE SENS and SARB sensors.
 - A 12-action portfolio selected from 512 common commercial scenarios per candidate using mean/lower-tail-CVaR utility, with one action per client and product/sector caps all satisfied.
 - Eight positive-net-value-of-information evidence requests selected under capacity; autonomous external retrieval is false and every request names its approval owner.
-- Seven entitled `/v3` routes and seven V3 JSON Schemas, bringing the exported contract catalogue to 22 schemas while preserving every `/v1` route.
+- Eight entitled `/v3` routes, including the composed `/v3/decision-lab` read model, and seven V3 JSON Schemas, bringing the exported contract catalogue to 22 schemas while preserving every `/v1` route.
 
 The most important design achievement is not a single model score. It is the encoded separation of evidence and claim types while multiple uncertain models are composed into one decision. Observed bank activity, assumption-light bounds, posterior estimates, reconstructed anonymous flows, commercial scenarios and causal value are different objects with different provenance and release requirements. The workbench exposes the separation instead of collapsing it into an opaque confidence or opportunity score.
 
@@ -152,7 +152,7 @@ The implementation follows the principles below.
 
 V1 remains in the repository as an archived benchmark. Its fixtures and expected calculations are retained so that V3 can prove continuity where intended and deliberate change where necessary. V1 browser-side portfolio delivery, placeholder basis-point assumptions, transparent seasonal logic and manually assembled evidence should not be confused with V3 operational architecture.
 
-V2 is not discarded. Its 29-module package under `src/wallet_twin_v2` remains the governed substrate for contracts, service composition, evidence governance, bounds, posterior wallet/share, economics, sensitivity, timing, experimentation, GenAI, entitlements, repositories, adapters and validation. V3 adds 12 focused modules under `src/wallet_twin_v3` for contracts, fixtures, repository composition, shadow-network reconstruction, PU learning, event dynamics, decision portfolio, VOI, treasury graphs, briefing and API integration. The dependency direction is V3 to V2; V2 has no dependency on V3.
+V2 is not discarded. Its 29-module package under `src/wallet_twin_v2` remains the governed substrate for contracts, evidence governance, bounds, posterior wallet/share, economics, sensitivity, timing, experimentation, GenAI, entitlements, repositories, adapters and validation. V3 adds 12 focused modules under `src/wallet_twin_v3` for contracts, fixtures, repository composition, shadow-network reconstruction, PU learning, event dynamics, decision portfolio, VOI, treasury graphs, briefing and API integration. The analytical dependency direction is V3 to V2; only the composed API/service assembly imports the V3 router so the recommendation and workbench-BFF deployments expose both versions.
 
 ## 2.2 What is complete enough for the demonstration
 
@@ -213,7 +213,7 @@ Every stage consumes the uncertainty and provenance of the previous stage. No st
 
 | Layer | Package or asset | Responsibility | Claim boundary |
 |---|---|---|---|
-| Frozen regression | `legacy/`, V1 fixtures and expected outputs | Preserve continuity and detect unintended changes | Historical benchmark only |
+| Frozen regression | `legacy/v1/`, V1 fixtures and expected outputs | Preserve continuity and detect unintended changes | Historical benchmark only |
 | Governed substrate | `src/wallet_twin_v2` | Evidence, bounds, posterior wallet/share, economics, sensitivity, timing, experiments, GenAI gateway and ABAC | Observed/bound/posterior/scenario as explicitly typed |
 | V3 decision layer | `src/wallet_twin_v3` | Shadow network, PU need, temporal dynamics, leakage, robust portfolio, VOI, treasury graph and V3 brief | Posterior or scenario; no measured competitor or causal label |
 | Interface | FastAPI `/v1` and `/v3`, 22 JSON Schemas, workbench | Entitled reads, explanation and decision workflow | Object-level authorization and mandatory `as_of` |
@@ -662,7 +662,7 @@ The target document pipeline is allow-list validation, malware scanning, hashing
 
 ## 13.1 Contract approach
 
-V3 exports a versioned OpenAPI contract and 15 JSON Schemas. Internal APIs require bank identity in controlled environments, enforce object-level authorization and require `as_of` for modelled reads. List endpoints are paginated, with an opportunity limit capped at 100. Response records carry claim class, evidence/calibration status, artifact versions and eligibility reasons.
+V3 exports a composed V1/V3 OpenAPI contract and 22 JSON Schemas. Eight entitled `/v3` routes cover the Decision Lab aggregate, opportunities, client latent network, leakage, action portfolio, evidence acquisition, decision brief and validation. Internal APIs require bank identity in controlled environments, enforce object-level authorization and require `as_of` for modelled reads. List endpoints are paginated, with an opportunity limit capped at 100. Response records carry claim class, evidence/calibration status, artifact versions and eligibility reasons.
 
 ## 13.2 Canonical types
 
@@ -681,11 +681,11 @@ The shared contract package defines:
 
 ## 13.3 Operational persistence
 
-Service-owned PostgreSQL schemas include evidence fact workflow, effective rate cards with exclusion constraints preventing overlapping validity windows, experiment assignment/outcome/pilot/outbox tables, recommendation interactions and entitlement access decisions. Cross-service SQL reads are prohibited. The transactional outbox supports reliable event publication.
+Service-owned PostgreSQL schemas include evidence fact workflow, effective rate cards with exclusion constraints preventing overlapping validity windows, experiment assignment/outcome/pilot/outbox tables, recommendation interactions and entitlement access decisions. V3 adds versioned reconstruction runs, signal publications, portfolio selections, evidence-acquisition approvals and brief-compilation state under `decision_intelligence`. Cross-service SQL reads are prohibited. The transactional outbox supports reliable event publication.
 
 ## 13.4 MSK topics
 
-Ten versioned domain topics carry eligibility, assignment, display, open, dismissal, action, milestone, outcome, evidence approval and access-decision events. Default production shape is 12 partitions, replication factor three, minimum in-sync replicas two and 365-day retention; the access-decision topic uses 24 partitions. Contract-quarantine and integration dead-letter topics retain failures for 90 days.
+Fifteen versioned domain topics carry the ten V1/V2 events plus `ShadowWalletReconstructed`, `LeakageSignalPublished`, `ActionPortfolioSelected`, `EvidenceAcquisitionApproved` and `DecisionBriefCompiled`. Default production shape is 12 partitions, replication factor three, minimum in-sync replicas two and 365-day retention; the access-decision topic uses 24 partitions. Contract-quarantine and integration dead-letter topics retain failures for 90 days.
 
 # 14. Security, privacy and entitlements
 
@@ -731,15 +731,15 @@ Local chart validation renders 53 Kubernetes resources; all 53 pass schema valid
 
 ## 15.3 Databricks, Delta and Unity Catalog
 
-The target creates raw, conformed, curated, features, training, monitoring, registry and governance schemas. Delta Change Data Feed and append-only properties are defined where appropriate for evidence facts, wallet snapshots, release-gate results, client-product activity, multibank calibration observations, effective rate cards, recommendation events and promotion decisions.
+The target creates raw, conformed, curated, features, training, monitoring, registry and governance schemas. Delta Change Data Feed and append-only properties are defined where appropriate for evidence facts, wallet snapshots, release-gate results, client-product activity, multibank calibration observations, effective rate cards, recommendation events and promotion decisions. V3 definitions add Shadow Wallet draws and edges, PU product-need estimates, Bayesian change-point state, leakage alarms, Treasury graph snapshots, portfolio scenarios and selections, and evidence-acquisition plans. Client IDs and sensitive economics receive explicit governed tags.
 
 Governed tags identify entitled objects, client ID and `sensitive_economics`. Unity Catalog row filters map client identifiers to groups named `wallet_client_<clientid>`, with controlled platform/model-risk overrides. Column masks reveal sensitive decimal economics only to approved platform, product-finance, treasury and risk groups. Deployment expects Databricks Runtime 16.4 or serverless, SCIM-provisioned groups and supported governed-tag/ABAC capabilities. `SHOW EFFECTIVE POLICIES` forms part of deployment verification.
 
 ## 15.4 MLflow promotion policy
 
-MLflow aliases are `candidate`, `shadow`, `champion` and `rollback`. A candidate must include the model, environment lock, point-in-time dataset manifest, feature transformation, prior, diagnostics, validation report, model card, SBOM and signature.
+MLflow aliases are `candidate`, `shadow`, `champion` and `rollback`. A candidate must include the model, environment lock, point-in-time dataset manifest, feature transformation, prior, diagnostics, validation report, model card, SBOM and signature. V3 additionally requires the Shadow Wallet transport manifest, PU selection-mechanism manifest, change-point hazard manifest, public-sensor snapshot, CVaR scenario policy, VOI policy and composed V3 validation report.
 
-Candidate-to-shadow gates include independent reproduction, zero future leakage, overall 90% interval coverage between 85% and 95%, at least 10% CRPS improvement and no severe material-segment undercoverage. Shadow-to-champion additionally requires a representative E3 panel, approved economics, security and entitlement approval, 30 clean production-shadow days and model-risk approval. Promotion and rollback are human-authorized; no automatic model promotion is permitted.
+Candidate-to-shadow gates include independent reproduction, zero future leakage, exact Shadow Wallet mass balance, registered transport marginals/costs/regularization, anonymous providers, registered PU selection/class prior, registered BOCPD hazard/baseline, a point-in-time public-sensor snapshot, seeded constraint-satisfying CVaR scenarios, positive-net-VOI with human approval, zero measured/causal mislabelling, overall 90% interval coverage between 85% and 95%, at least 10% CRPS improvement and no severe material-segment undercoverage. Shadow-to-champion additionally requires independent V3 transport/PU/change/portfolio/VOI validation, a representative E3 panel, approved economics, security and entitlement approval, 30 clean production-shadow days and model-risk approval. Promotion and rollback are human-authorized; no automatic model promotion is permitted.
 
 # 16. Workbench and user experience
 
@@ -769,7 +769,7 @@ The site does not expose source-document binaries, raw transaction rows, operati
 
 The current verification snapshot includes:
 
-- 70 backend tests across the V1 boundary, V2 substrate and V3 decision layer;
+- the complete backend suite across the V1 boundary, V2 substrate and V3 decision layer;
 - frontend lint and production build;
 - two rendered interface tests;
 - deterministic V3 fixture replay with exact Shadow Wallet mass balance, claim-boundary assertions, positive-net-VOI selection and portfolio-capacity checks;
@@ -1019,6 +1019,11 @@ The owner-only site can now tell the whole demonstration story without pretendin
 | `OutcomeRecorded` | Reconciled outcome is available | Enables E4 outcome/economics analysis |
 | `EvidenceApproved` | Required evidence reviews complete | Drives point-in-time evidence eligibility and audit |
 | `AccessDecisionLogged` | Policy allows or denies data access | Immutable entitlement evidence and anomaly monitoring |
+| `ShadowWalletReconstructed` | A point-in-time reconstruction completes validation | Persists reconstruction lineage and mass-balance diagnostics |
+| `LeakageSignalPublished` | A governed change/leakage signal becomes available | Separates modelled warning publication from confirmed lost flow |
+| `ActionPortfolioSelected` | The constrained scenario portfolio is selected | Preserves scenarios, constraints, policy and selection denominator |
+| `EvidenceAcquisitionApproved` | A data owner approves or rejects a VOI candidate | Audits non-autonomous evidence work and approval authority |
+| `DecisionBriefCompiled` | A closed claim pack is compiled or falls back | Records evidence pack, template, provider mode and validator result |
 
 # Appendix E — Repository map
 
@@ -1037,9 +1042,10 @@ The owner-only site can now tell the whole demonstration story without pretendin
 | `dashboard/` | Entitled workbench and private site implementation |
 | `tests/` | Backend, contract, model, evidence, security and regression tests |
 | `outputs/v2_validation/` | Machine-generated offline, evidence, GenAI, causal, shadow and production-readiness outputs |
-| `outputs/v3_validation/` | V3 decision-lab fixture, validation report, anonymous-flow, temporal, portfolio and VOI outputs |
+| `outputs/v3/` | Canonical V3 Decision Lab snapshot, validation projection and selected-action briefs |
+| `outputs/v3_validation/` | V3 mechanical validation report and detailed anonymous-flow, temporal, portfolio and VOI diagnostics |
 | `outputs/client_demo/` | Demonstration snapshot, scorecard, manifests and generated interface inputs |
-| `legacy/` | Frozen V1 runtime/fixture boundary where retained |
+| `legacy/v1/` | Frozen V1 assumptions, fixtures and outputs used only as regression boundaries |
 | `docs/` | Architecture, contracts, model, GenAI, pilot, shadow, deployment and status documentation |
 
 # Appendix F — Glossary

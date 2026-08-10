@@ -20,7 +20,7 @@ async function loadArtifactTool() {
 const { FileBlob, PresentationFile } = await loadArtifactTool();
 
 const ROOT = path.resolve(process.argv[2] || process.cwd());
-const SOURCE = path.join(ROOT, "assets", "presentation", "Corporate-Wallet-Digital-Twin-V2.1-Template.pptx");
+const SOURCE = path.join(ROOT, "assets", "presentation", "Corporate-Wallet-Digital-Twin-V3-Template.pptx");
 const OUT = path.join(ROOT, "output", "presentation");
 const COVER = path.join(ROOT, "dashboard", "public", "og.png");
 
@@ -279,7 +279,7 @@ setMany({
 setNotes(7, "Preserve the V2 continuity benchmark. Trade Finance survives all nine rate/prior cases as the first-ranked product, yet the 10,000-draw global sensitivity and the V3 constrained portfolio both argue against treating it as the entire strategy.", [
   "dashboard/app/data/shadow-fixture.json — sensitivity",
   "docs/v3_methodology.md",
-  "outputs/v2_validation/global_sensitivity.json",
+  "dashboard/app/data/shadow-fixture.json — sensitivity.product_summary",
 ]);
 
 // 8 — representative validation and honest boundaries.
@@ -338,7 +338,7 @@ setMany({
 });
 setNotes(9, "The LLM is last, not first. V3 selects evidence by value of information, requires approval, compiles a closed claim pack, and permits the model only to narrate approved content. Deterministic fallback remains operational.", [
   "src/wallet_twin_v3/briefing.py",
-  "src/wallet_twin_v2/genai.py",
+  "src/wallet_twin_v2/genai_gateway.py",
   "prompts/v3_decision_brief.schema.json",
   "outputs/v2_validation/genai_golden_eval.json",
 ]);

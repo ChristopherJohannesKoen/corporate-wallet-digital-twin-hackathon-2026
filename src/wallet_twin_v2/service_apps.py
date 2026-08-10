@@ -1,4 +1,4 @@
-"""Deployable service boundaries for the V2 microservice topology.
+"""Deployable service boundaries for the composed V3 microservice topology.
 
 The reference build deliberately shares one Python distribution so contract and
 control code cannot drift. Each EKS deployment selects one ASGI object below;
@@ -15,6 +15,7 @@ from fastapi import FastAPI
 from fastapi.routing import APIRoute
 
 from .api import app as canonical_app
+from wallet_twin_v3.api import router as v3_router
 
 
 SERVICE_ROUTES = {
@@ -23,7 +24,12 @@ SERVICE_ROUTES = {
     "economics": ("/v1/economics",),
     "wallet-model": ("/v1/clients", "/v1/models"),
     "timing": ("/v1/timing",),
-    "recommendation": ("/v1/opportunities", "/v1/recommendations", "/v1/scenarios"),
+    "recommendation": (
+        "/v1/opportunities",
+        "/v1/recommendations",
+        "/v1/scenarios",
+        "/v3",
+    ),
     "experiment": ("/v1/outcomes", "/v1/events", "/v1/pilot"),
     "genai": ("/v1/genai",),
     "entitlement": ("/v1/access",),
@@ -33,21 +39,22 @@ SERVICE_ROUTES = {
         "/v1/models",
         "/v1/sensitivity",
         "/v1/scenarios",
+        "/v3",
     ),
 }
 
 
 def create_service_app(service_name: str, prefixes: Iterable[str]) -> FastAPI:
     service = FastAPI(
-        title=f"Corporate Wallet Digital Twin — {service_name}",
-        version="2.0.0",
+        title=f"Corporate Wallet Digital Twin V3 — {service_name}",
+        version="3.0.0",
         docs_url=None,
         redoc_url=None,
     )
 
     @service.get("/health", tags=["operational"])
     def health() -> dict[str, str]:
-        return {"status": "ok", "service": service_name, "version": "2.0.0"}
+        return {"status": "ok", "service": service_name, "version": "3.0.0"}
 
     @service.get("/ready", tags=["operational"])
     def ready() -> dict:
@@ -64,6 +71,10 @@ def create_service_app(service_name: str, prefixes: Iterable[str]) -> FastAPI:
     for route in canonical_app.routes:
         if isinstance(route, APIRoute) and route.path != "/health" and route.path.startswith(allowed):
             service.router.routes.append(route)
+    if "/v3" in allowed:
+        for route in v3_router.routes:
+            if isinstance(route, APIRoute):
+                service.router.routes.append(route)
     return service
 
 

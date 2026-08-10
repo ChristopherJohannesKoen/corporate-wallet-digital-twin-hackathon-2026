@@ -2,7 +2,8 @@ import json
 from pathlib import Path
 
 
-PORTFOLIO = Path("outputs/data/portfolio.json")
+V1_ROOT = Path("legacy/v1")
+PORTFOLIO = V1_ROOT / "fixtures" / "portfolio.json"
 
 
 def load():
@@ -29,7 +30,7 @@ def test_every_number_has_coherent_uncertainty_and_provenance():
 
 
 def test_three_or_more_grounded_briefs_are_available():
-    brief_files = list(Path("outputs/briefs").glob("*.md"))
+    brief_files = list((V1_ROOT / "outputs" / "briefs").glob("*.md"))
     assert len(brief_files) >= 3
     for path in brief_files[:3]:
         text = path.read_text(encoding="utf-8")
@@ -67,7 +68,7 @@ def test_rate_and_prior_sensitivity_is_explicit():
 
 def test_showcase_briefs_include_page_linked_public_anchor_citations():
     for entity_id in ("E01", "E02", "E09"):
-        text = Path(f"outputs/briefs/{entity_id}.md").read_text(encoding="utf-8")
+        text = (V1_ROOT / "outputs" / "briefs" / f"{entity_id}.md").read_text(encoding="utf-8")
         assert "### Public anchor citations" in text
         assert "p." in text
         assert "public from" in text

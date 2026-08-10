@@ -91,6 +91,7 @@ def test_decision_directed_evidence_only_selects_positive_net_voi() -> None:
 
 def test_v3_api_exposes_entitled_decision_surfaces() -> None:
     for path in [
+        "/v3/decision-lab?as_of=2026-06-30",
         "/v3/opportunities?as_of=2026-06-30&limit=2",
         "/v3/action-portfolio?as_of=2026-06-30",
         "/v3/evidence-acquisition?as_of=2026-06-30",
@@ -99,6 +100,31 @@ def test_v3_api_exposes_entitled_decision_surfaces() -> None:
     ]:
         response = client.get(path)
         assert response.status_code == 200, response.text
+
+
+def test_v3_decision_lab_filters_every_client_level_projection() -> None:
+    headers = {
+        "x-user-id": "restricted-validator",
+        "x-user-roles": "SHADOW_OPERATOR,MODEL_VALIDATOR",
+        "x-user-clients": "E01",
+        "x-user-products": "*",
+    }
+    response = client.get(
+        "/v3/decision-lab?as_of=2026-06-30", headers=headers
+    )
+    assert response.status_code == 200, response.text
+    payload = response.json()
+    assert {item["entity_id"] for item in payload["opportunities"]} == {"E01"}
+    assert set(payload["treasury_graphs"]) == {"E01"}
+    assert all(
+        item["entity_id"] == "E01"
+        for item in payload["action_portfolio"]["selected_actions"]
+    )
+    assert all(
+        item["entity_id"] == "E01"
+        for field in ("selected", "deferred")
+        for item in payload["evidence_acquisition"][field]
+    )
 
 
 def test_v3_brief_separates_evidence_model_and_missing_inputs() -> None:

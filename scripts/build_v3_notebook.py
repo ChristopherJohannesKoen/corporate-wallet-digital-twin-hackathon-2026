@@ -6,11 +6,13 @@ from pathlib import Path
 
 import nbformat as nbf
 from nbclient import NotebookClient
+from nbconvert import HTMLExporter
 from jupyter_client.kernelspec import KernelSpecManager
 
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "notebooks" / "01_wallet_twin_demo.ipynb"
+HTML_OUTPUT = ROOT / "output" / "notebook" / "01_wallet_twin_demo.html"
 
 
 def code(source: str) -> nbf.NotebookNode:
@@ -328,6 +330,9 @@ def main() -> None:
     }
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     nbf.write(executed, OUTPUT)
+    HTML_OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    html, _ = HTMLExporter().from_notebook_node(executed)
+    HTML_OUTPUT.write_text(html, encoding="utf-8")
     cells = len(executed.cells)
     outputs = sum(
         len(cell.get("outputs", []))
@@ -336,7 +341,13 @@ def main() -> None:
     )
     print(
         json.dumps(
-            {"output": str(OUTPUT), "cells": cells, "stored_outputs": outputs}, indent=2
+            {
+                "output": str(OUTPUT),
+                "html_output": str(HTML_OUTPUT),
+                "cells": cells,
+                "stored_outputs": outputs,
+            },
+            indent=2,
         )
     )
 

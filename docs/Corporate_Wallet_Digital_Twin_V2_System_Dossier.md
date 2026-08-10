@@ -1,5 +1,7 @@
 # Corporate Wallet Digital Twin V2
 
+> **Archived V2 dossier.** The authoritative current edition is the V3 system dossier. This file preserves the governed substrate at its V2 release boundary.
+
 ## Complete System Dossier
 
 **Prepared for:** Christopher Koen  

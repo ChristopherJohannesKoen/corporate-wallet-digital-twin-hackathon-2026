@@ -62,6 +62,32 @@ def test_assignment_event_without_probability_is_rejected():
         store.append(event)
 
 
+@pytest.mark.parametrize(
+    "event_type",
+    [
+        EventType.SHADOW_WALLET_RECONSTRUCTED,
+        EventType.LEAKAGE_SIGNAL_PUBLISHED,
+        EventType.ACTION_PORTFOLIO_SELECTED,
+        EventType.EVIDENCE_ACQUISITION_APPROVED,
+        EventType.DECISION_BRIEF_COMPILED,
+    ],
+)
+def test_v3_operational_events_use_the_governed_envelope(event_type):
+    store = EventStore()
+    event = EventEnvelope(
+        event_id=f"v3-{event_type.value}",
+        event_type=event_type,
+        entity_id="E01",
+        product="Trade Finance",
+        as_of=date(2026, 6, 30),
+        reason_codes=["V3_GOVERNED_ARTIFACT"],
+        artifacts=_artifacts(),
+        entitlement_context=_entitlements(),
+    )
+    stored = store.append(event)
+    assert stored.event_type == event_type
+
+
 def test_start_stop_table_and_probabilities_are_well_formed():
     start = datetime(2026, 1, 1, tzinfo=timezone.utc)
     first_event = start + timedelta(days=20)

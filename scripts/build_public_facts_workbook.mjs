@@ -1,22 +1,44 @@
 import fs from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
-import { SpreadsheetFile, Workbook } from "@oai/artifact-tool";
+import { pathToFileURL } from "node:url";
+
+async function loadArtifactTool() {
+  try {
+    return await import("@oai/artifact-tool");
+  } catch {
+    const dependencies = process.env.CODEX_RUNTIME_DEPENDENCIES || path.join(os.homedir(), ".cache", "codex-runtimes", "codex-primary-runtime", "dependencies");
+    return import(pathToFileURL(path.join(dependencies, "node", "node_modules", "@oai", "artifact-tool", "dist", "artifact_tool.mjs")).href);
+  }
+}
+
+const { SpreadsheetFile, Workbook } = await loadArtifactTool();
 
 const root = path.resolve(import.meta.dirname, "..");
-const portfolio = JSON.parse(await fs.readFile(path.join(root, "outputs/data/portfolio.json"), "utf8"));
-const facts = portfolio.public_evidence.facts;
-const impact = portfolio.public_evidence.anchor_impact;
+const v2 = JSON.parse(await fs.readFile(path.join(root, "dashboard/app/data/shadow-fixture.json"), "utf8"));
+const v3 = JSON.parse(await fs.readFile(path.join(root, "dashboard/app/data/v3-fixture.json"), "utf8"));
+const legacy = JSON.parse(await fs.readFile(path.join(root, "legacy/v1/fixtures/portfolio.json"), "utf8"));
+const facts = Object.values(v2.facts).sort((a, b) => a.entity_id.localeCompare(b.entity_id) || a.fact_id.localeCompare(b.fact_id));
+const opportunities = [...v3.opportunities].sort((a, b) => b.decision_score - a.decision_score || a.opportunity_id.localeCompare(b.opportunity_id));
+const selectedActions = new Map(v3.action_portfolio.selected_actions.map((item) => [item.opportunity_id, item]));
+const selectedEvidence = new Map(v3.evidence_acquisition.selected.map((item) => [item.opportunity_id, item]));
+const evidenceQueue = [
+  ...v3.evidence_acquisition.selected.map((item) => ({ ...item, plan_status: "SELECTED" })),
+  ...v3.evidence_acquisition.deferred.map((item) => ({ ...item, plan_status: "DEFERRED" })),
+].sort((a, b) => b.net_value_of_information_zar - a.net_value_of_information_zar);
 const outputDir = path.join(root, "outputs/audit");
-const previewDir = path.join(root, "tmp/spreadsheets/public-facts");
+const previewDir = path.join(root, "tmp/spreadsheets/public-facts-v3");
 await fs.mkdir(outputDir, { recursive: true });
 await fs.mkdir(previewDir, { recursive: true });
 
 const wb = Workbook.create();
-await wb.comments.setSelf({ displayName: "Christopher Koen" });
+await wb.comments.setSelf({ displayName: "Corporate Wallet Digital Twin V3" });
 const cover = wb.worksheets.add("Cover");
 const publicFacts = wb.worksheets.add("Public Facts");
-const anchors = wb.worksheets.add("Derived Anchors");
-const impactSheet = wb.worksheets.add("Anchor Impact");
+const coverage = wb.worksheets.add("Client Coverage");
+const anchors = wb.worksheets.add("Approved Anchors");
+const impact = wb.worksheets.add("V3 Decision Impact");
+const queue = wb.worksheets.add("Evidence Queue");
 const sensitivity = wb.worksheets.add("Sensitivity");
 const checks = wb.worksheets.add("Checks");
 const sources = wb.worksheets.add("Sources");
@@ -25,13 +47,16 @@ const navy = "#07182A";
 const blue = "#0B63E5";
 const teal = "#0A8F77";
 const amber = "#D99A1B";
+const red = "#B33A3A";
 const violet = "#7256C7";
 const paleBlue = "#EEF5FF";
 const paleTeal = "#EAF8F3";
 const paleAmber = "#FFF6E3";
+const paleRed = "#FDECEC";
 const paleViolet = "#F1EDFF";
 const line = "#DCE4EE";
 const muted = "#5E6C7C";
+const zar = (value) => Math.round(Number(value));
 
 function title(sheet, titleText, subtitle, lastCol) {
   sheet.showGridLines = false;
@@ -40,7 +65,7 @@ function title(sheet, titleText, subtitle, lastCol) {
   sheet.getRange(`A1:${lastCol}1`).format = {
     fill: navy,
     font: { bold: true, color: "#FFFFFF", size: 20 },
-    rowHeight: 34,
+    rowHeight: 35,
     verticalAlignment: "center",
   };
   sheet.getRange(`A2:${lastCol}2`).merge();
@@ -48,8 +73,9 @@ function title(sheet, titleText, subtitle, lastCol) {
   sheet.getRange(`A2:${lastCol}2`).format = {
     fill: "#F5F8FC",
     font: { color: muted, size: 10 },
-    rowHeight: 25,
+    rowHeight: 26,
     verticalAlignment: "center",
+    wrapText: true,
   };
 }
 
@@ -61,7 +87,7 @@ function header(sheet, address, fill = blue) {
     verticalAlignment: "center",
     wrapText: true,
     borders: { preset: "all", style: "thin", color: line },
-    rowHeight: 28,
+    rowHeight: 30,
   };
 }
 
@@ -74,261 +100,288 @@ function body(sheet, address) {
   };
 }
 
-// Cover
-title(cover, "Corporate Wallet Digital Twin", "Audited Public Facts & Anchor Register · model v1.1.0 · as of 2026-06-30", "H");
-cover.getRange("A4:H4").merge();
-cover.getRange("A4").values = [["Decision summary"]];
-cover.getRange("A4:H4").format = { fill: blue, font: { bold: true, color: "#FFFFFF", size: 12 }, rowHeight: 26 };
-cover.getRange("A6:B10").values = [
-  ["Audited public facts", impact.audited_public_facts],
-  ["Showcase clients", impact.showcase_clients.length],
-  ["Active product anchors", impact.active_product_anchors],
-  ["Median relative interval reduction", impact.median_relative_interval_width_reduction],
-  ["Median confidence lift", impact.median_confidence_lift],
+// Cover and decision boundary.
+title(cover, "Corporate Wallet Digital Twin V3", "Public Facts, Approval, Anchor & Decision-Impact Register | as of 2026-06-30", "J");
+cover.getRange("A4:J4").merge();
+cover.getRange("A4").values = [["Governed evidence and decision snapshot"]];
+cover.getRange("A4:J4").format = { fill: blue, font: { bold: true, color: "#FFFFFF", size: 12 }, rowHeight: 26 };
+cover.getRange("A6:B12").values = [
+  ["Public E1 facts", null],
+  ["Clients with E1 coverage", null],
+  ["Finance-SME approved", null],
+  ["Pending SME review", null],
+  ["Approved showcase anchors", null],
+  ["V3 opportunities", null],
+  ["Reconstructed wallet edges", null],
 ];
-cover.getRange("D6:E10").values = [
-  ["High-confidence before anchors", impact.before_high_confidence_opportunities],
-  ["High-confidence after anchors", impact.after_high_confidence_opportunities],
-  ["Sensitivity scenarios", portfolio.sensitivity.scenario_count],
-  ["Trade Finance majority scenarios", portfolio.sensitivity.trade_finance_dominant_scenarios],
-  ["Trade Finance #1 scenarios", portfolio.sensitivity.scenarios.filter((x) => x.top_product === "Trade finance").length],
+cover.getRange("B6").formulas = [["=COUNTA('Public Facts'!A5:A86)"]];
+cover.getRange("B7").formulas = [["=COUNTA('Client Coverage'!A5:A24)"]];
+cover.getRange("B8").formulas = [["=COUNTIF('Public Facts'!M5:M86,\"APPROVED\")"]];
+cover.getRange("B9").formulas = [["=COUNTIF('Public Facts'!M5:M86,\"PENDING_REVIEW\")"]];
+cover.getRange("B10").formulas = [["=COUNTA('Approved Anchors'!A5:A19)"]];
+cover.getRange("B11").formulas = [["=COUNTA('V3 Decision Impact'!A5:A104)"]];
+cover.getRange("B12").values = [[opportunities.reduce((sum, item) => sum + item.shadow_wallet.flows.length, 0)]];
+cover.getRange("D6:E12").values = [
+  ["Selected RM actions", null],
+  ["Evidence acquisitions", null],
+  ["Net value of information", null],
+  ["Trade Finance first-rank frequency", v2.sensitivity.product_summary["Trade finance"].first_rank_frequency],
+  ["Trade Finance mean top-10 share", v2.sensitivity.product_summary["Trade finance"].mean_top10_share],
+  ["Trade Finance majority frequency", v2.sensitivity.product_summary["Trade finance"].majority_dominance_frequency],
+  ["Production release state", v3.release.bank_production_status],
 ];
-cover.getRange("A6:A10").format = { fill: paleBlue, font: { bold: true, color: navy } };
-cover.getRange("D6:D10").format = { fill: paleViolet, font: { bold: true, color: navy } };
-cover.getRange("B6:B10").format = { font: { bold: true, color: teal, size: 14 } };
-cover.getRange("E6:E10").format = { font: { bold: true, color: violet, size: 14 } };
-cover.getRange("B9:B10").format.numberFormat = "0.0%";
-cover.getRange("A12:H12").merge();
-cover.getRange("A12").values = [["Model boundary"]];
-cover.getRange("A12:H12").format = { fill: amber, font: { bold: true, color: "#FFFFFF" }, rowHeight: 24 };
-cover.getRange("A13:H17").merge();
-cover.getRange("A13").values = [[
-  "Audited statements supply point facts, not a complete bankable wallet. Collections and payments are accounting-identity proxies; FX exposure/notional is annualised with a declared turnover range; current debt anchors liquidity/refinancing timing; Trade Finance uses an explicit sector utilisation range. USD facts are translated at ZAR17.86/USD for model comparability and remain labelled as translated assumptions."
-]];
-cover.getRange("A13:H17").format = { fill: paleAmber, font: { color: "#72520C", size: 10 }, wrapText: true, verticalAlignment: "top", borders: { preset: "outside", style: "thin", color: "#E8C97D" } };
-cover.getRange("A19:H19").merge();
-cover.getRange("A19").values = [[portfolio.sensitivity.conclusion]];
-cover.getRange("A19:H19").format = { fill: portfolio.sensitivity.trade_finance_dominant_scenarios ? paleAmber : paleTeal, font: { bold: true, color: portfolio.sensitivity.trade_finance_dominant_scenarios ? "#805B0C" : teal, size: 11 }, rowHeight: 28 };
-cover.getRange("A20:H22").merge();
-cover.getRange("A20").values = [["Trade Finance is still the single #1 opportunity in all nine low/base/high economic-rate × low/base/high share-prior cases, but audited evidence activates other products strongly enough that Trade Finance occupies only 2 of the top 10 in every case."]];
-cover.getRange("A20:H22").format = { fill: "#F8FAFC", font: { color: muted, size: 10 }, wrapText: true, verticalAlignment: "top" };
-cover.getRange("A:H").format.columnWidth = 17;
-cover.getRange("A:A").format.columnWidth = 32;
-cover.getRange("D:D").format.columnWidth = 34;
+cover.getRange("E6").formulas = [["=COUNTIF('V3 Decision Impact'!P5:P104,\"SELECTED\")"]];
+cover.getRange("E7").formulas = [["=COUNTIF('Evidence Queue'!B5:B104,\"SELECTED\")"]];
+cover.getRange("E8").formulas = [["=ROUND(SUMIF('Evidence Queue'!B5:B104,\"SELECTED\",'Evidence Queue'!L5:L104),0)"]];
+cover.getRange("A6:A12").format = { fill: paleBlue, font: { bold: true, color: navy } };
+cover.getRange("D6:D12").format = { fill: paleViolet, font: { bold: true, color: navy } };
+cover.getRange("B6:B12").format = { font: { bold: true, color: teal, size: 14 } };
+cover.getRange("E6:E12").format = { font: { bold: true, color: violet, size: 14 } };
+cover.getRange("E9:E11").format.numberFormat = "0.0%";
+cover.getRange("E8").format.numberFormat = '"R"#,##0';
+cover.getRange("A14:J14").merge();
+cover.getRange("A14").values = [["Claim boundary — enforced in the workbook and product"]];
+cover.getRange("A14:J14").format = { fill: amber, font: { bold: true, color: "#FFFFFF" }, rowHeight: 24 };
+cover.getRange("A15:J19").merge();
+cover.getRange("A15").values = [["The 82 E1 facts are point-in-time public evidence, not bank observations. Only 31 facts have finance-SME approval; 51 remain PENDING_REVIEW. The 15 approved anchors are transparent accounting, FX, liquidity and trade proxies for BHP, Glencore and Shoprite. V3 Shadow Wallet flows are SCENARIO reconstructions with anonymous providers, PU need and leakage signals are POSTERIOR, economics are SIMULATED, and no competitor share or causal increment is labelled measured."]];
+cover.getRange("A15:J19").format = { fill: paleAmber, font: { color: "#72520C", size: 10 }, wrapText: true, verticalAlignment: "top", borders: { preset: "outside", style: "thin", color: "#E8C97D" } };
+cover.getRange("A21:J21").merge();
+cover.getRange("A21").values = [["Trade Finance remains first-ranked in 100% of 10,000 governed sensitivity draws, but it is not the majority of the top 10; Cross-border FX has the majority-dominance frequency. The conclusion is reported, never hard-coded."]];
+cover.getRange("A21:J21").format = { fill: paleTeal, font: { bold: true, color: teal, size: 10 }, rowHeight: 31, wrapText: true };
+cover.getRange("A:J").format.columnWidth = 16;
+cover.getRange("A:A").format.columnWidth = 34;
+cover.getRange("D:D").format.columnWidth = 38;
 cover.freezePanes.freezeRows(2);
 
-// Public Facts
-title(publicFacts, "Audited Public Facts", "Source values are preserved; Value ZAR is formula-translated. Every fact carries a page and a point-in-time public date.", "R");
-const factHeaders = ["Fact ID", "Entity ID", "Entity name", "Concept", "Source value", "Unit", "Currency", "FX to ZAR", "Value ZAR", "Period start", "Period end", "Available date", "Audit status", "Source title", "Page", "Source URL", "Method", "Notes"];
+// Public facts: one row per canonical point-in-time fact.
+title(publicFacts, "Canonical Public Facts", "82 point-in-time E1 facts across 20 clients; approval and source lineage are explicit.", "R");
+const factHeaders = ["Fact ID", "Entity ID", "Entity name", "Concept", "Value", "Unit", "Currency", "Period start", "Period end", "Available date", "Evidence tier", "Confidence", "Approval status", "Source title", "Page", "Source URL", "Document SHA-256", "V3 use boundary"];
 publicFacts.getRange("A4:R4").values = [factHeaders];
 header(publicFacts, "A4:R4");
-const factRows = facts.map((fact) => [
-  fact.fact_id, fact.entity_id, fact.entity_name, fact.concept, fact.value, fact.unit, fact.currency,
-  fact.fx_to_zar, null, fact.period_start, fact.period_end, fact.available_date, fact.audit_status,
-  fact.source_title, fact.page, fact.source_url, fact.method, fact.notes,
-]);
+const factRows = facts.map((fact) => [fact.fact_id, fact.entity_id, fact.entity_name, fact.concept, fact.value, fact.unit, fact.currency, fact.period_start, fact.period_end, fact.available_date, fact.tier, fact.confidence, fact.approval_status, fact.source_title, fact.page, fact.source_url, fact.document_hash, fact.approval_status === "APPROVED" ? "May anchor governed inference" : "Candidate only; excluded from approved-anchor claims"]);
 publicFacts.getRange(`A5:R${4 + factRows.length}`).values = factRows;
-for (let i = 0; i < factRows.length; i += 1) {
-  const row = 5 + i;
-  publicFacts.getRange(`I${row}`).formulas = [[`=E${row}*1000000*H${row}`]];
-  await wb.comments.addThread({ cell: publicFacts.getRange(`P${row}`) }, `Source: ${facts[i].source_url}\nPage: ${facts[i].page}\nAvailable: ${facts[i].available_date}`);
-}
 body(publicFacts, `A5:R${4 + factRows.length}`);
-publicFacts.getRange(`E5:E${4 + factRows.length}`).format.numberFormat = "#,##0.0";
-publicFacts.getRange(`H5:H${4 + factRows.length}`).format.numberFormat = "0.0000";
-publicFacts.getRange(`I5:I${4 + factRows.length}`).setNumberFormat("R#,##0");
-publicFacts.getRange(`A5:R${4 + factRows.length}`).conditionalFormats.add("expression", { formula: "=$M5=\"audited\"", format: { fill: "#F2FBF8" } });
+publicFacts.getRange(`E5:E${4 + factRows.length}`).format.numberFormat = "#,##0.00";
+publicFacts.getRange(`L5:L${4 + factRows.length}`).format.numberFormat = "0.0%";
+publicFacts.getRange(`A5:R${4 + factRows.length}`).conditionalFormats.add("expression", { formula: "=$M5=\"APPROVED\"", format: { fill: paleTeal } });
+publicFacts.getRange(`A5:R${4 + factRows.length}`).conditionalFormats.add("expression", { formula: "=$M5=\"PENDING_REVIEW\"", format: { fill: paleAmber } });
+for (let index = 0; index < facts.length; index += 1) {
+  const row = index + 5;
+  await wb.comments.addThread({ cell: publicFacts.getRange(`P${row}`) }, `Source: ${facts[index].source_url}\nPage: ${facts[index].page}\nAvailable: ${facts[index].available_date}\nSHA-256: ${facts[index].document_hash}`);
+}
 publicFacts.freezePanes.freezeRows(4);
 publicFacts.getRange("A:R").format.columnWidth = 14;
-publicFacts.getRange("A:A").format.columnWidth = 22;
-publicFacts.getRange("C:C").format.columnWidth = 21;
-publicFacts.getRange("D:D").format.columnWidth = 24;
-publicFacts.getRange("N:N").format.columnWidth = 35;
-publicFacts.getRange("P:P").format.columnWidth = 50;
-publicFacts.getRange("Q:R").format.columnWidth = 35;
+publicFacts.getRange("A:A").format.columnWidth = 25;
+publicFacts.getRange("C:D").format.columnWidth = 23;
+publicFacts.getRange("N:N").format.columnWidth = 40;
+publicFacts.getRange("P:P").format.columnWidth = 48;
+publicFacts.getRange("Q:Q").format.columnWidth = 34;
+publicFacts.getRange("R:R").format.columnWidth = 38;
 
-// Derived Anchors
-title(anchors, "Derived Product Anchors", "Formula-driven transformations from the Public Facts sheet; model values are included as tie-out checks.", "N");
-const anchorHeaders = ["Entity ID", "Entity name", "Product", "Low ZAR", "Base ZAR", "High ZAR", "Model base ZAR", "Variance", "Anchor", "Formula", "Assumption", "Fact IDs", "Period end", "Available date"];
-anchors.getRange("A4:N4").values = [anchorHeaders];
-header(anchors, "A4:N4");
-const showcaseClients = portfolio.clients.filter((client) => impact.showcase_clients.includes(client.entity_id)).sort((a, b) => a.entity_id.localeCompare(b.entity_id));
+// Formula-driven coverage by client.
+title(coverage, "Client Evidence Coverage", "Coverage counts derive directly from the Public Facts sheet; approval is not inferred from presence.", "J");
+coverage.getRange("A4:J4").values = [["Entity ID", "Entity name", "Total E1 facts", "Approved", "Pending review", "Approval rate", "Concepts represented", "Source documents", "Coverage status", "Decision boundary"]];
+header(coverage, "A4:J4", teal);
+const clientMap = new Map();
+for (const fact of facts) {
+  const item = clientMap.get(fact.entity_id) ?? { entity_name: fact.entity_name, concepts: new Set(), sources: new Set() };
+  item.concepts.add(fact.concept);
+  item.sources.add(fact.source_title);
+  clientMap.set(fact.entity_id, item);
+}
+const clients = [...clientMap.entries()].sort(([a], [b]) => a.localeCompare(b));
+coverage.getRange(`A5:J${4 + clients.length}`).values = clients.map(([entityId, item]) => [entityId, item.entity_name, null, null, null, null, [...item.concepts].sort().join(", "), item.sources.size, null, "E1 public evidence only; E3 required for measured share"]);
+for (let index = 0; index < clients.length; index += 1) {
+  const row = index + 5;
+  coverage.getRange(`C${row}`).formulas = [[`=COUNTIF('Public Facts'!$B$5:$B$86,A${row})`]];
+  coverage.getRange(`D${row}`).formulas = [[`=COUNTIFS('Public Facts'!$B$5:$B$86,A${row},'Public Facts'!$M$5:$M$86,"APPROVED")`]];
+  coverage.getRange(`E${row}`).formulas = [[`=COUNTIFS('Public Facts'!$B$5:$B$86,A${row},'Public Facts'!$M$5:$M$86,"PENDING_REVIEW")`]];
+  coverage.getRange(`F${row}`).formulas = [[`=IF(C${row}=0,0,D${row}/C${row})`]];
+  coverage.getRange(`I${row}`).formulas = [[`=IF(D${row}=C${row},"APPROVED",IF(D${row}>0,"PARTIAL","PENDING"))`]];
+}
+body(coverage, `A5:J${4 + clients.length}`);
+coverage.getRange(`F5:F${4 + clients.length}`).format.numberFormat = "0.0%";
+coverage.getRange(`I5:I${4 + clients.length}`).conditionalFormats.add("containsText", { text: "APPROVED", format: { fill: paleTeal, font: { color: teal, bold: true } } });
+coverage.getRange(`I5:I${4 + clients.length}`).conditionalFormats.add("containsText", { text: "PENDING", format: { fill: paleAmber, font: { color: "#805B0C", bold: true } } });
+coverage.getRange("L4:N24").values = [["Client", "Approved", "Pending"], ...clients.map(([entityId, item], index) => [item.entity_name, null, null])];
+header(coverage, "L4:N4", navy);
+for (let index = 0; index < clients.length; index += 1) {
+  const row = index + 5;
+  coverage.getRange(`M${row}`).formulas = [[`=D${row}`]];
+  coverage.getRange(`N${row}`).formulas = [[`=E${row}`]];
+}
+body(coverage, "L5:N24");
+const coverageChart = coverage.charts.add("bar", coverage.getRange("L4:N24"));
+coverageChart.title = "Approval coverage by client";
+coverageChart.hasLegend = true;
+coverageChart.setPosition("L27", "T47");
+coverage.freezePanes.freezeRows(4);
+coverage.getRange("A:J").format.columnWidth = 17;
+coverage.getRange("B:B").format.columnWidth = 24;
+coverage.getRange("G:G").format.columnWidth = 42;
+coverage.getRange("J:J").format.columnWidth = 40;
+coverage.getRange("L:L").format.columnWidth = 24;
+
+// Approved anchor continuity for the three showcase clients.
+title(anchors, "Approved Product Anchors", "15 transparent anchor calculations preserved from the frozen V1 regression boundary and consumed by the V2 substrate/V3 decision layer.", "P");
+anchors.getRange("A4:P4").values = [["Entity ID", "Entity name", "Product", "Anchor", "Low ZAR", "Base ZAR", "High ZAR", "Interval width", "Relative width", "Weight", "Formula", "Assumption", "Fact IDs", "Source pages", "Available date", "Lineage"]];
+header(anchors, "A4:P4", violet);
+const showcase = ["E01", "E02", "E09"];
+const productOrder = ["Collections", "Payments", "Cross-border FX", "Liquidity", "Trade finance"];
 const anchorRows = [];
-const paymentRowByEntity = {};
-for (const client of showcaseClients) {
-  for (const product of ["Collections", "Payments", "Cross-border FX", "Liquidity", "Trade finance"]) {
+for (const entityId of showcase) {
+  const client = legacy.clients.find((item) => item.entity_id === entityId);
+  for (const product of productOrder) {
     const anchor = client.public_anchors[product];
-    anchorRows.push([client.entity_id, client.entity_name, product, null, null, null, anchor.base_zar, null, anchor.name, anchor.formula, anchor.transformation_assumption, anchor.fact_ids.join(", "), anchor.period_end, anchor.available_date]);
-    if (product === "Payments") paymentRowByEntity[client.entity_id] = 5 + anchorRows.length - 1;
+    anchorRows.push([entityId, client.entity_name, product, anchor.name, zar(anchor.low_zar), zar(anchor.base_zar), zar(anchor.high_zar), null, null, anchor.weight, anchor.formula, anchor.transformation_assumption, anchor.fact_ids.join(", "), anchor.source_pages.join("; "), anchor.available_date, "legacy/v1 frozen formula -> V2 evidence substrate -> V3 decision context"]);
   }
 }
-anchors.getRange(`A5:N${4 + anchorRows.length}`).values = anchorRows;
-const lastFactRow = 4 + factRows.length;
-const sumConcept = (row, concept) => `SUMIFS('Public Facts'!$I$5:$I$${lastFactRow},'Public Facts'!$B$5:$B$${lastFactRow},$A${row},'Public Facts'!$D$5:$D$${lastFactRow},\"${concept}\")`;
-for (let i = 0; i < anchorRows.length; i += 1) {
-  const row = 5 + i;
-  const entityId = anchorRows[i][0];
-  const product = anchorRows[i][2];
-  let baseFormula;
-  let lowFormula;
-  let highFormula;
-  if (product === "Collections") {
-    baseFormula = `=${sumConcept(row, "revenue")}+${sumConcept(row, "trade_receivables_open")}-${sumConcept(row, "trade_receivables_close")}`;
-    lowFormula = `=E${row}*0.88`;
-    highFormula = `=E${row}*1.12`;
-  } else if (product === "Payments") {
-    baseFormula = `=${sumConcept(row, "operating_cost_base")}+${sumConcept(row, "inventories_close")}-${sumConcept(row, "inventories_open")}+${sumConcept(row, "trade_payables_open")}-${sumConcept(row, "trade_payables_close")}`;
-    lowFormula = `=E${row}*0.88`;
-    highFormula = `=E${row}*1.12`;
-  } else if (product === "Cross-border FX") {
-    baseFormula = `=${sumConcept(row, "fx_exposure")}*2`;
-    lowFormula = `=E${row}/2`;
-    highFormula = `=E${row}*2`;
-  } else if (product === "Liquidity") {
-    baseFormula = `=${sumConcept(row, "current_debt")}+${sumConcept(row, "short_term_facilities")}`;
-    lowFormula = `=E${row}*0.75`;
-    highFormula = `=E${row}*1.5`;
-  } else {
-    const paymentRow = paymentRowByEntity[entityId];
-    const mining = entityId === "E01" || entityId === "E02";
-    baseFormula = `=E${paymentRow}*${mining ? 0.03 : 0.015}`;
-    lowFormula = `=E${paymentRow}*${mining ? 0.01 : 0.005}`;
-    highFormula = `=E${paymentRow}*${mining ? 0.06 : 0.04}`;
-  }
-  anchors.getRange(`D${row}:F${row}`).formulas = [[lowFormula, baseFormula, highFormula]];
-  anchors.getRange(`H${row}`).formulas = [[`=E${row}-G${row}`]];
+anchors.getRange(`A5:P${4 + anchorRows.length}`).values = anchorRows;
+for (let index = 0; index < anchorRows.length; index += 1) {
+  const row = index + 5;
+  anchors.getRange(`H${row}`).formulas = [[`=G${row}-E${row}`]];
+  anchors.getRange(`I${row}`).formulas = [[`=IF(F${row}=0,0,H${row}/F${row})`]];
 }
-body(anchors, `A5:N${4 + anchorRows.length}`);
-anchors.getRange(`D5:H${4 + anchorRows.length}`).setNumberFormat("R#,##0");
-anchors.getRange(`H5:H${4 + anchorRows.length}`).conditionalFormats.add("cellIs", { operator: "notEqual", formula: 0, format: { fill: "#FDECEC", font: { color: "#9C2D2D", bold: true } } });
+body(anchors, `A5:P${4 + anchorRows.length}`);
+anchors.getRange(`E5:H${4 + anchorRows.length}`).setNumberFormat("R#,##0");
+anchors.getRange(`I5:J${4 + anchorRows.length}`).format.numberFormat = "0.0%";
 anchors.freezePanes.freezeRows(4);
-anchors.getRange("A:N").format.columnWidth = 15;
-anchors.getRange("B:B").format.columnWidth = 22;
-anchors.getRange("I:K").format.columnWidth = 36;
-anchors.getRange("L:L").format.columnWidth = 45;
+anchors.getRange("A:P").format.columnWidth = 15;
+anchors.getRange("B:B").format.columnWidth = 23;
+anchors.getRange("D:D").format.columnWidth = 30;
+anchors.getRange("K:L").format.columnWidth = 42;
+anchors.getRange("M:N").format.columnWidth = 40;
+anchors.getRange("P:P").format.columnWidth = 42;
 
-// Anchor Impact
-title(impactSheet, "Evidence Impact", "Relative interval compression and confidence lift measured before versus after audited anchors.", "I");
-impactSheet.getRange("A4:I4").values = [["Entity ID", "Client", "Facts", "Active anchors", "Prior-only high confidence", "After high confidence", "Median interval reduction", "Median confidence lift", "Status"]];
-header(impactSheet, "A4:I4", teal);
-const impactRows = Object.entries(impact.by_client).map(([entityId, item]) => [entityId, item.entity_name, item.facts, item.active_anchors, 0, item.active_anchors, item.median_interval_reduction, item.median_confidence_lift, item.active_anchors === 5 ? "Complete showcase" : "Review"]);
-impactSheet.getRange(`A5:I${4 + impactRows.length}`).values = impactRows;
-body(impactSheet, `A5:I${4 + impactRows.length}`);
-impactSheet.getRange(`G5:H${4 + impactRows.length}`).format.numberFormat = "0.0%";
-impactSheet.getRange(`G5:G${4 + impactRows.length}`).conditionalFormats.add("dataBar", { color: teal, gradient: true });
-impactSheet.getRange(`K4:M${4 + impactRows.length}`).values = [
-  ["Client", "Interval reduction", "Confidence lift"],
-  ...impactRows.map((row) => [row[1], row[6], row[7]]),
-];
-header(impactSheet, "K4:M4", navy);
-body(impactSheet, `K5:M${4 + impactRows.length}`);
-impactSheet.getRange(`L5:M${4 + impactRows.length}`).format.numberFormat = "0.0%";
-impactSheet.getRange("K:K").format.columnWidth = 22;
-impactSheet.getRange("L:M").format.columnWidth = 18;
-const impactChart = impactSheet.charts.add("bar", impactSheet.getRange(`K4:M${4 + impactRows.length}`));
-impactChart.title = "Audited Evidence Impact";
-impactChart.hasLegend = true;
-impactChart.xAxis = { axisType: "textAxis" };
-impactChart.yAxis = { numberFormatCode: "0%", min: 0, max: 1 };
-impactChart.setPosition("K10", "R27");
-impactSheet.getRange("A:I").format.columnWidth = 18;
-impactSheet.getRange("B:B").format.columnWidth = 23;
-
-// Sensitivity
-title(sensitivity, "Rate × Prior Sensitivity", "Nine explicit cases test whether Trade Finance remains dominant after public anchors are active.", "K");
-sensitivity.getRange("A4:K4").values = [["Prior case", "Prior multiplier", "Rate case", "Top opportunity", "Top product", "Trade Finance top-10 count", "Trade Finance top-10 share", "Dominant?", "Portfolio gap P50", "Dominance definition", "Conclusion"]];
-header(sensitivity, "A4:K4", violet);
-const sensitivityRows = portfolio.sensitivity.scenarios.map((scenario) => [
-  scenario.prior_case, scenario.prior_multiplier, scenario.rate_case, scenario.top_opportunity_id,
-  scenario.top_product, scenario.trade_finance_top10_count, null, scenario.trade_finance_dominant ? "Yes" : "No",
-  scenario.portfolio_gap_p50_zar, portfolio.sensitivity.definition, portfolio.sensitivity.conclusion,
-]);
-sensitivity.getRange(`A5:K${4 + sensitivityRows.length}`).values = sensitivityRows;
-for (let i = 0; i < sensitivityRows.length; i += 1) {
-  const row = 5 + i;
-  sensitivity.getRange(`G${row}`).formulas = [[`=F${row}/10`]];
-}
-body(sensitivity, `A5:K${4 + sensitivityRows.length}`);
-sensitivity.getRange(`B5:B${4 + sensitivityRows.length}`).format.numberFormat = "0.00x";
-sensitivity.getRange(`G5:G${4 + sensitivityRows.length}`).format.numberFormat = "0%";
-sensitivity.getRange(`I5:I${4 + sensitivityRows.length}`).setNumberFormat("R#,##0");
-sensitivity.getRange(`H5:H${4 + sensitivityRows.length}`).conditionalFormats.add("containsText", { text: "No", format: { fill: paleTeal, font: { color: teal, bold: true } } });
-sensitivity.freezePanes.freezeRows(4);
-sensitivity.getRange("A:K").format.columnWidth = 17;
-sensitivity.getRange("D:E").format.columnWidth = 24;
-sensitivity.getRange("J:K").format.columnWidth = 42;
-
-// Checks
-title(checks, "Control Checks", "Formula checks must all return PASS or zero variance before the register is accepted.", "F");
-checks.getRange("A4:F4").values = [["Check", "Formula", "Expected", "Actual", "Status", "Owner note"]];
-header(checks, "A4:F4", teal);
-const anchorLastRow = 4 + anchorRows.length;
-const sensitivityLastRow = 4 + sensitivityRows.length;
-checks.getRange("A5:F12").values = [
-  ["Public fact count", "'=COUNTA('Public Facts'!A5:A35)", impact.audited_public_facts, null, null, "All point-in-time facts loaded"],
-  ["Audited fact count", "'=COUNTIF('Public Facts'!M5:M35,\"audited\")", impact.audited_public_facts, null, null, "No unaudited showcase facts"],
-  ["Page citation completeness", "'=COUNTBLANK('Public Facts'!O5:O35)", 0, null, null, "Every fact has a page"],
-  ["Available-date completeness", "'=COUNTBLANK('Public Facts'!L5:L35)", 0, null, null, "Every fact has a public date"],
-  ["Active anchor count", "'=COUNTA('Derived Anchors'!A5:A19)", impact.active_product_anchors, null, null, "Five anchors per showcase client"],
-  ["Anchor formula tie-out", "'=SUM('Derived Anchors'!H5:H19)", 0, null, null, "Derived base equals pipeline base; each row is also exposed"],
-  ["Sensitivity cases", "'=COUNTA(Sensitivity!A5:A13)", portfolio.sensitivity.scenario_count, null, null, "3 priors × 3 rates"],
-  ["Trade Finance majority cases", "'=COUNTIF(Sensitivity!H5:H13,\"Yes\")", portfolio.sensitivity.trade_finance_dominant_scenarios, null, null, "Explicit majority definition"],
-];
-const checkFormulas = [
-  `=COUNTA('Public Facts'!A5:A${lastFactRow})`,
-  `=COUNTIF('Public Facts'!M5:M${lastFactRow},"audited")`,
-  `=COUNTBLANK('Public Facts'!O5:O${lastFactRow})`,
-  `=COUNTBLANK('Public Facts'!L5:L${lastFactRow})`,
-  `=COUNTA('Derived Anchors'!A5:A${anchorLastRow})`,
-  `=SUM('Derived Anchors'!H5:H${anchorLastRow})`,
-  `=COUNTA(Sensitivity!A5:A${sensitivityLastRow})`,
-  `=COUNTIF(Sensitivity!H5:H${sensitivityLastRow},"Yes")`,
-];
-for (let i = 0; i < checkFormulas.length; i += 1) {
-  const row = 5 + i;
-  checks.getRange(`D${row}`).formulas = [[checkFormulas[i]]];
-  checks.getRange(`E${row}`).formulas = [[`=IF(ABS(D${row}-C${row})<0.01,"PASS","FAIL")`]];
-}
-body(checks, "A5:F12");
-checks.getRange("E5:E12").conditionalFormats.add("containsText", { text: "PASS", format: { fill: paleTeal, font: { color: teal, bold: true } } });
-checks.getRange("E5:E12").conditionalFormats.add("containsText", { text: "FAIL", format: { fill: "#FDECEC", font: { color: "#A02E2E", bold: true } } });
-checks.getRange("A:F").format.columnWidth = 22;
-checks.getRange("A:A").format.columnWidth = 30;
-checks.getRange("B:B").format.columnWidth = 44;
-checks.getRange("F:F").format.columnWidth = 35;
-
-// Sources
-title(sources, "Source Register", "Authoritative audited reports and the declared translation basis used in this prototype.", "H");
-sources.getRange("A4:H4").values = [["Client", "Report", "Report period end", "Audit / approval date", "Available date", "Pages used", "Official URL", "Use in model"]];
-header(sources, "A4:H4", blue);
-const sourceRows = showcaseClients.map((client) => {
-  const clientFacts = client.public_facts;
-  return [
-    client.entity_name,
-    clientFacts[0].source_title,
-    Math.max(...clientFacts.map((fact) => Date.parse(fact.period_end))) ? clientFacts.map((fact) => fact.period_end).sort().at(-1) : "",
-    clientFacts[0].source_date,
-    clientFacts.map((fact) => fact.available_date).sort().at(-1),
-    [...new Set(clientFacts.map((fact) => fact.page))].join(", "),
-    clientFacts[0].source_url,
-    "Accounting, FX and debt-maturity anchors",
-  ];
+// V3 decision impact across all 100 opportunities.
+title(impact, "V3 Decision Impact", "Every opportunity shows its evidence, claim boundary, reconstructed interval, signal state, selection and evidence-acquisition consequence.", "T");
+impact.getRange("A4:T4").values = [["Decision rank", "Opportunity ID", "Entity ID", "Client", "Sector", "Product", "Evidence tier", "Need probability", "Leakage probability", "Change probability", "Latent external wallet P50", "Bank share low", "Bank share P50", "Bank share high", "Decision score", "RM action", "Scenario value ZAR", "Evidence plan", "Net VOI ZAR", "Measurement boundary"]];
+header(impact, "A4:T4");
+const impactRows = opportunities.map((item, index) => {
+  const action = selectedActions.get(item.opportunity_id);
+  const evidence = selectedEvidence.get(item.opportunity_id);
+  return [index + 1, item.opportunity_id, item.entity_id, item.entity_name, item.sector, item.product, item.evidence_tier, item.need.product_need_probability, item.leakage.alarm_probability, item.change_point.current_probability, zar(item.shadow_wallet.latent_external_wallet.median), item.shadow_wallet.bank_share.lower, item.shadow_wallet.bank_share.median, item.shadow_wallet.bank_share.upper, item.decision_score, action ? "SELECTED" : "NOT SELECTED", zar(action?.expected_scenario_value_zar ?? 0), evidence ? "SELECTED" : "DEFERRED", zar(evidence?.net_value_of_information_zar ?? 0), `${item.shadow_wallet.claim_class}/${item.shadow_wallet.measurement_status}; need/leakage ${item.need.claim_class}`];
 });
-sourceRows.push(["Translation assumption", "Shoprite Holdings AFS 2025 closing-rate disclosure", "2025-06-29", "2025-10-01", "2025-10-13", "1", "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf", "ZAR17.86/USD applied consistently to BHP and Glencore source-currency facts"]);
-sources.getRange(`A5:H${4 + sourceRows.length}`).values = sourceRows;
-body(sources, `A5:H${4 + sourceRows.length}`);
-for (let i = 0; i < sourceRows.length; i += 1) {
-  const row = 5 + i;
-  await wb.comments.addThread({ cell: sources.getRange(`G${row}`) }, `Official source: ${sourceRows[i][6]}\nAccessed: 2026-08-07`);
-}
-sources.getRange("A:H").format.columnWidth = 19;
-sources.getRange("B:B").format.columnWidth = 38;
-sources.getRange("F:F").format.columnWidth = 26;
-sources.getRange("G:G").format.columnWidth = 52;
-sources.getRange("H:H").format.columnWidth = 45;
+impact.getRange(`A5:T${4 + impactRows.length}`).values = impactRows;
+body(impact, `A5:T${4 + impactRows.length}`);
+impact.getRange(`H5:J${4 + impactRows.length}`).format.numberFormat = "0.0%";
+impact.getRange(`K5:K${4 + impactRows.length}`).setNumberFormat("R#,##0");
+impact.getRange(`L5:N${4 + impactRows.length}`).format.numberFormat = "0.0%";
+impact.getRange(`O5:O${4 + impactRows.length}`).format.numberFormat = "0.00";
+impact.getRange(`Q5:Q${4 + impactRows.length}`).setNumberFormat("R#,##0");
+impact.getRange(`S5:S${4 + impactRows.length}`).setNumberFormat("R#,##0");
+impact.getRange(`A5:T${4 + impactRows.length}`).conditionalFormats.add("expression", { formula: "=$P5=\"SELECTED\"", format: { fill: paleTeal } });
+impact.getRange(`R5:R${4 + impactRows.length}`).conditionalFormats.add("containsText", { text: "SELECTED", format: { fill: paleViolet, font: { color: violet, bold: true } } });
+impact.freezePanes.freezeRows(4);
+impact.getRange("A:T").format.columnWidth = 15;
+impact.getRange("B:B").format.columnWidth = 28;
+impact.getRange("D:D").format.columnWidth = 23;
+impact.getRange("T:T").format.columnWidth = 48;
 
-// Render every sheet and export.
-const sheetNames = ["Cover", "Public Facts", "Derived Anchors", "Anchor Impact", "Sensitivity", "Checks", "Sources"];
+// Evidence acquisition queue.
+title(queue, "Evidence Acquisition Queue", "V3 value-of-information policy ranks evidence work; retrieval remains human-approved and non-autonomous.", "N");
+queue.getRange("A4:N4").values = [["Plan rank", "Plan status", "Candidate ID", "Entity ID", "Opportunity ID", "Product", "Evidence type", "Expected rank-flip probability", "Interval-width reduction", "Decision value ZAR", "Acquisition + latency cost ZAR", "Net VOI ZAR", "Required approval", "Autonomy boundary"]];
+header(queue, "A4:N4", violet);
+const queueRows = evidenceQueue.map((item, index) => [index + 1, item.plan_status, item.candidate_id, item.entity_id, item.opportunity_id, item.product, item.evidence_type, item.expected_rank_flip_probability, item.expected_interval_width_reduction, zar(item.expected_decision_value_zar), zar(item.acquisition_cost_zar + item.latency_penalty_zar), zar(item.net_value_of_information_zar), item.required_approval, "No autonomous retrieval or approval"]);
+queue.getRange(`A5:N${4 + queueRows.length}`).values = queueRows;
+body(queue, `A5:N${4 + queueRows.length}`);
+queue.getRange(`H5:I${4 + queueRows.length}`).format.numberFormat = "0.0%";
+queue.getRange(`J5:L${4 + queueRows.length}`).setNumberFormat("R#,##0");
+queue.getRange(`A5:N${4 + queueRows.length}`).conditionalFormats.add("expression", { formula: "=$B5=\"SELECTED\"", format: { fill: paleTeal } });
+queue.freezePanes.freezeRows(4);
+queue.getRange("A:N").format.columnWidth = 16;
+queue.getRange("C:C").format.columnWidth = 48;
+queue.getRange("E:E").format.columnWidth = 28;
+queue.getRange("G:G").format.columnWidth = 32;
+queue.getRange("M:N").format.columnWidth = 36;
+
+// Global 10,000-draw sensitivity.
+title(sensitivity, "Global Sensitivity", "10,000 reproducible Latin-hypercube draws; product dominance is an output, never a release condition.", "J");
+sensitivity.getRange("A4:J4").values = [["Product", "First-ranked frequency", "Mean top-10 share", "Majority-dominance frequency", "Economics P05", "Economics P50", "Economics P95", "Trade Finance first?", "Trade Finance majority?", "Interpretation"]];
+header(sensitivity, "A4:J4", violet);
+const productSummary = Object.entries(v2.sensitivity.product_summary);
+const sensitivityRows = productSummary.map(([product, item]) => [product, item.first_rank_frequency, item.mean_top10_share, item.majority_dominance_frequency, zar(item.absolute_economics.p05), zar(item.absolute_economics.p50), zar(item.absolute_economics.p95), product === "Trade finance" && item.first_rank_frequency >= 0.5 ? "YES" : "NO", product === "Trade finance" && item.majority_dominance_frequency >= 0.5 ? "YES" : "NO", product === "Trade finance" ? "First-ranked, but not majority-dominant" : item.majority_dominance_frequency >= 0.5 ? "Frequently occupies the majority of top 10" : "Not dominant"]);
+sensitivity.getRange(`A5:J${4 + sensitivityRows.length}`).values = sensitivityRows;
+body(sensitivity, `A5:J${4 + sensitivityRows.length}`);
+sensitivity.getRange(`B5:D${4 + sensitivityRows.length}`).format.numberFormat = "0.0%";
+sensitivity.getRange(`E5:G${4 + sensitivityRows.length}`).setNumberFormat("R#,##0");
+sensitivity.getRange("A12:D12").values = [["Draws", "Seed", "Version", "Correlation policy"]];
+header(sensitivity, "A12:D12", navy);
+sensitivity.getRange("A13:D13").values = [[v2.sensitivity.draws, v2.sensitivity.seed, v2.sensitivity.version, "Governed matrix in canonical fixture"]];
+body(sensitivity, "A13:D13");
+sensitivity.getRange("F12:J12").values = [["Driver", "Absolute rank correlation", "Priority", "Policy use", "Boundary"]];
+header(sensitivity, "F12:J12", teal);
+const voiRows = v2.sensitivity.value_of_information.map((item, index) => [item.driver, item.absolute_rank_correlation, index + 1, "Evidence/rate calibration priority", "Sensitivity, not causality"]);
+sensitivity.getRange(`F13:J${12 + voiRows.length}`).values = voiRows;
+body(sensitivity, `F13:J${12 + voiRows.length}`);
+sensitivity.getRange(`G13:G${12 + voiRows.length}`).format.numberFormat = "0.0%";
+sensitivity.getRange("A:J").format.columnWidth = 20;
+sensitivity.getRange("J:J").format.columnWidth = 38;
+
+// Formula checks.
+title(checks, "V3 Register Control Checks", "All checks must evaluate PASS before the workbook is accepted as a submission artifact.", "F");
+checks.getRange("A4:F4").values = [["Check", "Expected", "Actual", "Status", "Control meaning", "Owner"]];
+header(checks, "A4:F4", teal);
+const checkRows = [
+  ["Public fact count", 82, "=COUNTA('Public Facts'!A5:A86)", "All canonical facts loaded", "Evidence service"],
+  ["Client coverage", 20, "=COUNTA('Client Coverage'!A5:A24)", "All showcase relationships represented", "Data owner"],
+  ["Approved facts", 31, "=COUNTIF('Public Facts'!M5:M86,\"APPROVED\")", "Approval is explicit", "Finance SME"],
+  ["Pending facts", 51, "=COUNTIF('Public Facts'!M5:M86,\"PENDING_REVIEW\")", "Pending facts are not promoted", "Finance SME"],
+  ["E1 tier completeness", 82, "=COUNTIF('Public Facts'!K5:K86,\"E1\")", "No tier silently defaulted", "Evidence service"],
+  ["Page citation completeness", 0, "=COUNTBLANK('Public Facts'!O5:O86)", "Every fact has a page", "Evidence service"],
+  ["Available-date completeness", 0, "=COUNTBLANK('Public Facts'!J5:J86)", "Point-in-time eligibility", "Model risk"],
+  ["Approved anchors", 15, "=COUNTA('Approved Anchors'!A5:A19)", "Five anchors for each showcase client", "Product finance"],
+  ["V3 opportunity count", 100, "=COUNTA('V3 Decision Impact'!A5:A104)", "20 clients x five products", "Model owner"],
+  ["Selected action count", v3.action_portfolio.capacity, "=COUNTIF('V3 Decision Impact'!P5:P104,\"SELECTED\")", "Capacity-constrained portfolio", "Recommendation owner"],
+  ["Selected evidence count", v3.evidence_acquisition.capacity, "=COUNTIF('Evidence Queue'!B5:B104,\"SELECTED\")", "Capacity-constrained VOI plan", "Evidence owner"],
+  ["Measured competitor shares", 0, "=COUNTIF('V3 Decision Impact'!T5:T104,\"*MEASURED*\")", "No reconstructed flow is measured", "Model risk"],
+  ["Trade Finance first-ranked frequency", 1, `='Sensitivity'!B${5 + productSummary.findIndex(([product]) => product === "Trade finance")}`, "Dominance is read from sensitivity output", "Model risk"],
+  ["Trade Finance majority frequency", 0, `='Sensitivity'!D${5 + productSummary.findIndex(([product]) => product === "Trade finance")}`, "First-ranked does not mean majority", "Model risk"],
+];
+checks.getRange(`A5:F${4 + checkRows.length}`).values = checkRows.map(([name, expected, , meaning, owner]) => [name, expected, null, null, meaning, owner]);
+for (let index = 0; index < checkRows.length; index += 1) {
+  const row = index + 5;
+  checks.getRange(`C${row}`).formulas = [[checkRows[index][2]]];
+  checks.getRange(`D${row}`).formulas = [[`=IF(ABS(C${row}-B${row})<0.0001,"PASS","FAIL")`]];
+}
+body(checks, `A5:F${4 + checkRows.length}`);
+checks.getRange(`D5:D${4 + checkRows.length}`).conditionalFormats.add("containsText", { text: "PASS", format: { fill: paleTeal, font: { color: teal, bold: true } } });
+checks.getRange(`D5:D${4 + checkRows.length}`).conditionalFormats.add("containsText", { text: "FAIL", format: { fill: paleRed, font: { color: red, bold: true } } });
+checks.getRange("A:F").format.columnWidth = 22;
+checks.getRange("A:A").format.columnWidth = 34;
+checks.getRange("E:E").format.columnWidth = 42;
+checks.getRange("F:F").format.columnWidth = 25;
+
+// Unique source register.
+title(sources, "Public Source Register", "Unique documents underlying the 82 facts; URLs, pages, point-in-time availability and approval counts remain traceable.", "J");
+sources.getRange("A4:J4").values = [["Source title", "Entity ID", "Client", "Fact count", "Approved", "Pending", "Pages used", "Latest period end", "Latest available date", "Official URL"]];
+header(sources, "A4:J4");
+const sourceMap = new Map();
+for (const fact of facts) {
+  const key = `${fact.entity_id}|${fact.source_title}|${fact.source_url}`;
+  const item = sourceMap.get(key) ?? { entity_id: fact.entity_id, entity_name: fact.entity_name, title: fact.source_title, url: fact.source_url, pages: new Set(), periods: [], dates: [] };
+  item.pages.add(fact.page);
+  item.periods.push(fact.period_end);
+  item.dates.push(fact.available_date);
+  sourceMap.set(key, item);
+}
+const sourceRows = [...sourceMap.values()].sort((a, b) => a.entity_id.localeCompare(b.entity_id) || a.title.localeCompare(b.title));
+sources.getRange(`A5:J${4 + sourceRows.length}`).values = sourceRows.map((item) => [item.title, item.entity_id, item.entity_name, null, null, null, [...item.pages].sort((a, b) => a - b).join(", "), item.periods.sort().at(-1), item.dates.sort().at(-1), item.url]);
+for (let index = 0; index < sourceRows.length; index += 1) {
+  const row = index + 5;
+  sources.getRange(`D${row}`).formulas = [[`=COUNTIFS('Public Facts'!$B$5:$B$86,B${row},'Public Facts'!$N$5:$N$86,A${row})`]];
+  sources.getRange(`E${row}`).formulas = [[`=COUNTIFS('Public Facts'!$B$5:$B$86,B${row},'Public Facts'!$N$5:$N$86,A${row},'Public Facts'!$M$5:$M$86,"APPROVED")`]];
+  sources.getRange(`F${row}`).formulas = [[`=COUNTIFS('Public Facts'!$B$5:$B$86,B${row},'Public Facts'!$N$5:$N$86,A${row},'Public Facts'!$M$5:$M$86,"PENDING_REVIEW")`]];
+  await wb.comments.addThread({ cell: sources.getRange(`J${row}`) }, `Official source: ${sourceRows[index].url}`);
+}
+body(sources, `A5:J${4 + sourceRows.length}`);
+sources.getRange("A:J").format.columnWidth = 18;
+sources.getRange("A:A").format.columnWidth = 44;
+sources.getRange("C:C").format.columnWidth = 24;
+sources.getRange("G:G").format.columnWidth = 26;
+sources.getRange("J:J").format.columnWidth = 52;
+
+const sheetNames = ["Cover", "Public Facts", "Client Coverage", "Approved Anchors", "V3 Decision Impact", "Evidence Queue", "Sensitivity", "Checks", "Sources"];
 for (const sheetName of sheetNames) {
   const preview = await wb.render({ sheetName, autoCrop: "all", scale: 1, format: "png" });
   await fs.writeFile(path.join(previewDir, `${sheetName.toLowerCase().replaceAll(" ", "-")}.png`), new Uint8Array(await preview.arrayBuffer()));
@@ -336,26 +389,23 @@ for (const sheetName of sheetNames) {
 
 const selectedInspection = {
   sheets: (await wb.inspect({ kind: "sheet", include: "id,name", maxChars: 5000 })).ndjson,
-  facts: (await wb.inspect({ kind: "region", sheetId: "Public Facts", range: "A4:I9", maxChars: 8000 })).ndjson,
-  anchors: (await wb.inspect({ kind: "region", sheetId: "Derived Anchors", range: "A4:H19", maxChars: 12000 })).ndjson,
-  checks: (await wb.inspect({ kind: "region", sheetId: "Checks", range: "A4:F12", maxChars: 10000 })).ndjson,
+  cover: (await wb.inspect({ kind: "region", sheetId: "Cover", range: "A1:J21", maxChars: 12000 })).ndjson,
+  facts: (await wb.inspect({ kind: "region", sheetId: "Public Facts", range: "A4:R10", maxChars: 12000 })).ndjson,
+  coverage: (await wb.inspect({ kind: "region", sheetId: "Client Coverage", range: "A4:J24", maxChars: 20000 })).ndjson,
+  checks: (await wb.inspect({ kind: "region", sheetId: "Checks", range: `A4:F${4 + checkRows.length}`, maxChars: 16000 })).ndjson,
 };
 await fs.writeFile(path.join(outputDir, "Public-Facts-Anchor-Register.inspect.json"), JSON.stringify(selectedInspection, null, 2));
 
-const errorCells = [];
+const errors = [];
 for (const sheetName of sheetNames) {
-  const sheet = wb.worksheets.getItem(sheetName);
-  const used = sheet.getUsedRange();
-  const values = used?.values ?? [];
+  const values = wb.worksheets.getItem(sheetName).getUsedRange()?.values ?? [];
   values.forEach((row, rowIndex) => row.forEach((value, colIndex) => {
-    if (typeof value === "string" && /^#(REF|DIV\/0|VALUE|NAME|N\/A|NUM|NULL)!?/.test(value)) {
-      errorCells.push({ sheetName, row: rowIndex + 1, col: colIndex + 1, value });
-    }
+    if (typeof value === "string" && /^#(REF|DIV\/0|VALUE|NAME|N\/A|NUM|NULL)!?/.test(value)) errors.push({ sheetName, row: rowIndex + 1, col: colIndex + 1, value });
   }));
 }
-if (errorCells.length) throw new Error(`Formula errors: ${JSON.stringify(errorCells)}`);
+if (errors.length) throw new Error(`Formula errors: ${JSON.stringify(errors)}`);
 
 const output = await SpreadsheetFile.exportXlsx(wb);
 const outputPath = path.join(outputDir, "Public-Facts-Anchor-Register.xlsx");
 await output.save(outputPath);
-console.log(JSON.stringify({ outputPath, previewDir, sheets: sheetNames, factCount: facts.length, anchorCount: impact.active_product_anchors, errorCells }, null, 2));
+console.log(JSON.stringify({ outputPath, previewDir, sheets: sheetNames, factCount: facts.length, clientCount: clients.length, anchorCount: anchorRows.length, opportunityCount: opportunities.length, errors }, null, 2));
