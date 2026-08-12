@@ -207,7 +207,7 @@ runs the safe-demo tests, and checks the mirror manifest.
     public_readme.write_text(safe_readme, encoding="utf-8")
     (out / "README.md").write_text(safe_readme, encoding="utf-8")
     (out / "scripts" / "build_safe_demo.py").write_text(
-        '''"""Rebuild and verify only the independently generated public demo."""\n\nfrom __future__ import annotations\n\nimport json\nimport subprocess\nimport sys\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef run(*args: str) -> None:\n    subprocess.run([sys.executable, *args], cwd=ROOT, check=True)\n\n\ndef main() -> None:\n    run("scripts/export_v3_contracts.py")\n    run("scripts/export_v31_contracts.py")\n    run("-m", "pytest", "-q", "tests")\n    manifest = json.loads((ROOT / "public-mirror-manifest.json").read_text(encoding="utf-8"))\n    if manifest["status"] != "PASS":\n        raise SystemExit("public mirror manifest is not PASS")\n    print(json.dumps({"status": "PASS", "version": "3.1.1-safe", "cells": 100}, indent=2))\n\n\nif __name__ == "__main__":\n    main()\n''',
+        '''"""Rebuild and verify only the independently generated public demo."""\n\nfrom __future__ import annotations\n\nimport json\nimport shutil\nimport subprocess\nimport sys\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef run(*args: str) -> None:\n    subprocess.run([sys.executable, *args], cwd=ROOT, check=True)\n\n\ndef main() -> None:\n    run("scripts/export_v3_contracts.py")\n    run("scripts/export_v31_contracts.py")\n    run("-m", "pytest", "-q", "tests")\n    manifest = json.loads((ROOT / "public-mirror-manifest.json").read_text(encoding="utf-8"))\n    if manifest["status"] != "PASS":\n        raise SystemExit("public mirror manifest is not PASS")\n    # Export scripts create anonymous analytical intermediates. The committed\n    # mirror needs only the rebuilt browser fixtures and contracts.\n    shutil.rmtree(ROOT / "outputs", ignore_errors=True)\n    print(json.dumps({"status": "PASS", "version": "3.1.1-safe", "cells": 100}, indent=2))\n\n\nif __name__ == "__main__":\n    main()\n''',
         encoding="utf-8",
     )
     # Do not inherit the private judging workflow: it asserts confidential
@@ -240,6 +240,7 @@ jobs:
       - run: uv sync --frozen --extra dev --extra genai --extra production
       - run: uv run python scripts/build_safe_demo.py
       - run: git diff --exit-code -- contracts dashboard/app/data
+      - run: test -z "$(git status --porcelain)"
 
   workbench:
     runs-on: ubuntu-latest
