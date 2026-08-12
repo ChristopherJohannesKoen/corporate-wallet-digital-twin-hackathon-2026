@@ -1,6 +1,12 @@
-# Corporate Wallet Digital Twin V3.1 — composed model card
+# Corporate Wallet Digital Twin V3.1.1 — composed model card
 
-> **V3.1 authoritative delta.** The final decision object is now
+> **V3.1.1 authoritative correction.** Share of Wallet is again the primary
+> judging surface; the Decision Twin remains its governed action layer. The 82
+> public source facts comprise 31 `APPROVED` and 51 `PENDING_REVIEW` records.
+> Only approved records activate anchors, so the canonical 20 × 5 surface has
+> 15 E1/publicly anchored and 85 E0/prior-led opportunities. Typed or derived
+> business claims are not counted as audited public observations. The final
+> decision object remains
 > `(client, stakeholder role, business problem, solution bundle, engagement window)`.
 > V3.1 adds 20 twelve-domain Business Model Twins, 905 typed claims, temporal
 > business graphs, 18 problem detectors, 16 solution estimators, separated
@@ -12,11 +18,13 @@
 
 **Model family:** latent-wallet reconstruction and decision support
 
-**Release:** 3.1.0
+**Release:** 3.1.1
 
 **Point-in-time demonstration snapshot:** 30 June 2026
 
-**Current release decision:** client demonstration ready; bank production `NOT_PROMOTABLE`
+**Current release decision:** hackathon candidate; `HACKATHON_SUBMISSION_READY`
+is emitted only when the artifact, public-mirror and live-provider acceptance
+gates all pass; bank production remains `NOT_PROMOTABLE`.
 
 **Substrate:** governed V2 evidence, economics, timing, entitlement and GenAI controls
 **Decision layer:** V3 Shadow Wallet, positive-unlabelled need, Bayesian change-point signals, constrained portfolio selection and decision-directed evidence acquisition
@@ -25,7 +33,7 @@
 
 V3 helps trained corporate-banking relationship and product teams decide which client-product hypotheses deserve investigation, which evidence should be acquired next and how scarce RM capacity could be allocated under uncertainty. It is a decision-support system. It does not discover measured competitor transactions from public data and does not replace banker, finance, risk, legal, data-owner or client-consent decisions.
 
-The checked-in snapshot is suitable for reproducible judging and controlled client demonstration. It combines the supplied Syn Bank simulation, 82 point-in-time E1 public facts and pinned representative priors. It is not bank-production data.
+The checked-in snapshot is suitable for reproducible judging and controlled client demonstration. It combines the supplied Syn Bank simulation, 31 approved point-in-time E1 facts, 51 pending E1 candidates and pinned representative priors. Pending facts are visible for review but excluded from active anchors and banker-facing quantitative claims. It is not bank-production data.
 
 ## Prohibited use
 

@@ -16,7 +16,7 @@
   ],
   "model_claims": [
     {
-      "claim": "Estimated latent external wallet is ZAR 28,944,146,932 at the scenario median.",
+      "claim": "Estimated latent external wallet is ZAR 15,175,562,812 at the scenario median.",
       "claim_class": "SCENARIO",
       "support": "shadow:E16-cross-border-fx:v3.0.0"
     },
@@ -32,7 +32,7 @@
     }
   ],
   "observed": {
-    "activity_zar": 6198359963.540002,
+    "activity_zar": 6198359963.54,
     "claim_class": "OBSERVED",
     "provenance": "SYN_BANK_SIMULATION"
   },
@@ -42,13 +42,5 @@
     "causal uplift",
     "optimal target share"
   ],
-  "public_evidence": [
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2026-03-16",
-      "fact_id": "MTN-2025-REV",
-      "label": "MTN Group Annual Financial Statements 2025 p.21",
-      "url": "https://www.mtn.com/wp-content/uploads/2026/03/MTN-Group-FY-25-Annual-Financial-Statements.pdf"
-    }
-  ]
+  "public_evidence": []
 }

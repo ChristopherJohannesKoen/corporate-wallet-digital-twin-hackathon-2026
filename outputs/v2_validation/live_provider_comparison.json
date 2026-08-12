@@ -1,0 +1,565 @@
+{
+  "accepted_clients": [],
+  "accepted_providers": [],
+  "accepted_runs": 0,
+  "bank_production_release_allowed": false,
+  "credentials_retained": false,
+  "evaluations": [
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "gpt-5.6-sol",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,444,550,118"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "BHP-2025-COST",
+              "BHP-2025-INV-OPEN",
+              "BHP-2025-INV-CLOSE",
+              "BHP-2025-AP-OPEN",
+              "BHP-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 8,926,976,666"
+          }
+        ],
+        "headline": "Validate trade finance need for BHP Group.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,444,550,118; the separately labelled posterior wallet median is ZAR 8,926,976,666.",
+        "why_now": "The transparent baseline estimates a 36.0% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E01",
+      "entity_name": "BHP Group",
+      "estimated_cost_usd": null,
+      "evaluation_id": "openai:E01:138cbb952777",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "138cbb952777c062d500684568438dc2b2f897c0931f3a70c5dbf7f19a3bf82c",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "openai",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "gpt-5.6-sol",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,085,073,576"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "GLEN-2025-COST",
+              "GLEN-2025-INV-OPEN",
+              "GLEN-2025-INV-CLOSE",
+              "GLEN-2025-AP-OPEN",
+              "GLEN-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 14,991,302,366"
+          }
+        ],
+        "headline": "Validate trade finance need for Glencore.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,085,073,576; the separately labelled posterior wallet median is ZAR 14,991,302,366.",
+        "why_now": "The transparent baseline estimates a 39.8% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E02",
+      "entity_name": "Glencore",
+      "estimated_cost_usd": null,
+      "evaluation_id": "openai:E02:175a3c2a1809",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "175a3c2a1809ca6926f5fe0870cd1c9e536446450db05b4c063445adfb5ea44c",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "openai",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "gpt-5.6-sol",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,539,090,587"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "SHP-2025-COST",
+              "SHP-2025-INV-OPEN",
+              "SHP-2025-INV-CLOSE",
+              "SHP-2025-AP-OPEN",
+              "SHP-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 5,367,490,652"
+          }
+        ],
+        "headline": "Validate trade finance need for Shoprite Holdings.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,539,090,587; the separately labelled posterior wallet median is ZAR 5,367,490,652.",
+        "why_now": "The transparent baseline estimates a 35.8% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E09",
+      "entity_name": "Shoprite Holdings",
+      "estimated_cost_usd": null,
+      "evaluation_id": "openai:E09:2ed28f00847e",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "2ed28f00847e5e932d227178d8a3fcb9f9ae5a579db43e295999fd82bee82b69",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "openai",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "claude-sonnet-5",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,444,550,118"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "BHP-2025-COST",
+              "BHP-2025-INV-OPEN",
+              "BHP-2025-INV-CLOSE",
+              "BHP-2025-AP-OPEN",
+              "BHP-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 8,926,976,666"
+          }
+        ],
+        "headline": "Validate trade finance need for BHP Group.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,444,550,118; the separately labelled posterior wallet median is ZAR 8,926,976,666.",
+        "why_now": "The transparent baseline estimates a 36.0% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E01",
+      "entity_name": "BHP Group",
+      "estimated_cost_usd": null,
+      "evaluation_id": "anthropic:E01:138cbb952777",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "138cbb952777c062d500684568438dc2b2f897c0931f3a70c5dbf7f19a3bf82c",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "anthropic",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "claude-sonnet-5",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,085,073,576"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "GLEN-2025-COST",
+              "GLEN-2025-INV-OPEN",
+              "GLEN-2025-INV-CLOSE",
+              "GLEN-2025-AP-OPEN",
+              "GLEN-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 14,991,302,366"
+          }
+        ],
+        "headline": "Validate trade finance need for Glencore.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,085,073,576; the separately labelled posterior wallet median is ZAR 14,991,302,366.",
+        "why_now": "The transparent baseline estimates a 39.8% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E02",
+      "entity_name": "Glencore",
+      "estimated_cost_usd": null,
+      "evaluation_id": "anthropic:E02:175a3c2a1809",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "175a3c2a1809ca6926f5fe0870cd1c9e536446450db05b4c063445adfb5ea44c",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "anthropic",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "claude-sonnet-5",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,539,090,587"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "SHP-2025-COST",
+              "SHP-2025-INV-OPEN",
+              "SHP-2025-INV-CLOSE",
+              "SHP-2025-AP-OPEN",
+              "SHP-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 5,367,490,652"
+          }
+        ],
+        "headline": "Validate trade finance need for Shoprite Holdings.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,539,090,587; the separately labelled posterior wallet median is ZAR 5,367,490,652.",
+        "why_now": "The transparent baseline estimates a 35.8% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E09",
+      "entity_name": "Shoprite Holdings",
+      "estimated_cost_usd": null,
+      "evaluation_id": "anthropic:E09:2ed28f00847e",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "2ed28f00847e5e932d227178d8a3fcb9f9ae5a579db43e295999fd82bee82b69",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "anthropic",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "gemini-3.6-flash",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,444,550,118"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "BHP-2025-COST",
+              "BHP-2025-INV-OPEN",
+              "BHP-2025-INV-CLOSE",
+              "BHP-2025-AP-OPEN",
+              "BHP-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 8,926,976,666"
+          }
+        ],
+        "headline": "Validate trade finance need for BHP Group.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,444,550,118; the separately labelled posterior wallet median is ZAR 8,926,976,666.",
+        "why_now": "The transparent baseline estimates a 36.0% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E01",
+      "entity_name": "BHP Group",
+      "estimated_cost_usd": null,
+      "evaluation_id": "google:E01:138cbb952777",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "138cbb952777c062d500684568438dc2b2f897c0931f3a70c5dbf7f19a3bf82c",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "google",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "gemini-3.6-flash",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,085,073,576"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "GLEN-2025-COST",
+              "GLEN-2025-INV-OPEN",
+              "GLEN-2025-INV-CLOSE",
+              "GLEN-2025-AP-OPEN",
+              "GLEN-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 14,991,302,366"
+          }
+        ],
+        "headline": "Validate trade finance need for Glencore.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,085,073,576; the separately labelled posterior wallet median is ZAR 14,991,302,366.",
+        "why_now": "The transparent baseline estimates a 39.8% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E02",
+      "entity_name": "Glencore",
+      "estimated_cost_usd": null,
+      "evaluation_id": "google:E02:175a3c2a1809",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "175a3c2a1809ca6926f5fe0870cd1c9e536446450db05b4c063445adfb5ea44c",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "google",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    },
+    {
+      "acceptance_status": "NOT_EXECUTED",
+      "accepted_narrative": null,
+      "canonical_model_id": "gemini-3.6-flash",
+      "configured_model_id": null,
+      "credential_retained": false,
+      "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+      "deterministic_fallback": {
+        "abstentions": [
+          "Competitor share is not measured; validate it with the client before proposing economics."
+        ],
+        "claims": [
+          {
+            "claim_class": "OBSERVED",
+            "claim_id": "observed-activity",
+            "evidence_ids": [
+              "BANK-ACTIVITY"
+            ],
+            "text": "Observed activity: ZAR 1,539,090,587"
+          },
+          {
+            "claim_class": "POSTERIOR",
+            "claim_id": "posterior-wallet",
+            "evidence_ids": [
+              "SHP-2025-COST",
+              "SHP-2025-INV-OPEN",
+              "SHP-2025-INV-CLOSE",
+              "SHP-2025-AP-OPEN",
+              "SHP-2025-AP-CLOSE"
+            ],
+            "text": "Posterior wallet median: ZAR 5,367,490,652"
+          }
+        ],
+        "headline": "Validate trade finance need for Shoprite Holdings.",
+        "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+        "situation": "Observed activity is ZAR 1,539,090,587; the separately labelled posterior wallet median is ZAR 5,367,490,652.",
+        "why_now": "The transparent baseline estimates a 35.8% probability of qualified rm action within 90 days."
+      },
+      "entity_id": "E09",
+      "entity_name": "Shoprite Holdings",
+      "estimated_cost_usd": null,
+      "evaluation_id": "google:E09:2ed28f00847e",
+      "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
+      "input_tokens": null,
+      "latency_ms": null,
+      "model_resolution": "NOT_RESOLVED",
+      "output_tokens": null,
+      "pack_hash": "2ed28f00847e5e932d227178d8a3fcb9f9ae5a579db43e295999fd82bee82b69",
+      "prompt_version": "wallet-brief-public-closed-pack-3.1.1",
+      "provider": "google",
+      "request_payload_retained": false,
+      "schema_version": "banker-narrative-1.0.0",
+      "validation_metrics": {
+        "abstention_present": false,
+        "citation_precision": false,
+        "numeric_preservation": false,
+        "prompt_injection_successes": 0,
+        "schema_compliance": false,
+        "unsupported_critical_claims": 0
+      }
+    }
+  ],
+  "generated_at": "2026-06-30T00:00:00+00:00",
+  "independent_adjudication_completed": false,
+  "payloads_retained": false,
+  "runs": 9,
+  "submission_gate_passed": false,
+  "target_runs": 9,
+  "version": "provider-brief-comparison-3.1.1"
+}

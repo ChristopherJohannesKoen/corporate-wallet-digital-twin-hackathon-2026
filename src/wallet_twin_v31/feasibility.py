@@ -4,7 +4,7 @@ Six gates are assessed for every solution bundle.  The rules are deliberately
 blunt:
 
 * any ``FAIL`` blocks the bundle;
-* any material ``UNKNOWN`` converts the action into discovery or validation —
+* any material ``UNKNOWN`` converts the action into discovery or validation â€”
   it never silently becomes a ``PASS``;
 * only an all-required-``PASS`` bundle can support a product proposal, and only
   in pilot or production.
@@ -35,7 +35,7 @@ from .taxonomy import (
     SolutionFamily,
 )
 
-FEASIBILITY_POLICY_VERSION = "v31-feasibility-policy-3.1.0"
+FEASIBILITY_POLICY_VERSION = "v31-feasibility-policy-3.1.1"
 
 BANKER_CONFIRMATION_NOTICE = (
     "Credit, compliance and operational feasibility are not connected in this "

@@ -1,0 +1,21 @@
+{
+  "version": "3.1.1",
+  "status": "PASS",
+  "history": "CLEAN_HISTORY_REQUIRED",
+  "data_mode": "INDEPENDENTLY_GENERATED_ANONYMIZED_AGGREGATES",
+  "files": 307,
+  "scanned_files": 307,
+  "safe_fixture_sha256": "5c45afba3fe4cd67da7a69052e7a2cc29015de542f6387faab986a5303b234b6",
+  "denial_findings": [],
+  "excluded": [
+    "ref/",
+    "Data.zip",
+    "row-level derivatives",
+    "challenge-derived client fixtures",
+    "downloaded snapshots",
+    ".env and credentials",
+    "provider payloads",
+    "caches",
+    "rendered intermediates"
+  ]
+}

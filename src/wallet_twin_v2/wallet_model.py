@@ -4,11 +4,12 @@ import hashlib
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
-from typing import Dict, Iterable, List, Optional, Sequence, Tuple
+from typing import Dict, Iterable, List, Mapping, Optional, Sequence, Tuple
 
 import numpy as np
 
 from .bounds import BoundEvidence, DeterministicBoundsEngine
+from .measurement_policy import DEFAULT_MEASUREMENT_POLICY, MeasurementPolicy
 from .contracts import (
     ArtifactReference,
     CalibrationObservation,
@@ -75,31 +76,22 @@ class HierarchicalWalletModel:
     prior_version = "product-sector-priors-1.0.0"
     transformation_version = "measurement-model-1.0.0"
 
-    _tier_strength = {
-        EvidenceTier.E0: 0.0,
-        EvidenceTier.E1: 0.0,
-        EvidenceTier.E2: 8.0,
-        EvidenceTier.E3: 30.0,
-        EvidenceTier.E4: 50.0,
-    }
-    _anchor_weight = {
-        EvidenceTier.E0: 0.0,
-        EvidenceTier.E1: 0.35,
-        EvidenceTier.E2: 0.60,
-        EvidenceTier.E3: 0.90,
-        EvidenceTier.E4: 0.94,
-    }
-
     def __init__(
         self,
         observations: Iterable[CalibrationObservation] = (),
         priors: Optional[Dict[str, ProductPrior]] = None,
         draws: int = 4_000,
+        policy: MeasurementPolicy = DEFAULT_MEASUREMENT_POLICY,
     ) -> None:
         self.observations = list(observations)
         self.priors = priors or DEFAULT_PRIORS
         self.draws = draws
+        self.policy = policy
         self.bounds = DeterministicBoundsEngine()
+
+    @property
+    def _anchor_weight(self) -> Mapping[EvidenceTier, float]:
+        return self.policy.anchor_weights
 
     def _posterior_parameters(self, product: str, sector: str, as_of: date) -> Tuple[float, float, int]:
         """Return a posterior-*predictive* beta distribution for a new relationship.
@@ -209,19 +201,32 @@ class HierarchicalWalletModel:
             share = np.clip(observed_activity / np.maximum(wallet, 1.0), 0.0001, 0.99)
 
         if anchor_range is not None:
+            # An anchor only reaches this method once the activation policy has
+            # confirmed every fact behind it is approved, so "approved" here is
+            # an enforced property rather than a label.
             bound_evidence = BoundEvidence(
                 lower=float(anchor_range[0]),
                 upper=float(anchor_range[2]),
                 capacity=capacity,
-                basis="approved noisy measurement range",
+                basis=(
+                    "approved noisy measurement range "
+                    f"({self.policy.activation_policy_version})"
+                ),
             )
         else:
             prior = self.priors[product]
-            declared_floor = max(0.03, prior.mean - 2.5 * np.sqrt(prior.mean * (1 - prior.mean) / (prior.concentration + 1)))
+            declared_floor = max(
+                self.policy.declared_share_floor,
+                prior.mean - 2.5 * np.sqrt(prior.mean * (1 - prior.mean) / (prior.concentration + 1)),
+            )
             bound_evidence = BoundEvidence(
                 capacity=capacity,
                 minimum_share=float(declared_floor),
-                basis="observed activity plus governed share floor",
+                basis=(
+                    "observed activity plus governed share floor "
+                    f"{self.policy.declared_share_floor:.2f} — assumption-light, "
+                    "deliberately wide"
+                ),
             )
 
         bounds = self.bounds.calculate(observed_activity, as_of, bound_evidence)
@@ -269,6 +274,7 @@ class HierarchicalWalletModel:
                 dataset_version=dataset_version,
                 prior_version=self.prior_version,
                 transformation_version=self.transformation_version,
+                measurement_policy_version=self.policy.version,
                 schema_version="v1",
             ),
         )

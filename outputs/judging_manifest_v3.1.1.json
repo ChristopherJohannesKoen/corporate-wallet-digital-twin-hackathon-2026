@@ -1,0 +1,331 @@
+{
+  "version": "3.1.1",
+  "status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
+  "bank_production_status": "NOT_PROMOTABLE",
+  "generated_at": "2026-08-12T19:57:41.175998+00:00",
+  "source_commit": "65f6580755cb673c517950efe41a61c72c63e9bb",
+  "clean_worktree": false,
+  "data_mode": "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
+  "checks": [
+    {
+      "name": "locked environment",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe -c import fastapi,numpy,pandas,pydantic; print('environment-ok')",
+      "status": "PASS",
+      "stdout_tail": [
+        "environment-ok"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v3_contracts",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v3_contracts.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{\"schemas\": 22, \"substrate_opportunities\": 100, \"v3_opportunities\": 100, \"dashboard_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\dashboard\\\\app\\\\data\", \"canonical_v3_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v3\"}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v31_contracts",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v31_contracts.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "exported 24 JSON Schemas to contracts\\jsonschema",
+        "exported OpenAPI to contracts\\openapi-v31.json",
+        "exported workbench fixture to dashboard\\app\\data\\v31-fixture.json",
+        "exported validation artifacts to outputs\\v31",
+        "{",
+        "  \"conversations\": 224,",
+        "  \"solution_projections\": 320,",
+        "  \"business_evidence_claims\": 905,",
+        "  \"coverage_plan_size\": 8,",
+        "  \"solver_status\": \"OPTIMAL\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v311_wallet_surface",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v311_wallet_surface.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "wrote C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\dashboard\\app\\data\\wallet-v311-fixture.json (100 cells)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_evidence_qa",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_evidence_qa.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"documents\": 17,",
+        "  \"document_passes\": 17,",
+        "  \"facts\": 51,",
+        "  \"fact_passes\": 51,",
+        "  \"ready_for_finance_sme\": 51,",
+        "  \"production_approval_claim_allowed\": false",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "build_finance_sme_review_pack",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/build_finance_sme_review_pack.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "      \"in_review_priority\": false",
+        "    },",
+        "    {",
+        "      \"rank\": 17,",
+        "      \"entity_id\": \"E20\",",
+        "      \"entity_name\": \"Shaftesbury Capital plc\",",
+        "      \"prior_led_scenario_contribution_median_zar\": 52247.69,",
+        "      \"cumulative_value_share\": 1.0,",
+        "      \"in_review_priority\": false",
+        "    }",
+        "  ]",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_offline_validation",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_offline_validation.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"report_version\": \"offline-validation-1.0.0\",",
+        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v2_validation\\\\offline_validation_report.json\",",
+        "  \"watermark\": \"SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE \\u2014 NOT BANK-VALIDATED\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_v3_validation",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_v3_validation.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "    \"pu_labelled_positives\": 33,",
+        "    \"pu_selection_constant\": 0.7003184504885787,",
+        "    \"change_point_series\": 100,",
+        "    \"rm_actions_selected\": 12,",
+        "    \"rm_capacity_respected\": true,",
+        "    \"positive_net_voi_requests\": 8,",
+        "    \"all_selected_voi_positive\": true,",
+        "    \"anonymous_provider_nodes_only\": true,",
+        "    \"measured_competitor_share_claims\": 0,",
+        "    \"causal_value_claims\": 0",
+        "  }",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_measurement_sensitivity",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_measurement_sensitivity.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "      \"top8_identical\": false",
+        "    },",
+        "    \"0.50\": {",
+        "      \"kendall_tau_vs_baseline\": 0.9797979797979798,",
+        "      \"cells_moving_more_than_five_ranks\": 4,",
+        "      \"max_absolute_rank_move\": 12,",
+        "      \"activated_cell_max_rank_move\": 12,",
+        "      \"top8_overlap_with_baseline\": 6,",
+        "      \"top8_identical\": false",
+        "    }",
+        "  }",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_genai_evals",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_genai_evals.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "  \"release_gate\": {",
+        "    \"passed\": true,",
+        "    \"scope\": \"deterministic extraction baseline only\",",
+        "    \"external_provider_results\": {",
+        "      \"openai\": \"CONFIGURABLE_NOT_EXECUTED\",",
+        "      \"anthropic\": \"CONFIGURABLE_NOT_EXECUTED\",",
+        "      \"google\": \"CONFIGURABLE_NOT_EXECUTED\"",
+        "    },",
+        "    \"production_release_allowed\": false,",
+        "    \"reason\": \"The deterministic baseline, evidence-register replay and page-grounding checks cannot replace independent finance-SME adjudication or bank-approved live-provider evaluation.\"",
+        "  }",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "provider target report",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_live_provider_eval.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v2_validation\\\\live_provider_comparison.json\",",
+        "  \"accepted_runs\": 0,",
+        "  \"submission_gate_passed\": false",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "executed judging notebook",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/build_v31_notebook.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\notebooks\\\\01_wallet_twin_demo.ipynb\",",
+        "  \"html_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\output\\\\notebook\\\\01_wallet_twin_demo.html\",",
+        "  \"cells\": 25,",
+        "  \"stored_outputs\": 26,",
+        "  \"errors\": 0",
+        "}"
+      ],
+      "stderr_tail": [
+        "C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\.venv\\Lib\\site-packages\\zmq\\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.",
+        "  self._get_loop()",
+        "[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption."
+      ]
+    },
+    {
+      "name": "evidence workbook",
+      "command": "node scripts/build_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "    \"Wallet Decision Impact\",",
+        "    \"Evidence Queue\",",
+        "    \"Sensitivity\",",
+        "    \"Checks\",",
+        "    \"Sources\"",
+        "  ],",
+        "  \"factCount\": 82,",
+        "  \"clientCount\": 20,",
+        "  \"anchorCount\": 15,",
+        "  \"opportunityCount\": 100,",
+        "  \"errors\": []",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "workbook verification",
+      "command": "node scripts/verify_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "      \"Model risk\"",
+        "    ],",
+        "    [",
+        "      \"Trade Finance majority frequency\",",
+        "      0.8775,",
+        "      0.8775,",
+        "      \"PASS\",",
+        "      \"Reported, never hard-coded as a release gate\",",
+        "      \"Model risk\"",
+        "    ]",
+        "  ]",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "one-page PDF",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/build_submission_pdf.py <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"status\": \"ok\",",
+        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\output\\\\pdf\\\\Corporate-Wallet-Digital-Twin-One-Pager.pdf\",",
+        "  \"pages\": 1,",
+        "  \"version\": \"3.1.1\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "PowerPoint",
+      "command": "node scripts/build_v31_presentation.mjs <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "Inspect result written to file: C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\output\\presentation\\Corporate-Wallet-Digital-Twin.pptx.inspect.ndjson",
+        "{",
+        "  \"slides\": 10,",
+        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\output\\\\presentation\\\\Corporate-Wallet-Digital-Twin.pptx\"",
+        "}"
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "notebooks/01_wallet_twin_demo.ipynb",
+      "sha256": "cb4cb5b7a493850c003c110d3c56d34dc19896f2a5bb30da7e139d8ac566e06d",
+      "size_bytes": 159274
+    },
+    {
+      "path": "output/notebook/01_wallet_twin_demo.html",
+      "sha256": "dcd7ef5cede9b1787d8460768622762dae529caf24d0bd73a267fa8b324d1f91",
+      "size_bytes": 460277
+    },
+    {
+      "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+      "sha256": "c6b6263a4507801bba0d299bbe486444589c0ce7cb5e15c46003edc6381e98b2",
+      "size_bytes": 5503
+    },
+    {
+      "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+      "sha256": "18d166513bc7d71318b2584ef2106006cfd2a91a2abf2847aa8dd2d5c1cb67bd",
+      "size_bytes": 1740211
+    },
+    {
+      "path": "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
+      "sha256": "3ae8963ff23eed1395054b5169dc231b62f2ba463f760e1aa1fa79e40c4ea033",
+      "size_bytes": 72188
+    },
+    {
+      "path": "contracts/openapi.json",
+      "sha256": "d8b270bbf00f6b58db6dccd31c2784e7ed622ff7fef6c02abf047d9e7a5a3f78",
+      "size_bytes": 186033
+    },
+    {
+      "path": "outputs/v2_validation/offline_validation_report.json",
+      "sha256": "7e8c02ffe9e8e1400e522c9ef15fee07eb0ad6a0874e07d04124ed8654cfabaa",
+      "size_bytes": 48036
+    },
+    {
+      "path": "dashboard/app/data/wallet-v311-fixture.json",
+      "sha256": "a3837059fe48ac8e8e651a1a9015ed649552f1a86c88ce3da8dd0f3a0d919dfb",
+      "size_bytes": 1086896
+    },
+    {
+      "path": "public-mirror-manifest.json",
+      "sha256": "f57b28c9f27ebe55d3ae829bacb3fc1746a2924f66b54455998afa07cd49c426",
+      "size_bytes": 570
+    }
+  ],
+  "counts": {
+    "wallet_cells": 100,
+    "approved_anchor_cells": 15,
+    "prior_led_cells": 85,
+    "approved_source_facts": 31,
+    "pending_source_facts": 51,
+    "live_provider_briefs_accepted": 0
+  },
+  "claim_boundary": "Share is posterior unless E3-observed; economics are representative scenarios; causal incremental value is null; pending facts are excluded.",
+  "confidentiality_boundary": "No supplied or derived row-level Syn Bank data, credentials, full provider payloads or private caches may enter the public mirror.",
+  "open_external_gates": [
+    "at least three accepted live-provider briefs using fresh rotated credentials"
+  ],
+  "bank_production_open_gates": [
+    "representative E3 multibank calibration panel",
+    "approved bank pricing, FTP, capital, risk, cost and hurdle inputs",
+    "bank AWS/Databricks/identity/catalogue/SIEM controls",
+    "supervised RM pilot and randomized outcome trial"
+  ]
+}

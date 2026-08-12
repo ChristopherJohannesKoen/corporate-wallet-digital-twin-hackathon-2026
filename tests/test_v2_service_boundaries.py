@@ -45,4 +45,4 @@ def test_business_twin_service_is_an_independent_v31_boundary() -> None:
 def test_composed_service_health_reports_v31() -> None:
     response = TestClient(workbench_bff_app).get("/health")
     assert response.status_code == 200
-    assert response.json()["version"] == "3.1.0"
+    assert response.json()["version"] == "3.1.1"

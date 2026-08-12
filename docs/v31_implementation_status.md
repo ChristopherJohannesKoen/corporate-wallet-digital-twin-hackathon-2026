@@ -1,239 +1,124 @@
-# Corporate Wallet Digital Twin V3.1 — implementation status
+# Corporate Wallet Digital Twin V3.1.1 — implementation status
 
-**Version:** 3.1.0 · **API major:** `/v3` (unchanged) · **`as_of`:** 2026-06-30 ·
-**Week start:** 2026-07-06
+**API major:** `/v3` · **as of:** 2026-06-30 · **team:** Corporate Wallet Digital Twin · **member:** Christopher Koen
 
-V3.1 extends V3 rather than replacing it. V2 remains the governed evidence and
-economics substrate, V3 remains the latent-structure and change-detection layer,
-and V3.1 adds the decision object a corporate banker actually acts on:
+## Release states
 
-```
-(client, stakeholder, business problem, solution bundle, engagement window)
-```
+- **Hackathon:** `HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES` until at least
+  three real provider-generated showcase briefs pass critical validation and the
+  clean-history public mirror is published and anonymously verified.
+- **Bank production:** `NOT_PROMOTABLE`.
 
-The 100 `client × product` V3 opportunity records remain available as analytical
-inputs and regression outputs. They are no longer the final banker decision
-object.
+These states are intentionally separate. Public evidence and simulations can
+demonstrate the mechanics; they cannot close bank calibration, pricing, control
+or outcome gates.
 
----
+## Current canonical result
 
-## 1. What is built and measured
+| Surface | V3.1.1 result | Interpretation |
+|---|---:|---|
+| Supplied history | 3,064,295 rows / 20 relationships | Confidential private-evaluator input |
+| Wallet surface | 20 clients × five products = 100 cells | Five product quantities are not summed as banking spend |
+| Active public anchors | 15 cells | Only approved facts activate anchors |
+| Prior-led wallet cells | 85 cells | Pending facts are excluded |
+| Source-fact estate | 82 = 31 approved + 51 pending | Derived typed claims are not extra audited observations |
+| Measurement policy | E1=0.35 active | 0.20 and 0.50 are sensitivity arms; historical 0.84 retired |
+| Decision layer | eight weekly conversations | Discovery actions under unknown bank feasibility |
+| Business Twin | 20 × 12 components | “12-domain schema; unsupported domains remain explicit” |
+| Solution layer | 320 governed evaluations | Available or fail-closed; no missing input silently defaults |
+| GenAI adapters | OpenAI, Anthropic and Google | Nine target runs currently `NOT_EXECUTED` without fresh credentials |
+| Measured competitor share | 0 | E3 multibank observations absent |
+| Causal incremental value | 0 / null | Qualified randomized RM outcomes absent |
 
-| Surface | Measured output |
-|---|---|
-| Business Model Twin | 20 clients × 12 components = **240 components** |
-| Typed business evidence | **905 claims**, 85 E1 (82 legacy facts migrated and relinked), 820 E0 bank-observed/representative |
-| Explicit evidence gaps | **71 gap records** across material unsupported domains |
-| Business knowledge graph | **993 nodes / 1,154 edges**, attribute + event layers, 0 orphans, 0 dangling edges |
-| Business events | **84 dated events** derived from evidence and V3 change points |
-| Problem detectors | 20 × 18 = **360 hypotheses**, 224 identified, 194 commercially eligible |
-| Solution estimators | 20 × 16 = **320 projections**, 198 available, **122 fail-closed with a stated reason** |
-| Funding-route intelligence | 20 projections, probabilities sum to 1.0, challenger registered but not promotable |
-| Conversation candidates | **224**, each with stakeholder, window, dual value, feasibility and explanation path |
-| Weekly coverage plan | **8 conversations**, MILP solver status `OPTIMAL`, every concentration constraint satisfied |
-| Decision-directed questions | 891 evaluated, 308 selected, all positive-net-VOI and all decision-changing |
-| Governed events | 12 new types on 4 domain topics; 1,148 published in the fixture run |
-| Test suite | Full V1/V2/V3/V3.1 suite, including 77 focused V3.1 tests and the frozen V3.0 boundary; the verified count is emitted by CI |
+## Governance correction in V3.1.1
 
-Reproduce with:
+V3.1.0 incorrectly allowed the public-evidence tier to appear active across all
+100 opportunities. V3.1.1 makes approval authoritative:
 
-```bash
-python scripts/freeze_v3_regression.py     # V3.0 regression boundary
-python scripts/export_v31_contracts.py     # schemas, OpenAPI, validation artifacts
-pytest tests -q                            # current verified count is emitted by pytest/CI
-```
+1. `PENDING_REVIEW` facts are candidates, not active evidence.
+2. `DEVELOPER_VERIFIED` records deterministic QA and does not confer approval.
+3. Active anchors require finance-SME `APPROVED` status.
+4. Exactly 15 cells across BHP, Glencore and Shoprite are E1 anchored.
+5. The other 85 cells use E0 governed priors and explicitly invite discovery.
+6. V3.1.0 affected outputs are archived as historical, non-canonical
+   restatements; the immutable submission boundary is V3.1.1.
 
----
+## Wallet product surface
 
-## 2. Honest gaps — read this before demonstrating
+The default workbench is **Wallet Portfolio**, not Decision Lab. It provides a
+20×5 heatmap with toggles for:
 
-These are the places where the plan's target and the evidence that actually
-exists diverge. Nothing has been fabricated to close them.
+- observed Syn Bank activity `A`;
+- posterior total wallet `T`;
+- estimated Syn Bank share `q`;
+- contestable gap `G=max(q*·T−A,0)`;
+- scenario contribution; and
+- evidence/approval state.
 
-### 2.1 The 15-E1-claims-per-client target is not met
+Each cell exposes `A`, `T P10/P50/P90`, `q P10/P50/P90`, target-share scenario
+`q*`, `G`, claim class, tier, active and pending fact IDs, artifact versions,
+timing, action permitted now and conditional commercial action.
 
-The plan targets **15 reviewed E1 claims per client**. The real audited public
-evidence base reaches 11 for the deepest client and 3 for most. Manufacturing
-220 additional "audited" figures with invented page references would have hit
-the number and destroyed the evidence-first premise of the whole system.
+FX is an exposure proxy. Liquidity is a liquidity-flow opportunity proxy. Share
+is posterior, not measured competitor share.
 
-Instead the shortfall is reported as an open curation gate:
+## Sensitivity conclusion
 
-```
-e1_threshold_status: BLOCKING_GATE_OPEN_INSUFFICIENT_AUDITED_PUBLIC_EVIDENCE
-e1_threshold_shortfall_clients: all 20
-```
+The 10,000-draw correlated global benchmark reports Trade Finance:
 
-The thresholds that *are* met — and are met genuinely — are ≥15 typed claims per
-client (minimum 44), ≥9 of 12 domains covered per client (minimum 11), and at
-least one approved critical-path claim behind every client-facing problem.
+- first-ranked frequency: 100%;
+- mean top-ten share: 55.7%;
+- majority-dominance frequency: 87.75%; and
+- absolute economics as a distribution, not a fixed winner condition.
 
-### 2.2 Every conversation is currently DISCOVERY, none is a product proposal
+Under the separate E1 weight sweep at 0.20 / 0.35 / 0.50, Trade Finance remains
+first, while its top-ten share falls 70% / 60% / 30% and majority dominance is
+true / true / false. That is the desired conclusion: first rank is robust in the
+representative benchmark; portfolio dominance is sensitive and must be rerun
+with approved bank inputs and E3 evidence.
 
-224 conversations, 0 eligible for a product proposal. This is the feasibility
-policy working, not a defect. Compliance/conduct and operations/onboarding are
-`UNKNOWN` for every bundle because no bank system is connected in the
-demonstration boundary, and the governed rule is that a material unknown
-converts the action into discovery. A product proposal becomes possible only
-once those gates are attested — which is what
-`POST /v3/feasibility/{id}/attestations` exists to record.
+## GenAI status
 
-### 2.3 Three solution families fail closed for all 20 clients
+The provider gateway, exact-model resolution, sanitized closed packs, structured
+schema, deterministic validators, citation/number checks, prompt-injection tests
+and fallback are implemented. BHP, Glencore and Shoprite each have a
+deterministic brief.
 
-Project finance, sustainable finance and M&A advisory return
-`available=False` everywhere, because no reviewed project/SPV topology, ESG
-activity evidence or transaction evidence exists. Working-capital revolving is
-available for only 1 client, because a positive working-capital gap can be
-computed from reviewed evidence for only 1. These are the fail-closed paths
-doing their job.
+The comparative report contains nine target rows:
 
-### 2.4 Eleven solution families have no approved rate card
+- OpenAI `gpt-5.6-sol` × three clients;
+- Anthropic `claude-sonnet-5` × three clients;
+- Google `gemini-3.6-flash` × three clients.
 
-Bank contribution is published only where a V2 rate card exists — the five
-legacy products. Every other bundle reports
-`bank_value.status = "BLOCKED"` with reason codes, rather than an estimate.
+No live provider execution is claimed without fresh rotated environment
+credentials, exact model availability, provider approval flags and explicit
+public-only evaluation acknowledgement. Previously pasted credentials are
+treated as compromised and must not be reused.
 
-### 2.5 Nothing here is calibrated
+## Submission artifacts
 
-No adjudicated problem labels, no financing-event panel, no RM outcome history.
-Every new probability is labelled `SCENARIO` with an explicit
-`calibration_status`. The only `POSTERIOR` claims are the ones inherited
-unchanged from V3.
+The canonical writer is:
 
----
-
-## 3. Interpretation boundaries preserved from V2/V3
-
-| Claim class | Meaning | Where it appears in V3.1 |
-|---|---|---|
-| `OBSERVED` | Measured in the bank's own books | Bank-observed flows, corridors, currency pairs |
-| `IDENTIFIED_BOUND` | A bound that holds without a prior | Indicators, maturity windows |
-| `POSTERIOR` | A probability under a stated assumption | V3 PU need, change points, leakage |
-| `SCENARIO` | A governed what-if | All 11 new solution families, all new problem weights, both value engines |
-| `CAUSAL` | Withheld until a randomized trial closes | Never populated — `causal_incremental_value` is contractually `None` |
-
-Additional invariants enforced by contract validators, not convention:
-
-- An `UNKNOWN` twin component carries **no facts** and must state what is missing.
-- An indicator resting on pending-review evidence is `INFERRED`, never `SUPPORTED`.
-- A qualitative or unavailable client-value component **cannot carry an interval** —
-  risk reduction is never silently converted to rand.
-- `guaranteed_saving_claimed` raises on `True`.
-- A failed feasibility gate must block; a blocked bundle cannot propose a product.
-- Only positive-net-VOI questions that can change a decision may be selected.
-- A greedy coverage fallback must be labelled `DEGRADED_FALLBACK`.
-- Funding-route probabilities must sum to one.
-- Review-candidate graph edges are never explainable, whatever their claim class.
-
----
-
-## 4. Architecture
-
-```
-src/wallet_twin_v31/
-  taxonomy.py           10 roles · 18 problems · 16 solutions · 12 domains · 288-pair matrix
-  contracts.py          ConversationCandidate and every supporting contract
-  events.py             12 event types over 4 domain topics
-  business_evidence.py  typed claim registry, migration, gap records, coverage report
-  indicators.py         CCC · liquidity buffer · WC gap · refinancing exposure · FX exposure
-  business_twin.py      twelve-component snapshots
-  business_graph.py     attribute + event layers, explanation paths, entitlement filtering
-  change_digest.py      point-in-time "what changed?"
-  problems.py           18 interpretable detectors with disconfirming evidence
-  stakeholders.py       governed responsibility-matrix resolver
-  solutions.py          16 estimators, fail-closed by default
-  funding_routes.py     transparent scorecard + registered challenger gate
-  value.py              separated client-value and bank-value engines
-  feasibility.py        six gates
-  timing.py             engagement windows and "why now"
-  pareto.py             robust dominance over common scenario draws
-  coverage.py           Rockafellar-Uryasev CVaR MILP (HiGHS) + labelled greedy fallback
-  questions.py          10-variable VOI library + reviewed client-answer loop
-  conversations.py      candidate assembly
-  briefs.py             deterministic Why-How-What + claim compiler
-  fixtures.py           full projection assembly
-  repository.py         fixture / Delta / PostgreSQL repository interfaces
-  api.py                additive /v3 routes
+```text
+python scripts/build_submission.py
 ```
 
-### New API surface
+It exports contracts, runs evidence/model/GenAI checks, executes the notebook,
+builds and verifies the workbook, one-page PDF and ten-slide PowerPoint, hashes
+the artifacts and emits `outputs/judging_manifest_v3.1.1.json`.
 
-All modelled reads require `as_of`. `since` must not exceed `as_of`. Mutations
-require an `Idempotency-Key` header and create immutable events.
+Legacy builders and `freeze_v3_regression.py` are not part of normal
+reproduction. Only the canonical builder may write final judging deliverables.
 
-```
-GET  /v3/decision-twin
-GET  /v3/clients/{id}/business-twin
-GET  /v3/clients/{id}/business-graph
-GET  /v3/clients/{id}/change-digest
-GET  /v3/conversations
-GET  /v3/conversations/{id}
-GET  /v3/conversations/{id}/brief
-GET  /v3/coverage-plan
-GET  /v3/funding-routes/{id}
-GET  /v3/models/v31-validation
-POST /v3/scenarios/conversations/evaluate      (non-publishing)
-POST /v3/questions/{id}/responses              (creates a pending E2 candidate)
-POST /v3/feasibility/{id}/attestations
-```
+## Bank-production open gates
 
-`/v1` and the existing `/v3` routes are unchanged. There is deliberately no
-`/v3.1` route prefix.
+- Representative E3 multibank calibration panel.
+- Bank-approved pricing, FTP, liquidity, capital, expected loss, risk, cost and
+  hurdle inputs.
+- Bank AWS/Databricks, SSO, Unity Catalog, SIEM and independent security approval.
+- Finance-SME approval of any pending fact intended for active inference.
+- Approved live-provider adjudication.
+- Supervised real RM pilot, randomized trial and qualified outcome history.
+- Thirty clean production-shadow days.
 
----
-
-## 5. Decision engineering
-
-**Benefit** (governed weights, versioned `v31-policy-weights-3.1.0`):
-
-```
-Benefit = .25·Need + .20·ClientValue + .20·BankValue + .15·Timing
-        + .10·RelationshipValue + .10·StrategicValue
-
-AdjustedBenefit = Benefit × Feasibility × (1 − .50·Risk) × (1 − .35·Friction)
-```
-
-**Objective:** `0.45·E[AdjustedBenefit] + 0.55·CVaR₁₀%(AdjustedBenefit)`,
-solved as a genuine MILP via `scipy.optimize.milp` (HiGHS) using the
-Rockafellar-Uryasev linearisation.
-
-**Robust dominance:** A dominates B when A is no worse on client value, bank
-value, need and timing, and no worse on risk and friction, in ≥80% of shared
-scenario draws with at least one strict improvement. Draws are common across
-candidates, so comparisons are paired. Candidates with wider intervals get wider
-draws, so an uncertain candidate cannot dominate a well-evidenced one by luck.
-
-**Weekly constraints:** ≤8 conversations, ≤2 per client, ≤1 per client/role,
-≤3 per solution family, ≤3 per sector, no mutually exclusive bundle, no failed
-gate. Only client-frontier survivors enter the optimizer.
-
-The legacy V3 `decision_score` is **not** used for V3.1 selection, and a test
-asserts the two selections do not coincide.
-
----
-
-## 6. Bank-production promotion gate
-
-`NOT_PROMOTABLE`. The V2/V3 external gates remain open and V3.1 adds:
-
-- bank approval of the business-domain ontology and stakeholder responsibility policy;
-- approved rate cards for the eleven new solution families;
-- empirical funding-route and problem-detection validation;
-- finance-SME review of the outstanding pending public facts;
-- E3 calibration wherever a wallet or share claim is required;
-- live-provider adjudication, supervised RM usability pilot, randomized trial
-  and thirty clean production-shadow days.
-
----
-
-## 7. Not yet built (deferred to the next pass)
-
-- Workbench rewrite (`dashboard/`) to the Monday-morning conversation experience.
-- Delta table DDL and PostgreSQL operational schemas for the new products.
-- MLflow registration entries for the new estimators and policies.
-- Regenerated notebook, System Dossier, Technical Foundations, one-page PDF and
-  judging deck.
-- Sealed GenAI golden-set expansion for the new brief categories.
-
-The analytical core, contracts, evidence base, API, events and test suite are
-complete and reproducible today.
+No hackathon artifact may imply that these gates have been closed.

@@ -1,0 +1,82 @@
+{
+  "decision": "Prioritise for governed RM review",
+  "headline": "Shoprite Holdings \u00b7 Payments",
+  "llm_contract": {
+    "allowed_input": "this claim pack only",
+    "autonomous_action": false,
+    "external_tools": false,
+    "fallback": "this deterministic brief",
+    "publication": false,
+    "required_output": "schema-constrained prose preserving every number and citation"
+  },
+  "missing_evidence": [
+    "direct E3 multibank share observation",
+    "approved bank economics",
+    "qualified RM action and outcome history"
+  ],
+  "model_claims": [
+    {
+      "claim": "Estimated latent external wallet is ZAR 40,915,694,781 at the scenario median.",
+      "claim_class": "SCENARIO",
+      "support": "shadow:E09-payments:v3.0.0"
+    },
+    {
+      "claim": "PU product-need probability is 100.0% under the SCAR assumption.",
+      "claim_class": "POSTERIOR",
+      "support": "pu-need-v3.0.0"
+    },
+    {
+      "claim": "Modelled wallet-leakage alarm probability is 6.7%.",
+      "claim_class": "POSTERIOR",
+      "support": "bocpd-leakage-v3.0.0"
+    }
+  ],
+  "observed": {
+    "activity_zar": 7657917973.61,
+    "claim_class": "OBSERVED",
+    "provenance": "SYN_BANK_SIMULATION"
+  },
+  "opportunity_id": "E09-payments",
+  "prohibited_phrases": [
+    "measured competitor share",
+    "causal uplift",
+    "optimal target share"
+  ],
+  "public_evidence": [
+    {
+      "approval_status": "APPROVED",
+      "available_date": "2025-10-13",
+      "fact_id": "SHP-2025-COST",
+      "label": "Shoprite Holdings Annual Financial Statements 2025 p.19",
+      "url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf"
+    },
+    {
+      "approval_status": "APPROVED",
+      "available_date": "2025-10-13",
+      "fact_id": "SHP-2025-INV-OPEN",
+      "label": "Shoprite Holdings Annual Financial Statements 2025 p.18",
+      "url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf"
+    },
+    {
+      "approval_status": "APPROVED",
+      "available_date": "2025-10-13",
+      "fact_id": "SHP-2025-INV-CLOSE",
+      "label": "Shoprite Holdings Annual Financial Statements 2025 p.18",
+      "url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf"
+    },
+    {
+      "approval_status": "APPROVED",
+      "available_date": "2025-10-13",
+      "fact_id": "SHP-2025-AP-OPEN",
+      "label": "Shoprite Holdings Annual Financial Statements 2025 p.18",
+      "url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf"
+    },
+    {
+      "approval_status": "APPROVED",
+      "available_date": "2025-10-13",
+      "fact_id": "SHP-2025-AP-CLOSE",
+      "label": "Shoprite Holdings Annual Financial Statements 2025 p.18",
+      "url": "https://www.shopriteholdings.co.za/docs/shp-afs-2025.pdf"
+    }
+  ]
+}

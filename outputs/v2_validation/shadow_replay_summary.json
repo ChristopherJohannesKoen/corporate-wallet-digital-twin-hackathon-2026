@@ -1,11 +1,12 @@
 {
-  "event_stream_sha256": "a236e833dd3ac2c42bcad78c65ac7adbdbba4dcb999ff3d074f9c5a15debb595",
+  "event_stream_digest_scope": "business payload; emission timestamps and per-run identifiers excluded",
+  "event_stream_sha256": "9708948c426c267ea7b105382983ab628f29a35efcda1463cc3234c7a00f2ae2",
   "event_types": {
     "EligibilityRecorded": 100,
     "RecommendationAssigned": 100
   },
   "events": 200,
-  "generated_at": "2026-08-09T08:04:00.490353+00:00",
+  "generated_at": "2026-06-30T00:00:00+00:00",
   "production_release_allowed": false,
   "recommendations_visible_to_rm": false,
   "replay_version": "local-shadow-replay-1.0.0",

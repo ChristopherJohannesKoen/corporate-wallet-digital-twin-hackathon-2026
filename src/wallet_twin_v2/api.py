@@ -40,7 +40,7 @@ from .timing import TimingService
 
 app = FastAPI(
     title="Corporate Wallet Digital Twin V3.1",
-    version="3.1.0",
+    version="3.1.1",
     description=(
         "Private, entitlement-aware Corporate Banking Decision Twin API: "
         "wallet reconstruction, business-model evidence, conversations and controls"

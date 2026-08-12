@@ -2,7 +2,7 @@
   "event_topics": {
     "wallet-twin.audit.v1": 224,
     "wallet-twin.business-twin.v1": 348,
-    "wallet-twin.client-learning.v1": 127,
+    "wallet-twin.client-learning.v1": 130,
     "wallet-twin.decision.v1": 449
   },
   "evidence_coverage": {
@@ -41,7 +41,7 @@
       "E20"
     ],
     "e1_threshold_status": "BLOCKING_GATE_OPEN_INSUFFICIENT_AUDITED_PUBLIC_EVIDENCE",
-    "evidence_version": "v31-business-evidence-3.1.0",
+    "evidence_version": "v31-business-evidence-3.1.1",
     "kind_counts": {
       "CATEGORICAL": 180,
       "COUNT": 60,
@@ -355,8 +355,8 @@
     "decision_object": "(client, stakeholder, business problem, solution bundle, engagement window)",
     "deployment_mode": "CLIENT_DEMO_REPRESENTATIVE_LAB",
     "title": "Corporate Wallet Digital Twin V3.1",
-    "version": "3.1.0",
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN",
+    "version": "3.1.1",
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN",
     "week_start": "2026-07-06"
   },
   "policy": {
@@ -375,10 +375,10 @@
       "max_per_sector": 3,
       "max_per_solution_family": 3
     },
-    "coverage_policy_version": "v31-coverage-cvar-3.1.0",
+    "coverage_policy_version": "v31-coverage-cvar-3.1.1",
     "funding_route_challenger_gate": {
-      "challenger": "v31-funding-route-multinomial-challenger-3.1.0",
-      "champion": "v31-funding-route-scorecard-3.1.0",
+      "challenger": "v31-funding-route-multinomial-challenger-3.1.1",
+      "champion": "v31-funding-route-scorecard-3.1.1",
       "current_labelled_events": 0,
       "promotion_allowed": false,
       "reason": "no labelled financing-event panel exists in the demonstration boundary",
@@ -399,7 +399,7 @@
         ],
         "notes": "Twelve Business Twin domains, eighteen problems, sixteen solutions.",
         "owner": "Corporate Banking Analytics",
-        "version": "v31-business-taxonomy-3.1.0"
+        "version": "v31-business-taxonomy-3.1.1"
       },
       {
         "approval_required_before_production": true,
@@ -410,7 +410,7 @@
         ],
         "notes": "Role personas only; CRM person resolution is out of scope for the demo.",
         "owner": "Client Coverage",
-        "version": "v31-stakeholder-responsibility-3.1.0"
+        "version": "v31-stakeholder-responsibility-3.1.1"
       },
       {
         "approval_required_before_production": true,
@@ -421,7 +421,7 @@
         ],
         "notes": "PRIMARY/SUPPORTING/REQUIRES_CONFIRMATION/INCOMPATIBLE with prerequisites and lead times.",
         "owner": "Product Management",
-        "version": "v31-problem-solution-matrix-3.1.0"
+        "version": "v31-problem-solution-matrix-3.1.1"
       }
     ],
     "value_policy": {
@@ -471,11 +471,11 @@
           0.011
         ]
       },
-      "policy_version": "v31-dual-value-3.1.0",
+      "policy_version": "v31-dual-value-3.1.1",
       "production_requirement": "Production outputs require approved rate cards for every one of the sixteen solutions. Eleven solutions have none, so their contribution is blocked rather than estimated.",
       "watermarked": true
     },
-    "weights_version": "v31-policy-weights-3.1.0"
+    "weights_version": "v31-policy-weights-3.1.1"
   },
   "release": {
     "bank_production_status": "NOT_PROMOTABLE",
@@ -573,7 +573,7 @@
     "solution_projections": 320,
     "solution_projections_expected": 320,
     "status": "REPRESENTATIVE_VALIDATION",
-    "voi_questions_evaluated": 891,
-    "voi_questions_selected": 308
+    "voi_questions_evaluated": 894,
+    "voi_questions_selected": 318
   }
 }

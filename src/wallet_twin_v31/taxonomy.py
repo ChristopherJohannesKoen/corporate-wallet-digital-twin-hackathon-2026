@@ -13,9 +13,9 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Dict, Mapping, Sequence, Tuple
 
-TAXONOMY_VERSION = "v31-business-taxonomy-3.1.0"
-RESPONSIBILITY_MATRIX_VERSION = "v31-stakeholder-responsibility-3.1.0"
-PROBLEM_SOLUTION_MATRIX_VERSION = "v31-problem-solution-matrix-3.1.0"
+TAXONOMY_VERSION = "v31-business-taxonomy-3.1.1"
+RESPONSIBILITY_MATRIX_VERSION = "v31-stakeholder-responsibility-3.1.1"
+PROBLEM_SOLUTION_MATRIX_VERSION = "v31-problem-solution-matrix-3.1.1"
 
 
 # ---------------------------------------------------------------------------

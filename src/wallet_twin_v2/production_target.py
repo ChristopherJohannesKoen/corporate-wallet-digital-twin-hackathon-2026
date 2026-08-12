@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Iterable
+from .canonical import artifact_timestamp
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -59,7 +59,7 @@ def validate_production_target() -> dict:
     definitions_ready = all(item["passed"] for item in controls.values())
     return {
         "version": "production-target-validation-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": artifact_timestamp(),
         "target": "AWS + Databricks / private EKS / Delta + Unity Catalog / MLflow / MSK / OPA / OpenTelemetry",
         "implementation_definitions_ready": definitions_ready,
         "controls_passed": sum(item["passed"] for item in controls.values()),

@@ -7,11 +7,27 @@ from datetime import date
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence, Tuple
 
+from .contracts import AnchorActivationState as AnchorActivation
+
 
 ROOT = Path(__file__).resolve().parents[2]
 SEED_FACTS = ROOT / "data" / "public_facts.csv"
 EXPANDED_FACTS = ROOT / "data" / "v2" / "public_facts_expanded.csv"
 SOURCE_REGISTRY = ROOT / "data" / "v2" / "public_sources.json"
+
+#: Governed policy that decides whether a compiled public anchor may inform an
+#: estimate.  Compiling an anchor and *activating* it are separate acts: the
+#: registry may always compile a candidate from whatever facts exist, but only
+#: approved facts may move a published number.
+ANCHOR_ACTIVATION_POLICY_VERSION = "public-anchor-activation-1.0.0"
+
+#: ``AnchorActivation`` is re-exported from :mod:`wallet_twin_v2.contracts` so the
+#: enum has exactly one definition and serialises identically everywhere.
+ACTIVATION_REASONS: Dict[AnchorActivation, str] = {
+    AnchorActivation.ACTIVATED: "ANCHOR_ACTIVATED_APPROVED_FACTS",
+    AnchorActivation.WITHHELD_PENDING_APPROVAL: "ANCHOR_WITHHELD_PENDING_SME_APPROVAL",
+    AnchorActivation.NOT_AVAILABLE: "ANCHOR_UNAVAILABLE_NO_FACT_RULE",
+}
 
 
 @dataclass(frozen=True)
@@ -45,6 +61,30 @@ class PublicAnchor:
     rule_id: str
     evidence_tier: str = "E1"
     approval_status: str = "PENDING_REVIEW"
+
+
+@dataclass(frozen=True)
+class AnchorDecision:
+    """The outcome of applying the activation policy to a compiled anchor.
+
+    ``anchor_range`` is ``None`` for anything other than :attr:`AnchorActivation.ACTIVATED`,
+    so a caller that honours this object cannot accidentally measure against
+    unapproved evidence.  ``withheld_range`` retains what the anchor *would*
+    have been, for disclosure only — it must never reach the wallet model.
+    """
+
+    activation: AnchorActivation
+    reason_code: str
+    anchor_range: Optional[Tuple[float, float, float]] = None
+    active_fact_ids: Tuple[str, ...] = ()
+    pending_fact_ids: Tuple[str, ...] = ()
+    withheld_range: Optional[Tuple[float, float, float]] = None
+    rule_id: Optional[str] = None
+    policy_version: str = ANCHOR_ACTIVATION_POLICY_VERSION
+
+    @property
+    def activated(self) -> bool:
+        return self.activation is AnchorActivation.ACTIVATED
 
 
 class PublicEvidenceRegistry:
@@ -89,8 +129,10 @@ class PublicEvidenceRegistry:
         self._source_hashes = {item["entity_id"]: item["sha256"] for item in self.sources["documents"]}
         self.facts = [fact for fact in self._load_all() if fact.available_date <= as_of]
         self.by_entity: Dict[str, List[PublicFact]] = {}
+        self.by_fact_id: Dict[str, PublicFact] = {}
         for fact in self.facts:
             self.by_entity.setdefault(fact.entity_id, []).append(fact)
+            self.by_fact_id[fact.fact_id] = fact
 
     @staticmethod
     def _parse_page(value: str) -> int:
@@ -207,6 +249,106 @@ class PublicEvidenceRegistry:
             rule_id=f"{self.version}:{rule}:{self.fx_policy_id}",
             approval_status="APPROVED" if all(fact.approval_status == "APPROVED" for fact in facts) else "PENDING_REVIEW",
         )
+
+    def _approval_of(self, fact_ids: Sequence[str]) -> Tuple[bool, Tuple[str, ...]]:
+        """Resolve fact ids to facts and report whether *every* one is approved.
+
+        Fail-closed in three ways: an empty provenance is never approved, an
+        unresolvable id is never approved, and a single pending fact withholds
+        the whole anchor.  A partially approved anchor is not a weaker anchor —
+        it is an anchor whose value depends on an unreviewed number.
+        """
+        if not fact_ids:
+            return False, ()
+        pending: List[str] = []
+        for fact_id in fact_ids:
+            fact = self.by_fact_id.get(fact_id)
+            if fact is None or fact.approval_status != "APPROVED":
+                pending.append(fact_id)
+        return (not pending), tuple(pending)
+
+    def activate(
+        self,
+        entity_id: str,
+        product: str,
+        sector: str,
+        observed: float,
+        *,
+        preset: Optional[dict] = None,
+        preset_fact_ids: Sequence[str] = (),
+    ) -> AnchorDecision:
+        """Apply the governed activation policy to this client/product cell.
+
+        Compiling an anchor is not the same as being allowed to measure with
+        it.  Approval is derived from the facts themselves, never from a
+        hard-coded entity list, so a finance-SME sign-off that moves facts to
+        ``APPROVED`` activates the affected anchors on the next run with no
+        code change.
+        """
+        candidate = self.anchor_for(entity_id, product, sector, observed)
+
+        if preset is not None:
+            fact_ids: Tuple[str, ...] = tuple(preset_fact_ids) or (
+                candidate.fact_ids if candidate else ()
+            )
+            anchor_range = (
+                float(preset["low_zar"]),
+                float(preset["base_zar"]),
+                float(preset["high_zar"]),
+            )
+            rule_id = candidate.rule_id if candidate else "v1-baseline-preset-anchor"
+        elif candidate is not None:
+            fact_ids = candidate.fact_ids
+            anchor_range = (candidate.low_zar, candidate.base_zar, candidate.high_zar)
+            rule_id = candidate.rule_id
+        else:
+            return AnchorDecision(
+                activation=AnchorActivation.NOT_AVAILABLE,
+                reason_code=ACTIVATION_REASONS[AnchorActivation.NOT_AVAILABLE],
+            )
+
+        approved, pending = self._approval_of(fact_ids)
+        if approved:
+            return AnchorDecision(
+                activation=AnchorActivation.ACTIVATED,
+                reason_code=ACTIVATION_REASONS[AnchorActivation.ACTIVATED],
+                anchor_range=anchor_range,
+                active_fact_ids=tuple(fact_ids),
+                rule_id=rule_id,
+            )
+        return AnchorDecision(
+            activation=AnchorActivation.WITHHELD_PENDING_APPROVAL,
+            reason_code=ACTIVATION_REASONS[AnchorActivation.WITHHELD_PENDING_APPROVAL],
+            anchor_range=None,
+            active_fact_ids=(),
+            pending_fact_ids=pending or tuple(fact_ids),
+            withheld_range=anchor_range,
+            rule_id=rule_id,
+        )
+
+    def activation_policy(self) -> dict:
+        """Governed description of the activation rule, for artifacts and docs."""
+        approved = sum(1 for fact in self.facts if fact.approval_status == "APPROVED")
+        return {
+            "policy_version": ANCHOR_ACTIVATION_POLICY_VERSION,
+            "rule": (
+                "A compiled public anchor may inform an estimate only when every fact "
+                "behind it is finance-SME APPROVED. A single pending fact withholds the "
+                "whole anchor and the cell falls back to the prior-led path."
+            ),
+            "as_of": self.as_of.isoformat(),
+            "total_facts": len(self.facts),
+            "approved_facts": approved,
+            "pending_facts": len(self.facts) - approved,
+            "approved_entities": sorted(
+                {
+                    fact.entity_id
+                    for fact in self.facts
+                    if fact.approval_status == "APPROVED"
+                }
+            ),
+            "derivation": "approval is derived from fact state, never from a hard-coded entity list",
+        }
 
     def fact_payload(self, fact: PublicFact) -> dict:
         return {

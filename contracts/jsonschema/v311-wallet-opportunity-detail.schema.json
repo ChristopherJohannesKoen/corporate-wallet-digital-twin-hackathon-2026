@@ -1,0 +1,510 @@
+{
+  "$defs": {
+    "ArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_version": {
+          "title": "Dataset Version",
+          "type": "string"
+        },
+        "measurement_policy_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measurement Policy Version"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "prior_version": {
+          "title": "Prior Version",
+          "type": "string"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prompt Version"
+        },
+        "rate_card_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate Card Version"
+        },
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "transformation_version": {
+          "title": "Transformation Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_version",
+        "dataset_version",
+        "prior_version",
+        "transformation_version"
+      ],
+      "title": "ArtifactReference",
+      "type": "object"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "IntervalEstimate": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date",
+          "title": "As Of",
+          "type": "string"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "lower": {
+          "minimum": 0,
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "minimum": 0,
+          "title": "Median",
+          "type": "number"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "nominal_coverage": {
+          "exclusiveMaximum": 1,
+          "exclusiveMinimum": 0,
+          "title": "Nominal Coverage",
+          "type": "number"
+        },
+        "upper": {
+          "minimum": 0,
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper",
+        "nominal_coverage",
+        "model_version",
+        "as_of",
+        "claim_class"
+      ],
+      "title": "IntervalEstimate",
+      "type": "object"
+    },
+    "Money": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Amount"
+        },
+        "currency": {
+          "maxLength": 3,
+          "minLength": 3,
+          "title": "Currency",
+          "type": "string"
+        },
+        "fx_policy_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Fx Policy Ref"
+        },
+        "normalized_amount": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ],
+          "title": "Normalized Amount"
+        },
+        "normalized_currency": {
+          "default": "ZAR",
+          "maxLength": 3,
+          "minLength": 3,
+          "title": "Normalized Currency",
+          "type": "string"
+        },
+        "source_unit": {
+          "default": "unit",
+          "title": "Source Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "currency",
+        "normalized_amount"
+      ],
+      "title": "Money",
+      "type": "object"
+    },
+    "TimingPrediction": {
+      "additionalProperties": false,
+      "properties": {
+        "as_of": {
+          "format": "date",
+          "title": "As Of",
+          "type": "string"
+        },
+        "calibration_status": {
+          "title": "Calibration Status",
+          "type": "string"
+        },
+        "event_name": {
+          "title": "Event Name",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "probability_30d": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability 30D",
+          "type": "number"
+        },
+        "probability_60d": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability 60D",
+          "type": "number"
+        },
+        "probability_90d": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability 90D",
+          "type": "number"
+        }
+      },
+      "required": [
+        "event_name",
+        "probability_30d",
+        "probability_60d",
+        "probability_90d",
+        "method",
+        "calibration_status",
+        "as_of"
+      ],
+      "title": "TimingPrediction",
+      "type": "object"
+    },
+    "WalletPortfolioCell": {
+      "additionalProperties": false,
+      "description": "One governed client-product cell in the primary 20 x 5 wallet surface.",
+      "properties": {
+        "active_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Active Fact Ids",
+          "type": "array"
+        },
+        "anchor_activation": {
+          "title": "Anchor Activation",
+          "type": "string"
+        },
+        "approval_state": {
+          "title": "Approval State",
+          "type": "string"
+        },
+        "artifact_versions": {
+          "$ref": "#/$defs/ArtifactReference"
+        },
+        "as_of": {
+          "format": "date",
+          "title": "As Of",
+          "type": "string"
+        },
+        "calibration_status": {
+          "title": "Calibration Status",
+          "type": "string"
+        },
+        "commercial_claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "SCENARIO"
+        },
+        "conditional_action": {
+          "title": "Conditional Action",
+          "type": "string"
+        },
+        "contestable_activity": {
+          "$ref": "#/$defs/WalletValueInterval"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "entity_name": {
+          "title": "Entity Name",
+          "type": "string"
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/EvidenceTier"
+        },
+        "identification_bounds": {
+          "$ref": "#/$defs/IntervalEstimate"
+        },
+        "observed_activity": {
+          "$ref": "#/$defs/Money"
+        },
+        "opportunity_id": {
+          "title": "Opportunity Id",
+          "type": "string"
+        },
+        "pending_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Pending Fact Ids",
+          "type": "array"
+        },
+        "permitted_action_now": {
+          "title": "Permitted Action Now",
+          "type": "string"
+        },
+        "posterior_wallet": {
+          "$ref": "#/$defs/IntervalEstimate"
+        },
+        "product": {
+          "title": "Product",
+          "type": "string"
+        },
+        "product_quantity_semantics": {
+          "title": "Product Quantity Semantics",
+          "type": "string"
+        },
+        "rank": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rank"
+        },
+        "scenario_contribution": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/WalletValueInterval"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "sector": {
+          "title": "Sector",
+          "type": "string"
+        },
+        "share_claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "share_interval": {
+          "$ref": "#/$defs/IntervalEstimate"
+        },
+        "target_share_scenario": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Target Share Scenario",
+          "type": "number"
+        },
+        "timing": {
+          "$ref": "#/$defs/TimingPrediction"
+        }
+      },
+      "required": [
+        "opportunity_id",
+        "entity_id",
+        "entity_name",
+        "sector",
+        "product",
+        "product_quantity_semantics",
+        "as_of",
+        "observed_activity",
+        "identification_bounds",
+        "posterior_wallet",
+        "share_interval",
+        "target_share_scenario",
+        "contestable_activity",
+        "timing",
+        "evidence_tier",
+        "approval_state",
+        "anchor_activation",
+        "calibration_status",
+        "share_claim_class",
+        "permitted_action_now",
+        "conditional_action",
+        "artifact_versions"
+      ],
+      "title": "WalletPortfolioCell",
+      "type": "object"
+    },
+    "WalletValueInterval": {
+      "additionalProperties": false,
+      "description": "Non-negative interval used for activity and scenario contribution.\n\nIt is intentionally separate from ``IntervalEstimate`` because a commercial\nscenario interval has no empirical coverage claim.",
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "minimum": 0,
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "minimum": 0,
+          "title": "Median",
+          "type": "number"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        },
+        "upper": {
+          "minimum": 0,
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper",
+        "unit"
+      ],
+      "title": "WalletValueInterval",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cell": {
+      "$ref": "#/$defs/WalletPortfolioCell"
+    },
+    "claim_boundary": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Claim Boundary",
+      "type": "object"
+    },
+    "contestable_equation": {
+      "default": "G = max(q* x T - A, 0)",
+      "title": "Contestable Equation",
+      "type": "string"
+    },
+    "decision_twin_action": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Decision Twin Action"
+    },
+    "equation": {
+      "default": "A = qT",
+      "title": "Equation",
+      "type": "string"
+    },
+    "explanation": {
+      "additionalProperties": true,
+      "title": "Explanation",
+      "type": "object"
+    },
+    "supporting_facts": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Supporting Facts",
+      "type": "array"
+    }
+  },
+  "required": [
+    "cell",
+    "explanation",
+    "supporting_facts",
+    "claim_boundary"
+  ],
+  "title": "WalletOpportunityDetail",
+  "type": "object"
+}

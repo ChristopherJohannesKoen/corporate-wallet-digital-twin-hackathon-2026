@@ -16,7 +16,7 @@
   ],
   "model_claims": [
     {
-      "claim": "Estimated latent external wallet is ZAR 16,429,163,521 at the scenario median.",
+      "claim": "Estimated latent external wallet is ZAR 7,180,227,638 at the scenario median.",
       "claim_class": "SCENARIO",
       "support": "shadow:E17-cross-border-fx:v3.0.0"
     },
@@ -42,13 +42,5 @@
     "causal uplift",
     "optimal target share"
   ],
-  "public_evidence": [
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2026-06-12",
-      "fact_id": "VODACOM-2026-REV",
-      "label": "Vodacom Consolidated and Separate Financial Statements 2026 p.19",
-      "url": "https://vodacom-reports.co.za/integrated-reports/ir-2026/documents/vodacom-consolidated-and-separate-financial-statements-2026.pdf"
-    }
-  ]
+  "public_evidence": []
 }

@@ -5,8 +5,8 @@ needs to know both "what does this do for them" and "what does this do for us",
 and a single blended number destroys that distinction.
 
 Client value separates monetised benefit from risk reduction and from
-qualitative benefit. A hedge does not create a guaranteed saving — it changes
-the distribution of outcomes — so hedging solutions report risk reduction and
+qualitative benefit. A hedge does not create a guaranteed saving â€” it changes
+the distribution of outcomes â€” so hedging solutions report risk reduction and
 explicitly decline to monetise it.
 
 Bank value keeps the V2 fail-closed contribution engine and adds cost to win.
@@ -39,14 +39,14 @@ from .taxonomy import (
     SolutionFamily,
 )
 
-VALUE_POLICY_VERSION = "v31-dual-value-3.1.0"
+VALUE_POLICY_VERSION = "v31-dual-value-3.1.1"
 
 CLIENT_WATERMARK = (
-    "REPRESENTATIVE CLIENT-VALUE SCENARIO — governed assumption set, not a bank offer "
+    "REPRESENTATIVE CLIENT-VALUE SCENARIO â€” governed assumption set, not a bank offer "
     "and not a guaranteed saving"
 )
 BANK_WATERMARK = (
-    "REPRESENTATIVE BANK ECONOMICS — demo rate cards are synthetic and watermarked; "
+    "REPRESENTATIVE BANK ECONOMICS â€” demo rate cards are synthetic and watermarked; "
     "production requires approved rate cards for every solution"
 )
 RELATIONSHIP_SEMANTICS = (
@@ -412,7 +412,7 @@ class BankValueEngine:
             )
             if opportunity is None:
                 reasons.append(
-                    f"NO_APPROVED_RATE_CARD_{solution.value} — {label} has no approved "
+                    f"NO_APPROVED_RATE_CARD_{solution.value} â€” {label} has no approved "
                     "rate card, so no contribution is published for it"
                 )
                 components.append(

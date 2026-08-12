@@ -16,7 +16,7 @@
   ],
   "model_claims": [
     {
-      "claim": "Estimated latent external wallet is ZAR 3,663,833,369 at the scenario median.",
+      "claim": "Estimated latent external wallet is ZAR 4,602,703,040 at the scenario median.",
       "claim_class": "SCENARIO",
       "support": "shadow:E18-trade-finance:v3.0.0"
     },
@@ -42,13 +42,5 @@
     "causal uplift",
     "optimal target share"
   ],
-  "public_evidence": [
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2025-10-24",
-      "fact_id": "BIDVEST-2025-REV",
-      "label": "Bidvest Integrated Report 2025 p.40",
-      "url": "https://bidvest.co.za/pdf/annual-reports/2025/bidvest-iar-2025.pdf"
-    }
-  ]
+  "public_evidence": []
 }

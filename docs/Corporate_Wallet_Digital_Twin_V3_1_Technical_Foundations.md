@@ -1,11 +1,11 @@
-﻿# Corporate Wallet Digital Twin V3 â€” Technical Foundations, Statistical Theory and Production Engineering
+# Corporate Wallet Digital Twin V3.1.1 — Technical Foundations, Statistical Theory and Production Engineering
 
 ## Document control
 
 | Field | Value |
 |---|---|
 | Document purpose | Literature-grounded technical specification of how V3 is being created, why each concept is used, how it is implemented, and how it must be validated |
-| Version | 3.0.0 â€” latent-network and decision-engineering edition |
+| Version | 3.1.1 ? submission-hardening and wallet-first edition |
 | Technical baseline | Repository state and validation artefacts available on 12 August 2026 |
 | Team | Corporate Wallet Digital Twin |
 | Team member | Christopher Koen |
@@ -17,6 +17,10 @@
 | Source hierarchy | Implemented source and frozen outputs; primary peer-reviewed literature; official standards and vendor documentation; programme design decisions |
 
 ## V3.1 scientific extension: from product opportunity to decision twin
+
+### V3.1.1 measurement-governance correction
+
+The primary estimand remains total wallet and share under the identity `A=qT`. The Decision Twin consumes?rather than replaces?this wallet evidence. A versioned measurement policy sets pooling weights `E0=0.00`, `E1=0.35`, `E2=0.60`, `E3=0.90`, and `E4=0.94`; the historical E1 weight 0.84 is retained only in frozen V1 material. Approval is a hard gate: 31 approved source facts activate 15 anchors for three clients, while 51 developer-verified but pending facts remain excluded. The corrected 20 ? 5 projection is therefore 15 publicly anchored and 85 prior-led opportunities. Sensitivity evaluates E1 weights 0.20, 0.35, and 0.50 against interval width, known-truth coverage, CRPS, and opportunity ranking.
 
 V3.1 changes the decision-theoretic unit from `(client, product)` to a structured action:
 

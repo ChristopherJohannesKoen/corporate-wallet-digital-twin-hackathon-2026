@@ -16,7 +16,14 @@ Provider behavior:
 
 No live credential is stored in this repository or deployment fixture. Credentials pasted into a conversation must be revoked and rotated before use. Rotated values belong in an approved secret manager or local process environment, never `.env.example`, source control, fixtures, logs or CI output.
 
-The evaluation estate contains 36 synthetic cases across training, development and sealed test splits, 82 evidence-register replays and 51 page-grounded fact replays (169 governed checks in total). It covers OCR ambiguity, complex tables, scale, sign, currency, restatement, conflicts, missing fields, future data and prompt injection. Run it with:
+The evaluation estate is:
+
+<!-- BEGIN GENERATED: governed-checks -->
+
+169 evidence-grounded governed checks (36 sealed/dev/training golden cases, 82 evidence-register replays and 51 page-grounded fact replays), plus a 640-case deterministic validator stress suite — 809 checks in total, of which 79% exercise validators and abstention mechanics with no model call. The two figures measure different things and are reported separately for that reason.
+<!-- END GENERATED: governed-checks -->
+
+It covers OCR ambiguity, complex tables, scale, sign, currency, restatement, conflicts, missing fields, future data and prompt injection. Run it with:
 
 ```powershell
 python scripts/run_genai_evals.py

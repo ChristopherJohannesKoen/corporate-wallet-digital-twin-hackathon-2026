@@ -36,9 +36,14 @@ from wallet_twin_v31.contracts import (  # noqa: E402
     ProblemHypothesis,
     SolutionEstimate,
     StakeholderResolution,
+    ProviderBriefEvaluation,
+    WalletOpportunityDetail,
+    WalletPortfolioCell,
+    WalletPortfolioProjection,
 )
 from wallet_twin_v31.events import V31EventEnvelope  # noqa: E402
 from wallet_twin_v31.repository import repository  # noqa: E402
+from wallet_twin_v2.canonical import write_canonical_json
 
 CONTRACTS = ROOT / "contracts"
 SCHEMAS = CONTRACTS / "jsonschema"
@@ -66,12 +71,21 @@ MODELS = {
     "v31-information-question": InformationQuestion,
     "v31-client-answer": ClientAnswer,
     "v31-event-envelope": V31EventEnvelope,
+    "v311-wallet-portfolio-cell": WalletPortfolioCell,
+    "v311-wallet-portfolio-projection": WalletPortfolioProjection,
+    "v311-wallet-opportunity-detail": WalletOpportunityDetail,
+    "v311-provider-brief-evaluation": ProviderBriefEvaluation,
 }
 
 
 def write_json(path: Path, payload: Any) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    """Write at the governed published precision.
+
+    The V3.1 exporter was written fresh and never inherited the canonicaliser the
+    V2/V3 exporters use, so its artifacts carried full binary float precision
+    against a byte-exact CI reproducibility gate.
+    """
+    write_canonical_json(path, payload)
 
 
 def main() -> int:
@@ -156,6 +170,18 @@ def main() -> int:
             "funding_routes": {
                 entity_id: route.model_dump(mode="json")
                 for entity_id, route in repository.routes.items()
+            },
+        },
+    )
+    write_json(
+        ROOT / "dashboard" / "app" / "data" / "wallet-v311-fixture.json",
+        {
+            "projection": repository.wallet_portfolio(repository.as_of).model_dump(mode="json"),
+            "details": {
+                cell.opportunity_id: repository.wallet_opportunity(
+                    cell.opportunity_id, repository.as_of
+                ).model_dump(mode="json")
+                for cell in repository.wallet_portfolio(repository.as_of).cells
             },
         },
     )

@@ -28,7 +28,7 @@ from .taxonomy import (
     SOLUTION_LEAD_TIME_DAYS,
 )
 
-TIMING_POLICY_VERSION = "v31-engagement-window-3.1.0"
+TIMING_POLICY_VERSION = "v31-engagement-window-3.1.1"
 
 NO_TRIGGER_STATEMENT = (
     "No dated, supported trigger event is established for this client and problem. There "
@@ -36,7 +36,7 @@ NO_TRIGGER_STATEMENT = (
     "likelihood only."
 )
 SCENARIO_CALIBRATION = (
-    "GOVERNED_SCENARIO_NOT_RM_OUTCOME_CALIBRATED — horizon probabilities combine a dated "
+    "GOVERNED_SCENARIO_NOT_RM_OUTCOME_CALIBRATED â€” horizon probabilities combine a dated "
     "trigger with governed lead times and are not calibrated against qualified RM actions"
 )
 

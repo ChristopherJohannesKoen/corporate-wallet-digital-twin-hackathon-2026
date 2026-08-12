@@ -96,6 +96,85 @@ def decision_twin(
     )
 
 
+@router.get("/wallet-portfolio")
+def wallet_portfolio(
+    as_of: date = Query(...),
+    context: EntitlementContext = Depends(principal),
+) -> dict:
+    authorize(
+        context,
+        action="v311:wallet-portfolio:read",
+        resource_type="wallet-portfolio",
+        resource_id=as_of.isoformat(),
+    )
+    return repository.wallet_portfolio(as_of, context.client_ids).model_dump(mode="json")
+
+
+@router.get("/wallet-opportunities/{opportunity_id}")
+def wallet_opportunity(
+    opportunity_id: str,
+    as_of: date = Query(...),
+    context: EntitlementContext = Depends(principal),
+) -> dict:
+    observation = repository.wallet_opportunity(opportunity_id, as_of, ["*"])
+    authorize(
+        context,
+        action="v311:wallet-opportunity:read",
+        resource_type="wallet-opportunity",
+        resource_id=opportunity_id,
+        client_id=observation.cell.entity_id,
+        product=observation.cell.product,
+        sensitive_economics=True,
+    )
+    return repository.wallet_opportunity(
+        opportunity_id, as_of, context.client_ids
+    ).model_dump(mode="json")
+
+
+@router.get("/clients/{client_id}/briefing-notes")
+def client_briefing_notes(
+    client_id: str,
+    as_of: date = Query(...),
+    context: EntitlementContext = Depends(principal),
+) -> dict:
+    authorize(
+        context,
+        action="v311:briefing-notes:read",
+        resource_type="client",
+        resource_id=client_id,
+        client_id=client_id,
+    )
+    items = [
+        item for item in repository.conversations(as_of, context.client_ids)
+        if item.entity_id == client_id
+    ]
+    items.sort(
+        key=lambda item: (
+            item.policy_rank.weekly_rank is None,
+            item.policy_rank.weekly_rank or 10_000,
+            -item.policy_rank.selection_stability,
+        )
+    )
+    notes = []
+    for item in items[:3]:
+        deterministic = repository.brief(item.conversation_id, as_of, context.client_ids)
+        notes.append({
+            "conversation_id": item.conversation_id,
+            "brief": deterministic.model_dump(mode="json"),
+            "provider_evaluations": [],
+            "live_provider_status": "NOT_EXECUTED_WITHOUT_FRESH_ENVIRONMENT_CREDENTIAL",
+        })
+    return {
+        "entity_id": client_id,
+        "as_of": as_of.isoformat(),
+        "notes": notes,
+        "claim_boundary": (
+            "Deterministic briefs are operational. Provider-generated briefs appear only "
+            "after all critical validators pass; no provider result is fabricated."
+        ),
+    }
+
+
 @router.get("/clients/{client_id}/business-twin")
 def business_twin(
     client_id: str,

@@ -6,7 +6,7 @@ funded exposure and an advisory mandate fee is not a transaction margin.
 Conflating them would produce a comparable-looking number that means nothing.
 
 The five V3 products keep their existing identification bounds and posterior
-wallet engines untouched — the V3.0 regression boundary depends on that.  The
+wallet engines untouched â€” the V3.0 regression boundary depends on that.  The
 eleven new solutions each implement:
 
 * identification bounds derived independently of the probabilistic layer;
@@ -48,11 +48,11 @@ from .taxonomy import (
     SOLUTION_LEGACY_PRODUCT,
 )
 
-ESTIMATOR_VERSION = "v31-solution-estimators-3.1.0"
+ESTIMATOR_VERSION = "v31-solution-estimators-3.1.1"
 
 LEGACY_CALIBRATION = "V3_POSTERIOR_WALLET_ENGINE_REPRESENTATIVE_VALIDATION"
 NEW_CALIBRATION = (
-    "GOVERNED_SCENARIO_NOT_EMPIRICALLY_CALIBRATED — this solution family has no "
+    "GOVERNED_SCENARIO_NOT_EMPIRICALLY_CALIBRATED â€” this solution family has no "
     "adjudicated outcome history, so its estimate is a scenario pending calibration"
 )
 LEGACY_STATUS = "SHADOW_ELIGIBLE_REPRESENTATIVE"
@@ -255,7 +255,7 @@ class SolutionEstimator:
             bounds=_interval(bounds.lower, bounds.median, bounds.upper),
             need=need,
             need_semantics=(
-                "POSTERIOR — Elkan-Noto positive-unlabelled estimate under the SCAR "
+                "POSTERIOR â€” Elkan-Noto positive-unlabelled estimate under the SCAR "
                 "assumption, inherited unchanged from V3"
             ),
             claim_class=ClaimClass.POSTERIOR,
@@ -308,7 +308,7 @@ class SolutionEstimator:
             bounds=bounds,
             need=problem.probability,
             need_semantics=(
-                "SCENARIO — governed weight from the supply-chain-risk detector, not a "
+                "SCENARIO â€” governed weight from the supply-chain-risk detector, not a "
                 "calibrated probability"
             ),
             claim_class=ClaimClass.SCENARIO,
@@ -343,7 +343,7 @@ class SolutionEstimator:
             amount=_scaled(base, GUARANTEE_COVER_RANGE),
             bounds=_interval(0.0, base * 0.5, base),
             need=problem.probability,
-            need_semantics="SCENARIO — governed guarantee-requirement weight",
+            need_semantics="SCENARIO â€” governed guarantee-requirement weight",
             claim_class=ClaimClass.SCENARIO,
             tier=EvidenceTier.E0,
             calibration=NEW_CALIBRATION,
@@ -378,7 +378,7 @@ class SolutionEstimator:
             amount=_scaled(base, REVOLVER_SIZING_RANGE),
             bounds=_interval(gap.interval.lower, base, gap.interval.upper),
             need=problem.probability,
-            need_semantics="SCENARIO — governed working-capital-pressure weight",
+            need_semantics="SCENARIO â€” governed working-capital-pressure weight",
             claim_class=ClaimClass.SCENARIO,
             tier=EvidenceTier.E1,
             calibration=NEW_CALIBRATION,
@@ -429,7 +429,7 @@ class SolutionEstimator:
             amount=_scaled(base, TERM_SIZING_RANGE),
             bounds=bounds,
             need=problem.probability,
-            need_semantics="SCENARIO — governed refinancing-cliff weight",
+            need_semantics="SCENARIO â€” governed refinancing-cliff weight",
             claim_class=ClaimClass.SCENARIO,
             tier=EvidenceTier.E1,
             calibration=NEW_CALIBRATION,
@@ -468,7 +468,7 @@ class SolutionEstimator:
             bounds=_interval(0.0, base * 0.5, base * 1.3),
             need=problem.probability,
             need_semantics=(
-                "SCENARIO — refinancing weight combined with the funding-route scorecard; "
+                "SCENARIO â€” refinancing weight combined with the funding-route scorecard; "
                 "route probability is reported separately"
             ),
             claim_class=ClaimClass.SCENARIO,
@@ -523,7 +523,7 @@ class SolutionEstimator:
             amount=_scaled(base, IRRM_HEDGEABLE_SHARE),
             bounds=_interval(0.0, base * 0.5, base),
             need=problem.probability,
-            need_semantics="SCENARIO — governed interest-rate-exposure weight",
+            need_semantics="SCENARIO â€” governed interest-rate-exposure weight",
             claim_class=ClaimClass.SCENARIO,
             tier=debt.tier,
             calibration=NEW_CALIBRATION,
@@ -561,7 +561,7 @@ class SolutionEstimator:
             amount=_scaled(base, COMMODITY_HEDGEABLE_SHARE),
             bounds=_interval(0.0, base * 0.5, base),
             need=problem.probability,
-            need_semantics="SCENARIO — governed commodity-exposure weight",
+            need_semantics="SCENARIO â€” governed commodity-exposure weight",
             claim_class=ClaimClass.SCENARIO,
             tier=EvidenceTier.E0,
             calibration=NEW_CALIBRATION,
@@ -598,7 +598,7 @@ class SolutionEstimator:
             amount=_interval(base * 0.05, base * 0.15, base * 0.30),
             bounds=_interval(0.0, base * 0.5, base),
             need=max(corporate_action.probability or 0.0, capital_event.probability or 0.0),
-            need_semantics="SCENARIO — governed corporate-event weight",
+            need_semantics="SCENARIO â€” governed corporate-event weight",
             claim_class=ClaimClass.SCENARIO,
             tier=EvidenceTier.E0,
             calibration=NEW_CALIBRATION,

@@ -41,14 +41,14 @@ from .taxonomy import (
     PROBLEM_LABELS,
 )
 
-DETECTOR_VERSION = "v31-problem-detectors-3.1.0"
+DETECTOR_VERSION = "v31-problem-detectors-3.1.1"
 
 SCENARIO_CALIBRATION = (
-    "GOVERNED_SCENARIO_NOT_EMPIRICALLY_CALIBRATED — no adjudicated problem labels exist, "
+    "GOVERNED_SCENARIO_NOT_EMPIRICALLY_CALIBRATED â€” no adjudicated problem labels exist, "
     "so this weight is a governed scenario and not a validated probability"
 )
 POSTERIOR_CALIBRATION = (
-    "REPRESENTATIVE_TEMPORAL_REPLAY_NOT_RM_OUTCOME_CALIBRATED — inherited from the V3 "
+    "REPRESENTATIVE_TEMPORAL_REPLAY_NOT_RM_OUTCOME_CALIBRATED â€” inherited from the V3 "
     "change-point posterior"
 )
 

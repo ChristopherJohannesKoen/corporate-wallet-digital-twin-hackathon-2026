@@ -16,7 +16,7 @@
   ],
   "model_claims": [
     {
-      "claim": "Estimated latent external wallet is ZAR 33,326,870,425 at the scenario median.",
+      "claim": "Estimated latent external wallet is ZAR 26,724,871,366 at the scenario median.",
       "claim_class": "SCENARIO",
       "support": "shadow:E08-liquidity:v3.0.0"
     },
@@ -32,7 +32,7 @@
     }
   ],
   "observed": {
-    "activity_zar": 9384388879.899994,
+    "activity_zar": 9384388879.9,
     "claim_class": "OBSERVED",
     "provenance": "SYN_BANK_SIMULATION"
   },
@@ -42,20 +42,5 @@
     "causal uplift",
     "optimal target share"
   ],
-  "public_evidence": [
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2025-03-07",
-      "fact_id": "SANLAM-2024-CASH",
-      "label": "Sanlam Annual Financial Statements 2024 p.42",
-      "url": "https://www.sanlam.com/downloads/integrated-report-and-annual-financial-statements/2024/Sanlam-AFS-2024-spreads.pdf"
-    },
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2025-03-07",
-      "fact_id": "SANLAM-2024-TERM",
-      "label": "Sanlam Annual Financial Statements 2024 p.42",
-      "url": "https://www.sanlam.com/downloads/integrated-report-and-annual-financial-statements/2024/Sanlam-AFS-2024-spreads.pdf"
-    }
-  ]
+  "public_evidence": []
 }

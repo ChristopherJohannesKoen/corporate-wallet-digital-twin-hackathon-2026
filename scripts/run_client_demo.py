@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 
@@ -10,6 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from wallet_twin_v2.demo_data import build_client_demo_data
+from wallet_twin_v2.canonical import artifact_timestamp
 
 
 def _load(path: Path) -> dict:
@@ -46,7 +46,7 @@ def main() -> None:
     ready = all(gates.values())
     scorecard = {
         "version": "client-demo-scorecard-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": artifact_timestamp(),
         "status": "CLIENT_DEMO_READY" if ready else "CLIENT_DEMO_BLOCKED",
         "watermark": manifest["watermark"],
         "claim": "Client-ready governed demonstration using SynBank simulation, audited public evidence and pinned representative references; not bank-production data.",

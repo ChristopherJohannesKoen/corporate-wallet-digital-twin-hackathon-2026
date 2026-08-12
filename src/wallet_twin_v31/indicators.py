@@ -16,7 +16,7 @@ from .business_evidence import BusinessEvidenceRegistry
 from .contracts import IndicatorValue, SignedInterval
 from .taxonomy import ComponentStatus
 
-INDICATOR_VERSION = "v31-business-indicators-3.1.0"
+INDICATOR_VERSION = "v31-business-indicators-3.1.1"
 
 #: Bounded uncertainty applied to accounting-derived indicators.  These are
 #: transformation tolerances, not statistical confidence intervals: audited
@@ -44,7 +44,7 @@ class _Inputs:
     """Resolves indicator inputs and tracks the approval state of each one.
 
     An input that exists but has not completed finance-SME review is still used
-    for analysis — hiding it would make the twin less honest, not more — but it
+    for analysis â€” hiding it would make the twin less honest, not more â€” but it
     downgrades the indicator to ``INFERRED`` so that nothing resting on
     unreviewed evidence can ever reach a client-facing product proposal.
     """
@@ -330,7 +330,7 @@ def fx_exposure(
                 "missing_inputs": ["signed_inflow_outflow_split"],
                 "status": ComponentStatus.INFERRED,
                 "formula": indicator.formula
-                + " — only gross turnover is bank-observed, so this is an upper bound on net exposure",
+                + " â€” only gross turnover is bank-observed, so this is an upper bound on net exposure",
                 "claim_class": ClaimClass.IDENTIFIED_BOUND,
             }
         )

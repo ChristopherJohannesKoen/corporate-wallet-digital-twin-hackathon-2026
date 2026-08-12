@@ -1,4 +1,4 @@
-﻿# Corporate Wallet Digital Twin V3.1
+# Corporate Wallet Digital Twin V3.1.1
 
 ## Complete System Dossier
 
@@ -8,7 +8,7 @@
 
 **As-of date:** 12 August 2026
 
-**Status:** Client-demo ready; bank-production release deliberately not promotable
+**Status:** Hackathon submission candidate; bank-production release deliberately not promotable
 
 **Classification:** Project working document â€” public, representative, and simulated data only
 
@@ -17,6 +17,12 @@
 ---
 
 ## V3.1 authoritative implementation delta
+
+### V3.1.1 governance correction
+
+V3.1.1 makes source approval authoritative and restores Share of Wallet as the primary product surface. The source estate is exactly 82 public E1 facts: 31 approved, 51 pending, 15 active anchors, and three approved-anchor clients. Pending facts may appear in reviewer queues but cannot alter bounds, wallet/share posteriors, ranking, economics, explanations or banker-facing claims. The corrected 100-cell wallet projection therefore has 15 E1/publicly anchored and 85 E0/prior-led opportunities. The 905 typed business claims below are derived information-model records; they are not 905 audited public observations.
+
+The canonical story is now `Syn Bank activity + approved public evidence ? wallet/share intervals ? contestable gap ? 20 ? 5 heatmap ? Decision Twin action ? grounded brief`. `HACKATHON_SUBMISSION_READY` is separate from, and does not override, bank-production `NOT_PROMOTABLE`.
 
 V3.1 retains the entire V3 Shadow Wallet, positive-unlabelled need, Bayesian change-point, leakage, Treasury graph, CVaR, value-of-information, evidence, economics, GenAI and production-control substrate. It changes the final banker-facing unit of decision from a product opportunity to a conversation candidate:
 
@@ -53,9 +59,9 @@ The practical consequence is substantial. A high modelled product wallet is no l
 
 ### Evidence completeness: implemented truth versus target
 
-The V3.1 evidence programme has exceeded the minimum 300 typed-claim engineering threshold: every client has at least 15 typed claims, at least nine domains and an approved critical-path signal. It has not met the stricter target of 15 reviewed E1 public claims per client. The real audited estate contains 85 E1 business claims, and all 20 clients fall short of that stricter depth. The system records this as `BLOCKING_GATE_OPEN_INSUFFICIENT_AUDITED_PUBLIC_EVIDENCE`; it does not manufacture public facts or silently promote E0 observation-derived claims to E1.
+The V3.1 evidence programme has exceeded the minimum 300 typed-claim engineering threshold: every client has at least 15 typed claims and at least nine domains. It has not met the stricter target of 15 reviewed E1 public claims per client, and only BHP, Glencore and Shoprite have approved anchor support. The authoritative audited source estate is 31 approved E1 facts; 51 additional E1 candidates remain pending. The system records the gap rather than manufacturing public facts or silently promoting E0 observation-derived claims to E1.
 
-This distinction matters because the current 905-claim total is not 905 audited public facts. E0 claims include transparent transformations of the Syn Bank simulation and representative policy. E1 claims trace to published evidence. The 51 pending E1 facts are visible in coverage reports but cannot support conversation eligibility until finance-SME review is complete.
+This distinction matters because the current 905-claim total is not 905 audited public facts. E0 claims include transparent transformations of the Syn Bank simulation and representative policy. E1 source candidates trace to published evidence but become active only after approval. The 51 pending E1 facts are visible in coverage reports but cannot support anchor activation or eligible claim paths until finance-SME review is complete.
 
 ### Business problems, stakeholders and solutions
 

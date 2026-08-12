@@ -26,7 +26,7 @@ __all__ = [
     "build_v31_fixture",
 ]
 
-__version__ = "3.1.0"
+__version__ = "3.1.1"
 
 
 def __getattr__(name: str):  # pragma: no cover - lazy import keeps import cheap

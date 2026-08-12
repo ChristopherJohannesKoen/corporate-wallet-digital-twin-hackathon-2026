@@ -16,7 +16,7 @@
   ],
   "model_claims": [
     {
-      "claim": "Estimated latent external wallet is ZAR 17,336,968,530 at the scenario median.",
+      "claim": "Estimated latent external wallet is ZAR 5,116,672,195 at the scenario median.",
       "claim_class": "SCENARIO",
       "support": "shadow:E15-cross-border-fx:v3.0.0"
     },
@@ -32,7 +32,7 @@
     }
   ],
   "observed": {
-    "activity_zar": 2051310999.4299998,
+    "activity_zar": 2051310999.43,
     "claim_class": "OBSERVED",
     "provenance": "SYN_BANK_SIMULATION"
   },
@@ -42,13 +42,5 @@
     "causal uplift",
     "optimal target share"
   ],
-  "public_evidence": [
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2026-06-29",
-      "fact_id": "NASPERS-2026-REV",
-      "label": "Naspers Annual Financial Statements 2026 p.33",
-      "url": "https://www.naspers.com/~/media/Files/N/Naspers-Corp-V2/results-reports-and-events-archive/latest-results/fy-2026/naspers-annual-financial-statements-2026.pdf"
-    }
-  ]
+  "public_evidence": []
 }

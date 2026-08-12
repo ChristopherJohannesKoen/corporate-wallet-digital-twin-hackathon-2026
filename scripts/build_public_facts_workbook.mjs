@@ -16,28 +16,26 @@ const { SpreadsheetFile, Workbook } = await loadArtifactTool();
 
 const root = path.resolve(import.meta.dirname, "..");
 const v2 = JSON.parse(await fs.readFile(path.join(root, "dashboard/app/data/shadow-fixture.json"), "utf8"));
-const v3 = JSON.parse(await fs.readFile(path.join(root, "dashboard/app/data/v3-fixture.json"), "utf8"));
+const walletBundle = JSON.parse(await fs.readFile(path.join(root, "dashboard/app/data/wallet-v311-fixture.json"), "utf8"));
+const wallet = walletBundle.projection;
+const reviewPack = JSON.parse(await fs.readFile(path.join(root, "outputs/audit/V3.1.1-Finance-SME-Review-Pack.json"), "utf8"));
+const measurementSensitivity = JSON.parse(await fs.readFile(path.join(root, "outputs/v2_validation/measurement_policy_sensitivity.json"), "utf8"));
 const legacy = JSON.parse(await fs.readFile(path.join(root, "legacy/v1/fixtures/portfolio.json"), "utf8"));
 const facts = Object.values(v2.facts).sort((a, b) => a.entity_id.localeCompare(b.entity_id) || a.fact_id.localeCompare(b.fact_id));
-const opportunities = [...v3.opportunities].sort((a, b) => b.decision_score - a.decision_score || a.opportunity_id.localeCompare(b.opportunity_id));
-const selectedActions = new Map(v3.action_portfolio.selected_actions.map((item) => [item.opportunity_id, item]));
-const selectedEvidence = new Map(v3.evidence_acquisition.selected.map((item) => [item.opportunity_id, item]));
-const evidenceQueue = [
-  ...v3.evidence_acquisition.selected.map((item) => ({ ...item, plan_status: "SELECTED" })),
-  ...v3.evidence_acquisition.deferred.map((item) => ({ ...item, plan_status: "DEFERRED" })),
-].sort((a, b) => b.net_value_of_information_zar - a.net_value_of_information_zar);
+const opportunities = [...wallet.cells].sort((a, b) => a.rank - b.rank || a.opportunity_id.localeCompare(b.opportunity_id));
+const evidenceQueue = [...reviewPack.facts].sort((a, b) => a.portfolio_priority_rank - b.portfolio_priority_rank || a.entity_id.localeCompare(b.entity_id) || a.fact_id.localeCompare(b.fact_id));
 const outputDir = path.join(root, "outputs/audit");
-const previewDir = path.join(root, "tmp/spreadsheets/public-facts-v3");
+const previewDir = path.join(root, "tmp/spreadsheets/public-facts-v311");
 await fs.mkdir(outputDir, { recursive: true });
 await fs.mkdir(previewDir, { recursive: true });
 
 const wb = Workbook.create();
-await wb.comments.setSelf({ displayName: "Corporate Wallet Digital Twin V3" });
+await wb.comments.setSelf({ displayName: "Corporate Wallet Digital Twin V3.1.1" });
 const cover = wb.worksheets.add("Cover");
 const publicFacts = wb.worksheets.add("Public Facts");
 const coverage = wb.worksheets.add("Client Coverage");
 const anchors = wb.worksheets.add("Approved Anchors");
-const impact = wb.worksheets.add("V3 Decision Impact");
+const impact = wb.worksheets.add("Wallet Decision Impact");
 const queue = wb.worksheets.add("Evidence Queue");
 const sensitivity = wb.worksheets.add("Sensitivity");
 const checks = wb.worksheets.add("Checks");
@@ -101,7 +99,7 @@ function body(sheet, address) {
 }
 
 // Cover and decision boundary.
-title(cover, "Corporate Wallet Digital Twin V3", "Public Facts, Approval, Anchor & Decision-Impact Register | as of 2026-06-30", "J");
+title(cover, "Corporate Wallet Digital Twin V3.1.1", "Public Facts, Approval, Anchor & Wallet-Impact Register | as of 2026-06-30", "J");
 cover.getRange("A4:J4").merge();
 cover.getRange("A4").values = [["Governed evidence and decision snapshot"]];
 cover.getRange("A4:J4").format = { fill: blue, font: { bold: true, color: "#FFFFFF", size: 12 }, rowHeight: 26 };
@@ -111,42 +109,39 @@ cover.getRange("A6:B12").values = [
   ["Finance-SME approved", null],
   ["Pending SME review", null],
   ["Approved showcase anchors", null],
-  ["V3 opportunities", null],
-  ["Reconstructed wallet edges", null],
+  ["Wallet cells (20 x 5)", null],
+  ["Prior-led wallet cells", null],
 ];
 cover.getRange("B6").formulas = [["=COUNTA('Public Facts'!A5:A86)"]];
 cover.getRange("B7").formulas = [["=COUNTA('Client Coverage'!A5:A24)"]];
 cover.getRange("B8").formulas = [["=COUNTIF('Public Facts'!M5:M86,\"APPROVED\")"]];
 cover.getRange("B9").formulas = [["=COUNTIF('Public Facts'!M5:M86,\"PENDING_REVIEW\")"]];
 cover.getRange("B10").formulas = [["=COUNTA('Approved Anchors'!A5:A19)"]];
-cover.getRange("B11").formulas = [["=COUNTA('V3 Decision Impact'!A5:A104)"]];
-cover.getRange("B12").values = [[opportunities.reduce((sum, item) => sum + item.shadow_wallet.flows.length, 0)]];
+cover.getRange("B11").formulas = [["=COUNTA('Wallet Decision Impact'!A5:A104)"]];
+cover.getRange("B12").formulas = [["=COUNTIF('Wallet Decision Impact'!H5:H104,\"E0\")"]];
 cover.getRange("D6:E12").values = [
-  ["Selected RM actions", null],
-  ["Evidence acquisitions", null],
-  ["Net value of information", null],
+  ["Approved anchored cells", null],
+  ["Developer-verified pending facts", reviewPack.qa.developer_verified],
+  ["Priority review clients", reviewPack.portfolio_prioritisation.selected_client_count],
   ["Trade Finance first-rank frequency", v2.sensitivity.product_summary["Trade finance"].first_rank_frequency],
   ["Trade Finance mean top-10 share", v2.sensitivity.product_summary["Trade finance"].mean_top10_share],
   ["Trade Finance majority frequency", v2.sensitivity.product_summary["Trade finance"].majority_dominance_frequency],
-  ["Production release state", v3.release.bank_production_status],
+  ["Bank-production state", wallet.release.bank_production_status],
 ];
-cover.getRange("E6").formulas = [["=COUNTIF('V3 Decision Impact'!P5:P104,\"SELECTED\")"]];
-cover.getRange("E7").formulas = [["=COUNTIF('Evidence Queue'!B5:B104,\"SELECTED\")"]];
-cover.getRange("E8").formulas = [["=ROUND(SUMIF('Evidence Queue'!B5:B104,\"SELECTED\",'Evidence Queue'!L5:L104),0)"]];
+cover.getRange("E6").formulas = [["=COUNTIF('Wallet Decision Impact'!H5:H104,\"E1\")"]];
 cover.getRange("A6:A12").format = { fill: paleBlue, font: { bold: true, color: navy } };
 cover.getRange("D6:D12").format = { fill: paleViolet, font: { bold: true, color: navy } };
 cover.getRange("B6:B12").format = { font: { bold: true, color: teal, size: 14 } };
 cover.getRange("E6:E12").format = { font: { bold: true, color: violet, size: 14 } };
 cover.getRange("E9:E11").format.numberFormat = "0.0%";
-cover.getRange("E8").format.numberFormat = '"R"#,##0';
 cover.getRange("A14:J14").merge();
 cover.getRange("A14").values = [["Claim boundary — enforced in the workbook and product"]];
 cover.getRange("A14:J14").format = { fill: amber, font: { bold: true, color: "#FFFFFF" }, rowHeight: 24 };
 cover.getRange("A15:J19").merge();
-cover.getRange("A15").values = [["The 82 E1 facts are point-in-time public evidence, not bank observations. Only 31 facts have finance-SME approval; 51 remain PENDING_REVIEW. The 15 approved anchors are transparent accounting, FX, liquidity and trade proxies for BHP, Glencore and Shoprite. V3 Shadow Wallet flows are SCENARIO reconstructions with anonymous providers, PU need and leakage signals are POSTERIOR, economics are SIMULATED, and no competitor share or causal increment is labelled measured."]];
+cover.getRange("A15").values = [["The source estate contains 82 E1 public facts: 31 APPROVED and 51 PENDING_REVIEW. Deterministic QA marks all 51 pending records DEVELOPER_VERIFIED, but that state is not finance-SME approval. Exactly 15 client-product cells may use approved anchors; 85 remain E0 prior-led. The active E1 pooling weight is 0.35 under v2-wallet-measurement-policy-1.1.0; the V1 weight 0.84 is retired. Typed/derived claims are not additional audited observations. No competitor share or causal uplift is labelled measured."]];
 cover.getRange("A15:J19").format = { fill: paleAmber, font: { color: "#72520C", size: 10 }, wrapText: true, verticalAlignment: "top", borders: { preset: "outside", style: "thin", color: "#E8C97D" } };
 cover.getRange("A21:J21").merge();
-cover.getRange("A21").values = [["Trade Finance remains first-ranked in 100% of 10,000 governed sensitivity draws, but it is not the majority of the top 10; Cross-border FX has the majority-dominance frequency. The conclusion is reported, never hard-coded."]];
+cover.getRange("A21").values = [["Trade Finance is first-ranked in 100% and majority-dominant in 87.8% of the current 10,000 governed benchmark draws. Under the separate E1-weight sweep it stays first but its top-10 share falls from 70% to 30%. Dominance is an output to re-test, never a release condition."]];
 cover.getRange("A21:J21").format = { fill: paleTeal, font: { bold: true, color: teal, size: 10 }, rowHeight: 31, wrapText: true };
 cover.getRange("A:J").format.columnWidth = 16;
 cover.getRange("A:A").format.columnWidth = 34;
@@ -155,10 +150,10 @@ cover.freezePanes.freezeRows(2);
 
 // Public facts: one row per canonical point-in-time fact.
 title(publicFacts, "Canonical Public Facts", "82 point-in-time E1 facts across 20 clients; approval and source lineage are explicit.", "R");
-const factHeaders = ["Fact ID", "Entity ID", "Entity name", "Concept", "Value", "Unit", "Currency", "Period start", "Period end", "Available date", "Evidence tier", "Confidence", "Approval status", "Source title", "Page", "Source URL", "Document SHA-256", "V3 use boundary"];
+const factHeaders = ["Fact ID", "Entity ID", "Entity name", "Concept", "Value", "Unit", "Currency", "Period start", "Period end", "Available date", "Evidence tier", "Confidence", "Approval status", "Source title", "Page", "Source URL", "Document SHA-256", "V3.1.1 use boundary"];
 publicFacts.getRange("A4:R4").values = [factHeaders];
 header(publicFacts, "A4:R4");
-const factRows = facts.map((fact) => [fact.fact_id, fact.entity_id, fact.entity_name, fact.concept, fact.value, fact.unit, fact.currency, fact.period_start, fact.period_end, fact.available_date, fact.tier, fact.confidence, fact.approval_status, fact.source_title, fact.page, fact.source_url, fact.document_hash, fact.approval_status === "APPROVED" ? "May anchor governed inference" : "Candidate only; excluded from approved-anchor claims"]);
+const factRows = facts.map((fact) => [fact.fact_id, fact.entity_id, fact.entity_name, fact.concept, fact.value, fact.unit, fact.currency, fact.period_start, fact.period_end, fact.available_date, fact.tier, fact.confidence, fact.approval_status, fact.source_title, fact.page, fact.source_url, fact.document_hash, fact.approval_status === "APPROVED" ? "APPROVED: may activate a governed E1 anchor" : "DEVELOPER_VERIFIED / PENDING_REVIEW: excluded from all active anchors and eligible claim paths"]);
 publicFacts.getRange(`A5:R${4 + factRows.length}`).values = factRows;
 body(publicFacts, `A5:R${4 + factRows.length}`);
 publicFacts.getRange(`E5:E${4 + factRows.length}`).format.numberFormat = "#,##0.00";
@@ -223,7 +218,7 @@ coverage.getRange("J:J").format.columnWidth = 40;
 coverage.getRange("L:L").format.columnWidth = 24;
 
 // Approved anchor continuity for the three showcase clients.
-title(anchors, "Approved Product Anchors", "15 transparent anchor calculations preserved from the frozen V1 regression boundary and consumed by the V2 substrate/V3 decision layer.", "P");
+title(anchors, "Approved Product Anchors", "15 active calculations for BHP, Glencore and Shoprite; approved facts only; E1 pooling weight 0.35.", "P");
 anchors.getRange("A4:P4").values = [["Entity ID", "Entity name", "Product", "Anchor", "Low ZAR", "Base ZAR", "High ZAR", "Interval width", "Relative width", "Weight", "Formula", "Assumption", "Fact IDs", "Source pages", "Available date", "Lineage"]];
 header(anchors, "A4:P4", violet);
 const showcase = ["E01", "E02", "E09"];
@@ -233,7 +228,7 @@ for (const entityId of showcase) {
   const client = legacy.clients.find((item) => item.entity_id === entityId);
   for (const product of productOrder) {
     const anchor = client.public_anchors[product];
-    anchorRows.push([entityId, client.entity_name, product, anchor.name, zar(anchor.low_zar), zar(anchor.base_zar), zar(anchor.high_zar), null, null, anchor.weight, anchor.formula, anchor.transformation_assumption, anchor.fact_ids.join(", "), anchor.source_pages.join("; "), anchor.available_date, "legacy/v1 frozen formula -> V2 evidence substrate -> V3 decision context"]);
+    anchorRows.push([entityId, client.entity_name, product, anchor.name, zar(anchor.low_zar), zar(anchor.base_zar), zar(anchor.high_zar), null, null, 0.35, anchor.formula, anchor.transformation_assumption, anchor.fact_ids.join(", "), anchor.source_pages.join("; "), anchor.available_date, "V1 formula frozen; V3.1.1 approval-authoritative activation; measurement policy 1.1.0"]);
   }
 }
 anchors.getRange(`A5:P${4 + anchorRows.length}`).values = anchorRows;
@@ -254,24 +249,16 @@ anchors.getRange("M:N").format.columnWidth = 40;
 anchors.getRange("P:P").format.columnWidth = 42;
 
 // V3 decision impact across all 100 opportunities.
-title(impact, "V3 Decision Impact", "Every opportunity shows its evidence, claim boundary, reconstructed interval, signal state, selection and evidence-acquisition consequence.", "T");
-impact.getRange("A4:T4").values = [["Decision rank", "Opportunity ID", "Entity ID", "Client", "Sector", "Product", "Evidence tier", "Need probability", "Leakage probability", "Change probability", "Latent external wallet P50", "Bank share low", "Bank share P50", "Bank share high", "Decision score", "RM action", "Scenario value ZAR", "Evidence plan", "Net VOI ZAR", "Measurement boundary"]];
+title(impact, "V3.1.1 Wallet Decision Impact", "The complete 20 x 5 surface: A, T, q, q*, contestable gap, economics and approval boundary.", "T");
+impact.getRange("A4:T4").values = [["Rank", "Opportunity ID", "Entity ID", "Client", "Sector", "Product", "Approval state", "Evidence tier", "Observed A", "T P10", "T P50", "T P90", "q P10", "q P50", "q P90", "q*", "G P50", "Contribution P50 ZAR", "Action now", "Claim boundary"]];
 header(impact, "A4:T4");
-const impactRows = opportunities.map((item, index) => {
-  const action = selectedActions.get(item.opportunity_id);
-  const evidence = selectedEvidence.get(item.opportunity_id);
-  return [index + 1, item.opportunity_id, item.entity_id, item.entity_name, item.sector, item.product, item.evidence_tier, item.need.product_need_probability, item.leakage.alarm_probability, item.change_point.current_probability, zar(item.shadow_wallet.latent_external_wallet.median), item.shadow_wallet.bank_share.lower, item.shadow_wallet.bank_share.median, item.shadow_wallet.bank_share.upper, item.decision_score, action ? "SELECTED" : "NOT SELECTED", zar(action?.expected_scenario_value_zar ?? 0), evidence ? "SELECTED" : "DEFERRED", zar(evidence?.net_value_of_information_zar ?? 0), `${item.shadow_wallet.claim_class}/${item.shadow_wallet.measurement_status}; need/leakage ${item.need.claim_class}`];
-});
+const impactRows = opportunities.map((item) => [item.rank, item.opportunity_id, item.entity_id, item.entity_name, item.sector, item.product, item.approval_state, item.evidence_tier, zar(item.observed_activity.normalized_amount), zar(item.posterior_wallet.lower), zar(item.posterior_wallet.median), zar(item.posterior_wallet.upper), item.share_interval.lower, item.share_interval.median, item.share_interval.upper, item.target_share_scenario, zar(item.contestable_activity?.median ?? 0), zar(item.scenario_contribution?.median ?? 0), item.permitted_action_now, `${item.share_claim_class}/${item.commercial_claim_class}; ${item.anchor_activation}`]);
 impact.getRange(`A5:T${4 + impactRows.length}`).values = impactRows;
 body(impact, `A5:T${4 + impactRows.length}`);
-impact.getRange(`H5:J${4 + impactRows.length}`).format.numberFormat = "0.0%";
-impact.getRange(`K5:K${4 + impactRows.length}`).setNumberFormat("R#,##0");
-impact.getRange(`L5:N${4 + impactRows.length}`).format.numberFormat = "0.0%";
-impact.getRange(`O5:O${4 + impactRows.length}`).format.numberFormat = "0.00";
-impact.getRange(`Q5:Q${4 + impactRows.length}`).setNumberFormat("R#,##0");
-impact.getRange(`S5:S${4 + impactRows.length}`).setNumberFormat("R#,##0");
-impact.getRange(`A5:T${4 + impactRows.length}`).conditionalFormats.add("expression", { formula: "=$P5=\"SELECTED\"", format: { fill: paleTeal } });
-impact.getRange(`R5:R${4 + impactRows.length}`).conditionalFormats.add("containsText", { text: "SELECTED", format: { fill: paleViolet, font: { color: violet, bold: true } } });
+impact.getRange(`I5:L${4 + impactRows.length}`).setNumberFormat("#,##0");
+impact.getRange(`M5:P${4 + impactRows.length}`).format.numberFormat = "0.0%";
+impact.getRange(`Q5:R${4 + impactRows.length}`).setNumberFormat("R#,##0");
+impact.getRange(`A5:T${4 + impactRows.length}`).conditionalFormats.add("expression", { formula: "=$G5=\"APPROVED\"", format: { fill: paleTeal } });
 impact.freezePanes.freezeRows(4);
 impact.getRange("A:T").format.columnWidth = 15;
 impact.getRange("B:B").format.columnWidth = 28;
@@ -279,28 +266,27 @@ impact.getRange("D:D").format.columnWidth = 23;
 impact.getRange("T:T").format.columnWidth = 48;
 
 // Evidence acquisition queue.
-title(queue, "Evidence Acquisition Queue", "V3 value-of-information policy ranks evidence work; retrieval remains human-approved and non-autonomous.", "N");
-queue.getRange("A4:N4").values = [["Plan rank", "Plan status", "Candidate ID", "Entity ID", "Opportunity ID", "Product", "Evidence type", "Expected rank-flip probability", "Interval-width reduction", "Decision value ZAR", "Acquisition + latency cost ZAR", "Net VOI ZAR", "Required approval", "Autonomy boundary"]];
+title(queue, "Finance-SME Four-Eyes Queue", "51 developer-verified candidates; workflow priority covers 81.79% of prior-led scenario value; every human decision field is blank.", "N");
+queue.getRange("A4:N4").values = [["Priority rank", "80% cohort", "Fact ID", "Entity ID", "Client", "Concept", "Value", "Currency", "Unit", "Page", "Developer QA", "Approval", "Finance SME decision", "Independent approver decision"]];
 header(queue, "A4:N4", violet);
-const queueRows = evidenceQueue.map((item, index) => [index + 1, item.plan_status, item.candidate_id, item.entity_id, item.opportunity_id, item.product, item.evidence_type, item.expected_rank_flip_probability, item.expected_interval_width_reduction, zar(item.expected_decision_value_zar), zar(item.acquisition_cost_zar + item.latency_penalty_zar), zar(item.net_value_of_information_zar), item.required_approval, "No autonomous retrieval or approval"]);
+const queueRows = evidenceQueue.map((item) => [item.portfolio_priority_rank, item.in_80pct_review_priority ? "PRIORITY" : "DEFERRED", item.fact_id, item.entity_id, item.entity_name, item.concept, item.value, item.currency, item.unit, item.page, item.developer_qa_state, item.approval_status, "", ""]);
 queue.getRange(`A5:N${4 + queueRows.length}`).values = queueRows;
 body(queue, `A5:N${4 + queueRows.length}`);
-queue.getRange(`H5:I${4 + queueRows.length}`).format.numberFormat = "0.0%";
-queue.getRange(`J5:L${4 + queueRows.length}`).setNumberFormat("R#,##0");
+queue.getRange(`G5:G${4 + queueRows.length}`).setNumberFormat("#,##0.00");
 queue.getRange(`A5:N${4 + queueRows.length}`).conditionalFormats.add("expression", { formula: "=$B5=\"SELECTED\"", format: { fill: paleTeal } });
 queue.freezePanes.freezeRows(4);
 queue.getRange("A:N").format.columnWidth = 16;
-queue.getRange("C:C").format.columnWidth = 48;
-queue.getRange("E:E").format.columnWidth = 28;
-queue.getRange("G:G").format.columnWidth = 32;
-queue.getRange("M:N").format.columnWidth = 36;
+queue.getRange("C:C").format.columnWidth = 34;
+queue.getRange("E:E").format.columnWidth = 26;
+queue.getRange("F:F").format.columnWidth = 30;
+queue.getRange("M:N").format.columnWidth = 32;
 
 // Global 10,000-draw sensitivity.
 title(sensitivity, "Global Sensitivity", "10,000 reproducible Latin-hypercube draws; product dominance is an output, never a release condition.", "J");
 sensitivity.getRange("A4:J4").values = [["Product", "First-ranked frequency", "Mean top-10 share", "Majority-dominance frequency", "Economics P05", "Economics P50", "Economics P95", "Trade Finance first?", "Trade Finance majority?", "Interpretation"]];
 header(sensitivity, "A4:J4", violet);
 const productSummary = Object.entries(v2.sensitivity.product_summary);
-const sensitivityRows = productSummary.map(([product, item]) => [product, item.first_rank_frequency, item.mean_top10_share, item.majority_dominance_frequency, zar(item.absolute_economics.p05), zar(item.absolute_economics.p50), zar(item.absolute_economics.p95), product === "Trade finance" && item.first_rank_frequency >= 0.5 ? "YES" : "NO", product === "Trade finance" && item.majority_dominance_frequency >= 0.5 ? "YES" : "NO", product === "Trade finance" ? "First-ranked, but not majority-dominant" : item.majority_dominance_frequency >= 0.5 ? "Frequently occupies the majority of top 10" : "Not dominant"]);
+const sensitivityRows = productSummary.map(([product, item]) => [product, item.first_rank_frequency, item.mean_top10_share, item.majority_dominance_frequency, zar(item.absolute_economics.p05), zar(item.absolute_economics.p50), zar(item.absolute_economics.p95), product === "Trade finance" && item.first_rank_frequency >= 0.5 ? "YES" : "NO", product === "Trade finance" && item.majority_dominance_frequency >= 0.5 ? "YES" : "NO", product === "Trade finance" ? (item.majority_dominance_frequency >= 0.5 ? "Dominant in the 10,000-draw benchmark; must be re-tested with approved rates and E3 evidence" : "First-ranked but not majority-dominant") : item.majority_dominance_frequency >= 0.5 ? "Frequently occupies the majority of top 10" : "Not dominant"]);
 sensitivity.getRange(`A5:J${4 + sensitivityRows.length}`).values = sensitivityRows;
 body(sensitivity, `A5:J${4 + sensitivityRows.length}`);
 sensitivity.getRange(`B5:D${4 + sensitivityRows.length}`).format.numberFormat = "0.0%";
@@ -317,6 +303,14 @@ body(sensitivity, `F13:J${12 + voiRows.length}`);
 sensitivity.getRange(`G13:G${12 + voiRows.length}`).format.numberFormat = "0.0%";
 sensitivity.getRange("A:J").format.columnWidth = 20;
 sensitivity.getRange("J:J").format.columnWidth = 38;
+sensitivity.getRange("A25:J25").values = [["E1 weight", "Mean width", "Coverage 90%", "CRPS", "Top-10 changes", "Trade first-rank", "Trade top-10 share", "Trade majority", "Policy status", "Interpretation"]];
+header(sensitivity, "A25:J25", amber);
+const weightRows = Object.entries(measurementSensitivity.arms).map(([weight, item]) => [Number(weight), item.known_truth_diagnostics.median_wallet_interval_width_zar, item.known_truth_diagnostics.wallet_90_coverage, item.known_truth_diagnostics.wallet_scaled_crps, weight === "0.35" ? 0 : measurementSensitivity.comparisons[weight].top8_overlap_with_baseline, item.trade_finance.first_ranked ? 1 : 0, item.trade_finance.top10_share, item.trade_finance.majority_dominant ? 1 : 0, weight === "0.35" ? "ACTIVE" : "SENSITIVITY", `${item.known_truth_diagnostics.status}; ranking sensitivity only, not client calibration`]);
+sensitivity.getRange(`A26:J${25 + weightRows.length}`).values = weightRows;
+body(sensitivity, `A26:J${25 + weightRows.length}`);
+sensitivity.getRange(`A26:A${25 + weightRows.length}`).format.numberFormat = "0%";
+sensitivity.getRange(`C26:D${25 + weightRows.length}`).format.numberFormat = "0.0000";
+sensitivity.getRange(`F26:H${25 + weightRows.length}`).format.numberFormat = "0.0%";
 
 // Formula checks.
 title(checks, "V3 Register Control Checks", "All checks must evaluate PASS before the workbook is accepted as a submission artifact.", "F");
@@ -331,12 +325,13 @@ const checkRows = [
   ["Page citation completeness", 0, "=COUNTBLANK('Public Facts'!O5:O86)", "Every fact has a page", "Evidence service"],
   ["Available-date completeness", 0, "=COUNTBLANK('Public Facts'!J5:J86)", "Point-in-time eligibility", "Model risk"],
   ["Approved anchors", 15, "=COUNTA('Approved Anchors'!A5:A19)", "Five anchors for each showcase client", "Product finance"],
-  ["V3 opportunity count", 100, "=COUNTA('V3 Decision Impact'!A5:A104)", "20 clients x five products", "Model owner"],
-  ["Selected action count", v3.action_portfolio.capacity, "=COUNTIF('V3 Decision Impact'!P5:P104,\"SELECTED\")", "Capacity-constrained portfolio", "Recommendation owner"],
-  ["Selected evidence count", v3.evidence_acquisition.capacity, "=COUNTIF('Evidence Queue'!B5:B104,\"SELECTED\")", "Capacity-constrained VOI plan", "Evidence owner"],
-  ["Measured competitor shares", 0, "=COUNTIF('V3 Decision Impact'!T5:T104,\"*MEASURED*\")", "No reconstructed flow is measured", "Model risk"],
+  ["Wallet cell count", 100, "=COUNTA('Wallet Decision Impact'!A5:A104)", "20 clients x five products", "Model owner"],
+  ["Approved anchored cells", 15, "=COUNTIF('Wallet Decision Impact'!H5:H104,\"E1\")", "Only approved facts activate anchors", "Model risk"],
+  ["Prior-led cells", 85, "=COUNTIF('Wallet Decision Impact'!H5:H104,\"E0\")", "Pending facts excluded", "Model risk"],
+  ["Developer-verified pending facts", 51, "=COUNTIF('Evidence Queue'!K5:K55,\"DEVELOPER_VERIFIED\")", "QA is not approval", "Evidence owner"],
+  ["Measured competitor shares", 0, "=COUNTIF('Wallet Decision Impact'!T5:T104,\"*MEASURED*\")", "No inferred share is measured", "Model risk"],
   ["Trade Finance first-ranked frequency", 1, `='Sensitivity'!B${5 + productSummary.findIndex(([product]) => product === "Trade finance")}`, "Dominance is read from sensitivity output", "Model risk"],
-  ["Trade Finance majority frequency", 0, `='Sensitivity'!D${5 + productSummary.findIndex(([product]) => product === "Trade finance")}`, "First-ranked does not mean majority", "Model risk"],
+  ["Trade Finance majority frequency", v2.sensitivity.product_summary["Trade finance"].majority_dominance_frequency, `='Sensitivity'!D${5 + productSummary.findIndex(([product]) => product === "Trade finance")}`, "Reported, never hard-coded as a release gate", "Model risk"],
 ];
 checks.getRange(`A5:F${4 + checkRows.length}`).values = checkRows.map(([name, expected, , meaning, owner]) => [name, expected, null, null, meaning, owner]);
 for (let index = 0; index < checkRows.length; index += 1) {
@@ -381,7 +376,7 @@ sources.getRange("C:C").format.columnWidth = 24;
 sources.getRange("G:G").format.columnWidth = 26;
 sources.getRange("J:J").format.columnWidth = 52;
 
-const sheetNames = ["Cover", "Public Facts", "Client Coverage", "Approved Anchors", "V3 Decision Impact", "Evidence Queue", "Sensitivity", "Checks", "Sources"];
+const sheetNames = ["Cover", "Public Facts", "Client Coverage", "Approved Anchors", "Wallet Decision Impact", "Evidence Queue", "Sensitivity", "Checks", "Sources"];
 for (const sheetName of sheetNames) {
   const preview = await wb.render({ sheetName, autoCrop: "all", scale: 1, format: "png" });
   await fs.writeFile(path.join(previewDir, `${sheetName.toLowerCase().replaceAll(" ", "-")}.png`), new Uint8Array(await preview.arrayBuffer()));
@@ -406,6 +401,6 @@ for (const sheetName of sheetNames) {
 if (errors.length) throw new Error(`Formula errors: ${JSON.stringify(errors)}`);
 
 const output = await SpreadsheetFile.exportXlsx(wb);
-const outputPath = path.join(outputDir, "Public-Facts-Anchor-Register.xlsx");
+const outputPath = path.join(outputDir, "Public-Facts-Anchor-Register-V3.1.1.xlsx");
 await output.save(outputPath);
 console.log(JSON.stringify({ outputPath, previewDir, sheets: sheetNames, factCount: facts.length, clientCount: clients.length, anchorCount: anchorRows.length, opportunityCount: opportunities.length, errors }, null, 2));

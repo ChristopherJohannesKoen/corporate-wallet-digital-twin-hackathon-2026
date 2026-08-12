@@ -44,11 +44,11 @@ from .taxonomy import (
 ROOT = Path(__file__).resolve().parents[2]
 V1_BASELINE = ROOT / "legacy" / "v1" / "fixtures" / "portfolio.json"
 
-TWIN_VERSION = "v31-business-twin-3.1.0"
+TWIN_VERSION = "v31-business-twin-3.1.1"
 
 WATERMARK = (
-    "CLIENT DEMONSTRATION — AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + "
-    "REPRESENTATIVE POLICY — UNKNOWN INPUTS REMAIN UNKNOWN"
+    "CLIENT DEMONSTRATION â€” AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + "
+    "REPRESENTATIVE POLICY â€” UNKNOWN INPUTS REMAIN UNKNOWN"
 )
 
 #: Materiality weights per domain.  Used to size evidence gaps and to weight
@@ -676,9 +676,9 @@ class BusinessTwinBuilder:
             artifacts=ArtifactReference(
                 model_version=TWIN_VERSION,
                 dataset_version=self.registry.version,
-                prior_version="v31-governed-policy-3.1.0",
+                prior_version="v31-governed-policy-3.1.1",
                 transformation_version=TWIN_VERSION,
-                schema_version="3.1.0",
+                schema_version="3.1.1",
             ),
         )
 

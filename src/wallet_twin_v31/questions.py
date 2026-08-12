@@ -1,4 +1,4 @@
-"""Active Coverage Learning — decision-directed value of information.
+"""Active Coverage Learning â€” decision-directed value of information.
 
 The governing principle is decision-focused active learning rather than generic
 uncertainty reduction: a question is only worth asking if the answer could
@@ -47,7 +47,7 @@ from .taxonomy import (
     StakeholderRole,
 )
 
-VOI_POLICY_VERSION = "v31-decision-directed-voi-3.1.0"
+VOI_POLICY_VERSION = "v31-decision-directed-voi-3.1.1"
 VOI_DRAWS = 512
 
 
@@ -394,7 +394,7 @@ class VOIEngine:
         """Score every applicable question and return them ranked by net VOI.
 
         ``utility_draws`` are the conversation's adjusted-benefit draws.
-        ``alternative_utility`` is the best the banker could do instead — the
+        ``alternative_utility`` is the best the banker could do instead â€” the
         opportunity cost of spending the slot here.
         """
         applicable = self._applicable(problem, solutions, unknown_gates)
@@ -547,7 +547,7 @@ class ClientAnswerWorkflow:
             period_end=answer.valid_from,
             source_date=answer.valid_from,
             available_date=answer.valid_from,
-            source_title=f"Client/RM attestation — {variable.label}",
+            source_title=f"Client/RM attestation â€” {variable.label}",
             source_url=f"internal://v31/client-answers/{answer.answer_id}",
             source_hash=hashlib.sha256(
                 f"{answer.answer_id}:{answer.answer_state_id}".encode("utf-8")

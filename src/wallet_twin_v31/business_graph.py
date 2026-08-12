@@ -1,11 +1,11 @@
-"""Dynamic Business Knowledge Graph — attribute and event layers.
+"""Dynamic Business Knowledge Graph â€” attribute and event layers.
 
 The V3 corridor-only Treasury graph is replaced by two temporal layers:
 
-* **Attribute layer** — relatively stable structure: client, legal entities,
+* **Attribute layer** â€” relatively stable structure: client, legal entities,
   subsidiaries, SPVs, projects, geographies, currencies, commodities,
   stakeholder roles, business-model components and banking solutions.
-* **Event layer** — time-sensitive facts: maturities, tenders, projects,
+* **Event layer** â€” time-sensitive facts: maturities, tenders, projects,
   capex, strategy changes, payment shifts, market regimes and leakage signals.
 
 The attribute/event separation and graph-based retrieval pattern follows
@@ -57,16 +57,16 @@ from .taxonomy import (
 ROOT = Path(__file__).resolve().parents[2]
 V1_BASELINE = ROOT / "legacy" / "v1" / "fixtures" / "portfolio.json"
 
-GRAPH_VERSION = "v31-business-graph-3.1.0"
-ONTOLOGY_VERSION = "v31-graph-ontology-3.1.0"
+GRAPH_VERSION = "v31-business-graph-3.1.1"
+ONTOLOGY_VERSION = "v31-graph-ontology-3.1.1"
 
 IDENTITY_RESOLUTION_STATUS = (
-    "GLEIF_AND_REGISTRY_RESOLUTION_REGISTERED_NOT_EXECUTED — parent/SPV edges require "
+    "GLEIF_AND_REGISTRY_RESOLUTION_REGISTERED_NOT_EXECUTED â€” parent/SPV edges require "
     "deterministic identifier matching plus human review; name similarity alone is "
     "never sufficient"
 )
 MEASUREMENT_STATUS = (
-    "SYN_BANK_SIMULATION_TOPOLOGY_AND_AUDITED_PUBLIC_FACTS — reconstructed structure is "
+    "SYN_BANK_SIMULATION_TOPOLOGY_AND_AUDITED_PUBLIC_FACTS â€” reconstructed structure is "
     "not an observed client treasury graph"
 )
 
@@ -387,7 +387,7 @@ class BusinessGraphBuilder:
             # Current borrowings disclosed at a balance-sheet date fall due within
             # twelve months of that date.  If the window has already closed by
             # ``as_of`` the honest statement is that the last audited maturity
-            # position has elapsed and must be re-confirmed — that is itself a
+            # position has elapsed and must be re-confirmed â€” that is itself a
             # dated trigger, not a manufactured one.
             window_end = maturity.maturity_window_end or (
                 maturity.period_end + timedelta(days=365)
