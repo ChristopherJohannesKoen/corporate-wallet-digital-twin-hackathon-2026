@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
+from wallet_twin_v2.canonical import write_canonical_json
 from wallet_twin_v31.repository import repository
 
 
@@ -22,7 +22,7 @@ def main() -> None:
         "projection": projection.model_dump(mode="json"),
         "details": details,
     }
-    OUT.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    write_canonical_json(OUT, payload)
     print(f"wrote {OUT} ({len(projection.cells)} cells)")
 
 
