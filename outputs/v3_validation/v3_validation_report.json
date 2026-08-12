@@ -9,8 +9,8 @@
       "max_per_product": 4,
       "max_per_sector": 4
     },
-    "downside_cvar_zar": 20197290.0,
-    "expected_scenario_value_zar": 27788272.78,
+    "downside_cvar_zar": 20197290.26,
+    "expected_scenario_value_zar": 27788273.04,
     "method": "capacity-constrained robust selection using lower-tail CVaR scenario utility",
     "portfolio_id": "rm-capacity:2026-06-30:v3.0.0",
     "product_counts": {
@@ -137,16 +137,16 @@
       {
         "action_id": "action:E03-liquidity",
         "claim_class": "SCENARIO",
-        "downside_cvar_zar": 278836.18,
+        "downside_cvar_zar": 278836.31,
         "entity_id": "E03",
         "entity_name": "Anglo American",
         "evidence_tier": "E0",
-        "expected_scenario_value_zar": 590377.73,
+        "expected_scenario_value_zar": 590377.88,
         "leakage_probability": 0.013427,
-        "need_probability": 0.800325,
+        "need_probability": 0.800326,
         "opportunity_id": "E03-liquidity",
         "product": "Liquidity",
-        "robust_score": 419029.88,
+        "robust_score": 419030.02,
         "sector": "mining"
       },
       {
@@ -182,16 +182,16 @@
       {
         "action_id": "action:E15-cross-border-fx",
         "claim_class": "SCENARIO",
-        "downside_cvar_zar": 139807.5,
+        "downside_cvar_zar": 139807.59,
         "entity_id": "E15",
         "entity_name": "Naspers",
         "evidence_tier": "E0",
-        "expected_scenario_value_zar": 336965.17,
+        "expected_scenario_value_zar": 336965.27,
         "leakage_probability": 0.123819,
-        "need_probability": 0.657264,
+        "need_probability": 0.657265,
         "opportunity_id": "E15-cross-border-fx",
         "product": "Cross-border FX",
-        "robust_score": 228528.45,
+        "robust_score": 228528.55,
         "sector": "tech"
       },
       {
@@ -810,7 +810,7 @@
     "opportunities": 100,
     "positive_net_voi_requests": 8,
     "pu_labelled_positives": 33,
-    "pu_selection_constant": 0.70031845,
+    "pu_selection_constant": 0.700318,
     "rm_actions_selected": 12,
     "rm_capacity_respected": true,
     "shadow_flow_edges": 1500,

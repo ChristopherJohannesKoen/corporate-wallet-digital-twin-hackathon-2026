@@ -13,6 +13,17 @@ def _sigmoid(value: np.ndarray) -> np.ndarray:
     return 1.0 / (1.0 + np.exp(-np.clip(value, -30.0, 30.0)))
 
 
+def _published_probability(value: float) -> float:
+    """Publish PU estimates at a portable, decision-sufficient precision.
+
+    L-BFGS-B termination can differ by a few 1e-8 across SciPy/BLAS builds.
+    Six decimals is well beyond the UI/policy precision and prevents those
+    solver implementation details from changing committed products.
+    """
+
+    return round(float(value), 6)
+
+
 @dataclass(frozen=True)
 class PURecord:
     opportunity_id: str
@@ -51,7 +62,7 @@ class PositiveUnlabelledNeedModel:
 
         result = minimize(objective, np.zeros(design.shape[1]), method="L-BFGS-B")
         selection_probabilities = _sigmoid(design @ result.x)
-        selection_constant = float(
+        selection_constant = _published_probability(
             np.clip(selection_probabilities[labels == 1].mean(), 0.15, 1.0)
         )
         needs = np.clip(selection_probabilities / selection_constant, 0.0, 1.0)
@@ -61,8 +72,10 @@ class PositiveUnlabelledNeedModel:
                 entity_id=record.entity_id,
                 product=record.product,
                 positive_label_observed=record.labelled_positive,
-                labelled_positive_probability=float(selection_probabilities[index]),
-                product_need_probability=float(needs[index]),
+                labelled_positive_probability=_published_probability(
+                    selection_probabilities[index]
+                ),
+                product_need_probability=_published_probability(needs[index]),
                 selection_constant=selection_constant,
                 assumptions=[
                     "selected positives are correct",
