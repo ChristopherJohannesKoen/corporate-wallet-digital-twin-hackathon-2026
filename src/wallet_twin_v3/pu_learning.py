@@ -21,7 +21,7 @@ def _published_probability(value: float) -> float:
     solver implementation details from changing committed products.
     """
 
-    return round(float(value), 6)
+    return round(float(value), 5)
 
 
 @dataclass(frozen=True)
