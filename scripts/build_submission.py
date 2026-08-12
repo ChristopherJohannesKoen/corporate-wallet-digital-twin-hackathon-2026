@@ -16,11 +16,30 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
 
-from pypdf import PdfReader
-
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = "3.1.1"
 NODE = os.getenv("CODEX_NODE", "node")
+
+
+def enter_locked_runtime() -> None:
+    """Make the documented ``python`` command use the uv-locked interpreter.
+
+    Windows installations commonly leave an older ``python.exe`` first on
+    PATH.  Re-executing once through uv makes the canonical command portable
+    while preserving its simple evaluator-facing interface.
+    """
+
+    marker = "WALLET_TWIN_SUBMISSION_LOCKED_RUNTIME"
+    if os.getenv(marker) == "1":
+        return
+    environment = os.environ.copy()
+    environment[marker] = "1"
+    completed = subprocess.run(
+        ["uv", "run", "--frozen", "python", str(Path(__file__).resolve()), *sys.argv[1:]],
+        cwd=ROOT,
+        env=environment,
+    )
+    raise SystemExit(completed.returncode)
 
 
 def run(label: str, command: list[str], *, env: dict[str, str] | None = None) -> dict:
@@ -61,6 +80,9 @@ def require_files(paths: Iterable[Path]) -> None:
 
 
 def main() -> None:
+    enter_locked_runtime()
+    from pypdf import PdfReader
+
     checks: list[dict] = []
     checks.append(run("locked environment", [sys.executable, "-c", "import fastapi,numpy,pandas,pydantic; print('environment-ok')"]))
     for script in ("export_v3_contracts.py", "export_v31_contracts.py", "export_v311_wallet_surface.py"):

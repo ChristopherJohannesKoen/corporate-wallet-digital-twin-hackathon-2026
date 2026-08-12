@@ -210,6 +210,57 @@ runs the safe-demo tests, and checks the mirror manifest.
         '''"""Rebuild and verify only the independently generated public demo."""\n\nfrom __future__ import annotations\n\nimport json\nimport subprocess\nimport sys\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef run(*args: str) -> None:\n    subprocess.run([sys.executable, *args], cwd=ROOT, check=True)\n\n\ndef main() -> None:\n    run("scripts/export_v3_contracts.py")\n    run("scripts/export_v31_contracts.py")\n    run("-m", "pytest", "-q", "tests")\n    manifest = json.loads((ROOT / "public-mirror-manifest.json").read_text(encoding="utf-8"))\n    if manifest["status"] != "PASS":\n        raise SystemExit("public mirror manifest is not PASS")\n    print(json.dumps({"status": "PASS", "version": "3.1.1-safe", "cells": 100}, indent=2))\n\n\nif __name__ == "__main__":\n    main()\n''',
         encoding="utf-8",
     )
+    # Do not inherit the private judging workflow: it asserts confidential
+    # regression outputs that are intentionally absent from this mirror.
+    # The public workflow proves the anonymous analytical path and browser
+    # build independently from a clean clone.
+    workflow_dir = out / ".github" / "workflows"
+    shutil.rmtree(workflow_dir, ignore_errors=True)
+    workflow_dir.mkdir(parents=True, exist_ok=True)
+    (workflow_dir / "ci.yml").write_text(
+        """name: public-mirror-safe-ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  safe-demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: \"3.12\" }
+      - uses: astral-sh/setup-uv@v6
+        with: { version: \"0.9.2\", enable-cache: true }
+      - run: uv lock --check
+      - run: uv sync --frozen --extra dev --extra genai --extra production
+      - run: uv run python scripts/build_safe_demo.py
+      - run: git diff --exit-code -- contracts dashboard/app/data
+
+  workbench:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dashboard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: \"22.14\"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - run: npm ci
+      - run: npm run lint
+      - run: npm test
+      - run: npm run build
+      - run: npm audit --omit=dev --audit-level=high
+""",
+        encoding="utf-8",
+    )
     denial = []
     scanned = 0
     for path in out.rglob("*"):
