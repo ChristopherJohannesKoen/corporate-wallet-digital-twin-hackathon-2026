@@ -1,0 +1,110 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "abstentions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Abstentions",
+      "type": "array"
+    },
+    "bank_value_statement": {
+      "title": "Bank Value Statement",
+      "type": "string"
+    },
+    "brief_id": {
+      "title": "Brief Id",
+      "type": "string"
+    },
+    "citations": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "title": "Citations",
+      "type": "array"
+    },
+    "client_value_statement": {
+      "title": "Client Value Statement",
+      "type": "string"
+    },
+    "compiler": {
+      "title": "Compiler",
+      "type": "string"
+    },
+    "conversation_id": {
+      "title": "Conversation Id",
+      "type": "string"
+    },
+    "fallback_available": {
+      "default": true,
+      "title": "Fallback Available",
+      "type": "boolean"
+    },
+    "feasibility_statement": {
+      "title": "Feasibility Statement",
+      "type": "string"
+    },
+    "headline": {
+      "title": "Headline",
+      "type": "string"
+    },
+    "how": {
+      "title": "How",
+      "type": "string"
+    },
+    "missing_evidence": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Evidence",
+      "type": "array"
+    },
+    "primary_question": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Primary Question"
+    },
+    "prohibited_claims": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Prohibited Claims",
+      "type": "array"
+    },
+    "provider_used": {
+      "default": false,
+      "title": "Provider Used",
+      "type": "boolean"
+    },
+    "what": {
+      "title": "What",
+      "type": "string"
+    },
+    "why": {
+      "title": "Why",
+      "type": "string"
+    }
+  },
+  "required": [
+    "brief_id",
+    "conversation_id",
+    "headline",
+    "why",
+    "how",
+    "what",
+    "client_value_statement",
+    "bank_value_statement",
+    "feasibility_statement",
+    "compiler"
+  ],
+  "title": "ConversationBrief",
+  "type": "object"
+}

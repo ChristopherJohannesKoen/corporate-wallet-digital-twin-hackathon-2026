@@ -1,0 +1,192 @@
+{
+  "$defs": {
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "ComponentStatus": {
+      "enum": [
+        "SUPPORTED",
+        "INFERRED",
+        "UNKNOWN",
+        "NOT_APPLICABLE"
+      ],
+      "title": "ComponentStatus",
+      "type": "string"
+    },
+    "FundingRoute": {
+      "enum": [
+        "BANK_DEBT",
+        "BOND_DCM",
+        "EQUITY",
+        "PROJECT_FINANCE",
+        "INTERNAL_CASH",
+        "HYBRID_OTHER"
+      ],
+      "title": "FundingRoute",
+      "type": "string"
+    },
+    "FundingRouteScore": {
+      "additionalProperties": false,
+      "properties": {
+        "drivers": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Drivers",
+          "type": "object"
+        },
+        "probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability",
+          "type": "number"
+        },
+        "route": {
+          "$ref": "#/$defs/FundingRoute"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "route",
+        "probability",
+        "score"
+      ],
+      "title": "FundingRouteScore",
+      "type": "object"
+    },
+    "SignedInterval": {
+      "additionalProperties": false,
+      "description": "An interval that may be negative.\n\nClient and bank value can legitimately be negative (a cost-to-win exceeding\ncontribution, or an FX position that moves against the client), so the V3\nnon-negative ``AmountInterval`` is not reusable here.",
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "title": "Median",
+          "type": "number"
+        },
+        "unit": {
+          "default": "ZAR",
+          "title": "Unit",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "SignedInterval",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "challenger_status": {
+      "title": "Challenger Status",
+      "type": "string"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass",
+      "default": "SCENARIO"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "evidence_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Claim Ids",
+      "type": "array"
+    },
+    "inputs": {
+      "additionalProperties": {
+        "type": "number"
+      },
+      "title": "Inputs",
+      "type": "object"
+    },
+    "method": {
+      "title": "Method",
+      "type": "string"
+    },
+    "missing_inputs": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Missing Inputs",
+      "type": "array"
+    },
+    "model_status": {
+      "title": "Model Status",
+      "type": "string"
+    },
+    "projection_id": {
+      "title": "Projection Id",
+      "type": "string"
+    },
+    "requirement": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SignedInterval"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "requirement_status": {
+      "$ref": "#/$defs/ComponentStatus"
+    },
+    "routes": {
+      "items": {
+        "$ref": "#/$defs/FundingRouteScore"
+      },
+      "maxItems": 6,
+      "minItems": 6,
+      "title": "Routes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "projection_id",
+    "entity_id",
+    "as_of",
+    "requirement_status",
+    "routes",
+    "method",
+    "model_status",
+    "challenger_status"
+  ],
+  "title": "FundingRouteProjection",
+  "type": "object"
+}

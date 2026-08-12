@@ -1,0 +1,143 @@
+{
+  "$defs": {
+    "BankingSolution": {
+      "enum": [
+        "COLLECTIONS",
+        "PAYMENTS",
+        "LIQUIDITY_CASH_MANAGEMENT",
+        "CROSS_BORDER_FX",
+        "TRADE_FINANCE",
+        "SUPPLY_CHAIN_FINANCE",
+        "GUARANTEES_AND_LC",
+        "WORKING_CAPITAL_REVOLVING",
+        "TERM_AND_SYNDICATED_LENDING",
+        "DEBT_CAPITAL_MARKETS",
+        "PROJECT_FINANCE",
+        "INTEREST_RATE_RISK_MANAGEMENT",
+        "COMMODITY_RISK_MANAGEMENT",
+        "ESCROW_AND_AGENCY",
+        "SUSTAINABLE_FINANCE",
+        "MA_AND_STRATEGIC_ADVISORY"
+      ],
+      "title": "BankingSolution",
+      "type": "string"
+    },
+    "BusinessProblem": {
+      "enum": [
+        "WORKING_CAPITAL_PRESSURE",
+        "FX_EXPOSURE",
+        "INTEREST_RATE_EXPOSURE",
+        "COMMODITY_EXPOSURE",
+        "LIQUIDITY_FRAGMENTATION",
+        "REFINANCING_CLIFF",
+        "NEW_FUNDING_REQUIREMENT",
+        "PAYMENTS_INEFFICIENCY",
+        "COLLECTIONS_INEFFICIENCY",
+        "SUPPLY_CHAIN_RISK",
+        "PROJECT_MOBILISATION",
+        "GUARANTEE_OR_COLLATERAL_REQUIREMENT",
+        "TREASURY_CENTRALISATION",
+        "CAPITAL_STRUCTURE_EVENT",
+        "MA_OR_STRATEGIC_EVENT",
+        "ESG_TRANSITION_FUNDING",
+        "WALLET_LEAKAGE",
+        "OPERATIONAL_RESILIENCE"
+      ],
+      "title": "BusinessProblem",
+      "type": "string"
+    },
+    "StakeholderRole": {
+      "description": "Role personas only.  No named individual is resolved in the demo.",
+      "enum": [
+        "CEO_BOARD",
+        "CFO",
+        "TREASURER",
+        "COO",
+        "PROCUREMENT",
+        "FINANCE_OPERATIONS",
+        "RISK_LEGAL",
+        "SUSTAINABILITY",
+        "CORPORATE_DEVELOPMENT",
+        "CIO_TECHNOLOGY"
+      ],
+      "title": "StakeholderRole",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attestation_status": {
+      "default": "NOT_ATTESTED",
+      "title": "Attestation Status",
+      "type": "string"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "matrix_version": {
+      "title": "Matrix Version",
+      "type": "string"
+    },
+    "named_contact_status": {
+      "default": "NAMED_CONTACT_UNAVAILABLE_IN_DEMONSTRATION",
+      "title": "Named Contact Status",
+      "type": "string"
+    },
+    "ownership_rationale": {
+      "title": "Ownership Rationale",
+      "type": "string"
+    },
+    "primary_role": {
+      "$ref": "#/$defs/StakeholderRole"
+    },
+    "problem": {
+      "$ref": "#/$defs/BusinessProblem"
+    },
+    "requires_rm_confirmation": {
+      "default": true,
+      "title": "Requires Rm Confirmation",
+      "type": "boolean"
+    },
+    "resolution_id": {
+      "title": "Resolution Id",
+      "type": "string"
+    },
+    "responsibility_weight": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Responsibility Weight",
+      "type": "number"
+    },
+    "secondary_roles": {
+      "items": {
+        "$ref": "#/$defs/StakeholderRole"
+      },
+      "title": "Secondary Roles",
+      "type": "array"
+    },
+    "supporting_solutions": {
+      "items": {
+        "$ref": "#/$defs/BankingSolution"
+      },
+      "title": "Supporting Solutions",
+      "type": "array"
+    },
+    "weight_semantics": {
+      "title": "Weight Semantics",
+      "type": "string"
+    }
+  },
+  "required": [
+    "resolution_id",
+    "entity_id",
+    "problem",
+    "primary_role",
+    "responsibility_weight",
+    "weight_semantics",
+    "ownership_rationale",
+    "matrix_version"
+  ],
+  "title": "StakeholderResolution",
+  "type": "object"
+}

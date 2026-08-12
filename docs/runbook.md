@@ -1,4 +1,24 @@
-# Corporate Wallet Digital Twin V3 — operational runbook
+# Corporate Wallet Digital Twin V3.1 — operational runbook
+
+## V3.1 canonical rebuild and smoke test
+
+V3.1 adds the Business Twin service while keeping `/v1` and existing `/v3`
+responses backward compatible. Rebuild contracts, canonical outputs and the
+server-only workbench fixture with:
+
+```powershell
+uv run python scripts/freeze_v3_regression.py
+uv run python scripts/export_v31_contracts.py
+uv run python scripts/build_v31_notebook.py
+```
+
+Start the composed BFF with `uv run uvicorn wallet_twin_v2.service_apps:workbench_bff_app`
+and smoke-test `GET /v3/decision-twin?as_of=2026-06-30&week_start=2026-07-06`.
+The separate Business Twin service is
+`wallet_twin_v2.service_apps:business_twin_app`. All V3.1 mutations require an
+idempotency key and write an immutable domain event/outbox record. Rollback is
+atomic at the snapshot manifest; do not mix twin, policy, rate, graph or prompt
+versions. A successful internal rebuild does not override `NOT_PROMOTABLE`.
 
 ## Scope and current release state
 

@@ -1,0 +1,177 @@
+{
+  "$defs": {
+    "ApprovalStatus": {
+      "enum": [
+        "DRAFT",
+        "PENDING_REVIEW",
+        "APPROVED",
+        "REJECTED",
+        "EXPIRED"
+      ],
+      "title": "ApprovalStatus",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "StakeholderRole": {
+      "description": "Role personas only.  No named individual is resolved in the demo.",
+      "enum": [
+        "CEO_BOARD",
+        "CFO",
+        "TREASURER",
+        "COO",
+        "PROCUREMENT",
+        "FINANCE_OPERATIONS",
+        "RISK_LEGAL",
+        "SUSTAINABILITY",
+        "CORPORATE_DEVELOPMENT",
+        "CIO_TECHNOLOGY"
+      ],
+      "title": "StakeholderRole",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "answer_id": {
+      "title": "Answer Id",
+      "type": "string"
+    },
+    "answer_state_id": {
+      "title": "Answer State Id",
+      "type": "string"
+    },
+    "approval_status": {
+      "$ref": "#/$defs/ApprovalStatus",
+      "default": "PENDING_REVIEW"
+    },
+    "consent_reference": {
+      "minLength": 8,
+      "title": "Consent Reference",
+      "type": "string"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "free_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Free Text"
+    },
+    "question_id": {
+      "title": "Question Id",
+      "type": "string"
+    },
+    "respondent_role": {
+      "$ref": "#/$defs/StakeholderRole"
+    },
+    "respondent_type": {
+      "title": "Respondent Type",
+      "type": "string"
+    },
+    "resulting_claim_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Resulting Claim Id"
+    },
+    "reviewed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reviewed At"
+    },
+    "reviewer_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reviewer Id"
+    },
+    "scope": {
+      "title": "Scope",
+      "type": "string"
+    },
+    "source": {
+      "title": "Source",
+      "type": "string"
+    },
+    "submitted_at": {
+      "format": "date-time",
+      "title": "Submitted At",
+      "type": "string"
+    },
+    "tier": {
+      "$ref": "#/$defs/EvidenceTier",
+      "default": "E2"
+    },
+    "valid_from": {
+      "format": "date",
+      "title": "Valid From",
+      "type": "string"
+    },
+    "valid_to": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Valid To"
+    }
+  },
+  "required": [
+    "answer_id",
+    "question_id",
+    "entity_id",
+    "respondent_role",
+    "respondent_type",
+    "answer_state_id",
+    "consent_reference",
+    "scope",
+    "valid_from",
+    "source",
+    "submitted_at"
+  ],
+  "title": "ClientAnswer",
+  "type": "object"
+}

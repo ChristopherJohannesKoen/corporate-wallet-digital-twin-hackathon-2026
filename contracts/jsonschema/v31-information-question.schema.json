@@ -1,0 +1,165 @@
+{
+  "$defs": {
+    "AnswerState": {
+      "additionalProperties": false,
+      "properties": {
+        "implied_shift": {
+          "title": "Implied Shift",
+          "type": "number"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "probability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Probability",
+          "type": "number"
+        },
+        "state_id": {
+          "title": "State Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "state_id",
+        "label",
+        "probability",
+        "implied_shift"
+      ],
+      "title": "AnswerState",
+      "type": "object"
+    },
+    "StakeholderRole": {
+      "description": "Role personas only.  No named individual is resolved in the demo.",
+      "enum": [
+        "CEO_BOARD",
+        "CFO",
+        "TREASURER",
+        "COO",
+        "PROCUREMENT",
+        "FINANCE_OPERATIONS",
+        "RISK_LEGAL",
+        "SUSTAINABILITY",
+        "CORPORATE_DEVELOPMENT",
+        "CIO_TECHNOLOGY"
+      ],
+      "title": "StakeholderRole",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "answer_states": {
+      "items": {
+        "$ref": "#/$defs/AnswerState"
+      },
+      "minItems": 2,
+      "title": "Answer States",
+      "type": "array"
+    },
+    "can_change_abstention": {
+      "title": "Can Change Abstention",
+      "type": "boolean"
+    },
+    "can_change_bundle": {
+      "title": "Can Change Bundle",
+      "type": "boolean"
+    },
+    "can_change_feasibility": {
+      "title": "Can Change Feasibility",
+      "type": "boolean"
+    },
+    "can_change_rank": {
+      "title": "Can Change Rank",
+      "type": "boolean"
+    },
+    "conversation_id": {
+      "title": "Conversation Id",
+      "type": "string"
+    },
+    "cost_zar": {
+      "minimum": 0,
+      "title": "Cost Zar",
+      "type": "number"
+    },
+    "delay_penalty_zar": {
+      "minimum": 0,
+      "title": "Delay Penalty Zar",
+      "type": "number"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "expected_utility_with_answer": {
+      "title": "Expected Utility With Answer",
+      "type": "number"
+    },
+    "expected_utility_without_answer": {
+      "title": "Expected Utility Without Answer",
+      "type": "number"
+    },
+    "net_voi_zar": {
+      "title": "Net Voi Zar",
+      "type": "number"
+    },
+    "policy_version": {
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "question_id": {
+      "title": "Question Id",
+      "type": "string"
+    },
+    "question_text": {
+      "title": "Question Text",
+      "type": "string"
+    },
+    "scenario_draws": {
+      "minimum": 32,
+      "title": "Scenario Draws",
+      "type": "integer"
+    },
+    "selected": {
+      "title": "Selected",
+      "type": "boolean"
+    },
+    "stakeholder_role": {
+      "$ref": "#/$defs/StakeholderRole"
+    },
+    "variable_id": {
+      "title": "Variable Id",
+      "type": "string"
+    },
+    "variable_label": {
+      "title": "Variable Label",
+      "type": "string"
+    }
+  },
+  "required": [
+    "question_id",
+    "entity_id",
+    "conversation_id",
+    "variable_id",
+    "variable_label",
+    "question_text",
+    "stakeholder_role",
+    "answer_states",
+    "expected_utility_with_answer",
+    "expected_utility_without_answer",
+    "cost_zar",
+    "delay_penalty_zar",
+    "net_voi_zar",
+    "can_change_rank",
+    "can_change_bundle",
+    "can_change_feasibility",
+    "can_change_abstention",
+    "scenario_draws",
+    "selected",
+    "policy_version"
+  ],
+  "title": "InformationQuestion",
+  "type": "object"
+}

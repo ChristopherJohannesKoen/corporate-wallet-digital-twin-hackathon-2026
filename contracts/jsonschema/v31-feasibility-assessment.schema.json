@@ -1,0 +1,187 @@
+{
+  "$defs": {
+    "ConversationAction": {
+      "description": "What the RM is actually being asked to do.",
+      "enum": [
+        "PRODUCT_PROPOSAL",
+        "DISCOVERY",
+        "EVIDENCE_ACQUISITION",
+        "VALIDATION"
+      ],
+      "title": "ConversationAction",
+      "type": "string"
+    },
+    "FeasibilityGate": {
+      "enum": [
+        "PRODUCT_CAPABILITY",
+        "CREDIT_AND_RISK",
+        "COMPLIANCE_AND_CONDUCT",
+        "LEGAL_AND_JURISDICTION",
+        "OPERATIONS_AND_ONBOARDING",
+        "TECHNOLOGY_AND_INTEGRATION"
+      ],
+      "title": "FeasibilityGate",
+      "type": "string"
+    },
+    "GateResult": {
+      "additionalProperties": false,
+      "properties": {
+        "attested_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attested At"
+        },
+        "attested_by_role": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Attested By Role"
+        },
+        "gate": {
+          "$ref": "#/$defs/FeasibilityGate"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "required_confirmation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required Confirmation"
+        },
+        "status": {
+          "$ref": "#/$defs/GateStatus"
+        }
+      },
+      "required": [
+        "gate",
+        "status",
+        "required",
+        "reason"
+      ],
+      "title": "GateResult",
+      "type": "object"
+    },
+    "GateStatus": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN",
+        "NOT_REQUIRED"
+      ],
+      "title": "GateStatus",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "assessment_id": {
+      "title": "Assessment Id",
+      "type": "string"
+    },
+    "banker_confirmation_notice": {
+      "title": "Banker Confirmation Notice",
+      "type": "string"
+    },
+    "blocked": {
+      "title": "Blocked",
+      "type": "boolean"
+    },
+    "bundle_id": {
+      "title": "Bundle Id",
+      "type": "string"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "feasibility_multiplier": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Feasibility Multiplier",
+      "type": "number"
+    },
+    "friction_score": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Friction Score",
+      "type": "number"
+    },
+    "gates": {
+      "items": {
+        "$ref": "#/$defs/GateResult"
+      },
+      "maxItems": 6,
+      "minItems": 6,
+      "title": "Gates",
+      "type": "array"
+    },
+    "material_unknowns": {
+      "items": {
+        "$ref": "#/$defs/FeasibilityGate"
+      },
+      "title": "Material Unknowns",
+      "type": "array"
+    },
+    "permitted_action": {
+      "$ref": "#/$defs/ConversationAction"
+    },
+    "policy_version": {
+      "title": "Policy Version",
+      "type": "string"
+    },
+    "required_confirmations": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Required Confirmations",
+      "type": "array"
+    },
+    "risk_score": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Risk Score",
+      "type": "number"
+    }
+  },
+  "required": [
+    "assessment_id",
+    "entity_id",
+    "bundle_id",
+    "gates",
+    "blocked",
+    "permitted_action",
+    "friction_score",
+    "risk_score",
+    "feasibility_multiplier",
+    "banker_confirmation_notice",
+    "policy_version"
+  ],
+  "title": "FeasibilityAssessment",
+  "type": "object"
+}

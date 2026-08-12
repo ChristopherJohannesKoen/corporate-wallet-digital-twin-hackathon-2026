@@ -1,5 +1,14 @@
 # Methodology
 
+> **V3.1 Decision Twin extension.** The authoritative V3.1 method is documented
+> in [`Corporate_Wallet_Digital_Twin_V3_1_Technical_Foundations.md`](Corporate_Wallet_Digital_Twin_V3_1_Technical_Foundations.md).
+> It extends the V3 client–product substrate to the conversation object
+> `(client, stakeholder, problem, bundle, window)`, adds the twelve-domain
+> Business Model Twin, typed business claims, temporal graphs, interpretable
+> problem/role/solution policies, dual value, feasibility, robust Pareto/CVaR
+> selection and decision-directed VOI. The V1 text below remains a regression
+> history and must not be used as the current production claim set.
+
 > **Archived V1 methodology.** Its three-client evidence counts, browser/runtime architecture, confidence score and prototype calculations are frozen regression benchmarks under `legacy/v1`. The current V3 method is documented in [`v3_methodology.md`](v3_methodology.md), with full theory in [`Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md`](Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md).
 
 ## 1. Decision objective

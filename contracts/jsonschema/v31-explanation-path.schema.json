@@ -1,0 +1,101 @@
+{
+  "$defs": {
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "ExplanationStep": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "edge_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Edge Id"
+        },
+        "evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Claim Ids",
+          "type": "array"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "node_id": {
+          "title": "Node Id",
+          "type": "string"
+        },
+        "step": {
+          "title": "Step",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step",
+        "node_id",
+        "label",
+        "claim_class"
+      ],
+      "title": "ExplanationStep",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Event -> BusinessImpact -> Problem -> Stakeholder -> Solution -> ClientValue -> BankValue.",
+  "properties": {
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "evidence_backed": {
+      "title": "Evidence Backed",
+      "type": "boolean"
+    },
+    "path_id": {
+      "title": "Path Id",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/ExplanationStep"
+      },
+      "minItems": 5,
+      "title": "Steps",
+      "type": "array"
+    },
+    "unsupported_steps": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Unsupported Steps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "path_id",
+    "entity_id",
+    "steps",
+    "evidence_backed"
+  ],
+  "title": "ExplanationPath",
+  "type": "object"
+}

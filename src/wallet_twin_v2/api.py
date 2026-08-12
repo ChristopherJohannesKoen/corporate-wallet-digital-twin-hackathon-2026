@@ -39,9 +39,12 @@ from .timing import TimingService
 
 
 app = FastAPI(
-    title="Corporate Wallet Digital Twin V3",
-    version="3.0.0",
-    description="Private, entitlement-aware latent-wallet reconstruction and decision-support API",
+    title="Corporate Wallet Digital Twin V3.1",
+    version="3.1.0",
+    description=(
+        "Private, entitlement-aware Corporate Banking Decision Twin API: "
+        "wallet reconstruction, business-model evidence, conversations and controls"
+    ),
     docs_url="/internal/docs",
     redoc_url=None,
 )
@@ -594,3 +597,11 @@ def list_events(context: EntitlementContext = Depends(principal)) -> dict:
 from wallet_twin_v3.api import router as v3_router  # noqa: E402
 
 app.include_router(v3_router)
+
+
+# V3.1 adds the Corporate Banking Decision Twin surfaces.  It shares the /v3
+# route major deliberately: the change is additive, and a dotted /v3.1 prefix
+# would force every existing consumer to re-integrate for nothing.
+from wallet_twin_v31.api import router as v31_router  # noqa: E402
+
+app.include_router(v31_router)

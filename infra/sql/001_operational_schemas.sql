@@ -7,6 +7,8 @@ CREATE SCHEMA IF NOT EXISTS experiment;
 CREATE SCHEMA IF NOT EXISTS recommendation;
 CREATE SCHEMA IF NOT EXISTS entitlement;
 CREATE SCHEMA IF NOT EXISTS decision_intelligence;
+CREATE SCHEMA IF NOT EXISTS business_twin;
+CREATE SCHEMA IF NOT EXISTS client_learning;
 
 CREATE TABLE IF NOT EXISTS evidence.fact_workflow (
   fact_id uuid PRIMARY KEY,
@@ -175,3 +177,89 @@ CREATE TABLE IF NOT EXISTS decision_intelligence.brief_compilation (
   compiled_at timestamptz NOT NULL,
   UNIQUE (opportunity_id, template_version, evidence_pack_hash)
 );
+
+-- V3.1 workflow state. Analytical projections remain in Delta; PostgreSQL owns
+-- only transactions, reviews, publication state and the event outbox.
+CREATE TABLE IF NOT EXISTS business_twin.snapshot_publication (
+  publication_id uuid PRIMARY KEY,
+  snapshot_id text NOT NULL UNIQUE,
+  as_of date NOT NULL,
+  source_snapshot_hash char(64) NOT NULL,
+  state text NOT NULL CHECK (state IN ('DRAFT','VALIDATED','PUBLISHED','REJECTED','ROLLED_BACK')),
+  validation_report jsonb NOT NULL,
+  promoted_atomically_at timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+
+CREATE TABLE IF NOT EXISTS business_twin.business_claim_review_task (
+  task_id uuid PRIMARY KEY,
+  claim_id text NOT NULL,
+  client_id text NOT NULL,
+  materiality text NOT NULL,
+  status text NOT NULL CHECK (status IN ('PENDING_REVIEW','APPROVED','REJECTED','EXPIRED')),
+  reviewer_ids_hash char(64)[] NOT NULL DEFAULT '{}',
+  reviewer_lineage jsonb NOT NULL,
+  opened_at timestamptz NOT NULL,
+  completed_at timestamptz,
+  UNIQUE (claim_id, status)
+);
+
+CREATE TABLE IF NOT EXISTS recommendation.coverage_plan_state (
+  plan_id text PRIMARY KEY,
+  as_of date NOT NULL,
+  week_start date NOT NULL,
+  selected_conversation_ids text[] NOT NULL,
+  solver_status text NOT NULL,
+  policy_version text NOT NULL,
+  scenario_snapshot_hash char(64) NOT NULL,
+  state text NOT NULL CHECK (state IN ('DRAFT','PUBLISHED','SUPERSEDED','ROLLED_BACK')),
+  published_at timestamptz
+);
+
+CREATE TABLE IF NOT EXISTS recommendation.feasibility_attestation (
+  attestation_id uuid PRIMARY KEY,
+  conversation_id text NOT NULL,
+  client_id text NOT NULL,
+  gate text NOT NULL,
+  status text NOT NULL CHECK (status IN ('PASS','FAIL','NOT_REQUIRED')),
+  reason text NOT NULL,
+  attested_by_role text NOT NULL,
+  attested_by_hash char(64) NOT NULL,
+  idempotency_key text NOT NULL UNIQUE,
+  attested_at timestamptz NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS client_learning.client_answer_review (
+  answer_id uuid PRIMARY KEY,
+  question_id text NOT NULL,
+  conversation_id text NOT NULL,
+  client_id text NOT NULL,
+  response jsonb NOT NULL,
+  respondent_hash char(64) NOT NULL,
+  consent_reference_hash char(64) NOT NULL,
+  scope text NOT NULL,
+  status text NOT NULL CHECK (status IN ('PENDING_REVIEW','APPROVED','REJECTED','EXPIRED')),
+  reviewer_lineage jsonb NOT NULL,
+  idempotency_key text NOT NULL UNIQUE,
+  submitted_at timestamptz NOT NULL,
+  reviewed_at timestamptz
+);
+
+CREATE TABLE IF NOT EXISTS decision_intelligence.transactional_event_outbox (
+  event_id uuid PRIMARY KEY,
+  domain_topic text NOT NULL CHECK (domain_topic IN (
+    'wallet-twin.business-twin.v1','wallet-twin.decision.v1',
+    'wallet-twin.client-learning.v1','wallet-twin.audit.v1'
+  )),
+  event_type text NOT NULL,
+  schema_version text NOT NULL,
+  aggregate_id text NOT NULL,
+  idempotency_key text NOT NULL UNIQUE,
+  payload jsonb NOT NULL,
+  occurred_at timestamptz NOT NULL,
+  published_at timestamptz
+);
+
+CREATE INDEX IF NOT EXISTS v31_event_outbox_unpublished_idx
+  ON decision_intelligence.transactional_event_outbox(occurred_at)
+  WHERE published_at IS NULL;

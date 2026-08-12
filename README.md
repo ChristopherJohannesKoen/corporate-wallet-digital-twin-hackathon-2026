@@ -1,4 +1,4 @@
-# Corporate Wallet Digital Twin V3
+# Corporate Wallet Digital Twin V3.1
 
 **Team:** Corporate Wallet Digital Twin  
 **Team member:** Christopher Koen  
@@ -12,6 +12,26 @@ audited public evidence and governed priors to answer **what is unseen**, **what
 changing**, **which actions survive uncertainty** and **which missing evidence is
 worth acquiring next**.
 
+**V3.1 changes the decision object.** V3 ranked `(client, product)`. V3.1 ranks
+the conversation a banker actually has:
+
+```
+(client, stakeholder, business problem, solution bundle, engagement window)
+```
+
+It reconstructs each client's business model from twelve evidence-linked
+components, detects which of eighteen banking problems that model implies,
+resolves the responsible stakeholder role, evaluates all sixteen supported
+solutions, quantifies client value and bank value **separately**, applies six
+feasibility gates, works out the timing, proposes the highest-value question to
+ask, and turns the result into an eight-conversation weekly coverage plan under a
+mixed-integer CVaR objective. V3.1 is additive: V3.0 outputs are frozen as a
+regression boundary and reproduce at the frozen published two-decimal precision.
+
+> Start with `docs/v31_implementation_status.md` — it states what is built, what
+> is measured, and where the evidence base falls short of the target rather than
+> papering over the gap.
+
 > **Data boundary:** client-facing results are a governed demonstration using the
 > supplied Syn Bank simulation, public E1 evidence and representative priors
 > data. They are not measured competitor share, bank-approved pricing or causal
@@ -21,19 +41,42 @@ worth acquiring next**.
 
 - `output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf` - one-page submission.
 - `output/presentation/Corporate-Wallet-Digital-Twin.pptx` - 10-minute judging deck.
-- `notebooks/01_wallet_twin_demo.ipynb` - executed V3 judging notebook.
-- `deliverables/Corporate_Wallet_Digital_Twin_V3_System_Dossier.docx` -
-  authoritative end-to-end V3 product, control, validation and handoff record.
-- `deliverables/Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.docx` -
-  detailed V3 statistical theory, latent-network models, decision engineering,
+- `notebooks/01_wallet_twin_demo.ipynb` - executed V3.1 judging notebook.
+- `deliverables/Corporate_Wallet_Digital_Twin_V3_1_System_Dossier.docx` -
+  authoritative end-to-end V3.1 product, control, validation and handoff record.
+- `deliverables/Corporate_Wallet_Digital_Twin_V3_1_Technical_Foundations.docx` -
+  detailed V3.1 statistical theory, latent-network models, decision engineering,
   production architecture and literature traceability.
 - `dashboard/` - entitled portfolio and client workbench.
-- `docs/Corporate_Wallet_Digital_Twin_V3_System_Dossier.md` - source edition of
-  the complete V3 dossier.
-- `docs/Corporate_Wallet_Digital_Twin_V3_Technical_Foundations.md` - source
-  edition of the V3 technical white paper.
+- `docs/Corporate_Wallet_Digital_Twin_V3_1_System_Dossier.md` - source edition of
+  the complete V3.1 dossier.
+- `docs/Corporate_Wallet_Digital_Twin_V3_1_Technical_Foundations.md` - source
+  edition of the V3.1 technical white paper.
 - `docs/v3_methodology.md` - concise V3 theory, algorithms, contracts and literature.
 - `docs/v3_implementation_status.md` - implemented/external-gate status register.
+- `docs/v31_implementation_status.md` - **V3.1 Decision Twin status, measured
+  outputs and the honest gaps**.
+
+## What V3.1 adds
+
+- 20 Business Model Twins x 12 components = 240 evidence-linked components.
+- 905 typed business evidence claims, with the existing 82 public facts migrated
+  and relinked rather than discarded, plus 71 explicit gap records.
+- A two-layer business knowledge graph: 993 nodes, 1,154 edges, zero orphans,
+  zero dangling edges, reproducible for the same `as_of`.
+- 360 problem hypotheses from 18 interpretable detectors, each storing
+  disconfirming evidence separately from supporting evidence.
+- 320 client-solution projections across 16 solution families - 198 quantified,
+  122 deliberately fail-closed with a stated reason.
+- Client value and bank value computed by separate engines that are never netted;
+  hedging solutions report risk reduction and refuse to monetise it.
+- An eight-conversation weekly plan from a genuine mixed-integer CVaR program
+  (`scipy.optimize.milp`/HiGHS, Rockafellar-Uryasev linearisation) with a
+  labelled greedy fallback.
+- 308 decision-directed questions selected from 891 evaluated - every one has
+  positive net VOI and can change a rank, bundle, feasibility state or abstention.
+- A full V1/V2/V3/V3.1 test suite, including the frozen V3.0 boundary; the
+  current verified count is reported by CI rather than hard-coded here.
 
 ## What the current demonstration proves
 
@@ -65,6 +108,8 @@ environment:
 ```powershell
 uv sync --frozen --extra dev --extra genai --extra production
 uv run python scripts/export_v3_contracts.py
+uv run python scripts/freeze_v3_regression.py    # V3.0 regression boundary
+uv run python scripts/export_v31_contracts.py    # V3.1 schemas, OpenAPI, artifacts
 uv run --extra dev python scripts/run_judging_validation.py
 uv run python scripts/run_v3_validation.py
 uv run --extra dev python scripts/build_v3_notebook.py
@@ -132,5 +177,13 @@ exact wallet labels. Scenario economics fail closed when approved inputs are
 missing. "Uplift", "optimal" and "expected incremental value" remain prohibited
 until the registered causal gates pass.
 
-Start with `docs/v3_methodology.md`, `docs/v3_implementation_status.md` and
-`docs/judging_map.md` for the concise evidence map.
+V3.1 adds four contract-enforced boundaries on top of these. An `UNKNOWN` twin
+component carries no facts and must say what is missing. An indicator resting on
+pending-review evidence is `INFERRED`, never `SUPPORTED`. Qualitative client
+value cannot carry an interval, so risk reduction is never silently converted to
+rand. A failed feasibility gate blocks the bundle, and a material unknown gate
+converts a product proposal into a discovery conversation.
+
+Start with `docs/v31_implementation_status.md`, then `docs/v3_methodology.md`,
+`docs/v3_implementation_status.md` and `docs/judging_map.md` for the concise
+evidence map.

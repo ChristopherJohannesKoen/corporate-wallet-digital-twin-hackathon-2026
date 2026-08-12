@@ -1,0 +1,343 @@
+{
+  "$defs": {
+    "BankingSolution": {
+      "enum": [
+        "COLLECTIONS",
+        "PAYMENTS",
+        "LIQUIDITY_CASH_MANAGEMENT",
+        "CROSS_BORDER_FX",
+        "TRADE_FINANCE",
+        "SUPPLY_CHAIN_FINANCE",
+        "GUARANTEES_AND_LC",
+        "WORKING_CAPITAL_REVOLVING",
+        "TERM_AND_SYNDICATED_LENDING",
+        "DEBT_CAPITAL_MARKETS",
+        "PROJECT_FINANCE",
+        "INTEREST_RATE_RISK_MANAGEMENT",
+        "COMMODITY_RISK_MANAGEMENT",
+        "ESCROW_AND_AGENCY",
+        "SUSTAINABLE_FINANCE",
+        "MA_AND_STRATEGIC_ADVISORY"
+      ],
+      "title": "BankingSolution",
+      "type": "string"
+    },
+    "BusinessProblem": {
+      "enum": [
+        "WORKING_CAPITAL_PRESSURE",
+        "FX_EXPOSURE",
+        "INTEREST_RATE_EXPOSURE",
+        "COMMODITY_EXPOSURE",
+        "LIQUIDITY_FRAGMENTATION",
+        "REFINANCING_CLIFF",
+        "NEW_FUNDING_REQUIREMENT",
+        "PAYMENTS_INEFFICIENCY",
+        "COLLECTIONS_INEFFICIENCY",
+        "SUPPLY_CHAIN_RISK",
+        "PROJECT_MOBILISATION",
+        "GUARANTEE_OR_COLLATERAL_REQUIREMENT",
+        "TREASURY_CENTRALISATION",
+        "CAPITAL_STRUCTURE_EVENT",
+        "MA_OR_STRATEGIC_EVENT",
+        "ESG_TRANSITION_FUNDING",
+        "WALLET_LEAKAGE",
+        "OPERATIONAL_RESILIENCE"
+      ],
+      "title": "BusinessProblem",
+      "type": "string"
+    },
+    "ClientValueStatus": {
+      "enum": [
+        "MONETISED",
+        "PROXY",
+        "QUALITATIVE",
+        "UNAVAILABLE"
+      ],
+      "title": "ClientValueStatus",
+      "type": "string"
+    },
+    "ConversationAction": {
+      "description": "What the RM is actually being asked to do.",
+      "enum": [
+        "PRODUCT_PROPOSAL",
+        "DISCOVERY",
+        "EVIDENCE_ACQUISITION",
+        "VALIDATION"
+      ],
+      "title": "ConversationAction",
+      "type": "string"
+    },
+    "CoveragePlanEntry": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/ConversationAction"
+        },
+        "adjusted_benefit_cvar10": {
+          "title": "Adjusted Benefit Cvar10",
+          "type": "number"
+        },
+        "adjusted_benefit_expected": {
+          "title": "Adjusted Benefit Expected",
+          "type": "number"
+        },
+        "bank_value_median": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Bank Value Median"
+        },
+        "bank_value_status": {
+          "title": "Bank Value Status",
+          "type": "string"
+        },
+        "client_value_median": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Client Value Median"
+        },
+        "client_value_status": {
+          "$ref": "#/$defs/ClientValueStatus"
+        },
+        "conversation_id": {
+          "title": "Conversation Id",
+          "type": "string"
+        },
+        "eligibility": {
+          "$ref": "#/$defs/EligibilityDecision"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "entity_name": {
+          "title": "Entity Name",
+          "type": "string"
+        },
+        "family": {
+          "$ref": "#/$defs/SolutionFamily"
+        },
+        "frontier_state": {
+          "title": "Frontier State",
+          "type": "string"
+        },
+        "primary_solution": {
+          "$ref": "#/$defs/BankingSolution"
+        },
+        "problem": {
+          "$ref": "#/$defs/BusinessProblem"
+        },
+        "problem_label": {
+          "title": "Problem Label",
+          "type": "string"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "selection_stability": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Selection Stability",
+          "type": "number"
+        },
+        "solution_label": {
+          "title": "Solution Label",
+          "type": "string"
+        },
+        "stakeholder_role": {
+          "$ref": "#/$defs/StakeholderRole"
+        },
+        "why_now": {
+          "title": "Why Now",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rank",
+        "conversation_id",
+        "entity_id",
+        "entity_name",
+        "stakeholder_role",
+        "problem",
+        "problem_label",
+        "primary_solution",
+        "solution_label",
+        "family",
+        "action",
+        "why_now",
+        "client_value_status",
+        "bank_value_status",
+        "selection_stability",
+        "frontier_state",
+        "eligibility",
+        "adjusted_benefit_expected",
+        "adjusted_benefit_cvar10"
+      ],
+      "title": "CoveragePlanEntry",
+      "type": "object"
+    },
+    "EligibilityDecision": {
+      "enum": [
+        "ELIGIBLE",
+        "DISCOVERY_ONLY",
+        "BLOCKED"
+      ],
+      "title": "EligibilityDecision",
+      "type": "string"
+    },
+    "SolutionFamily": {
+      "enum": [
+        "TRANSACTION_BANKING",
+        "RISK_MANAGEMENT",
+        "TRADE_AND_WORKING_CAPITAL",
+        "LENDING",
+        "CAPITAL_MARKETS",
+        "ADVISORY_AND_AGENCY"
+      ],
+      "title": "SolutionFamily",
+      "type": "string"
+    },
+    "StakeholderRole": {
+      "description": "Role personas only.  No named individual is resolved in the demo.",
+      "enum": [
+        "CEO_BOARD",
+        "CFO",
+        "TREASURER",
+        "COO",
+        "PROCUREMENT",
+        "FINANCE_OPERATIONS",
+        "RISK_LEGAL",
+        "SUSTAINABILITY",
+        "CORPORATE_DEVELOPMENT",
+        "CIO_TECHNOLOGY"
+      ],
+      "title": "StakeholderRole",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "above_the_fold": {
+      "default": 5,
+      "title": "Above The Fold",
+      "type": "integer"
+    },
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "capacity": {
+      "exclusiveMinimum": 0,
+      "title": "Capacity",
+      "type": "integer"
+    },
+    "causal_status": {
+      "default": "CAUSAL_INCREMENTAL_VALUE_WITHHELD",
+      "title": "Causal Status",
+      "type": "string"
+    },
+    "commercial_status": {
+      "default": "REPRESENTATIVE_SCENARIO_NOT_BANK_APPROVED",
+      "title": "Commercial Status",
+      "type": "string"
+    },
+    "constraint_report": {
+      "additionalProperties": {
+        "additionalProperties": {
+          "type": "integer"
+        },
+        "type": "object"
+      },
+      "title": "Constraint Report",
+      "type": "object"
+    },
+    "constraints": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Constraints",
+      "type": "object"
+    },
+    "cvar10_adjusted_benefit": {
+      "title": "Cvar10 Adjusted Benefit",
+      "type": "number"
+    },
+    "degraded_fallback": {
+      "default": false,
+      "title": "Degraded Fallback",
+      "type": "boolean"
+    },
+    "entries": {
+      "items": {
+        "$ref": "#/$defs/CoveragePlanEntry"
+      },
+      "title": "Entries",
+      "type": "array"
+    },
+    "expected_adjusted_benefit": {
+      "title": "Expected Adjusted Benefit",
+      "type": "number"
+    },
+    "objective_value": {
+      "title": "Objective Value",
+      "type": "number"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "scenario_draws": {
+      "minimum": 32,
+      "title": "Scenario Draws",
+      "type": "integer"
+    },
+    "solver": {
+      "title": "Solver",
+      "type": "string"
+    },
+    "solver_status": {
+      "title": "Solver Status",
+      "type": "string"
+    },
+    "week_start": {
+      "format": "date",
+      "title": "Week Start",
+      "type": "string"
+    },
+    "weights_version": {
+      "title": "Weights Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "plan_id",
+    "as_of",
+    "week_start",
+    "capacity",
+    "objective_value",
+    "expected_adjusted_benefit",
+    "cvar10_adjusted_benefit",
+    "solver",
+    "solver_status",
+    "scenario_draws",
+    "weights_version"
+  ],
+  "title": "CoveragePlan",
+  "type": "object"
+}

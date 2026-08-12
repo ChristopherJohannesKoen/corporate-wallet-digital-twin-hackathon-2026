@@ -24,6 +24,7 @@ data/v2/external/
 
 # Local build/runtime caches.
 tmp/
+tmp-*.log
 outputs/cache/
 outputs/v2_validation_smoke/
 dashboard/node_modules/

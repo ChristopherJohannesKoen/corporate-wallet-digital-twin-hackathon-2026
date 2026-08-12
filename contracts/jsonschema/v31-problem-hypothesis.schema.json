@@ -1,0 +1,246 @@
+{
+  "$defs": {
+    "BusinessProblem": {
+      "enum": [
+        "WORKING_CAPITAL_PRESSURE",
+        "FX_EXPOSURE",
+        "INTEREST_RATE_EXPOSURE",
+        "COMMODITY_EXPOSURE",
+        "LIQUIDITY_FRAGMENTATION",
+        "REFINANCING_CLIFF",
+        "NEW_FUNDING_REQUIREMENT",
+        "PAYMENTS_INEFFICIENCY",
+        "COLLECTIONS_INEFFICIENCY",
+        "SUPPLY_CHAIN_RISK",
+        "PROJECT_MOBILISATION",
+        "GUARANTEE_OR_COLLATERAL_REQUIREMENT",
+        "TREASURY_CENTRALISATION",
+        "CAPITAL_STRUCTURE_EVENT",
+        "MA_OR_STRATEGIC_EVENT",
+        "ESG_TRANSITION_FUNDING",
+        "WALLET_LEAKAGE",
+        "OPERATIONAL_RESILIENCE"
+      ],
+      "title": "BusinessProblem",
+      "type": "string"
+    },
+    "BusinessTwinDomain": {
+      "enum": [
+        "REVENUE_ENGINE",
+        "COST_ENGINE",
+        "WORKING_CAPITAL_CYCLE",
+        "FUNDING_STRUCTURE",
+        "LIQUIDITY_AND_BUFFER",
+        "OPERATING_MODEL",
+        "GEOGRAPHIC_EXPOSURE",
+        "CURRENCY_AND_COMMODITY_EXPOSURE",
+        "PROJECTS_SUBSIDIARIES_SPVS",
+        "STAKEHOLDER_RESPONSIBILITY",
+        "BUSINESS_AND_FINANCIAL_RISKS",
+        "STRATEGY_ACTIONS_AND_ESG"
+      ],
+      "title": "BusinessTwinDomain",
+      "type": "string"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "ProblemEvidenceItem": {
+      "additionalProperties": false,
+      "properties": {
+        "bank_observed": {
+          "default": false,
+          "title": "Bank Observed",
+          "type": "boolean"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Claim Ids",
+          "type": "array"
+        },
+        "reason_code": {
+          "title": "Reason Code",
+          "type": "string"
+        },
+        "statement": {
+          "title": "Statement",
+          "type": "string"
+        },
+        "weight": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "reason_code",
+        "statement",
+        "claim_class",
+        "weight"
+      ],
+      "title": "ProblemEvidenceItem",
+      "type": "object"
+    },
+    "SignedInterval": {
+      "additionalProperties": false,
+      "description": "An interval that may be negative.\n\nClient and bank value can legitimately be negative (a cost-to-win exceeding\ncontribution, or an FX position that moves against the client), so the V3\nnon-negative ``AmountInterval`` is not reusable here.",
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "title": "Median",
+          "type": "number"
+        },
+        "unit": {
+          "default": "ZAR",
+          "title": "Unit",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "SignedInterval",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "affected_domains": {
+      "items": {
+        "$ref": "#/$defs/BusinessTwinDomain"
+      },
+      "title": "Affected Domains",
+      "type": "array"
+    },
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "calibration_status": {
+      "title": "Calibration Status",
+      "type": "string"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass"
+    },
+    "commercially_eligible": {
+      "title": "Commercially Eligible",
+      "type": "boolean"
+    },
+    "critical_signal_is_governed": {
+      "title": "Critical Signal Is Governed",
+      "type": "boolean"
+    },
+    "detector_version": {
+      "title": "Detector Version",
+      "type": "string"
+    },
+    "disconfirming_evidence": {
+      "items": {
+        "$ref": "#/$defs/ProblemEvidenceItem"
+      },
+      "title": "Disconfirming Evidence",
+      "type": "array"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "identified": {
+      "title": "Identified",
+      "type": "boolean"
+    },
+    "intensity": {
+      "$ref": "#/$defs/SignedInterval"
+    },
+    "intensity_unit": {
+      "title": "Intensity Unit",
+      "type": "string"
+    },
+    "label": {
+      "title": "Label",
+      "type": "string"
+    },
+    "probability": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Probability"
+    },
+    "problem": {
+      "$ref": "#/$defs/BusinessProblem"
+    },
+    "problem_id": {
+      "title": "Problem Id",
+      "type": "string"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "supporting_evidence": {
+      "items": {
+        "$ref": "#/$defs/ProblemEvidenceItem"
+      },
+      "title": "Supporting Evidence",
+      "type": "array"
+    }
+  },
+  "required": [
+    "problem_id",
+    "entity_id",
+    "problem",
+    "label",
+    "as_of",
+    "identified",
+    "intensity",
+    "intensity_unit",
+    "claim_class",
+    "calibration_status",
+    "critical_signal_is_governed",
+    "commercially_eligible",
+    "detector_version"
+  ],
+  "title": "ProblemHypothesis",
+  "type": "object"
+}

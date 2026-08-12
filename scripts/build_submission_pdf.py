@@ -10,42 +10,46 @@ from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfgen import canvas
 
-
 ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path.cwd().resolve()
-PORTFOLIO = json.loads((ROOT / "outputs" / "data" / "portfolio.json").read_text(encoding="utf-8"))
-MANIFEST = json.loads((ROOT / "outputs" / "client_demo" / "client_demo_data_manifest.json").read_text(encoding="utf-8"))
-GENAI = json.loads((ROOT / "outputs" / "v2_validation" / "genai_golden_eval.json").read_text(encoding="utf-8"))
-FIXTURE = json.loads((ROOT / "dashboard" / "app" / "data" / "shadow-fixture.json").read_text(encoding="utf-8"))
-V3 = json.loads((ROOT / "dashboard" / "app" / "data" / "v3-fixture.json").read_text(encoding="utf-8"))
-SUBMISSION = json.loads((ROOT / "config" / "submission.json").read_text(encoding="utf-8"))
-OUTPUT = ROOT / "output" / "pdf" / "Corporate-Wallet-Digital-Twin-One-Pager.pdf"
+V31 = json.loads((ROOT / "dashboard/app/data/v31-fixture.json").read_text(encoding="utf-8"))
+SUBMISSION = json.loads((ROOT / "config/submission.json").read_text(encoding="utf-8"))
+OUTPUT = ROOT / "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf"
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
 
-NAVY = HexColor("#071321")
-INK = HexColor("#0C1728")
-MUTED = HexColor("#627086")
-LINE = HexColor("#D7DEE8")
-PANEL = HexColor("#F1F4F8")
+P = V31["projection"]
+PLAN = P["coverage_plan"]["entries"]
+CONVERSATIONS = V31["conversations"]
+NAVY = HexColor("#081827")
+INK = HexColor("#102033")
+MUTED = HexColor("#65758A")
+LINE = HexColor("#DCE4ED")
+PANEL = HexColor("#F3F6FA")
 PALE_BLUE = HexColor("#EAF3FF")
-BLUE = HexColor("#0B63E5")
-TEAL = HexColor("#008B83")
-AMBER = HexColor("#E2951C")
-VIOLET = HexColor("#7658D6")
+PALE_TEAL = HexColor("#E9F7F3")
+BLUE = HexColor("#0872DF")
+TEAL = HexColor("#168D72")
+AMBER = HexColor("#C47C0A")
+VIOLET = HexColor("#6256C7")
+RED = HexColor("#BA3E4C")
 
 
-def pct(value: float, digits: int = 0) -> str:
-    return f"{100 * value:.{digits}f}%"
-
-
-def money(value: float, digits: int = 1) -> str:
+def money(value: float | None) -> str:
+    if value is None:
+        return "Unavailable"
     if abs(value) >= 1e9:
-        return f"R{value / 1e9:.{digits}f}bn"
+        return f"R{value / 1e9:.1f}bn"
     if abs(value) >= 1e6:
-        return f"R{value / 1e6:.{digits}f}m"
+        return f"R{value / 1e6:.1f}m"
+    if abs(value) >= 1e3:
+        return f"R{value / 1e3:.1f}k"
     return f"R{value:,.0f}"
 
 
-def wrap_lines(text: str, font: str, size: float, width: float, max_lines: int) -> list[str]:
+def pct(value: float, digits: int = 0) -> str:
+    return f"{value * 100:.{digits}f}%"
+
+
+def wrap(text: str, font: str, size: float, width: float, max_lines: int) -> list[str]:
     words = text.split()
     lines: list[str] = []
     current = ""
@@ -57,226 +61,221 @@ def wrap_lines(text: str, font: str, size: float, width: float, max_lines: int) 
             if current:
                 lines.append(current)
             current = word
-        if len(lines) == max_lines:
+        if len(lines) >= max_lines:
             break
     if current and len(lines) < max_lines:
         lines.append(current)
     return lines
 
 
-def draw_wrapped(c: canvas.Canvas, text: str, x: float, y: float, width: float, *, font: str = "Helvetica", size: float = 8, color=MUTED, leading: float | None = None, max_lines: int = 4) -> float:
+def draw_wrap(c: canvas.Canvas, text: str, x: float, y: float, width: float, *, font="Helvetica", size=7.2, color=MUTED, leading=None, max_lines=4) -> float:
     leading = leading or size * 1.25
     c.setFont(font, size)
     c.setFillColor(color)
-    lines = wrap_lines(text, font, size, width, max_lines)
-    for index, line_text in enumerate(lines):
-        c.drawString(x, y - index * leading, line_text)
-    return y - len(lines) * leading
+    for index, line in enumerate(wrap(text, font, size, width, max_lines)):
+        c.drawString(x, y - index * leading, line)
+    return y - max_lines * leading
 
 
-def small_label(c: canvas.Canvas, text: str, x: float, y: float, color=BLUE) -> None:
-    c.setFont("Helvetica-Bold", 6.4)
+def label(c: canvas.Canvas, text: str, x: float, y: float, color=BLUE) -> None:
+    c.setFont("Helvetica-Bold", 6.2)
     c.setFillColor(color)
     c.drawString(x, y, text.upper())
 
 
-def metric(c: canvas.Canvas, x: float, y: float, width: float, value: str, title: str, accent) -> None:
+def metric(c: canvas.Canvas, x: float, y: float, width: float, value: str, title: str, note: str, accent) -> None:
     c.setStrokeColor(accent)
-    c.setLineWidth(2.4)
-    c.line(x, y + 53, x + width, y + 53)
+    c.setLineWidth(2.5)
+    c.line(x, y + 54, x + width, y + 54)
     c.setFont("Helvetica-Bold", 16)
     c.setFillColor(INK)
-    c.drawString(x, y + 30, value)
-    c.setFont("Helvetica-Bold", 6.8)
-    c.drawString(x, y + 15, title)
+    c.drawString(x, y + 32, value)
+    c.setFont("Helvetica-Bold", 6.5)
+    c.drawString(x, y + 18, title.upper())
+    draw_wrap(c, note, x, y + 8, width, size=5.7, max_lines=2)
 
-
-lhs = FIXTURE["sensitivity"]
-tf_global = lhs["product_summary"]["Trade finance"]
-fx_global = lhs["product_summary"]["Cross-border FX"]
-action_portfolio = V3["action_portfolio"]
-top3 = action_portfolio["selected_actions"][:3]
-glencore = next(row for row in V3["opportunities"] if row["opportunity_id"] == "E02-trade-finance")
-voi = V3["evidence_acquisition"]
 
 c = canvas.Canvas(str(OUTPUT), pagesize=A4)
 W, H = A4
-c.setTitle("Corporate Wallet Digital Twin V3.0 - Hackathon One-Pager")
+c.setTitle("Corporate Wallet Digital Twin V3.1 - Hackathon One-Pager")
 c.setAuthor(", ".join(SUBMISSION["team_members"]))
 
-# Header.
+# Header
 c.setFillColor(NAVY)
 c.rect(0, H - 164, W, 164, fill=1, stroke=0)
-cover = ROOT / "dashboard" / "public" / "og.png"
+cover = ROOT / "dashboard/public/og-v31.png"
 if cover.exists():
     c.saveState()
     clip = c.beginPath()
-    clip.rect(W * 0.61, H - 164, W * 0.39, 164)
+    clip.rect(W * 0.65, H - 164, W * 0.35, 164)
     c.clipPath(clip, stroke=0, fill=0)
-    c.drawImage(ImageReader(str(cover)), W * 0.55, H - 176, width=W * 0.52, height=190, preserveAspectRatio=True, anchor="c", mask="auto")
+    c.drawImage(ImageReader(str(cover)), W * 0.58, H - 178, width=W * 0.51, height=190, preserveAspectRatio=True, anchor="c", mask="auto")
     c.restoreState()
     c.setFillColor(NAVY)
-    c.rect(0, H - 164, W * 0.66, 164, fill=1, stroke=0)
+    c.rect(0, H - 164, W * 0.69, 164, fill=1, stroke=0)
 c.setFont("Helvetica-Bold", 6.5)
 c.setFillColor(HexColor("#7CB6FF"))
-c.drawString(34, H - 25, "STANDARD BANK HACKATHON 2026")
-c.setFont("Helvetica-Bold", 25)
+c.drawString(34, H - 24, "STANDARD BANK HACKATHON 2026  /  V3.1")
+c.setFont("Helvetica-Bold", 24)
 c.setFillColor(white)
-c.drawString(34, H - 63, "Corporate Wallet Digital Twin")
-c.setFont("Helvetica", 12.5)
+c.drawString(34, H - 62, "Corporate Wallet Digital Twin")
+c.setFont("Helvetica", 12)
 c.setFillColor(HexColor("#C7D5E8"))
-c.drawString(34, H - 91, "Reconstruct the unseen wallet. Decide what matters next.")
+c.drawString(34, H - 90, "Turn partial evidence into the right client conversation.")
 c.setStrokeColor(HexColor("#2D4C6D"))
-c.line(34, H - 109, 347, H - 109)
+c.line(34, H - 108, 358, H - 108)
 c.setFont("Helvetica-Bold", 7.2)
 c.setFillColor(white)
-c.drawString(34, H - 126, f"TEAM: {SUBMISSION['team_name']}")
+c.drawString(34, H - 125, f"TEAM: {SUBMISSION['team_name']}")
 c.setFont("Helvetica", 7.2)
 c.setFillColor(HexColor("#B9C8D9"))
-c.drawString(34, H - 140, f"MEMBER: {', '.join(SUBMISSION['team_members'])}")
+c.drawString(34, H - 139, f"MEMBER: {', '.join(SUBMISSION['team_members'])}")
 c.setFont("Helvetica-Bold", 5.8)
 c.setFillColor(HexColor("#8FA5BD"))
-c.drawString(34, H - 155, f"AS OF 10 AUGUST 2026  |  {SUBMISSION['solution_version']}  |  SYN BANK SIMULATION + PUBLIC E1")
+c.drawString(34, H - 154, "AS OF 30 JUNE 2026  |  BUILD 12 AUGUST 2026  |  CLIENT DEMONSTRATION")
 
-# Proof row.
+# Metrics
 left = 34
 content_w = W - 68
-metric_y = H - 238
+metric_y = H - 237
 metric_w = (content_w - 30) / 4
-metric(c, left, metric_y, metric_w, "1,500", "SHADOW-WALLET EDGES", BLUE)
-metric(c, left + metric_w + 10, metric_y, metric_w, "100", "CLIENT-PRODUCT NETWORKS", TEAL)
-metric(c, left + 2 * (metric_w + 10), metric_y, metric_w, "12", "CAPACITY-AWARE RM ACTIONS", AMBER)
-metric(c, left + 3 * (metric_w + 10), metric_y, metric_w, "8", "POSITIVE-NET-VOI REQUESTS", VIOLET)
+metric(c, left, metric_y, metric_w, "20", "Business Twins", "12 components each", BLUE)
+metric(c, left + metric_w + 10, metric_y, metric_w, "320", "Solution estimates", "16 solutions x 20 clients", TEAL)
+metric(c, left + 2 * (metric_w + 10), metric_y, metric_w, "224", "Conversations", "all discovery-only", AMBER)
+metric(c, left + 3 * (metric_w + 10), metric_y, metric_w, "8", "Weekly capacity", "MILP status OPTIMAL", VIOLET)
 
-# Commercial decision.
-decision_top = H - 264
+# Weekly decision table
+decision_top = H - 270
 c.setFont("Helvetica-Bold", 11.5)
 c.setFillColor(INK)
-c.drawString(left, decision_top, "The decision: allocate twelve RM actions under downside risk")
-c.setFont("Helvetica", 7.4)
+c.drawString(left, decision_top, "The decision: spend eight conversations where downside-aware value is strongest")
+c.setFont("Helvetica", 7.1)
 c.setFillColor(MUTED)
-c.drawString(left, decision_top - 14, "Expected scenario value and lower-tail CVaR are optimized with client, product and sector capacity constraints.")
-
-row_y = decision_top - 88
-columns = [210, 115, 92, 90]
-headers = ["CLIENT / PRODUCT", "EXPECTED", "DOWNSIDE CVAR", "NEED"]
-positions = [left, left + columns[0], left + columns[0] + columns[1], left + columns[0] + columns[1] + columns[2]]
+c.drawString(left, decision_top - 14, "Pareto-filtered client problems and solution bundles; client and bank value remain separate; unknown feasibility means discovery.")
+row_y = decision_top - 89
+cols = [30, 130, 125, 75, 72, 64]
+headers = ["#", "CLIENT / ROLE", "ISSUE / SOLUTION", "CLIENT", "BANK", "STABILITY"]
+positions = [left]
+for col in cols[:-1]:
+    positions.append(positions[-1] + col)
 c.setFillColor(PANEL)
-c.rect(left, row_y + 40, content_w, 21, fill=1, stroke=0)
+c.rect(left, row_y + 42, content_w, 20, fill=1, stroke=0)
 for x, header in zip(positions, headers):
-    c.setFont("Helvetica-Bold", 6.1)
+    c.setFont("Helvetica-Bold", 5.8)
     c.setFillColor(MUTED)
-    c.drawString(x + 7, row_y + 48, header)
-for index, row in enumerate(top3):
-    y = row_y + 24 - index * 18
-    c.setFont("Helvetica-Bold", 7.3)
+    c.drawString(x + 4, row_y + 49, header)
+for index, item in enumerate(PLAN[:5]):
+    y = row_y + 28 - index * 17
+    c.setFont("Helvetica-Bold", 6.6)
     c.setFillColor(INK)
-    c.drawString(positions[0] + 7, y, f"{index + 1}. {row['entity_name']} - {row['product']}")
-    c.setFillColor(AMBER if row["product"] == "Trade finance" else BLUE)
-    c.drawString(positions[1] + 7, y, money(row["expected_scenario_value_zar"]))
-    c.setFillColor(INK)
-    c.drawString(positions[2] + 7, y, money(row["downside_cvar_zar"]))
+    c.drawString(positions[0] + 4, y, str(item["rank"]))
+    c.drawString(positions[1] + 4, y, f"{item['entity_name']} / {item['stakeholder_role'].replace('_', ' ').title()}")
+    c.drawString(positions[2] + 4, y + 2, item["problem_label"])
+    c.setFont("Helvetica", 5.6)
+    c.setFillColor(MUTED)
+    c.drawString(positions[2] + 4, y - 5, item["solution_label"])
+    c.setFont("Helvetica-Bold", 6.6)
     c.setFillColor(TEAL)
-    c.drawString(positions[3] + 7, y, pct(row["need_probability"]))
+    c.drawString(positions[3] + 4, y, money(item["client_value_median"]))
+    c.setFillColor(VIOLET)
+    c.drawString(positions[4] + 4, y, money(item["bank_value_median"]))
+    c.setFillColor(AMBER)
+    c.drawString(positions[5] + 4, y, pct(item["selection_stability"]))
 
-# Identification and BHP band.
-band_y = 319
+# Core decision object and BHP proof
+band_y = 297
 c.setFillColor(NAVY)
-c.rect(left, band_y, 180, 75, fill=1, stroke=0)
-c.setFont("Helvetica-Bold", 25)
+c.rect(left, band_y, 185, 90, fill=1, stroke=0)
+label(c, "CANONICAL DECISION OBJECT", left + 14, band_y + 71, HexColor("#7CB6FF"))
+c.setFont("Helvetica-Bold", 10.5)
 c.setFillColor(white)
-c.drawString(left + 16, band_y + 40, "A")
-c.setFillColor(HexColor("#7CB6FF"))
-c.drawString(left + 48, band_y + 40, "=")
-c.setFillColor(white)
-c.drawString(left + 78, band_y + 40, "q")
-c.setFillColor(HexColor("#7CB6FF"))
-c.drawString(left + 108, band_y + 40, "x")
-c.setFillColor(white)
-c.drawString(left + 138, band_y + 40, "T")
+c.drawString(left + 14, band_y + 51, "Client + stakeholder + problem")
+c.drawString(left + 14, band_y + 37, "+ solution bundle + window")
 c.setFont("Helvetica", 6.2)
 c.setFillColor(HexColor("#AFC0D4"))
-c.drawString(left + 16, band_y + 17, "Observed = bank share x total wallet")
+draw_wrap(c, "Product opportunity remains an analytical input, not the final banker action.", left + 14, band_y + 20, 157, size=6.0, color=HexColor("#AFC0D4"), max_lines=2)
 
-bhp_x = left + 194
+bhp = next(item for item in PLAN if item["entity_name"] == "BHP Group")
+bhp_conv = CONVERSATIONS[bhp["conversation_id"]]
+bhp_x = left + 198
 c.setFillColor(PALE_BLUE)
-c.rect(bhp_x, band_y, content_w - 194, 75, fill=1, stroke=0)
-small_label(c, "GLENCORE TRADE FINANCE", bhp_x + 14, band_y + 59)
-c.setFont("Helvetica-Bold", 11)
+c.rect(bhp_x, band_y, content_w - 198, 90, fill=1, stroke=0)
+label(c, "BHP EXPLANATION PATH", bhp_x + 14, band_y + 71)
+c.setFont("Helvetica-Bold", 10.2)
 c.setFillColor(INK)
-c.drawString(bhp_x + 14, band_y + 40, "Entropy-constrained Shadow Wallet")
-c.setFont("Helvetica-Bold", 8.5)
-c.setFillColor(BLUE)
-c.drawString(bhp_x + 14, band_y + 21, f"Observed {money(glencore['shadow_wallet']['observed_bank_flow'])}")
-c.setFillColor(AMBER)
-c.drawString(bhp_x + 111, band_y + 21, f"Latent {money(glencore['shadow_wallet']['latent_external_wallet']['median'])}")
+c.drawString(bhp_x + 14, band_y + 52, f"{bhp['problem_label']} -> {bhp['stakeholder_role'].title()} -> {bhp['solution_label']}")
+c.setFont("Helvetica-Bold", 7.5)
 c.setFillColor(TEAL)
-c.drawString(bhp_x + 209, band_y + 21, f"Share {pct(glencore['shadow_wallet']['bank_share']['median'], 1)}")
-c.setFont("Helvetica", 5.8)
-c.setFillColor(MUTED)
-c.drawString(bhp_x + 14, band_y + 8, "256 draws | 5 corridors x 3 anonymous providers | exact median mass balance | SCENARIO, not measured")
+c.drawString(bhp_x + 14, band_y + 35, f"Client {money(bhp['client_value_median'])}")
+c.setFillColor(VIOLET)
+c.drawString(bhp_x + 104, band_y + 35, f"Bank {money(bhp['bank_value_median'])}")
+c.setFillColor(AMBER)
+c.drawString(bhp_x + 186, band_y + 35, f"Stability {pct(bhp['selection_stability'])}")
+draw_wrap(c, bhp_conv["engagement_window"]["why_now"], bhp_x + 14, band_y + 20, content_w - 226, size=5.9, color=MUTED, max_lines=2)
 
-# Evidence/model proof.
-proof_y = 202
-c.setFont("Helvetica-Bold", 11.5)
+# Evidence / controls / active learning
+proof_y = 182
+c.setFont("Helvetica-Bold", 11.3)
 c.setFillColor(INK)
-c.drawString(left, proof_y + 87, "V3 mechanics reconcile exactly without inventing empirical truth")
+c.drawString(left, proof_y + 87, "Evidence-backed breadth, with the limits made visible")
 proofs = [
-    ("R0", "maximum Shadow Wallet mass-balance error", BLUE),
-    ("100", "Bayesian change-point series replayed", TEAL),
-    ("8 / 8", "selected evidence requests have positive net VOI", VIOLET),
+    ("905", "typed business claims", BLUE),
+    ("85 E1", "public evidence claims", TEAL),
+    ("51", "facts pending SME review", AMBER),
+    ("1,148", "immutable domain events", VIOLET),
 ]
-for index, (value, label, color) in enumerate(proofs):
-    x = left + index * 174
+for index, (value, title, color) in enumerate(proofs):
+    x = left + index * 130
     c.setStrokeColor(color)
     c.setLineWidth(2.4)
-    c.line(x, proof_y + 66, x + 150, proof_y + 66)
-    c.setFont("Helvetica-Bold", 15)
+    c.line(x, proof_y + 66, x + 112, proof_y + 66)
+    c.setFont("Helvetica-Bold", 14)
     c.setFillColor(color)
-    c.drawString(x, proof_y + 42, value)
-    draw_wrapped(c, label, x, proof_y + 27, 150, font="Helvetica-Bold", size=6.6, color=INK, max_lines=2)
+    c.drawString(x, proof_y + 43, value)
+    c.setFont("Helvetica-Bold", 6.4)
+    c.setFillColor(INK)
+    c.drawString(x, proof_y + 29, title)
 c.setFont("Helvetica", 5.8)
 c.setFillColor(MUTED)
-c.drawString(left, proof_y + 2, "Claim audit: 0 measured competitor-share claims | 0 causal-value claims | reconstructed leakage remains a modelled verification signal.")
+c.drawString(left, proof_y + 9, "0 measured competitor-share claims | 0 causal-value claims | 122 solution projections fail closed | all selected actions are discovery")
 
-# Sensitivity and GenAI.
-bottom_y = 78
-c.setFillColor(PANEL)
-c.rect(left, bottom_y, 254, 97, fill=1, stroke=0)
-small_label(c, "RATE / PRIOR SENSITIVITY", left + 13, bottom_y + 80, VIOLET)
-c.setFont("Helvetica-Bold", 12)
+# Bottom panels
+bottom_y = 73
+c.setFillColor(PALE_TEAL)
+c.rect(left, bottom_y, 255, 99, fill=1, stroke=0)
+label(c, "ACTIVE COVERAGE LEARNING", left + 13, bottom_y + 82, TEAL)
 c.setFillColor(INK)
-c.drawString(left + 13, bottom_y + 59, "Trade Finance remains first-ranked")
-c.setFont("Helvetica-Bold", 8)
-c.setFillColor(VIOLET)
-c.drawString(left + 13, bottom_y + 40, "9/9 benchmark cases | 100% of 10,000 draws")
-draw_wrapped(c, f"But it is never a majority of the top 10. Cross-border FX is majority-dominant in {pct(fx_global['majority_dominance_frequency'], 1)} of draws.", left + 13, bottom_y + 24, 225, size=6.4, color=MUTED, max_lines=3)
-
-right_x = left + 266
-c.setFillColor(PALE_BLUE)
-c.rect(right_x, bottom_y, content_w - 266, 97, fill=1, stroke=0)
-small_label(c, "DECISION-DIRECTED RAG + GENAI", right_x + 13, bottom_y + 80, BLUE)
-c.setFont("Helvetica-Bold", 12)
-c.setFillColor(INK)
-c.drawString(right_x + 13, bottom_y + 59, "Score -> value -> approve -> compile -> brief")
-c.setFont("Helvetica-Bold", 8)
+draw_wrap(c, "Ask only when evidence can flip the decision", left + 13, bottom_y + 62, 225, font="Helvetica-Bold", size=10.5, color=INK, max_lines=2)
+first_question = CONVERSATIONS[PLAN[0]["conversation_id"]]["next_best_question"]
+c.setFont("Helvetica-Bold", 7.4)
 c.setFillColor(TEAL)
-c.drawString(right_x + 13, bottom_y + 40, f"8 requests | {money(sum(row['net_value_of_information_zar'] for row in voi['selected']))} net VOI | 0 autonomous retrievals")
-draw_wrapped(c, "Evidence is requested only when expected decision value exceeds acquisition cost and latency. The LLM sees a closed claim pack; deterministic fallback remains.", right_x + 13, bottom_y + 24, content_w - 292, size=6.4, color=MUTED, max_lines=3)
+c.drawString(left + 13, bottom_y + 35, f"{money(first_question['net_voi_zar'])} net VOI / 512 common draws")
+draw_wrap(c, first_question["question_text"], left + 13, bottom_y + 18, 225, size=6.2, color=MUTED, max_lines=2)
 
-# Footer.
-c.setStrokeColor(LINE)
-c.setLineWidth(0.5)
-c.line(left, 61, W - left, 61)
-c.setFont("Helvetica-Bold", 5.9)
+right_x = left + 267
+c.setFillColor(PALE_BLUE)
+c.rect(right_x, bottom_y, content_w - 267, 99, fill=1, stroke=0)
+label(c, "CONTROLLED GENAI + PRODUCTION SHAPE", right_x + 13, bottom_y + 82)
+c.setFont("Helvetica-Bold", 11.2)
 c.setFillColor(INK)
-c.drawString(left, 49, "DELIVERED: executed V3 notebook | entitled decision lab | Shadow Wallet | BOCPD signals | robust portfolio | VOI queue | judging deck")
+c.drawString(right_x + 13, bottom_y + 62, "Closed pack -> Why / How / What brief")
+c.setFont("Helvetica-Bold", 7.2)
+c.setFillColor(BLUE)
+c.drawString(right_x + 13, bottom_y + 45, "Arithmetic, rank, VOI, paths and citations stay deterministic")
+draw_wrap(c, "AWS/EKS + Delta/Unity Catalog + MLflow + MSK + OPA + OpenTelemetry are defined. Bank production remains NOT_PROMOTABLE.", right_x + 13, bottom_y + 30, content_w - 293, size=6.2, color=MUTED, max_lines=3)
+
+# Footer
+c.setStrokeColor(LINE)
+c.setLineWidth(.5)
+c.line(left, 61, W - left, 61)
+c.setFont("Helvetica-Bold", 5.8)
+c.setFillColor(INK)
+c.drawString(left, 49, "DELIVERED: V3.1 Decision Twin API + workbench + 20 twins + 320 estimates + eight-conversation plan + executed notebook + governed artifacts")
 c.setFont("Helvetica", 5.2)
 c.setFillColor(MUTED)
-c.drawString(left, 37, "External gates: E3 multibank panel, bank-approved economics/infrastructure, live-provider evaluation and supervised RM trial.")
-c.drawString(left, 26, "Data label: SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE PRIORS - RECONSTRUCTED COMPETITOR FLOWS ARE NOT MEASURED")
-c.drawString(left, 15, f"Code: {SUBMISSION['repository_url']} (private repository - reviewer access required)")
-
+c.drawString(left, 37, "Open gates: E3 multibank panel, approved economics, bank cloud/identity/security, live-provider adjudication, RM pilot, randomized trial, 30 clean shadow days.")
+c.drawString(left, 26, "Data label: SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE POLICY - UNKNOWN INPUTS REMAIN UNKNOWN")
+c.drawString(left, 15, f"Code: {SUBMISSION['repository_url']}  |  Private reviewer access required")
 c.showPage()
 c.save()
 print(json.dumps({"status": "ok", "output": str(OUTPUT), "pages": 1}, indent=2))

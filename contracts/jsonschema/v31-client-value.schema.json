@@ -1,0 +1,207 @@
+{
+  "$defs": {
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "ClientValueComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "component_id": {
+          "title": "Component Id",
+          "type": "string"
+        },
+        "dimension": {
+          "title": "Dimension",
+          "type": "string"
+        },
+        "evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Claim Ids",
+          "type": "array"
+        },
+        "formula": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Formula"
+        },
+        "interval": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedInterval"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "qualitative_statement": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Qualitative Statement"
+        },
+        "status": {
+          "$ref": "#/$defs/ClientValueStatus"
+        }
+      },
+      "required": [
+        "component_id",
+        "label",
+        "status",
+        "dimension"
+      ],
+      "title": "ClientValueComponent",
+      "type": "object"
+    },
+    "ClientValueStatus": {
+      "enum": [
+        "MONETISED",
+        "PROXY",
+        "QUALITATIVE",
+        "UNAVAILABLE"
+      ],
+      "title": "ClientValueStatus",
+      "type": "string"
+    },
+    "SignedInterval": {
+      "additionalProperties": false,
+      "description": "An interval that may be negative.\n\nClient and bank value can legitimately be negative (a cost-to-win exceeding\ncontribution, or an FX position that moves against the client), so the V3\nnon-negative ``AmountInterval`` is not reusable here.",
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "title": "Median",
+          "type": "number"
+        },
+        "unit": {
+          "default": "ZAR",
+          "title": "Unit",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "SignedInterval",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass",
+      "default": "SCENARIO"
+    },
+    "components": {
+      "items": {
+        "$ref": "#/$defs/ClientValueComponent"
+      },
+      "title": "Components",
+      "type": "array"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "guaranteed_saving_claimed": {
+      "default": false,
+      "title": "Guaranteed Saving Claimed",
+      "type": "boolean"
+    },
+    "monetised_total": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SignedInterval"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "non_monetised_dimensions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Non Monetised Dimensions",
+      "type": "array"
+    },
+    "risk_reduction_statement": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Risk Reduction Statement"
+    },
+    "watermark": {
+      "title": "Watermark",
+      "type": "string"
+    }
+  },
+  "required": [
+    "entity_id",
+    "watermark"
+  ],
+  "title": "ClientValue",
+  "type": "object"
+}

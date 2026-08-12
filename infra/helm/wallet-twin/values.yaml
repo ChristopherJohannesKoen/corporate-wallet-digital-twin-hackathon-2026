@@ -26,6 +26,7 @@ services:
   - { name: evidence, app: evidence_app, irsaRoleArn: "REQUIRED_EVIDENCE_ROLE" }
   - { name: economics, app: economics_app, irsaRoleArn: "REQUIRED_ECONOMICS_ROLE" }
   - { name: wallet-model, app: wallet_model_app, irsaRoleArn: "REQUIRED_WALLET_MODEL_ROLE" }
+  - { name: business-twin, app: business_twin_app, irsaRoleArn: "REQUIRED_BUSINESS_TWIN_ROLE" }
   - { name: timing, app: timing_app, irsaRoleArn: "REQUIRED_TIMING_ROLE" }
   - { name: recommendation, app: recommendation_app, irsaRoleArn: "REQUIRED_RECOMMENDATION_ROLE" }
   - { name: experiment, app: experiment_app, irsaRoleArn: "REQUIRED_EXPERIMENT_ROLE" }

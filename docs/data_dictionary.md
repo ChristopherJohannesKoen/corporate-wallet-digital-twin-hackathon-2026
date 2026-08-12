@@ -1,4 +1,21 @@
-# Corporate Wallet Digital Twin V3 — data dictionary
+# Corporate Wallet Digital Twin V3.1 — data dictionary
+
+## V3.1 canonical decision products
+
+V3.1 keeps all V2/V3 products and adds `BusinessTwinSnapshot`,
+`BusinessEvidenceClaim`, attribute/event graph nodes and edges, business events,
+problem hypotheses, stakeholder resolutions, 320 client–solution estimates,
+funding-route estimates, client- and bank-value components, feasibility
+assessments, `ConversationCandidate`, Pareto results, weekly coverage plans,
+information questions, approved client answers, change digests and conversation
+outcomes. Canonical schemas are in `contracts/jsonschema/v31/`; all modelled
+reads require `as_of`, and all records retain valid, event, ingestion and
+availability time plus source/artifact lineage and entitlement domain.
+
+`ConversationCandidate` is the banker-facing object. Its identity is a stable
+hash over client, stakeholder role, problem, solution bundle, engagement window
+and snapshot version. The original 100 client–product records remain analytical
+inputs and frozen regression outputs.
 
 ## Conventions common to curated records
 

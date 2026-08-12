@@ -1,0 +1,291 @@
+{
+  "$defs": {
+    "BankingSolution": {
+      "enum": [
+        "COLLECTIONS",
+        "PAYMENTS",
+        "LIQUIDITY_CASH_MANAGEMENT",
+        "CROSS_BORDER_FX",
+        "TRADE_FINANCE",
+        "SUPPLY_CHAIN_FINANCE",
+        "GUARANTEES_AND_LC",
+        "WORKING_CAPITAL_REVOLVING",
+        "TERM_AND_SYNDICATED_LENDING",
+        "DEBT_CAPITAL_MARKETS",
+        "PROJECT_FINANCE",
+        "INTEREST_RATE_RISK_MANAGEMENT",
+        "COMMODITY_RISK_MANAGEMENT",
+        "ESCROW_AND_AGENCY",
+        "SUSTAINABLE_FINANCE",
+        "MA_AND_STRATEGIC_ADVISORY"
+      ],
+      "title": "BankingSolution",
+      "type": "string"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "SignedInterval": {
+      "additionalProperties": false,
+      "description": "An interval that may be negative.\n\nClient and bank value can legitimately be negative (a cost-to-win exceeding\ncontribution, or an FX position that moves against the client), so the V3\nnon-negative ``AmountInterval`` is not reusable here.",
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "title": "Median",
+          "type": "number"
+        },
+        "unit": {
+          "default": "ZAR",
+          "title": "Unit",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "SignedInterval",
+      "type": "object"
+    },
+    "SolutionFamily": {
+      "enum": [
+        "TRANSACTION_BANKING",
+        "RISK_MANAGEMENT",
+        "TRADE_AND_WORKING_CAPITAL",
+        "LENDING",
+        "CAPITAL_MARKETS",
+        "ADVISORY_AND_AGENCY"
+      ],
+      "title": "SolutionFamily",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "One (client, solution) projection.  320 per snapshot for 20x16.",
+  "properties": {
+    "amount_interval": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SignedInterval"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "assumptions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "available": {
+      "title": "Available",
+      "type": "boolean"
+    },
+    "bounds_semantics": {
+      "default": "AMOUNT_WITHIN_BOUNDS",
+      "title": "Bounds Semantics",
+      "type": "string"
+    },
+    "calibration_status": {
+      "title": "Calibration Status",
+      "type": "string"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "estimate_id": {
+      "title": "Estimate Id",
+      "type": "string"
+    },
+    "estimator_version": {
+      "title": "Estimator Version",
+      "type": "string"
+    },
+    "evidence_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Claim Ids",
+      "type": "array"
+    },
+    "evidence_tier": {
+      "$ref": "#/$defs/EvidenceTier"
+    },
+    "family": {
+      "$ref": "#/$defs/SolutionFamily"
+    },
+    "identification_bounds": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SignedInterval"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "legacy_opportunity_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Legacy Opportunity Id"
+    },
+    "model_status": {
+      "title": "Model Status",
+      "type": "string"
+    },
+    "need_probability": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Need Probability"
+    },
+    "need_semantics": {
+      "title": "Need Semantics",
+      "type": "string"
+    },
+    "principal_quantity": {
+      "title": "Principal Quantity",
+      "type": "string"
+    },
+    "solution": {
+      "$ref": "#/$defs/BankingSolution"
+    },
+    "solution_label": {
+      "title": "Solution Label",
+      "type": "string"
+    },
+    "timing_probability_30d": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Timing Probability 30D"
+    },
+    "timing_probability_60d": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Timing Probability 60D"
+    },
+    "timing_probability_90d": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Timing Probability 90D"
+    },
+    "unavailable_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Unavailable Reason"
+    }
+  },
+  "required": [
+    "estimate_id",
+    "entity_id",
+    "solution",
+    "solution_label",
+    "family",
+    "principal_quantity",
+    "as_of",
+    "available",
+    "need_semantics",
+    "claim_class",
+    "evidence_tier",
+    "calibration_status",
+    "model_status",
+    "estimator_version"
+  ],
+  "title": "SolutionEstimate",
+  "type": "object"
+}

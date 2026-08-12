@@ -1,0 +1,528 @@
+{
+  "$defs": {
+    "ArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_version": {
+          "title": "Dataset Version",
+          "type": "string"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "prior_version": {
+          "title": "Prior Version",
+          "type": "string"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prompt Version"
+        },
+        "rate_card_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate Card Version"
+        },
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "transformation_version": {
+          "title": "Transformation Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_version",
+        "dataset_version",
+        "prior_version",
+        "transformation_version"
+      ],
+      "title": "ArtifactReference",
+      "type": "object"
+    },
+    "BusinessProblem": {
+      "enum": [
+        "WORKING_CAPITAL_PRESSURE",
+        "FX_EXPOSURE",
+        "INTEREST_RATE_EXPOSURE",
+        "COMMODITY_EXPOSURE",
+        "LIQUIDITY_FRAGMENTATION",
+        "REFINANCING_CLIFF",
+        "NEW_FUNDING_REQUIREMENT",
+        "PAYMENTS_INEFFICIENCY",
+        "COLLECTIONS_INEFFICIENCY",
+        "SUPPLY_CHAIN_RISK",
+        "PROJECT_MOBILISATION",
+        "GUARANTEE_OR_COLLATERAL_REQUIREMENT",
+        "TREASURY_CENTRALISATION",
+        "CAPITAL_STRUCTURE_EVENT",
+        "MA_OR_STRATEGIC_EVENT",
+        "ESG_TRANSITION_FUNDING",
+        "WALLET_LEAKAGE",
+        "OPERATIONAL_RESILIENCE"
+      ],
+      "title": "BusinessProblem",
+      "type": "string"
+    },
+    "BusinessTwinComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "assumptions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "available_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Available Date"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "contradictions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Contradictions",
+          "type": "array"
+        },
+        "decision_impacts": {
+          "additionalProperties": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "title": "Decision Impacts",
+          "type": "object"
+        },
+        "domain": {
+          "$ref": "#/$defs/BusinessTwinDomain"
+        },
+        "evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Claim Ids",
+          "type": "array"
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/EvidenceTier"
+        },
+        "facts": {
+          "additionalProperties": true,
+          "title": "Facts",
+          "type": "object"
+        },
+        "freshness_days": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Freshness Days"
+        },
+        "indicators": {
+          "items": {
+            "$ref": "#/$defs/IndicatorValue"
+          },
+          "title": "Indicators",
+          "type": "array"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "materiality": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Materiality",
+          "type": "number"
+        },
+        "missing_information": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Information",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/ComponentStatus"
+        },
+        "valid_from": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid From"
+        },
+        "valid_to": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid To"
+        }
+      },
+      "required": [
+        "domain",
+        "label",
+        "status",
+        "claim_class",
+        "evidence_tier",
+        "materiality"
+      ],
+      "title": "BusinessTwinComponent",
+      "type": "object"
+    },
+    "BusinessTwinDomain": {
+      "enum": [
+        "REVENUE_ENGINE",
+        "COST_ENGINE",
+        "WORKING_CAPITAL_CYCLE",
+        "FUNDING_STRUCTURE",
+        "LIQUIDITY_AND_BUFFER",
+        "OPERATING_MODEL",
+        "GEOGRAPHIC_EXPOSURE",
+        "CURRENCY_AND_COMMODITY_EXPOSURE",
+        "PROJECTS_SUBSIDIARIES_SPVS",
+        "STAKEHOLDER_RESPONSIBILITY",
+        "BUSINESS_AND_FINANCIAL_RISKS",
+        "STRATEGY_ACTIONS_AND_ESG"
+      ],
+      "title": "BusinessTwinDomain",
+      "type": "string"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "ComponentStatus": {
+      "enum": [
+        "SUPPORTED",
+        "INFERRED",
+        "UNKNOWN",
+        "NOT_APPLICABLE"
+      ],
+      "title": "ComponentStatus",
+      "type": "string"
+    },
+    "EvidenceGap": {
+      "additionalProperties": false,
+      "description": "An explicit record that a material domain has no supporting evidence.",
+      "properties": {
+        "acquisition_route": {
+          "title": "Acquisition Route",
+          "type": "string"
+        },
+        "blocking_problems": {
+          "items": {
+            "$ref": "#/$defs/BusinessProblem"
+          },
+          "title": "Blocking Problems",
+          "type": "array"
+        },
+        "domain": {
+          "$ref": "#/$defs/BusinessTwinDomain"
+        },
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "gap_id": {
+          "title": "Gap Id",
+          "type": "string"
+        },
+        "material": {
+          "default": true,
+          "title": "Material",
+          "type": "boolean"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "gap_id",
+        "entity_id",
+        "domain",
+        "reason",
+        "acquisition_route"
+      ],
+      "title": "EvidenceGap",
+      "type": "object"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "IndicatorValue": {
+      "additionalProperties": false,
+      "description": "A transparent, evidence-linked derived indicator.",
+      "properties": {
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "IDENTIFIED_BOUND"
+        },
+        "evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Claim Ids",
+          "type": "array"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "indicator_id": {
+          "title": "Indicator Id",
+          "type": "string"
+        },
+        "inputs": {
+          "additionalProperties": {
+            "type": "number"
+          },
+          "title": "Inputs",
+          "type": "object"
+        },
+        "interval": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SignedInterval"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "missing_inputs": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Missing Inputs",
+          "type": "array"
+        },
+        "pending_evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Pending Evidence Claim Ids",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/ComponentStatus"
+        },
+        "transformation_version": {
+          "title": "Transformation Version",
+          "type": "string"
+        },
+        "unit": {
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "indicator_id",
+        "label",
+        "formula",
+        "unit",
+        "status",
+        "transformation_version"
+      ],
+      "title": "IndicatorValue",
+      "type": "object"
+    },
+    "SignedInterval": {
+      "additionalProperties": false,
+      "description": "An interval that may be negative.\n\nClient and bank value can legitimately be negative (a cost-to-win exceeding\ncontribution, or an FX position that moves against the client), so the V3\nnon-negative ``AmountInterval`` is not reusable here.",
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "title": "Median",
+          "type": "number"
+        },
+        "unit": {
+          "default": "ZAR",
+          "title": "Unit",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "SignedInterval",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "approved_claim_count": {
+      "minimum": 0,
+      "title": "Approved Claim Count",
+      "type": "integer"
+    },
+    "artifacts": {
+      "$ref": "#/$defs/ArtifactReference"
+    },
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "claim_count": {
+      "minimum": 0,
+      "title": "Claim Count",
+      "type": "integer"
+    },
+    "components": {
+      "items": {
+        "$ref": "#/$defs/BusinessTwinComponent"
+      },
+      "maxItems": 12,
+      "minItems": 12,
+      "title": "Components",
+      "type": "array"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "entity_name": {
+      "title": "Entity Name",
+      "type": "string"
+    },
+    "evidence_gaps": {
+      "items": {
+        "$ref": "#/$defs/EvidenceGap"
+      },
+      "title": "Evidence Gaps",
+      "type": "array"
+    },
+    "legal_entity_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Legal Entity Ids",
+      "type": "array"
+    },
+    "sector": {
+      "title": "Sector",
+      "type": "string"
+    },
+    "snapshot_id": {
+      "title": "Snapshot Id",
+      "type": "string"
+    },
+    "snapshot_version": {
+      "default": "3.1.0",
+      "title": "Snapshot Version",
+      "type": "string"
+    },
+    "supported_domain_count": {
+      "maximum": 12,
+      "minimum": 0,
+      "title": "Supported Domain Count",
+      "type": "integer"
+    },
+    "watermark": {
+      "title": "Watermark",
+      "type": "string"
+    }
+  },
+  "required": [
+    "snapshot_id",
+    "entity_id",
+    "entity_name",
+    "sector",
+    "as_of",
+    "components",
+    "claim_count",
+    "approved_claim_count",
+    "supported_domain_count",
+    "watermark",
+    "artifacts"
+  ],
+  "title": "BusinessTwinSnapshot",
+  "type": "object"
+}

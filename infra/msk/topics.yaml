@@ -7,6 +7,12 @@ defaults:
   cleanup_policy: delete
   retention_ms: 31536000000
 topics:
+  # V3.1 domain topics: event type is carried in the versioned envelope so the
+  # platform does not proliferate one topic per business event.
+  - { name: wallet-twin.business-twin.v1, partitions: 24 }
+  - { name: wallet-twin.decision.v1, partitions: 24 }
+  - { name: wallet-twin.client-learning.v1 }
+  - { name: wallet-twin.audit.v1, partitions: 24 }
   - { name: wallet.eligibility-recorded.v1 }
   - { name: wallet.recommendation-assigned.v1 }
   - { name: wallet.recommendation-displayed.v1 }

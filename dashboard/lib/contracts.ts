@@ -410,3 +410,301 @@ export type V3Fixture = {
     blocking_external_gates: string[];
   };
 };
+
+export type V31PlanEntry = {
+  rank: number;
+  conversation_id: string;
+  entity_id: string;
+  entity_name: string;
+  stakeholder_role: string;
+  problem: string;
+  problem_label: string;
+  primary_solution: string;
+  solution_label: string;
+  family: string;
+  why_now: string;
+  client_value_median: number | null;
+  client_value_status: string;
+  bank_value_median: number | null;
+  bank_value_status: string;
+  selection_stability: number;
+  frontier_state: string;
+  eligibility: string;
+  action: string;
+  adjusted_benefit_expected: number;
+  adjusted_benefit_cvar10: number;
+};
+
+export type V31ConversationSummary = {
+  conversation_id: string;
+  entity_id: string;
+  entity_name: string;
+  sector: string;
+  stakeholder_role: string;
+  problem: string;
+  problem_label: string;
+  primary_solution: string;
+  supporting_solutions: string[];
+  why_now: string;
+  client_value_median: number | null;
+  client_value_monetised: boolean;
+  bank_value_median: number | null;
+  bank_value_status: string;
+  selection_stability: number;
+  weekly_rank: number | null;
+  client_frontier_member: boolean;
+  portfolio_frontier_member: boolean;
+  action: string;
+  eligibility: string;
+  evidence_tiers: EvidenceTier[];
+  freshness_days: number;
+  interval_width: number | null;
+  assumption_load: number;
+  calibration_status: string;
+};
+
+export type V31DecisionTwin = {
+  metadata: {
+    title: string;
+    version: string;
+    as_of: string;
+    week_start: string;
+    decision_object: string;
+    central_idea: string;
+    deployment_mode: string;
+    watermark: string;
+  };
+  coverage_plan: {
+    plan_id: string;
+    capacity: number;
+    above_the_fold: number;
+    solver_status: string;
+    degraded_fallback: boolean;
+    expected_adjusted_benefit: number;
+    cvar10_adjusted_benefit: number;
+    commercial_status: string;
+    causal_status: string;
+    entries: V31PlanEntry[];
+  };
+  conversation_count: number;
+  conversation_summaries: V31ConversationSummary[];
+  client_index: Array<{
+    entity_id: string;
+    entity_name: string;
+    sector: string;
+    supported_domain_count: number;
+    claim_count: number;
+    approved_claim_count: number;
+    evidence_gaps: number;
+    change_digest_items: number;
+  }>;
+  evidence_coverage: {
+    total_claims: number;
+    total_gaps: number;
+    approval_counts: Record<string, number>;
+    all_clients_meet_claim_threshold: boolean;
+    all_clients_meet_domain_threshold: boolean;
+    all_clients_meet_e1_threshold: boolean;
+    e1_threshold_status: string;
+    e1_threshold_shortfall_clients: string[];
+    tier_counts: Record<string, number>;
+  };
+  validation: Record<string, string | number | boolean | string[]>;
+  release: {
+    client_demo_status: string;
+    bank_production_status: string;
+    blocking_external_gates: string[];
+    new_v31_capabilities: string[];
+  };
+  event_topics: Record<string, number>;
+};
+
+export type V31Conversation = {
+  conversation_id: string;
+  entity_id: string;
+  entity_name: string;
+  sector: string;
+  as_of: string;
+  week_start: string;
+  stakeholder: {
+    primary_role: string;
+    secondary_roles: string[];
+    ownership_rationale: string;
+    requires_rm_confirmation: boolean;
+    named_contact_status: string;
+  };
+  problem: {
+    problem: string;
+    label: string;
+    intensity: IntervalEstimate;
+    probability: number;
+    calibration_status: string;
+    supporting_evidence: string[];
+    disconfirming_evidence: string[];
+    reason_codes: string[];
+  };
+  solution_bundle: { primary: string; supporting: string[]; prerequisites: string[] };
+  engagement_window: {
+    trigger_name: string | null;
+    trigger_supported: boolean;
+    start_date: string;
+    end_date: string;
+    probability_30d: number;
+    probability_60d: number;
+    probability_90d: number;
+    why_now: string;
+    calibration_status: string;
+  };
+  client_value: {
+    monetised_total: AmountInterval | null;
+    non_monetised_dimensions: string[];
+    assumptions: string[];
+    watermark: string;
+  };
+  bank_value: {
+    direct_contribution: AmountInterval | null;
+    relationship_value_3y: AmountInterval | null;
+    causal_incremental_value: null;
+    status: string;
+    causal_status: string;
+    reason_codes: string[];
+    watermark: string;
+  };
+  risk_and_feasibility: {
+    blocked: boolean;
+    material_unknowns: string[];
+    permitted_action: string;
+    friction_score: number;
+    risk_score: number;
+    feasibility_multiplier: number;
+    required_confirmations: string[];
+    banker_confirmation_notice: string;
+    gates: Array<{ gate: string; status: string; required: boolean; reason: string }>;
+  };
+  pareto_status: {
+    client_frontier_member: boolean;
+    portfolio_frontier_member: boolean;
+    client_frontier_probability: number;
+    portfolio_frontier_probability: number;
+    dominance_threshold: number;
+  };
+  policy_rank: {
+    weekly_rank: number | null;
+    selected: boolean;
+    selection_stability: number;
+    solver_status: string;
+    reasons: string[];
+  };
+  next_best_question: null | {
+    question_id: string;
+    question_text: string;
+    variable_label: string;
+    net_voi_zar: number;
+    scenario_draws: number;
+    can_change_rank: boolean;
+    can_change_bundle: boolean;
+    can_change_feasibility: boolean;
+    can_change_abstention: boolean;
+  };
+  why: string;
+  how: string;
+  what: string;
+  evidence_tiers: EvidenceTier[];
+  evidence_claim_ids: string[];
+  eligibility: string;
+  eligibility_reasons: string[];
+  watermark: string;
+};
+
+export type V31Brief = {
+  headline: string;
+  why: string;
+  how: string;
+  what: string;
+  client_value_statement: string;
+  bank_value_statement: string;
+  feasibility_statement: string;
+  primary_question: string | null;
+  citations: Array<{ claim_id: string; citation: string }>;
+  missing_evidence: string[];
+  abstentions: string[];
+  prohibited_claims: string[];
+  compiler: string;
+  provider_used: string;
+};
+
+export type V31BusinessTwin = {
+  entity_id: string;
+  entity_name: string;
+  sector: string;
+  as_of: string;
+  snapshot_version: string;
+  claim_count: number;
+  approved_claim_count: number;
+  supported_domain_count: number;
+  components: Array<{
+    domain: string;
+    label: string;
+    status: string;
+    claim_class: ClaimClass;
+    evidence_tier: EvidenceTier;
+    materiality: number;
+    freshness_days: number;
+    facts: Record<string, string | number | boolean | null>;
+    missing_information: string[];
+    decision_impacts: { problems: string[]; solutions: string[]; timing: string[] };
+  }>;
+  evidence_gaps: Array<{ domain: string; reason: string; acquisition_route: string; material: boolean }>;
+  watermark: string;
+};
+
+export type V31Graph = {
+  graph_id: string;
+  entity_id: string;
+  as_of: string;
+  attribute_node_count: number;
+  event_node_count: number;
+  review_candidate_edges: number;
+  measurement_status: string;
+  identity_resolution_status: string;
+  nodes: Array<{ node_id: string; label: string; node_type: string; layer: string; review_state: string }>;
+  edges: Array<{ edge_id: string; source: string; target: string; edge_type: string; layer: string; approval_status: string }>;
+  explanation_paths: Array<{ path_id: string; narrative: string; node_ids: string[] }>;
+};
+
+export type V31Digest = {
+  digest_id: string;
+  entity_id: string;
+  since: string;
+  as_of: string;
+  no_change_statement: string | null;
+  items: Array<{
+    change_type: string;
+    subject: string;
+    before: string | null;
+    after: string;
+    decision_impact: string;
+    materiality: number;
+  }>;
+};
+
+export type V31FundingRoutes = {
+  entity_id: string;
+  as_of: string;
+  requirement: AmountInterval | null;
+  requirement_status: string;
+  routes: Array<{ route: string; probability: number; score: number; drivers: Record<string, number> }>;
+  missing_inputs: string[];
+  model_status: string;
+  challenger_status: string;
+};
+
+export type V31Fixture = {
+  projection: V31DecisionTwin;
+  conversations: Record<string, V31Conversation>;
+  briefs: Record<string, V31Brief>;
+  business_twins: Record<string, V31BusinessTwin>;
+  business_graphs: Record<string, V31Graph>;
+  change_digests: Record<string, V31Digest>;
+  funding_routes: Record<string, V31FundingRoutes>;
+};

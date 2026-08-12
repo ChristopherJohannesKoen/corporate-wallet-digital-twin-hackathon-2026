@@ -1,8 +1,18 @@
-# Corporate Wallet Digital Twin V3 — composed model card
+# Corporate Wallet Digital Twin V3.1 — composed model card
+
+> **V3.1 authoritative delta.** The final decision object is now
+> `(client, stakeholder role, business problem, solution bundle, engagement window)`.
+> V3.1 adds 20 twelve-domain Business Model Twins, 905 typed claims, temporal
+> business graphs, 18 problem detectors, 16 solution estimators, separated
+> client/bank value, six feasibility gates, funding routes, robust Pareto
+> filtering, an eight-conversation CVaR plan and decision-directed questions.
+> The current demonstration remains `NOT_PROMOTABLE`: every conversation is
+> discovery-only, all clients fall short of 15 reviewed E1 claims, and E3,
+> approved bank economics, bank infrastructure and real RM outcomes are absent.
 
 **Model family:** latent-wallet reconstruction and decision support
 
-**Release:** 3.0.0
+**Release:** 3.1.0
 
 **Point-in-time demonstration snapshot:** 30 June 2026
 

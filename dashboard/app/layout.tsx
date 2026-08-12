@@ -13,19 +13,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const base = new URL(`${protocol}://${host}`);
   return {
     metadataBase: base,
-    title: "Corporate Wallet Digital Twin V3 · Latent Decision Lab",
-    description: "Reconstruct latent corporate wallets, detect change and optimize governed RM and evidence capacity under visible uncertainty.",
+    title: "Corporate Wallet Digital Twin V3.1 · Decision Twin",
+    description: "Turn point-in-time business evidence into governed client conversations, separated value, feasibility and an eight-action coverage plan.",
     openGraph: {
-      title: "Corporate Wallet Digital Twin V3",
-      description: "Latent wallet reconstruction · robust decisions · governed evidence.",
+      title: "Corporate Wallet Digital Twin V3.1",
+      description: "Business-model evidence · dual value · governed weekly conversations.",
       type: "website",
-      images: [{ url: new URL("/og.png", base), width: 1721, height: 914, alt: "Corporate Wallet Digital Twin V3 latent decision lab" }],
+      images: [{ url: new URL("/og-v31.png", base), width: 1536, height: 1024, alt: "Corporate Wallet Digital Twin V3.1 Decision Twin" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Corporate Wallet Digital Twin V3",
-      description: "Latent wallet reconstruction and robust decision intelligence with visible claim boundaries.",
-      images: [new URL("/og.png", base)],
+      title: "Corporate Wallet Digital Twin V3.1",
+      description: "The eight highest-value governed conversations, with evidence and uncertainty visible.",
+      images: [new URL("/og-v31.png", base)],
     },
     icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   };

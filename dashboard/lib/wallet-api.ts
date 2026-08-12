@@ -1,10 +1,12 @@
 import { getChatGPTUser } from "@/app/chatgpt-auth";
 import fixtureJson from "@/app/data/shadow-fixture.json";
 import v3FixtureJson from "@/app/data/v3-fixture.json";
-import type { Opportunity, ShadowFixture, V3Fixture } from "./contracts";
+import v31FixtureJson from "@/app/data/v31-fixture.json";
+import type { Opportunity, ShadowFixture, V3Fixture, V31Fixture } from "./contracts";
 
 export const fixture = fixtureJson as unknown as ShadowFixture;
 export const v3Fixture = v3FixtureJson as unknown as V3Fixture;
+export const v31Fixture = v31FixtureJson as unknown as V31Fixture;
 
 export async function proxyWalletApi(path: string, init?: RequestInit): Promise<Response | null> {
   const baseUrl = process.env.WALLET_API_BASE_URL;
@@ -24,6 +26,14 @@ export async function proxyWalletApi(path: string, init?: RequestInit): Promise<
 export function pointInTime(asOf: string | null): Response | null {
   if (!asOf) return Response.json({ detail: "as_of is required" }, { status: 422 });
   if (asOf !== fixture.metadata.as_of) return Response.json({ detail: `snapshot unavailable: ${asOf}` }, { status: 404 });
+  return null;
+}
+
+export function v31PointInTime(asOf: string | null): Response | null {
+  if (!asOf) return Response.json({ detail: "as_of is required" }, { status: 422 });
+  if (asOf !== v31Fixture.projection.metadata.as_of) {
+    return Response.json({ detail: `snapshot unavailable: ${asOf}` }, { status: 404 });
+  }
   return null;
 }
 

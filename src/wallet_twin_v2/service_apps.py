@@ -1,4 +1,4 @@
-"""Deployable service boundaries for the composed V3 microservice topology.
+"""Deployable service boundaries for the composed V3.1 microservice topology.
 
 The reference build deliberately shares one Python distribution so contract and
 control code cannot drift. Each EKS deployment selects one ASGI object below;
@@ -16,13 +16,18 @@ from fastapi.routing import APIRoute
 
 from .api import app as canonical_app
 from wallet_twin_v3.api import router as v3_router
-
-
+from wallet_twin_v31.api import router as v31_router
 SERVICE_ROUTES = {
     "ingestion": ("/v1/ingestion",),
     "evidence": ("/v1/evidence",),
     "economics": ("/v1/economics",),
     "wallet-model": ("/v1/clients", "/v1/models"),
+    "business-twin": (
+        "/v3/decision-twin",
+        "/v3/clients",
+        "/v3/funding-routes",
+        "/v3/models/v31-validation",
+    ),
     "timing": ("/v1/timing",),
     "recommendation": (
         "/v1/opportunities",
@@ -46,15 +51,15 @@ SERVICE_ROUTES = {
 
 def create_service_app(service_name: str, prefixes: Iterable[str]) -> FastAPI:
     service = FastAPI(
-        title=f"Corporate Wallet Digital Twin V3 — {service_name}",
-        version="3.0.0",
+        title=f"Corporate Wallet Digital Twin V3.1 — {service_name}",
+        version="3.1.0",
         docs_url=None,
         redoc_url=None,
     )
 
     @service.get("/health", tags=["operational"])
     def health() -> dict[str, str]:
-        return {"status": "ok", "service": service_name, "version": "3.0.0"}
+        return {"status": "ok", "service": service_name, "version": "3.1.0"}
 
     @service.get("/ready", tags=["operational"])
     def ready() -> dict:
@@ -68,13 +73,24 @@ def create_service_app(service_name: str, prefixes: Iterable[str]) -> FastAPI:
         return report
 
     allowed = tuple(prefixes)
+    registered = {route.path for route in service.routes if isinstance(route, APIRoute)}
     for route in canonical_app.routes:
         if isinstance(route, APIRoute) and route.path != "/health" and route.path.startswith(allowed):
             service.router.routes.append(route)
-    if "/v3" in allowed:
-        for route in v3_router.routes:
-            if isinstance(route, APIRoute):
-                service.router.routes.append(route)
+            registered.add(route.path)
+    # The composed API imports additive routers at the end of its module.  An
+    # explicit owned-router pass makes service construction insensitive to
+    # Python's circular-import order and keeps duplicate paths out of OpenAPI.
+    if "/v3" in allowed or any(prefix.startswith("/v3") for prefix in allowed):
+        for owned_router in (v3_router, v31_router):
+            for route in owned_router.routes:
+                if (
+                    isinstance(route, APIRoute)
+                    and route.path.startswith(allowed)
+                    and route.path not in registered
+                ):
+                    service.router.routes.append(route)
+                    registered.add(route.path)
     return service
 
 
@@ -82,6 +98,7 @@ ingestion_app = create_service_app("ingestion", SERVICE_ROUTES["ingestion"])
 evidence_app = create_service_app("evidence", SERVICE_ROUTES["evidence"])
 economics_app = create_service_app("economics", SERVICE_ROUTES["economics"])
 wallet_model_app = create_service_app("wallet-model", SERVICE_ROUTES["wallet-model"])
+business_twin_app = create_service_app("business-twin", SERVICE_ROUTES["business-twin"])
 timing_app = create_service_app("timing", SERVICE_ROUTES["timing"])
 recommendation_app = create_service_app("recommendation", SERVICE_ROUTES["recommendation"])
 experiment_app = create_service_app("experiment", SERVICE_ROUTES["experiment"])

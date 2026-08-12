@@ -1,10 +1,12 @@
-# Corporate Wallet Digital Twin V3 workbench
+# Corporate Wallet Digital Twin V3.1 workbench
 
-Private client-demonstration workbench for the composed V3 decision-intelligence platform. It
+Private client-demonstration workbench for the composed V3.1 Corporate Banking Decision Twin. It
 serves a point-in-time demo snapshot locally and can proxy the entitled bank API
-when `WALLET_API_BASE_URL` is configured. The `/api/v3/decision-lab` route returns
-the live, entitlement-filtered `/v3/decision-lab` response when connected and
-uses the checked-in fixture only when no bank API is configured. The bundled snapshot combines the
+when `WALLET_API_BASE_URL` is configured. The `/api/v3/decision-twin` route returns
+the live, entitlement-filtered `/v3/decision-twin` response when connected and
+uses the checked-in fixture only when no bank API is configured. Detail routes fetch one entitled
+client or conversation at a time; the browser never receives the full portfolio decision objects.
+The bundled snapshot combines the
 supplied SynBank simulation, audited public evidence and licensed representative
 references; it is not bank-production data or a financial-decision system.
 

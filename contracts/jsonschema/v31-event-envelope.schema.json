@@ -1,0 +1,322 @@
+{
+  "$defs": {
+    "ArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "dataset_version": {
+          "title": "Dataset Version",
+          "type": "string"
+        },
+        "model_version": {
+          "title": "Model Version",
+          "type": "string"
+        },
+        "prior_version": {
+          "title": "Prior Version",
+          "type": "string"
+        },
+        "prompt_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Prompt Version"
+        },
+        "rate_card_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Rate Card Version"
+        },
+        "schema_version": {
+          "default": "v1",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "transformation_version": {
+          "title": "Transformation Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_version",
+        "dataset_version",
+        "prior_version",
+        "transformation_version"
+      ],
+      "title": "ArtifactReference",
+      "type": "object"
+    },
+    "DeploymentEnvironment": {
+      "enum": [
+        "FIXTURE",
+        "DEVELOPMENT",
+        "CLIENT_DEMO",
+        "SHADOW",
+        "PILOT",
+        "PRODUCTION"
+      ],
+      "title": "DeploymentEnvironment",
+      "type": "string"
+    },
+    "DomainTopic": {
+      "enum": [
+        "wallet-twin.business-twin.v1",
+        "wallet-twin.decision.v1",
+        "wallet-twin.client-learning.v1",
+        "wallet-twin.audit.v1"
+      ],
+      "title": "DomainTopic",
+      "type": "string"
+    },
+    "EntitlementContext": {
+      "additionalProperties": false,
+      "properties": {
+        "client_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Client Ids",
+          "type": "array"
+        },
+        "environment": {
+          "$ref": "#/$defs/DeploymentEnvironment"
+        },
+        "legal_entities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Legal Entities",
+          "type": "array"
+        },
+        "products": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Products",
+          "type": "array"
+        },
+        "regions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Regions",
+          "type": "array"
+        },
+        "roles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "team": {
+          "title": "Team",
+          "type": "string"
+        },
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "roles",
+        "team",
+        "regions",
+        "client_ids",
+        "environment"
+      ],
+      "title": "EntitlementContext",
+      "type": "object"
+    },
+    "V31EventType": {
+      "enum": [
+        "BusinessTwinSnapshotPublished",
+        "BusinessGraphSnapshotPublished",
+        "BusinessEventPublished",
+        "ProblemHypothesisPublished",
+        "StakeholderAttestationRecorded",
+        "FeasibilityAssessmentRecorded",
+        "ConversationEligibilityRecorded",
+        "CoveragePlanSelected",
+        "InformationQuestionProposed",
+        "ClientAnswerSubmitted",
+        "ClientAnswerApproved",
+        "ConversationBriefCompiled"
+      ],
+      "title": "V31EventType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Envelope for the twelve new V3.1 event types.",
+  "properties": {
+    "artifacts": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ArtifactReference"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "as_of": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "conversation_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Conversation Id"
+    },
+    "entitlement_context": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EntitlementContext"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "entity_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Entity Id"
+    },
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/V31EventType"
+    },
+    "idempotency_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Idempotency Key"
+    },
+    "occurred_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Occurred At"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Payload",
+      "type": "object"
+    },
+    "problem_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Problem Id"
+    },
+    "reason_codes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "schema_version": {
+      "default": "3.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "snapshot_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Snapshot Id"
+    },
+    "solution_bundle_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Solution Bundle Id"
+    },
+    "topic": {
+      "$ref": "#/$defs/DomainTopic"
+    }
+  },
+  "required": [
+    "event_id",
+    "event_type",
+    "topic"
+  ],
+  "title": "V31EventEnvelope",
+  "type": "object"
+}

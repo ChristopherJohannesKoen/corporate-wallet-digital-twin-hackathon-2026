@@ -1,0 +1,114 @@
+{
+  "$defs": {
+    "ChangeDigestItem": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "After"
+        },
+        "before": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before"
+        },
+        "change_type": {
+          "title": "Change Type",
+          "type": "string"
+        },
+        "decision_impact": {
+          "title": "Decision Impact",
+          "type": "string"
+        },
+        "evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Claim Ids",
+          "type": "array"
+        },
+        "materiality": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Materiality",
+          "type": "number"
+        },
+        "subject": {
+          "title": "Subject",
+          "type": "string"
+        }
+      },
+      "required": [
+        "change_type",
+        "subject",
+        "materiality",
+        "decision_impact"
+      ],
+      "title": "ChangeDigestItem",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "digest_id": {
+      "title": "Digest Id",
+      "type": "string"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/ChangeDigestItem"
+      },
+      "title": "Items",
+      "type": "array"
+    },
+    "no_change_statement": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "No Change Statement"
+    },
+    "since": {
+      "format": "date",
+      "title": "Since",
+      "type": "string"
+    }
+  },
+  "required": [
+    "digest_id",
+    "entity_id",
+    "since",
+    "as_of"
+  ],
+  "title": "ChangeDigest",
+  "type": "object"
+}

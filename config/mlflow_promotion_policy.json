@@ -1,5 +1,5 @@
 {
-  "policy_version": "mlflow-promotion-policy-3.0.0",
+  "policy_version": "mlflow-promotion-policy-3.1.0",
   "registry_uri": "databricks-uc",
   "registered_model_prefix": "wallet_twin.models",
   "aliases": ["candidate", "shadow", "champion", "rollback"],
@@ -19,6 +19,20 @@
     "cvar-scenario-policy",
     "voi-policy",
     "composed-v3-validation-report",
+    "business-domain-taxonomy",
+    "problem-detection-policy-and-validation",
+    "stakeholder-responsibility-matrix",
+    "problem-solution-compatibility-matrix",
+    "solution-family-estimator-manifests",
+    "funding-route-scorecard-and-challenger-report",
+    "client-value-formula-registry",
+    "feasibility-and-lead-time-policy",
+    "graph-ontology-and-extraction-policy",
+    "pareto-dominance-policy",
+    "v31-cvar-coverage-policy",
+    "v31-voi-question-answer-model",
+    "v31-genai-schema-and-golden-set-report",
+    "composed-v31-validation-report",
     "sbom",
     "container-signature"
   ],
@@ -39,6 +53,14 @@
       "90pct_coverage_between_85pct_and_95pct",
       "crps_improvement_at_least_10pct",
       "no_material_segment_severe_undercoverage"
+      ,"all_16_solution_estimators_registered"
+      ,"business_graph_point_in_time_validation_passed"
+      ,"pending_or_rejected_claims_excluded_from_eligible_paths"
+      ,"client_and_bank_value_separated"
+      ,"failed_feasibility_gates_block_selection"
+      ,"unknown_material_gates_create_discovery_only"
+      ,"pareto_and_coverage_plan_reproducible"
+      ,"positive_net_voi_and_decision_effect_required"
     ],
     "shadow_to_champion": [
       "all_candidate_to_shadow_gates",
@@ -48,6 +70,13 @@
       "v3_change_point_false_alarm_validation",
       "v3_portfolio_policy_stress_validation",
       "v3_voi_policy_validation",
+      "business_domain_ontology_approved",
+      "stakeholder_responsibility_policy_approved",
+      "solution_family_models_independently_validated",
+      "client_value_methodology_approved",
+      "solution_specific_economics_approved",
+      "feasibility_and_conduct_policy_approved",
+      "funding_route_and_problem_detection_empirically_validated",
       "security_and_entitlement_approval",
       "30_elapsed_clean_shadow_days",
       "model_risk_approval"

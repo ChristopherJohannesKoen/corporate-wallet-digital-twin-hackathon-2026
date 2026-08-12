@@ -1,0 +1,209 @@
+{
+  "$defs": {
+    "BusinessProblem": {
+      "enum": [
+        "WORKING_CAPITAL_PRESSURE",
+        "FX_EXPOSURE",
+        "INTEREST_RATE_EXPOSURE",
+        "COMMODITY_EXPOSURE",
+        "LIQUIDITY_FRAGMENTATION",
+        "REFINANCING_CLIFF",
+        "NEW_FUNDING_REQUIREMENT",
+        "PAYMENTS_INEFFICIENCY",
+        "COLLECTIONS_INEFFICIENCY",
+        "SUPPLY_CHAIN_RISK",
+        "PROJECT_MOBILISATION",
+        "GUARANTEE_OR_COLLATERAL_REQUIREMENT",
+        "TREASURY_CENTRALISATION",
+        "CAPITAL_STRUCTURE_EVENT",
+        "MA_OR_STRATEGIC_EVENT",
+        "ESG_TRANSITION_FUNDING",
+        "WALLET_LEAKAGE",
+        "OPERATIONAL_RESILIENCE"
+      ],
+      "title": "BusinessProblem",
+      "type": "string"
+    },
+    "BusinessTwinDomain": {
+      "enum": [
+        "REVENUE_ENGINE",
+        "COST_ENGINE",
+        "WORKING_CAPITAL_CYCLE",
+        "FUNDING_STRUCTURE",
+        "LIQUIDITY_AND_BUFFER",
+        "OPERATING_MODEL",
+        "GEOGRAPHIC_EXPOSURE",
+        "CURRENCY_AND_COMMODITY_EXPOSURE",
+        "PROJECTS_SUBSIDIARIES_SPVS",
+        "STAKEHOLDER_RESPONSIBILITY",
+        "BUSINESS_AND_FINANCIAL_RISKS",
+        "STRATEGY_ACTIONS_AND_ESG"
+      ],
+      "title": "BusinessTwinDomain",
+      "type": "string"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "ReviewState": {
+      "enum": [
+        "REVIEW_CANDIDATE",
+        "APPROVED",
+        "REJECTED",
+        "DETERMINISTIC"
+      ],
+      "title": "ReviewState",
+      "type": "string"
+    },
+    "SignedInterval": {
+      "additionalProperties": false,
+      "description": "An interval that may be negative.\n\nClient and bank value can legitimately be negative (a cost-to-win exceeding\ncontribution, or an FX position that moves against the client), so the V3\nnon-negative ``AmountInterval`` is not reusable here.",
+      "properties": {
+        "currency": {
+          "default": "ZAR",
+          "title": "Currency",
+          "type": "string"
+        },
+        "lower": {
+          "title": "Lower",
+          "type": "number"
+        },
+        "median": {
+          "title": "Median",
+          "type": "number"
+        },
+        "unit": {
+          "default": "ZAR",
+          "title": "Unit",
+          "type": "string"
+        },
+        "upper": {
+          "title": "Upper",
+          "type": "number"
+        }
+      },
+      "required": [
+        "lower",
+        "median",
+        "upper"
+      ],
+      "title": "SignedInterval",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "affected_domains": {
+      "items": {
+        "$ref": "#/$defs/BusinessTwinDomain"
+      },
+      "title": "Affected Domains",
+      "type": "array"
+    },
+    "available_date": {
+      "format": "date",
+      "title": "Available Date",
+      "type": "string"
+    },
+    "claim_class": {
+      "$ref": "#/$defs/ClaimClass"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "event_date": {
+      "format": "date",
+      "title": "Event Date",
+      "type": "string"
+    },
+    "event_key": {
+      "title": "Event Key",
+      "type": "string"
+    },
+    "event_type": {
+      "title": "Event Type",
+      "type": "string"
+    },
+    "evidence_claim_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Evidence Claim Ids",
+      "type": "array"
+    },
+    "evidence_tier": {
+      "$ref": "#/$defs/EvidenceTier"
+    },
+    "horizon_days": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Horizon Days"
+    },
+    "implied_problems": {
+      "items": {
+        "$ref": "#/$defs/BusinessProblem"
+      },
+      "title": "Implied Problems",
+      "type": "array"
+    },
+    "label": {
+      "title": "Label",
+      "type": "string"
+    },
+    "magnitude": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SignedInterval"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "review_state": {
+      "$ref": "#/$defs/ReviewState"
+    }
+  },
+  "required": [
+    "event_key",
+    "entity_id",
+    "event_type",
+    "label",
+    "event_date",
+    "available_date",
+    "claim_class",
+    "evidence_tier",
+    "review_state"
+  ],
+  "title": "BusinessEvent",
+  "type": "object"
+}

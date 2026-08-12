@@ -1,0 +1,464 @@
+{
+  "$defs": {
+    "ApprovalStatus": {
+      "enum": [
+        "DRAFT",
+        "PENDING_REVIEW",
+        "APPROVED",
+        "REJECTED",
+        "EXPIRED"
+      ],
+      "title": "ApprovalStatus",
+      "type": "string"
+    },
+    "ClaimClass": {
+      "enum": [
+        "OBSERVED",
+        "IDENTIFIED_BOUND",
+        "POSTERIOR",
+        "SCENARIO",
+        "CAUSAL"
+      ],
+      "title": "ClaimClass",
+      "type": "string"
+    },
+    "EvidenceTier": {
+      "enum": [
+        "E0",
+        "E1",
+        "E2",
+        "E3",
+        "E4"
+      ],
+      "title": "EvidenceTier",
+      "type": "string"
+    },
+    "ExplanationPath": {
+      "additionalProperties": false,
+      "description": "Event -> BusinessImpact -> Problem -> Stakeholder -> Solution -> ClientValue -> BankValue.",
+      "properties": {
+        "entity_id": {
+          "title": "Entity Id",
+          "type": "string"
+        },
+        "evidence_backed": {
+          "title": "Evidence Backed",
+          "type": "boolean"
+        },
+        "path_id": {
+          "title": "Path Id",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/ExplanationStep"
+          },
+          "minItems": 5,
+          "title": "Steps",
+          "type": "array"
+        },
+        "unsupported_steps": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Unsupported Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "path_id",
+        "entity_id",
+        "steps",
+        "evidence_backed"
+      ],
+      "title": "ExplanationPath",
+      "type": "object"
+    },
+    "ExplanationStep": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "edge_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Edge Id"
+        },
+        "evidence_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence Claim Ids",
+          "type": "array"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "node_id": {
+          "title": "Node Id",
+          "type": "string"
+        },
+        "step": {
+          "title": "Step",
+          "type": "string"
+        }
+      },
+      "required": [
+        "step",
+        "node_id",
+        "label",
+        "claim_class"
+      ],
+      "title": "ExplanationStep",
+      "type": "object"
+    },
+    "GraphEdge": {
+      "additionalProperties": false,
+      "properties": {
+        "approval_status": {
+          "$ref": "#/$defs/ApprovalStatus"
+        },
+        "available_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Available Date"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass"
+        },
+        "confidence_semantics": {
+          "title": "Confidence Semantics",
+          "type": "string"
+        },
+        "directed": {
+          "default": true,
+          "title": "Directed",
+          "type": "boolean"
+        },
+        "edge_id": {
+          "title": "Edge Id",
+          "type": "string"
+        },
+        "edge_type": {
+          "title": "Edge Type",
+          "type": "string"
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/EvidenceTier"
+        },
+        "layer": {
+          "$ref": "#/$defs/GraphLayer"
+        },
+        "review_state": {
+          "$ref": "#/$defs/ReviewState"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "source_claim_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Claim Ids",
+          "type": "array"
+        },
+        "source_fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Fact Ids",
+          "type": "array"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "transformation_artifact": {
+          "title": "Transformation Artifact",
+          "type": "string"
+        },
+        "valid_from": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid From"
+        },
+        "valid_to": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid To"
+        },
+        "weight": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Weight"
+        }
+      },
+      "required": [
+        "edge_id",
+        "layer",
+        "edge_type",
+        "source",
+        "target",
+        "claim_class",
+        "evidence_tier",
+        "approval_status",
+        "transformation_artifact",
+        "confidence_semantics",
+        "review_state"
+      ],
+      "title": "GraphEdge",
+      "type": "object"
+    },
+    "GraphLayer": {
+      "enum": [
+        "ATTRIBUTE",
+        "EVENT"
+      ],
+      "title": "GraphLayer",
+      "type": "string"
+    },
+    "GraphNode": {
+      "additionalProperties": false,
+      "properties": {
+        "attributes": {
+          "additionalProperties": true,
+          "title": "Attributes",
+          "type": "object"
+        },
+        "available_date": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Available Date"
+        },
+        "claim_class": {
+          "$ref": "#/$defs/ClaimClass",
+          "default": "OBSERVED"
+        },
+        "entity_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Entity Id"
+        },
+        "evidence_tier": {
+          "$ref": "#/$defs/EvidenceTier",
+          "default": "E0"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "layer": {
+          "$ref": "#/$defs/GraphLayer"
+        },
+        "node_id": {
+          "title": "Node Id",
+          "type": "string"
+        },
+        "node_type": {
+          "$ref": "#/$defs/NodeType"
+        },
+        "review_state": {
+          "$ref": "#/$defs/ReviewState",
+          "default": "DETERMINISTIC"
+        },
+        "valid_from": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid From"
+        },
+        "valid_to": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Valid To"
+        }
+      },
+      "required": [
+        "node_id",
+        "layer",
+        "node_type",
+        "label"
+      ],
+      "title": "GraphNode",
+      "type": "object"
+    },
+    "NodeType": {
+      "enum": [
+        "CLIENT",
+        "LEGAL_ENTITY",
+        "SUBSIDIARY",
+        "SPV",
+        "PROJECT",
+        "STAKEHOLDER_ROLE",
+        "COUNTRY",
+        "CURRENCY",
+        "COMMODITY",
+        "BUSINESS_MODEL_COMPONENT",
+        "RISK",
+        "PROBLEM",
+        "EVENT",
+        "BANKING_SOLUTION",
+        "CLIENT_VALUE_COMPONENT",
+        "BANK_VALUE_COMPONENT",
+        "EVIDENCE_CLAIM"
+      ],
+      "title": "NodeType",
+      "type": "string"
+    },
+    "ReviewState": {
+      "enum": [
+        "REVIEW_CANDIDATE",
+        "APPROVED",
+        "REJECTED",
+        "DETERMINISTIC"
+      ],
+      "title": "ReviewState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "attribute_node_count": {
+      "minimum": 0,
+      "title": "Attribute Node Count",
+      "type": "integer"
+    },
+    "edges": {
+      "items": {
+        "$ref": "#/$defs/GraphEdge"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "entity_id": {
+      "title": "Entity Id",
+      "type": "string"
+    },
+    "event_node_count": {
+      "minimum": 0,
+      "title": "Event Node Count",
+      "type": "integer"
+    },
+    "explanation_paths": {
+      "items": {
+        "$ref": "#/$defs/ExplanationPath"
+      },
+      "title": "Explanation Paths",
+      "type": "array"
+    },
+    "graph_id": {
+      "title": "Graph Id",
+      "type": "string"
+    },
+    "identity_resolution_status": {
+      "title": "Identity Resolution Status",
+      "type": "string"
+    },
+    "measurement_status": {
+      "title": "Measurement Status",
+      "type": "string"
+    },
+    "nodes": {
+      "items": {
+        "$ref": "#/$defs/GraphNode"
+      },
+      "title": "Nodes",
+      "type": "array"
+    },
+    "review_candidate_edges": {
+      "minimum": 0,
+      "title": "Review Candidate Edges",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "graph_id",
+    "entity_id",
+    "as_of",
+    "nodes",
+    "edges",
+    "attribute_node_count",
+    "event_node_count",
+    "review_candidate_edges",
+    "identity_resolution_status",
+    "measurement_status"
+  ],
+  "title": "BusinessGraphSnapshot",
+  "type": "object"
+}
