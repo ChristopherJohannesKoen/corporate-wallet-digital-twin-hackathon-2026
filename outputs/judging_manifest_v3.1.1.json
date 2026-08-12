@@ -2,8 +2,8 @@
   "version": "3.1.1",
   "status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-12T19:57:41.175998+00:00",
-  "source_commit": "65f6580755cb673c517950efe41a61c72c63e9bb",
+  "generated_at": "2026-08-12T20:10:16.354578+00:00",
+  "source_commit": "09dbfb99b5f8583aad5e93125403a5dbed5a8285",
   "clean_worktree": false,
   "data_mode": "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
   "checks": [
@@ -265,28 +265,28 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "cb4cb5b7a493850c003c110d3c56d34dc19896f2a5bb30da7e139d8ac566e06d",
+      "sha256": "e26577f3586c0fb4bd1641083062df55edb29e10daa6015f37fc38bf39f15712",
       "size_bytes": 159274
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "dcd7ef5cede9b1787d8460768622762dae529caf24d0bd73a267fa8b324d1f91",
+      "sha256": "725f52822715cec5287f584b06e49f92ea4a623d751e8dd169dd04bbddfeb035",
       "size_bytes": 460277
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "c6b6263a4507801bba0d299bbe486444589c0ce7cb5e15c46003edc6381e98b2",
-      "size_bytes": 5503
+      "sha256": "8093dbaf6c5a2f504f8f5385baa7e180c11e3436a3ff985142ade513f4d3b5cd",
+      "size_bytes": 5522
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "18d166513bc7d71318b2584ef2106006cfd2a91a2abf2847aa8dd2d5c1cb67bd",
-      "size_bytes": 1740211
+      "sha256": "0bc869e902020516a13c38b14ba98542054071f3545a56faf8570a0bd67ec65b",
+      "size_bytes": 1740246
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
-      "sha256": "3ae8963ff23eed1395054b5169dc231b62f2ba463f760e1aa1fa79e40c4ea033",
-      "size_bytes": 72188
+      "sha256": "47722c5188914922d07162fca54fa7d5fb9b42d5fb2c1e05fe2098d8c24a6b90",
+      "size_bytes": 72162
     },
     {
       "path": "contracts/openapi.json",
