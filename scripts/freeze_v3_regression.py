@@ -66,6 +66,43 @@ def build_frozen_surface() -> dict[str, Any]:
     }
     portfolio = v3_repository.action_portfolio.model_dump(mode="json")
     evidence_plan = v3_repository.evidence_acquisition.model_dump(mode="json")
+    portfolio_structure = {
+        "portfolio_id": portfolio["portfolio_id"],
+        "as_of": portfolio["as_of"],
+        "capacity": portfolio["capacity"],
+        "selected_actions": [
+            {
+                key: item[key]
+                for key in (
+                    "action_id", "opportunity_id", "entity_id", "entity_name",
+                    "sector", "product", "evidence_tier",
+                )
+            }
+            for item in portfolio["selected_actions"]
+        ],
+        "product_counts": portfolio["product_counts"],
+        "sector_counts": portfolio["sector_counts"],
+        "constraints": portfolio["constraints"],
+        "scenario_draws": portfolio["scenario_draws"],
+        "method": portfolio["method"],
+        "commercial_status": portfolio["commercial_status"],
+        "causal_status": portfolio["causal_status"],
+    }
+    portfolio_numerics = {
+        "expected_scenario_value_zar": portfolio["expected_scenario_value_zar"],
+        "downside_cvar_zar": portfolio["downside_cvar_zar"],
+        "selected_actions": {
+            item["action_id"]: {
+                key: item[key]
+                for key in (
+                    "robust_score", "expected_scenario_value_zar",
+                    "downside_cvar_zar", "need_probability",
+                    "leakage_probability",
+                )
+            }
+            for item in portfolio["selected_actions"]
+        },
+    }
     return {
         "frozen_version": "3.0.0+restatement-V3.1.1",
         "supersedes": "3.0.0",
@@ -104,6 +141,12 @@ def build_frozen_surface() -> dict[str, Any]:
             "action_portfolio": digest(portfolio),
             "evidence_acquisition": digest(evidence_plan),
             "validation": digest(v3_repository.validation),
+        },
+        "action_portfolio_structure": portfolio_structure,
+        "action_portfolio_numerics": portfolio_numerics,
+        "numeric_tolerances": {
+            "money_zar_absolute": 0.05,
+            "probability_absolute": 0.000001,
         },
         "ranked_opportunity_ids": [item["opportunity_id"] for item in opportunities],
         "selected_action_ids": sorted(

@@ -1,4 +1,232 @@
 {
+  "action_portfolio_numerics": {
+    "downside_cvar_zar": 20197290.26,
+    "expected_scenario_value_zar": 27788273.04,
+    "selected_actions": {
+      "action:E01-trade-finance": {
+        "downside_cvar_zar": 2114632.63,
+        "expected_scenario_value_zar": 4613778.53,
+        "leakage_probability": 0.035024,
+        "need_probability": 1.0,
+        "robust_score": 3239248.29
+      },
+      "action:E02-trade-finance": {
+        "downside_cvar_zar": 5047279.24,
+        "expected_scenario_value_zar": 11057777.15,
+        "leakage_probability": 0.080327,
+        "need_probability": 1.0,
+        "robust_score": 7752003.3
+      },
+      "action:E03-liquidity": {
+        "downside_cvar_zar": 278836.31,
+        "expected_scenario_value_zar": 590377.88,
+        "leakage_probability": 0.013427,
+        "need_probability": 0.800326,
+        "robust_score": 419030.02
+      },
+      "action:E08-liquidity": {
+        "downside_cvar_zar": 708685.81,
+        "expected_scenario_value_zar": 1520218.29,
+        "leakage_probability": 0.022174,
+        "need_probability": 1.0,
+        "robust_score": 1073875.43
+      },
+      "action:E09-payments": {
+        "downside_cvar_zar": 221828.16,
+        "expected_scenario_value_zar": 479578.56,
+        "leakage_probability": 0.066836,
+        "need_probability": 1.0,
+        "robust_score": 337815.84
+      },
+      "action:E10-trade-finance": {
+        "downside_cvar_zar": 1181201.65,
+        "expected_scenario_value_zar": 2672864.61,
+        "leakage_probability": 0.01924,
+        "need_probability": 1.0,
+        "robust_score": 1852449.98
+      },
+      "action:E11-liquidity": {
+        "downside_cvar_zar": 1161358.13,
+        "expected_scenario_value_zar": 2573311.55,
+        "leakage_probability": 0.078611,
+        "need_probability": 1.0,
+        "robust_score": 1796737.17
+      },
+      "action:E14-cross-border-fx": {
+        "downside_cvar_zar": 111438.02,
+        "expected_scenario_value_zar": 286144.61,
+        "leakage_probability": 0.11889,
+        "need_probability": 0.430485,
+        "robust_score": 190055.99
+      },
+      "action:E15-cross-border-fx": {
+        "downside_cvar_zar": 139807.59,
+        "expected_scenario_value_zar": 336965.27,
+        "leakage_probability": 0.123819,
+        "need_probability": 0.657265,
+        "robust_score": 228528.55
+      },
+      "action:E16-cross-border-fx": {
+        "downside_cvar_zar": 512051.63,
+        "expected_scenario_value_zar": 1107654.94,
+        "leakage_probability": 0.126362,
+        "need_probability": 1.0,
+        "robust_score": 780073.12
+      },
+      "action:E17-cross-border-fx": {
+        "downside_cvar_zar": 207824.22,
+        "expected_scenario_value_zar": 458004.75,
+        "leakage_probability": 0.077956,
+        "need_probability": 0.618438,
+        "robust_score": 320405.46
+      },
+      "action:E18-trade-finance": {
+        "downside_cvar_zar": 915403.46,
+        "expected_scenario_value_zar": 2091596.89,
+        "leakage_probability": 0.137527,
+        "need_probability": 0.879286,
+        "robust_score": 1444690.5
+      }
+    }
+  },
+  "action_portfolio_structure": {
+    "as_of": "2026-06-30",
+    "capacity": 12,
+    "causal_status": "CAUSAL_INCREMENTAL_VALUE_WITHHELD",
+    "commercial_status": "REPRESENTATIVE_SCENARIO_NOT_BANK_APPROVED",
+    "constraints": {
+      "max_per_client": 1,
+      "max_per_product": 4,
+      "max_per_sector": 4
+    },
+    "method": "capacity-constrained robust selection using lower-tail CVaR scenario utility",
+    "portfolio_id": "rm-capacity:2026-06-30:v3.0.0",
+    "product_counts": {
+      "Cross-border FX": 4,
+      "Liquidity": 3,
+      "Payments": 1,
+      "Trade finance": 4
+    },
+    "scenario_draws": 512,
+    "sector_counts": {
+      "consumer": 3,
+      "industrials_pharma": 1,
+      "insurance": 1,
+      "mining": 3,
+      "tech": 2,
+      "telecoms": 2
+    },
+    "selected_actions": [
+      {
+        "action_id": "action:E02-trade-finance",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "evidence_tier": "E1",
+        "opportunity_id": "E02-trade-finance",
+        "product": "Trade finance",
+        "sector": "mining"
+      },
+      {
+        "action_id": "action:E01-trade-finance",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "evidence_tier": "E1",
+        "opportunity_id": "E01-trade-finance",
+        "product": "Trade finance",
+        "sector": "mining"
+      },
+      {
+        "action_id": "action:E10-trade-finance",
+        "entity_id": "E10",
+        "entity_name": "Bid Corporation",
+        "evidence_tier": "E0",
+        "opportunity_id": "E10-trade-finance",
+        "product": "Trade finance",
+        "sector": "consumer"
+      },
+      {
+        "action_id": "action:E11-liquidity",
+        "entity_id": "E11",
+        "entity_name": "Pepkor Holdings",
+        "evidence_tier": "E0",
+        "opportunity_id": "E11-liquidity",
+        "product": "Liquidity",
+        "sector": "consumer"
+      },
+      {
+        "action_id": "action:E18-trade-finance",
+        "entity_id": "E18",
+        "entity_name": "The Bidvest Group",
+        "evidence_tier": "E0",
+        "opportunity_id": "E18-trade-finance",
+        "product": "Trade finance",
+        "sector": "industrials_pharma"
+      },
+      {
+        "action_id": "action:E08-liquidity",
+        "entity_id": "E08",
+        "entity_name": "Sanlam",
+        "evidence_tier": "E0",
+        "opportunity_id": "E08-liquidity",
+        "product": "Liquidity",
+        "sector": "insurance"
+      },
+      {
+        "action_id": "action:E16-cross-border-fx",
+        "entity_id": "E16",
+        "entity_name": "MTN Group",
+        "evidence_tier": "E0",
+        "opportunity_id": "E16-cross-border-fx",
+        "product": "Cross-border FX",
+        "sector": "telecoms"
+      },
+      {
+        "action_id": "action:E03-liquidity",
+        "entity_id": "E03",
+        "entity_name": "Anglo American",
+        "evidence_tier": "E0",
+        "opportunity_id": "E03-liquidity",
+        "product": "Liquidity",
+        "sector": "mining"
+      },
+      {
+        "action_id": "action:E09-payments",
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "evidence_tier": "E1",
+        "opportunity_id": "E09-payments",
+        "product": "Payments",
+        "sector": "consumer"
+      },
+      {
+        "action_id": "action:E17-cross-border-fx",
+        "entity_id": "E17",
+        "entity_name": "Vodacom Group",
+        "evidence_tier": "E0",
+        "opportunity_id": "E17-cross-border-fx",
+        "product": "Cross-border FX",
+        "sector": "telecoms"
+      },
+      {
+        "action_id": "action:E15-cross-border-fx",
+        "entity_id": "E15",
+        "entity_name": "Naspers",
+        "evidence_tier": "E0",
+        "opportunity_id": "E15-cross-border-fx",
+        "product": "Cross-border FX",
+        "sector": "tech"
+      },
+      {
+        "action_id": "action:E14-cross-border-fx",
+        "entity_id": "E14",
+        "entity_name": "Prosus",
+        "evidence_tier": "E0",
+        "opportunity_id": "E14-cross-border-fx",
+        "product": "Cross-border FX",
+        "sector": "tech"
+      }
+    ]
+  },
   "as_of": "2026-06-30",
   "boundary_policy": "V3.1 is additive. Any change to these digests is a breaking change to the restated V3.0 regression boundary and must be justified in review. The superseded pre-restatement asset is retained alongside this one; the 'invariants' block must match it exactly, because the restatement moved measured quantities and no governance claim.",
   "counts": {
@@ -24,6 +252,10 @@
     "causal_value_claims": 0,
     "commercial_status": "REPRESENTATIVE_SCENARIO_NOT_BANK_APPROVED",
     "measured_competitor_share_claims": 0
+  },
+  "numeric_tolerances": {
+    "money_zar_absolute": 0.05,
+    "probability_absolute": 1e-06
   },
   "ranked_opportunity_ids": [
     "E02-trade-finance",
