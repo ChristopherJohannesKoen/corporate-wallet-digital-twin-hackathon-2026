@@ -2,8 +2,8 @@
   "version": "3.1.1",
   "status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-12T20:52:52.713202+00:00",
-  "source_commit": "e3886a52e923ba729e9aa6e4b8995f73811b2e9e",
+  "generated_at": "2026-08-13T06:22:12.708017+00:00",
+  "source_commit": "51e33d780b72fcb0e90e4ebf9471740fb3095cdc",
   "clean_worktree": false,
   "data_mode": "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
   "checks": [
@@ -265,28 +265,28 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "59a3e860ce7c4a0b7ea6997fb55fcdc7651e3af00d284f1bdbf2b5b63d615cbe",
+      "sha256": "374587b8b22196393d208626a9aae1df9deaaa6298c7264b048b9938c7de1a50",
       "size_bytes": 159274
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "edc3d5a883c28642bb2244ba6731bf714cd6d67e2364f0b30bde4b19c6480955",
+      "sha256": "df5dfbd6bb691ef39442e58358b0cf237d875c3550d8c2b9a4561b1c94a38cb5",
       "size_bytes": 460277
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "d68394296b150e599809ccdd3c41986082974d64048882956f9ce261babec8b7",
+      "sha256": "3a18b6e467ccbaf5d1ef2c5e0e523b622d2913b3f23b45c4206d885f9cd8294a",
       "size_bytes": 5522
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "7e5a4b10af3fde15aeb774c43e38e8636e6564354dc67bce041f27a98c18fb63",
-      "size_bytes": 1740236
+      "sha256": "873829d9c785686ec3060f33de3c91d1691061267c831a6c816b8ea51d9d06f1",
+      "size_bytes": 1740238
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
-      "sha256": "4d0297144536e60a024d2b11cfaa499c3ca6c75d3f51bdfc0fb1831cf6039968",
-      "size_bytes": 72198
+      "sha256": "1ac27f91963aeb0376ca47bf841768e70f693c968b91d9bcd0dfbacb8d532869",
+      "size_bytes": 70585
     },
     {
       "path": "contracts/openapi.json",
@@ -300,8 +300,8 @@
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
-      "sha256": "a3837059fe48ac8e8e651a1a9015ed649552f1a86c88ce3da8dd0f3a0d919dfb",
-      "size_bytes": 1086896
+      "sha256": "4dbaea303906bc76c80057afa808f9ca1f9c352bf6c5eb9bbc6f0c28f086a3cc",
+      "size_bytes": 1067476
     },
     {
       "path": "public-mirror-manifest.json",
