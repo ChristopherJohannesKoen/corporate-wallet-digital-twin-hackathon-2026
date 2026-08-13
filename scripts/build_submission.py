@@ -141,6 +141,8 @@ def main() -> None:
     enter_locked_runtime()
     from pypdf import PdfReader
 
+    from wallet_twin_v2.artifacts import reproducibility_relevant
+
     checks: list[dict] = []
     checks.append(run("locked environment", [sys.executable, "-c", "import fastapi,numpy,pandas,pydantic; print('environment-ok')"]))
     for script in ("export_v3_contracts.py", "export_v31_contracts.py", "export_v311_wallet_surface.py"):
@@ -203,18 +205,34 @@ def main() -> None:
     submission_ready = bool(public_manifest and public_manifest.get("status") == "PASS" and live_accepted >= 3)
     status = "HACKATHON_SUBMISSION_READY" if submission_ready else "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"
 
-    porcelain = git_value("status", "--porcelain", default="UNKNOWN")
-    dirty = bool(porcelain)
-    dirty_paths = [line[3:] for line in porcelain.splitlines()[:20]] if dirty else []
-    # A manifest that names a commit but was built from uncommitted code
-    # overstates its own reproducibility. Readiness is capped, not claimed.
-    if dirty and submission_ready:
-        status = "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE"
-
     # One computation, two artifacts. The wallet surface is exported before the
     # provider comparison resolves, so it publishes a pending placeholder that is
     # replaced here rather than guessing a verdict of its own.
+    #
+    # This must happen *before* the worktree is inspected. Between the exporter
+    # and this call the fixture holds the pending sentinel, and sampling there
+    # would report a reproducibility-gated artifact as drifted on every build —
+    # a mid-build snapshot, not a fact about the commit.
     stamp_wallet_release(status)
+
+    # `git status --porcelain` emits "XY path"; slice past the two status
+    # characters and strip, rather than assuming a fixed-width prefix.
+    porcelain = git_value("status", "--porcelain", default="UNKNOWN")
+    changed = [line[2:].strip() for line in porcelain.splitlines() if line.strip()]
+    # Document deliverables restamp their own creation time on every build, so a
+    # whole-tree dirty check would make an honest READY verdict unreachable. What
+    # matters is whether source or a gated artifact drifted from the named commit.
+    blocking_dirty = reproducibility_relevant(changed)
+    dirty = bool(blocking_dirty)
+    manifest_dirty_paths = sorted(blocking_dirty)[:20]
+    rebuilt_deliverables = sorted(set(changed) - set(blocking_dirty))[:20]
+    # A manifest that names a commit but was built from uncommitted source
+    # overstates its own reproducibility. Readiness is capped, not claimed.
+    if dirty and submission_ready:
+        status = "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE"
+        # Re-stamp so the fixture and the manifest cannot disagree. Only the
+        # capped path reaches here, so the common case writes once.
+        stamp_wallet_release(status)
     manifest = {
         "version": VERSION,
         "status": status,
@@ -225,7 +243,13 @@ def main() -> None:
             git_value("rev-parse", "HEAD", default="UNCOMMITTED"),
         ),
         "clean_worktree": not dirty,
-        "dirty_paths": dirty_paths,
+        "clean_worktree_scope": (
+            "source and reproducibility-gated artifacts; document deliverables that "
+            "restamp their own creation time are listed separately and do not affect "
+            "the verdict"
+        ),
+        "dirty_paths": manifest_dirty_paths,
+        "rebuilt_deliverables": rebuilt_deliverables,
         "data_mode": "PRIVATE_EVALUATOR" if os.getenv("SYNBANK_DATA_ZIP") else "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
         "checks": checks,
         "artifacts": [hash_file(path) for path in artifacts if path.exists()],
