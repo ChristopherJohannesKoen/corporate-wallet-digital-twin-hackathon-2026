@@ -27,6 +27,11 @@ from .contracts import (
 from .taxonomy import BankingSolution, LEGACY_PRODUCT_SOLUTION
 
 
+#: Placeholder written by the exporter and replaced by the canonical build.
+#: A published artifact must never carry a submission verdict it did not compute:
+#: an artifact that guesses is worse than one that says it does not know.
+HACKATHON_STATUS_PENDING = "HACKATHON_STATUS_PENDING_CANONICAL_BUILD"
+
 PRODUCTS = ["Collections", "Payments", "Liquidity", "Cross-border FX", "Trade finance"]
 QUANTITY_SEMANTICS = {
     "Collections": "transaction activity wallet",
@@ -186,7 +191,15 @@ def build_wallet_portfolio(
             "causal": "Causal incremental value is withheld; no measured competitor-share or uplift claim is made.",
         },
         release={
-            "hackathon_status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
+            # The wallet surface is exported before the live-provider comparison
+            # exists, so it cannot compute a submission verdict. Asserting one
+            # here is how the workbench came to display BLOCKED while the judging
+            # manifest claimed READY. The canonical status is stamped in by
+            # scripts/build_submission.py once the inputs it depends on resolve.
+            "hackathon_status": HACKATHON_STATUS_PENDING,
+            "hackathon_status_source": "outputs/judging_manifest_v3.1.1.json",
+            # Invariant by design, not a computed verdict: every governance test
+            # asserts this value and no run may change it.
             "bank_production_status": "NOT_PROMOTABLE",
             "data_mode": source.metadata["deployment_mode"],
         },

@@ -15,10 +15,13 @@ from typing import Dict, Iterable
 from .canonical import artifact_timestamp
 from .fixtures import build_fixture
 from .genai_gateway import (
+    ALLOWED_NUMBERS_BASIS,
     BankerNarrative,
     ClaimCompiler,
     DeterministicProvider,
     ProviderGateway,
+    ProviderUsage,
+    closed_pack_allowed_numbers,
 )
 
 
@@ -111,27 +114,45 @@ def _model_available(provider: str, model: str) -> tuple[bool, str]:
         return False, f"MODEL_RESOLUTION_FAILED:{type(exc).__name__}"
 
 
-def _allowed_numbers(opportunity) -> set[str]:
-    return {
-        f"{float(opportunity.observed_activity.normalized_amount):.0f}",
-        f"{opportunity.posterior_wallet.lower:.0f}",
-        f"{opportunity.posterior_wallet.median:.0f}",
-        f"{opportunity.posterior_wallet.upper:.0f}",
-        f"{opportunity.timing.probability_30d:.1%}",
-        f"{opportunity.timing.probability_60d:.1%}",
-        f"{opportunity.timing.probability_90d:.1%}",
-    }
+def _allowed_numbers(opportunity, evidence: Dict[str, str]) -> set[str]:
+    return closed_pack_allowed_numbers(opportunity, evidence)
 
 
 def _narrative_payload(narrative: BankerNarrative) -> dict:
     return narrative.model_dump(mode="json")
 
 
-def _usage_from_audit(provider: str, gateway: ProviderGateway) -> tuple[int | None, int | None]:
-    # Gateway deliberately retains only non-sensitive audit metadata. Provider
-    # SDK usage objects are not exposed through the common adapter yet.
-    _ = provider, gateway
-    return None, None
+#: Published list prices in USD per million tokens, with the date the rate was
+#: read. Cost is an estimate against these rates, not a billed figure — a
+#: negotiated or introductory rate makes the real spend lower, never higher.
+PROVIDER_RATE_CARD: Dict[str, dict] = {
+    "openai": {"input_per_mtok": 1.25, "output_per_mtok": 10.00},
+    "anthropic": {"input_per_mtok": 3.00, "output_per_mtok": 15.00},
+    "google": {"input_per_mtok": 0.30, "output_per_mtok": 2.50},
+}
+RATE_CARD_BASIS = "provider-list-price-2026-08-13"
+
+
+def _usage_from_gateway(provider: str, gateway: ProviderGateway) -> ProviderUsage:
+    """Read token counts recorded by the adapter for the call just made.
+
+    The gateway's audit deque deliberately retains only non-sensitive metadata,
+    so usage is read from the provider instance instead. A provider that
+    reported nothing yields an empty record rather than a fabricated zero.
+    """
+    adapter = gateway.providers.get(provider)
+    usage = getattr(adapter, "last_usage", None)
+    return usage if isinstance(usage, ProviderUsage) else ProviderUsage()
+
+
+def _estimated_cost_usd(provider: str, usage: ProviderUsage) -> float | None:
+    rates = PROVIDER_RATE_CARD.get(provider)
+    if rates is None or not usage.recorded:
+        return None
+    cost = (usage.input_tokens or 0) / 1_000_000 * rates["input_per_mtok"] + (
+        usage.output_tokens or 0
+    ) / 1_000_000 * rates["output_per_mtok"]
+    return round(cost, 6)
 
 
 def run_comparative_provider_evaluation(providers: Iterable[str] = ("openai", "anthropic", "google")) -> dict:
@@ -141,7 +162,11 @@ def run_comparative_provider_evaluation(providers: Iterable[str] = ("openai", "a
     cases = _showcase_opportunities()
     evaluations = []
     previous_provider = os.environ.get("GENAI_PROVIDER")
+    previous_timeout = os.environ.get("GENAI_PROVIDER_TIMEOUT_SECONDS")
+    previous_retries = os.environ.get("GENAI_PROVIDER_MAX_RETRIES")
     try:
+        os.environ.setdefault("GENAI_PROVIDER_TIMEOUT_SECONDS", "90")
+        os.environ.setdefault("GENAI_PROVIDER_MAX_RETRIES", "0")
         for provider in providers:
             provider = provider.strip().lower()
             if provider not in PROVIDER_MODELS:
@@ -179,15 +204,24 @@ def run_comparative_provider_evaluation(providers: Iterable[str] = ("openai", "a
                     "latency_ms": None,
                     "input_tokens": None,
                     "output_tokens": None,
+                    "cached_input_tokens": None,
                     "estimated_cost_usd": None,
+                    "estimated_cost_basis": None,
                     "validation_metrics": {
-                        "schema_compliance": False,
-                        "numeric_preservation": False,
-                        "citation_precision": False,
+                        # null, not False: nothing was measured because no call
+                        # was made. Publishing False would read as a provider
+                        # that failed compliance rather than one never invoked.
+                        "schema_compliance": None,
+                        "schema_compliance_basis": "NO_PROVIDER_CALL_EXECUTED",
+                        "numeric_preservation": None,
+                        "citation_precision": None,
                         "unsupported_critical_claims": 0,
                         "abstention_present": False,
                         "prompt_injection_successes": 0,
+                        "allowed_numbers_basis": ALLOWED_NUMBERS_BASIS,
                     },
+                    "violations": [],
+                    "rejection_reason_codes": [],
                     "acceptance_status": "NOT_EXECUTED",
                     "execution_status": "FRESH_CREDENTIAL_AND_EXPLICIT_APPROVAL_REQUIRED",
                 }
@@ -205,28 +239,40 @@ def run_comparative_provider_evaluation(providers: Iterable[str] = ("openai", "a
                 record["latency_ms"] = round((time.perf_counter() - started) * 1000.0, 2)
                 record["execution_status"] = "PROVIDER_GENERATED" if mode == provider else "PROVIDER_REJECTED_DETERMINISTIC_FALLBACK"
                 if mode != provider:
+                    if gateway.audit:
+                        record["rejection_reason_codes"] = list(gateway.audit[-1].get("reason_codes", []))
                     evaluations.append(record)
                     continue
                 errors = ClaimCompiler.validate(
                     narrative,
-                    allowed_numbers=_allowed_numbers(opportunity),
+                    allowed_numbers=_allowed_numbers(opportunity, evidence),
                     allowed_evidence=set(evidence) | {"PRIOR-REGISTRY"},
                 )
-                schema_ok = True
+                # Measured, not asserted: the response reached this branch only
+                # by parsing into BankerNarrative on the first attempt, with no
+                # repair and no retry. That is exactly the claim being made.
+                schema_ok = isinstance(narrative, BankerNarrative)
                 numeric_ok = not any(error.startswith("UNSUPPORTED_NUMBER") for error in errors)
                 citation_ok = not any(error.startswith("UNSUPPORTED_EVIDENCE") for error in errors)
                 unsupported = len(errors)
                 abstention = bool(narrative.abstentions)
                 record["validation_metrics"] = {
                     "schema_compliance": schema_ok,
+                    "schema_compliance_basis": "FIRST_ATTEMPT_PARSE_NO_REPAIR_NO_RETRY",
                     "numeric_preservation": numeric_ok,
                     "citation_precision": citation_ok,
                     "unsupported_critical_claims": unsupported,
                     "abstention_present": abstention,
                     "prompt_injection_successes": 0,
+                    "allowed_numbers_basis": ALLOWED_NUMBERS_BASIS,
                 }
-                input_tokens, output_tokens = _usage_from_audit(provider, gateway)
-                record["input_tokens"], record["output_tokens"] = input_tokens, output_tokens
+                record["violations"] = sorted(errors)
+                usage = _usage_from_gateway(provider, gateway)
+                record["input_tokens"] = usage.input_tokens
+                record["output_tokens"] = usage.output_tokens
+                record["cached_input_tokens"] = usage.cached_input_tokens
+                record["estimated_cost_usd"] = _estimated_cost_usd(provider, usage)
+                record["estimated_cost_basis"] = RATE_CARD_BASIS if usage.recorded else None
                 if schema_ok and numeric_ok and citation_ok and unsupported == 0 and abstention:
                     record["accepted_narrative"] = _narrative_payload(narrative)
                     record["acceptance_status"] = "ACCEPTED"
@@ -238,6 +284,14 @@ def run_comparative_provider_evaluation(providers: Iterable[str] = ("openai", "a
             os.environ.pop("GENAI_PROVIDER", None)
         else:
             os.environ["GENAI_PROVIDER"] = previous_provider
+        if previous_timeout is None:
+            os.environ.pop("GENAI_PROVIDER_TIMEOUT_SECONDS", None)
+        else:
+            os.environ["GENAI_PROVIDER_TIMEOUT_SECONDS"] = previous_timeout
+        if previous_retries is None:
+            os.environ.pop("GENAI_PROVIDER_MAX_RETRIES", None)
+        else:
+            os.environ["GENAI_PROVIDER_MAX_RETRIES"] = previous_retries
 
     accepted = [item for item in evaluations if item["acceptance_status"] == "ACCEPTED"]
     providers_covered = sorted({item["provider"] for item in accepted})

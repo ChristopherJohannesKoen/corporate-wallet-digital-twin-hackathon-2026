@@ -81,14 +81,18 @@ notebook output.
 Live provider evaluation is opt-in. Never reuse credentials pasted into chat:
 
 ```powershell
-$env:LIVE_PROVIDER_EVAL_PUBLIC_ONLY_ACK = "true"
+$env:LIVE_PROVIDER_EVAL_ACK_PUBLIC_ONLY = "true"
 $env:OPENAI_API_KEY = "<fresh rotated secret>"
 $env:OPENAI_PROVIDER_APPROVED = "true"
 $env:OPENAI_MODEL_SNAPSHOT = "gpt-5.6-sol"
 # Add equivalent approved Anthropic and Google variables.
-$env:RUN_LIVE_PROVIDER_EVAL = "true"
 uv run python scripts/build_submission.py
 ```
+
+A provider is called only when its key, approval flag and exact model snapshot
+are all present; otherwise the run records `NOT_EXECUTED` against that provider
+and the deterministic brief stands. The manifest reports what actually ran — it
+never labels a run live that made no call.
 
 ## Submission artifacts
 

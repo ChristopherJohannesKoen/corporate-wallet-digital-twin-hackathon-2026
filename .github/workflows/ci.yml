@@ -22,6 +22,9 @@ jobs:
       - run: uv run python scripts/export_v3_contracts.py
       - run: uv run python scripts/run_v3_validation.py
       - run: uv run python scripts/export_v31_contracts.py
+      # The wallet fixture is in the diff gate below, so it must actually be
+      # regenerated here — otherwise the gate is inert for that artifact.
+      - run: uv run python scripts/export_v311_wallet_surface.py
       - run: uv run python scripts/run_measurement_sensitivity.py
       - run: uv run ruff check src tests scripts
       - run: uv run pytest --cov=wallet_twin_v2 --cov=wallet_twin_v3 --cov=wallet_twin_v31 --cov-report=term-missing
@@ -44,15 +47,12 @@ jobs:
       - run: docker build --pull --tag wallet-twin:${{ github.sha }} .
       - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2, wallet_twin_v3, wallet_twin_v31; from wallet_twin_v2.service_apps import business_twin_app, workbench_bff_app; assert any(route.path == '/v3/decision-twin' for route in business_twin_app.routes); assert any(route.path == '/v3/coverage-plan' for route in workbench_bff_app.routes)"
       - run: docker run --detach --name wallet-twin-smoke --publish 18080:8080 wallet-twin:${{ github.sha }}
-      - run: |
-          for attempt in $(seq 1 20); do
-            if docker exec wallet-twin-smoke python -c "import urllib.error,urllib.request; url='http://127.0.0.1:8080/v3/decision-twin?as_of=2026-06-30&week_start=2026-07-06'; exec('try:\n urllib.request.urlopen(url, timeout=2)\n raise AssertionError(\"unauthenticated read unexpectedly allowed\")\nexcept urllib.error.HTTPError as exc:\n assert exc.code == 401'); headers={'x-user-id':'ci-smoke','x-user-roles':'SHADOW_OPERATOR,MODEL_VALIDATOR','x-user-team':'model-risk','x-user-clients':'*','x-user-products':'*'}; payload=__import__('json').load(urllib.request.urlopen(urllib.request.Request(url,headers=headers), timeout=10)); assert payload['metadata']['version'] == '3.1.1'; assert len(payload['coverage_plan']['entries']) == 8; wallet=__import__('json').load(urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8080/v3/wallet-portfolio?as_of=2026-06-30',headers=headers),timeout=10)); assert len(wallet['cells']) == 100; assert wallet['approved_anchor_cells'] == 15"; then
-              exit 0
-            fi
-            sleep 2
-          done
-          docker logs wallet-twin-smoke
-          exit 1
+      # Readiness polling and assertions are separated inside the script: a
+      # failed assertion fails once, loudly, instead of being retried twenty
+      # times and reported as a timeout.
+      - run: docker exec -i wallet-twin-smoke python - < scripts/container_smoke.py
+      - if: failure()
+        run: docker logs wallet-twin-smoke
       - if: always()
         run: docker rm --force wallet-twin-smoke || true
       - uses: anchore/sbom-action@v0

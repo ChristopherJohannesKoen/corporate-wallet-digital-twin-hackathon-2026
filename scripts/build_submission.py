@@ -42,21 +42,55 @@ def enter_locked_runtime() -> None:
     raise SystemExit(completed.returncode)
 
 
-def run(label: str, command: list[str], *, env: dict[str, str] | None = None) -> dict:
+def portable(value: str) -> str:
+    """Strip the build machine's absolute path out of captured output.
+
+    Sub-scripts print paths through ``json.dumps``, which escapes backslashes —
+    so a naive replace of ``str(ROOT)`` matches the raw form and silently misses
+    the escaped one. That is how the committed manifest came to publish the
+    developer's home directory. All three renderings are handled here, at the one
+    funnel every sub-script's output passes through, so a newly added script
+    cannot reintroduce the leak.
+    """
+    root = str(ROOT)
+    for rendering in (
+        json.dumps(root)[1:-1],  # JSON-escaped: C:\\Users\\...
+        root,                    # raw: C:\Users\...
+        root.replace("\\", "/"),  # POSIX-slash
+    ):
+        value = value.replace(rendering, "<REPOSITORY_ROOT>")
+    return value
+
+
+def run(
+    label: str,
+    command: list[str],
+    *,
+    env: dict[str, str] | None = None,
+    tolerated_codes: dict[int, str] | None = None,
+) -> dict:
+    """Run a build step, capturing portable output for the manifest.
+
+    ``tolerated_codes`` maps an exit code to the status recorded for it. It
+    exists for steps that can legitimately decline to act — a provider
+    evaluation that refuses to overwrite accepted evidence has not failed, and
+    stopping the whole build over it would be wrong.
+    """
     merged = os.environ.copy()
     if env:
         merged.update(env)
     completed = subprocess.run(command, cwd=ROOT, env=merged, text=True, capture_output=True)
+    tolerated = (tolerated_codes or {}).get(completed.returncode)
     result = {
         "name": label,
-        "command": " ".join(command).replace(str(ROOT), "<REPOSITORY_ROOT>"),
-        "status": "PASS" if completed.returncode == 0 else "FAIL",
-        "stdout_tail": completed.stdout.strip().splitlines()[-12:],
-        "stderr_tail": completed.stderr.strip().splitlines()[-12:],
+        "command": portable(" ".join(command)),
+        "status": "PASS" if completed.returncode == 0 else (tolerated or "FAIL"),
+        "stdout_tail": [portable(line) for line in completed.stdout.strip().splitlines()[-12:]],
+        "stderr_tail": [portable(line) for line in completed.stderr.strip().splitlines()[-12:]],
     }
-    if completed.returncode:
+    if completed.returncode and tolerated is None:
         raise RuntimeError(json.dumps(result, indent=2))
-    print(f"PASS {label}")
+    print(f"{result['status']} {label}")
     return result
 
 
@@ -79,6 +113,30 @@ def require_files(paths: Iterable[Path]) -> None:
         raise RuntimeError(f"Missing canonical artifacts: {missing}")
 
 
+def stamp_wallet_release(status: str) -> None:
+    """Write the computed submission status into the wallet surface.
+
+    The exporter publishes ``HACKATHON_STATUS_PENDING`` because it runs before
+    the live-provider comparison exists. Stamping here keeps one computation
+    behind both artifacts, so the workbench and the judging manifest cannot
+    disagree about whether the submission is ready.
+    """
+    from wallet_twin_v2.canonical import write_canonical_json
+    from wallet_twin_v31.wallet_portfolio import HACKATHON_STATUS_PENDING
+
+    path = ROOT / "dashboard/app/data/wallet-v311-fixture.json"
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    release = payload["projection"]["release"]
+    if release.get("hackathon_status") not in {HACKATHON_STATUS_PENDING, status}:
+        raise RuntimeError(
+            "wallet surface published an unexpected hackathon_status "
+            f"{release.get('hackathon_status')!r}; the exporter must emit the "
+            "pending placeholder so the canonical build owns the verdict"
+        )
+    release["hackathon_status"] = status
+    write_canonical_json(path, payload)
+
+
 def main() -> None:
     enter_locked_runtime()
     from pypdf import PdfReader
@@ -97,13 +155,20 @@ def main() -> None:
     ):
         checks.append(run(script.removesuffix(".py"), [sys.executable, f"scripts/{script}"]))
 
-    live_env = os.getenv("RUN_LIVE_PROVIDER_EVAL", "").lower() in {"1", "true", "yes"}
-    live_command = [sys.executable, "scripts/run_live_provider_eval.py"]
-    checks.append(run(
-        "provider comparison" if live_env else "provider target report",
-        live_command,
+    # The check is labelled from what the run actually did, not from an env var.
+    # RUN_LIVE_PROVIDER_EVAL previously only changed this label while the command
+    # and environment stayed identical, so a manifest could record "provider
+    # comparison" when nothing live ran, or the reverse.
+    # Exit 2 means the evaluator declined to overwrite a stronger existing
+    # evaluation — credentials were absent this run. Preserving that evidence is
+    # the correct outcome, so the build continues and records what happened.
+    provider_check = run(
+        "provider evaluation",
+        [sys.executable, "scripts/run_live_provider_eval.py"],
         env={"LIVE_PROVIDER_EVAL_ACK_PUBLIC_ONLY": "true"},
-    ))
+        tolerated_codes={2: "PASS_EXISTING_EVIDENCE_PRESERVED"},
+    )
+    checks.append(provider_check)
 
     checks.append(run("executed judging notebook", [sys.executable, "scripts/build_v31_notebook.py"]))
     checks.append(run("evidence workbook", [NODE, "scripts/build_public_facts_workbook.mjs", str(ROOT)]))
@@ -138,7 +203,18 @@ def main() -> None:
     submission_ready = bool(public_manifest and public_manifest.get("status") == "PASS" and live_accepted >= 3)
     status = "HACKATHON_SUBMISSION_READY" if submission_ready else "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"
 
-    dirty = bool(git_value("status", "--porcelain", default="UNKNOWN"))
+    porcelain = git_value("status", "--porcelain", default="UNKNOWN")
+    dirty = bool(porcelain)
+    dirty_paths = [line[3:] for line in porcelain.splitlines()[:20]] if dirty else []
+    # A manifest that names a commit but was built from uncommitted code
+    # overstates its own reproducibility. Readiness is capped, not claimed.
+    if dirty and submission_ready:
+        status = "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE"
+
+    # One computation, two artifacts. The wallet surface is exported before the
+    # provider comparison resolves, so it publishes a pending placeholder that is
+    # replaced here rather than guessing a verdict of its own.
+    stamp_wallet_release(status)
     manifest = {
         "version": VERSION,
         "status": status,
@@ -149,6 +225,7 @@ def main() -> None:
             git_value("rev-parse", "HEAD", default="UNCOMMITTED"),
         ),
         "clean_worktree": not dirty,
+        "dirty_paths": dirty_paths,
         "data_mode": "PRIVATE_EVALUATOR" if os.getenv("SYNBANK_DATA_ZIP") else "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
         "checks": checks,
         "artifacts": [hash_file(path) for path in artifacts if path.exists()],
