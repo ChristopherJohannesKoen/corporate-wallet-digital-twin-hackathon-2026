@@ -1,0 +1,739 @@
+{
+  "as_of": "2026-06-30",
+  "calibration": {
+    "all_levels_calibrated": true,
+    "bank_meaning": "Coverage measured on synthetic outcomes. The interval-coverage-90 gate requires the same measurement on held-out real bank outcomes and is unaffected by this result.",
+    "device": "cpu",
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "lab_version": "v32-multi-level-calibration-1.0.0",
+    "levels_outside_tolerance": [],
+    "nominal_levels": [
+      0.5,
+      0.8,
+      0.9
+    ],
+    "results": [
+      {
+        "deviation": -0.002153,
+        "empirical": 0.497847,
+        "entities": 28800,
+        "nominal": 0.5,
+        "wilson_lower": 0.492073,
+        "wilson_upper": 0.503622,
+        "within_tolerance": true
+      },
+      {
+        "deviation": -0.001458,
+        "empirical": 0.798542,
+        "entities": 28800,
+        "nominal": 0.8,
+        "wilson_lower": 0.79387,
+        "wilson_upper": 0.803134,
+        "within_tolerance": true
+      },
+      {
+        "deviation": -0.003264,
+        "empirical": 0.896736,
+        "entities": 28800,
+        "nominal": 0.9,
+        "wilson_lower": 0.893169,
+        "wilson_upper": 0.900198,
+        "within_tolerance": true
+      }
+    ],
+    "tolerance": 0.05,
+    "why_multiple_levels": "A model can be calibrated at 90% and miscalibrated at 50%, because wide tails absorb error a central interval exposes. The 90% band is also the one a banker is least likely to act on \u2014 they act on the median."
+  },
+  "causal_operating_characteristics": {
+    "adequate_power_threshold": 0.8,
+    "bank_meaning": "This characterises the trial *design*. It is not a trial, produces no effect estimate for the bank, and cannot satisfy the randomised-trial-validated gate. Causal value remains null.",
+    "design_verdict": "UNDERPOWERED_AT_THIS_CLUSTER_COUNT",
+    "design_verdict_meaning": "Type I error is controlled, but power at the target effect is below 80% at this cluster count and compliance rate. A null result from a trial run to this design would be uninformative, and the honest reading of one would be 'we do not know', not 'there is no effect'. Raising cluster count or compliance is what would change this.",
+    "device": "cpu",
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "lab_version": "v32-causal-operating-characteristics-1.0.0",
+    "nominal_alpha": 0.05,
+    "power_at_target_effect": {
+      "adequate": false,
+      "rate": 0.2,
+      "wilson_lower": 0.150452,
+      "wilson_upper": 0.260855
+    },
+    "replications": 200,
+    "target_effect": 0.35,
+    "type_i_error": {
+      "controlled": true,
+      "rate": 0.03,
+      "wilson_lower": 0.01382,
+      "wilson_upper": 0.063894
+    },
+    "weak_instrument": {
+      "consequence": "A flagged first stage blocks the causal claim entirely. The alternative \u2014 reporting a very wide interval \u2014 would be read as a finding with uncertainty rather than as no finding at all.",
+      "strong_not_flagged": true,
+      "weak_first_stage_threshold": 0.1,
+      "weak_flagged": true
+    }
+  },
+  "compute": {
+    "canonical_tiers": [
+      {
+        "committed": true,
+        "device": "cpu",
+        "name": "e3-sample-size",
+        "note": "14 n-values x 500 replications",
+        "replications": 500
+      },
+      {
+        "committed": true,
+        "device": "cpu",
+        "name": "calibration",
+        "note": "240 synthetic entities",
+        "replications": 240
+      },
+      {
+        "committed": true,
+        "device": "cpu",
+        "name": "causal-trial",
+        "note": "200 trial realisations",
+        "replications": 200
+      },
+      {
+        "committed": true,
+        "device": "cpu",
+        "name": "economics",
+        "note": "512 Latin-hypercube samples",
+        "replications": 512
+      }
+    ],
+    "canonical_workers": 14,
+    "compute_version": "v32-compute-policy-1.0.0",
+    "cpu_cores": 16,
+    "gpu_available": false,
+    "gpu_reason": "CUPY_NOT_INSTALLED",
+    "if_gpu_absent": "Canonical tiers are unaffected. Nightly tiers are reported NOT_EXECUTED rather than silently run at canonical size, which would publish a precision that was never achieved.",
+    "nightly_tiers": [
+      {
+        "committed": false,
+        "device": "gpu",
+        "name": "e3-sample-size",
+        "note": "14 n-values x 2,000 replications",
+        "replications": 2000,
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "committed": false,
+        "device": "gpu",
+        "name": "causal-trial",
+        "note": "10,000 trial realisations",
+        "replications": 10000,
+        "status": "NOT_EXECUTED"
+      },
+      {
+        "committed": false,
+        "device": "gpu",
+        "name": "causal-permutation",
+        "note": "1,500 cluster shuffles per realisation",
+        "replications": 1500,
+        "status": "NOT_EXECUTED"
+      }
+    ],
+    "policy": "Canonical tiers run on CPU because their artifacts are byte-gated and must reproduce on a GPU-less CI runner. Nightly tiers may use the GPU because they publish a statistical summary rather than a fixture. No committed number depends on the GPU path."
+  },
+  "economics": {
+    "aggregate": {
+      "mean": 183767.75,
+      "p05": -52328.52,
+      "p95": 414141.49
+    },
+    "bank_meaning": "Parameter ranges are illustrative, not bank-approved. No value here may be attached to an opportunity, and this cannot satisfy the bank-approved-economics-registered gate.",
+    "components": {
+      "capital-charge": {
+        "max": -100088.0,
+        "mean": -199991.68,
+        "min": -299892.06,
+        "owner_role": "TREASURY",
+        "reconciles": true
+      },
+      "credit-cost": {
+        "max": -37790.35,
+        "mean": -131256.51,
+        "min": -224759.62,
+        "owner_role": "RISK",
+        "reconciles": true
+      },
+      "fee-rate": {
+        "max": 187369.43,
+        "mean": 118747.95,
+        "min": 50090.97,
+        "owner_role": "PRODUCT_FINANCE",
+        "reconciles": true
+      },
+      "funding-spread": {
+        "max": 649421.17,
+        "mean": 450017.05,
+        "min": 250745.78,
+        "owner_role": "TREASURY",
+        "reconciles": true
+      },
+      "operating-cost": {
+        "max": -20014.15,
+        "mean": -53749.07,
+        "min": -87481.97,
+        "owner_role": "OPERATIONS",
+        "reconciles": true
+      }
+    },
+    "device": "cpu",
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "lab_version": "v32-economics-reconciliation-1.0.0",
+    "max_component_discrepancy": 0.0,
+    "notional": 25000000.0,
+    "reconciles_exactly": true,
+    "samples": 512,
+    "sensitivity_rank": [
+      {
+        "component_id": "funding-spread",
+        "swing": 398675.39
+      },
+      {
+        "component_id": "capital-charge",
+        "swing": 199804.06
+      },
+      {
+        "component_id": "credit-cost",
+        "swing": 186969.27
+      },
+      {
+        "component_id": "fee-rate",
+        "swing": 137278.45
+      },
+      {
+        "component_id": "operating-cost",
+        "swing": 67467.82
+      }
+    ],
+    "why_component_level": "A matching total is weak evidence: two errors of opposite sign reconcile perfectly and are both still wrong. Components also map to accountable functions, so an aggregate check cannot say whose number moved."
+  },
+  "feasibility_sweep": {
+    "all_gates_bite": true,
+    "deviations": [],
+    "distinction": "FAIL removes a solution from selection; UNKNOWN downgrades it to discovery. Conflating them would either recommend something the client cannot execute, or refuse something merely unexamined.",
+    "gates_swept": 6,
+    "injections": 18,
+    "lab_version": "v32-feasibility-sweep-1.0.0",
+    "results": [
+      {
+        "discovery_only": false,
+        "gate": "PRODUCT_CAPABILITY",
+        "injected_status": "FAIL",
+        "selectable": false
+      },
+      {
+        "discovery_only": true,
+        "gate": "PRODUCT_CAPABILITY",
+        "injected_status": "UNKNOWN",
+        "selectable": false
+      },
+      {
+        "discovery_only": false,
+        "gate": "PRODUCT_CAPABILITY",
+        "injected_status": "PASS",
+        "selectable": true
+      },
+      {
+        "discovery_only": false,
+        "gate": "CREDIT_AND_RISK",
+        "injected_status": "FAIL",
+        "selectable": false
+      },
+      {
+        "discovery_only": true,
+        "gate": "CREDIT_AND_RISK",
+        "injected_status": "UNKNOWN",
+        "selectable": false
+      },
+      {
+        "discovery_only": false,
+        "gate": "CREDIT_AND_RISK",
+        "injected_status": "PASS",
+        "selectable": true
+      },
+      {
+        "discovery_only": false,
+        "gate": "COMPLIANCE_AND_CONDUCT",
+        "injected_status": "FAIL",
+        "selectable": false
+      },
+      {
+        "discovery_only": true,
+        "gate": "COMPLIANCE_AND_CONDUCT",
+        "injected_status": "UNKNOWN",
+        "selectable": false
+      },
+      {
+        "discovery_only": false,
+        "gate": "COMPLIANCE_AND_CONDUCT",
+        "injected_status": "PASS",
+        "selectable": true
+      },
+      {
+        "discovery_only": false,
+        "gate": "LEGAL_AND_JURISDICTION",
+        "injected_status": "FAIL",
+        "selectable": false
+      },
+      {
+        "discovery_only": true,
+        "gate": "LEGAL_AND_JURISDICTION",
+        "injected_status": "UNKNOWN",
+        "selectable": false
+      },
+      {
+        "discovery_only": false,
+        "gate": "LEGAL_AND_JURISDICTION",
+        "injected_status": "PASS",
+        "selectable": true
+      },
+      {
+        "discovery_only": false,
+        "gate": "OPERATIONS_AND_ONBOARDING",
+        "injected_status": "FAIL",
+        "selectable": false
+      },
+      {
+        "discovery_only": true,
+        "gate": "OPERATIONS_AND_ONBOARDING",
+        "injected_status": "UNKNOWN",
+        "selectable": false
+      },
+      {
+        "discovery_only": false,
+        "gate": "OPERATIONS_AND_ONBOARDING",
+        "injected_status": "PASS",
+        "selectable": true
+      },
+      {
+        "discovery_only": false,
+        "gate": "TECHNOLOGY_AND_INTEGRATION",
+        "injected_status": "FAIL",
+        "selectable": false
+      },
+      {
+        "discovery_only": true,
+        "gate": "TECHNOLOGY_AND_INTEGRATION",
+        "injected_status": "UNKNOWN",
+        "selectable": false
+      },
+      {
+        "discovery_only": false,
+        "gate": "TECHNOLOGY_AND_INTEGRATION",
+        "injected_status": "PASS",
+        "selectable": true
+      }
+    ]
+  },
+  "laboratories_version": "v32-simulation-laboratories-1.0.0",
+  "laboratory_versions": {
+    "calibration": "v32-multi-level-calibration-1.0.0",
+    "causal_operating_characteristics": "v32-causal-operating-characteristics-1.0.0",
+    "economics": "v32-economics-reconciliation-1.0.0",
+    "feasibility_sweep": "v32-feasibility-sweep-1.0.0",
+    "rm_personas": "v32-rm-persona-simulator-1.0.0",
+    "sample_size": "v32-e3-sample-size-planner-1.0.0",
+    "timing": "v32-timing-temporal-split-1.0.0"
+  },
+  "rm_personas": {
+    "adoption_gate_effect": {
+      "counts_toward_supervised_pilot_gate": false,
+      "reason": "Every session carries real_participant=False. The supervised-pilot-completed gate requires five real supervised sessions per RM; a simulation that could satisfy it would let fixture data promote the system to production readiness."
+    },
+    "bank_meaning": "This measures the interface against plausible usage. It is not adoption evidence and no count here appears in any adoption metric.",
+    "by_persona": {
+      "between-meetings": {
+        "abandonment_rate": 0.0833,
+        "completion_rate": 0.4583,
+        "evidence_open_rate": 0.1667,
+        "mean_steps": 4.9583,
+        "sessions": 24,
+        "title": "Between meetings"
+      },
+      "new-joiner": {
+        "abandonment_rate": 0.0833,
+        "completion_rate": 0.7083,
+        "evidence_open_rate": 0.5833,
+        "mean_steps": 6.375,
+        "sessions": 24,
+        "title": "New joiner"
+      },
+      "portfolio-planner": {
+        "abandonment_rate": 0.0833,
+        "completion_rate": 0.6667,
+        "evidence_open_rate": 0.5417,
+        "mean_steps": 6.5417,
+        "sessions": 24,
+        "title": "Portfolio planner"
+      },
+      "sceptic": {
+        "abandonment_rate": 0.125,
+        "completion_rate": 0.875,
+        "evidence_open_rate": 1.0,
+        "mean_steps": 7.125,
+        "sessions": 24,
+        "title": "Sceptic"
+      },
+      "thorough-preparer": {
+        "abandonment_rate": 0.0833,
+        "completion_rate": 0.7917,
+        "evidence_open_rate": 0.8333,
+        "mean_steps": 6.75,
+        "sessions": 24,
+        "title": "Thorough preparer"
+      }
+    },
+    "by_task": {
+      "challenge-a-recommendation": {
+        "completion_rate": 0.4667,
+        "mean_steps": 7.3333,
+        "optimal_steps": 5,
+        "requires_evidence": true,
+        "step_overhead": 2.3333,
+        "title": "Challenge a recommendation and see the basis"
+      },
+      "check-evidence-tier": {
+        "completion_rate": 0.5333,
+        "mean_steps": 3.4,
+        "optimal_steps": 2,
+        "requires_evidence": true,
+        "step_overhead": 1.4,
+        "title": "Check whether a cell is anchored or prior-led"
+      },
+      "compare-two-clients": {
+        "completion_rate": 1.0,
+        "mean_steps": 7.0,
+        "optimal_steps": 5,
+        "requires_evidence": false,
+        "step_overhead": 2.0,
+        "title": "Compare two clients in the same sector"
+      },
+      "explain-a-number": {
+        "completion_rate": 0.5333,
+        "mean_steps": 5.8,
+        "optimal_steps": 4,
+        "requires_evidence": true,
+        "step_overhead": 1.8,
+        "title": "Explain where a wallet estimate came from"
+      },
+      "find-pending-evidence": {
+        "completion_rate": 0.5333,
+        "mean_steps": 5.0667,
+        "optimal_steps": 3,
+        "requires_evidence": true,
+        "step_overhead": 2.0667,
+        "title": "See what approval is blocking a stronger estimate"
+      },
+      "find-top-opportunity": {
+        "completion_rate": 0.9333,
+        "mean_steps": 4.6,
+        "optimal_steps": 3,
+        "requires_evidence": false,
+        "step_overhead": 1.6,
+        "title": "Find the top opportunity for one client"
+      },
+      "prepare-conversation": {
+        "completion_rate": 0.6667,
+        "mean_steps": 8.6,
+        "optimal_steps": 6,
+        "requires_evidence": true,
+        "step_overhead": 2.6,
+        "title": "Prepare for a specific client conversation"
+      },
+      "review-portfolio": {
+        "completion_rate": 0.9333,
+        "mean_steps": 9.0,
+        "optimal_steps": 7,
+        "requires_evidence": false,
+        "step_overhead": 2.0,
+        "title": "Review the whole portfolio for the week"
+      }
+    },
+    "highest_friction_task": {
+      "completion_rate": 0.6667,
+      "mean_steps": 8.6,
+      "optimal_steps": 6,
+      "requires_evidence": true,
+      "step_overhead": 2.6,
+      "task_id": "prepare-conversation",
+      "title": "Prepare for a specific client conversation"
+    },
+    "lab_version": "v32-rm-persona-simulator-1.0.0",
+    "personas": 5,
+    "real_participant_sessions": 0,
+    "sessions": 120,
+    "tasks": 8
+  },
+  "sample_size": {
+    "bank_meaning": "This plans what E3 acquisition would need to cost. It is not evidence that E3 exists, and it cannot satisfy the e3-multibank-observation-approved gate.",
+    "criteria": {
+      "both_required": "An interval spanning the whole unit range is perfectly calibrated and useless, so calibration alone cannot qualify an n.",
+      "calibrated": "Wilson interval for coverage contains the target",
+      "precise": "mean posterior half-width <= target_half_width"
+    },
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "if_undetermined": "recommended_n is null and determination is NOT_DETERMINED_UP_TO_150. The largest n tried is deliberately not returned as a recommendation: it would tell the bank to buy a data contract this analysis says would not work.",
+    "lab_version": "v32-e3-sample-size-planner-1.0.0",
+    "plan": {
+      "as_of": "2026-06-30",
+      "determination": "NOT_DETERMINED_UP_TO_150",
+      "generated_at": "2026-06-30T00:00:00Z",
+      "mode": "SYNTHETIC_REHEARSAL",
+      "plan_id": "e3-sample-size-2026-06-30",
+      "recommended_n": null,
+      "replications_per_n": 400,
+      "target_coverage": 0.9,
+      "target_half_width": 0.05,
+      "tested_sample_sizes": [
+        20,
+        30,
+        40,
+        50,
+        60,
+        70,
+        80,
+        90,
+        100,
+        110,
+        120,
+        130,
+        140,
+        150
+      ],
+      "wilson_intervals": [
+        [
+          20.0,
+          0.88924542,
+          0.94276425
+        ],
+        [
+          30.0,
+          0.86389658,
+          0.92354115
+        ],
+        [
+          40.0,
+          0.88356782,
+          0.93853698
+        ],
+        [
+          50.0,
+          0.84448605,
+          0.90828461
+        ],
+        [
+          60.0,
+          0.84448605,
+          0.90828461
+        ],
+        [
+          70.0,
+          0.87510141,
+          0.93214607
+        ],
+        [
+          80.0,
+          0.85832657,
+          0.91920628
+        ],
+        [
+          90.0,
+          0.87229165,
+          0.93000339
+        ],
+        [
+          100.0,
+          0.85832657,
+          0.91920628
+        ],
+        [
+          110.0,
+          0.8389809,
+          0.90388488
+        ],
+        [
+          120.0,
+          0.84448605,
+          0.90828461
+        ],
+        [
+          130.0,
+          0.83349215,
+          0.89946875
+        ],
+        [
+          140.0,
+          0.85277643,
+          0.91485154
+        ],
+        [
+          150.0,
+          0.86389658,
+          0.92354115
+        ]
+      ]
+    },
+    "sweep": [
+      {
+        "coverage": 0.92,
+        "mean_half_width": 0.131283,
+        "meets_target": false,
+        "n": 20,
+        "wilson_lower": 0.889245,
+        "wilson_upper": 0.942764
+      },
+      {
+        "coverage": 0.8975,
+        "mean_half_width": 0.11135,
+        "meets_target": false,
+        "n": 30,
+        "wilson_lower": 0.863897,
+        "wilson_upper": 0.923541
+      },
+      {
+        "coverage": 0.915,
+        "mean_half_width": 0.099098,
+        "meets_target": false,
+        "n": 40,
+        "wilson_lower": 0.883568,
+        "wilson_upper": 0.938537
+      },
+      {
+        "coverage": 0.88,
+        "mean_half_width": 0.090104,
+        "meets_target": false,
+        "n": 50,
+        "wilson_lower": 0.844486,
+        "wilson_upper": 0.908285
+      },
+      {
+        "coverage": 0.88,
+        "mean_half_width": 0.08169,
+        "meets_target": false,
+        "n": 60,
+        "wilson_lower": 0.844486,
+        "wilson_upper": 0.908285
+      },
+      {
+        "coverage": 0.9075,
+        "mean_half_width": 0.078318,
+        "meets_target": false,
+        "n": 70,
+        "wilson_lower": 0.875101,
+        "wilson_upper": 0.932146
+      },
+      {
+        "coverage": 0.8925,
+        "mean_half_width": 0.072599,
+        "meets_target": false,
+        "n": 80,
+        "wilson_lower": 0.858327,
+        "wilson_upper": 0.919206
+      },
+      {
+        "coverage": 0.905,
+        "mean_half_width": 0.068795,
+        "meets_target": false,
+        "n": 90,
+        "wilson_lower": 0.872292,
+        "wilson_upper": 0.930003
+      },
+      {
+        "coverage": 0.8925,
+        "mean_half_width": 0.065178,
+        "meets_target": false,
+        "n": 100,
+        "wilson_lower": 0.858327,
+        "wilson_upper": 0.919206
+      },
+      {
+        "coverage": 0.875,
+        "mean_half_width": 0.063817,
+        "meets_target": false,
+        "n": 110,
+        "wilson_lower": 0.838981,
+        "wilson_upper": 0.903885
+      },
+      {
+        "coverage": 0.88,
+        "mean_half_width": 0.059815,
+        "meets_target": false,
+        "n": 120,
+        "wilson_lower": 0.844486,
+        "wilson_upper": 0.908285
+      },
+      {
+        "coverage": 0.87,
+        "mean_half_width": 0.057868,
+        "meets_target": false,
+        "n": 130,
+        "wilson_lower": 0.833492,
+        "wilson_upper": 0.899469
+      },
+      {
+        "coverage": 0.8875,
+        "mean_half_width": 0.055994,
+        "meets_target": false,
+        "n": 140,
+        "wilson_lower": 0.852776,
+        "wilson_upper": 0.914852
+      },
+      {
+        "coverage": 0.8975,
+        "mean_half_width": 0.055061,
+        "meets_target": false,
+        "n": 150,
+        "wilson_lower": 0.863897,
+        "wilson_upper": 0.923541
+      }
+    ]
+  },
+  "timing": {
+    "as_of": "2026-06-30",
+    "bank_meaning": "Measured on a synthetic panel. No timing claim about real clients follows from it.",
+    "device": "cpu",
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "governed_mae_months": 1.895664,
+    "governed_split": "client-held-out-temporal",
+    "lab_version": "v32-timing-temporal-split-1.0.0",
+    "optimism_of_a_random_split_months": 1.037439,
+    "splits": [
+      {
+        "description": "Optimistic. Leaks the future and the client; reported for contrast only.",
+        "mae_months": 0.858226,
+        "split": "random",
+        "test_rows": 1030,
+        "train_rows": 3290
+      },
+      {
+        "description": "Still optimistic. Test clients appear in training, so it measures memorisation rather than generalisation.",
+        "mae_months": 0.86228,
+        "split": "temporal-only",
+        "test_rows": 1080,
+        "train_rows": 3240
+      },
+      {
+        "description": "The governed split. Train on the past, test on unseen clients in the future.",
+        "mae_months": 1.895664,
+        "split": "client-held-out-temporal",
+        "test_rows": 1890,
+        "train_rows": 2430
+      }
+    ],
+    "why_both_conditions": "A temporal split alone still lets the model be scored on clients it trained on. Reporting all three shows how much of the apparent accuracy came from leakage rather than from the model."
+  },
+  "what_none_of_this_establishes": [
+    "No E3 multibank observation exists; competitor share stays unmeasurable.",
+    "No bank-approved economics; no money value may be attached.",
+    "No real RM session; adoption remains zero.",
+    "No trial was run; causal value stays null.",
+    "Every laboratory produces SYNTHETIC_REHEARSAL evidence, which the mode algebra refuses on the real track."
+  ]
+}

@@ -19,7 +19,8 @@ from typing import Any, Dict, List
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from wallet_twin_v2.canonical import write_canonical_json  # noqa: E402
+from wallet_twin_v2.canonical import ARTIFACT_AS_OF, write_canonical_json  # noqa: E402
+from wallet_twin_v32.laboratories import run_all  # noqa: E402
 from wallet_twin_v32 import (  # noqa: E402
     CATALOGUE_VERSION,
     CONTRACTS_VERSION,
@@ -235,9 +236,16 @@ def main() -> int:
     write_canonical_json(OUTPUTS / "v32_promotion_policy.json", promotion_policy_document())
     write_canonical_json(OUTPUTS / "v32_signing_posture.json", signing_posture_document())
 
+    # Canonical-tier laboratory results. Deterministic by construction: fixed
+    # seeds, CPU-only, and a fixed artifact timestamp, so the byte-reproducibility
+    # gate covers them like any other committed artifact.
+    laboratories = run_all(as_of=ARTIFACT_AS_OF, replications=200, seed=20260630)
+    write_canonical_json(OUTPUTS / "v32_simulation_laboratories.json", laboratories)
+
     print(
         f"exported {len(MODELS)} V3.2 schemas, "
-        f"{len(GATE_CATALOGUE)} gates across {len(TRANSITION_IDS)} transitions"
+        f"{len(GATE_CATALOGUE)} gates across {len(TRANSITION_IDS)} transitions, "
+        f"{len(laboratories['laboratory_versions'])} laboratories"
     )
     return 0
 
