@@ -1,0 +1,183 @@
+"""Export the V3.2 promotion JSON Schemas and the gate catalogue.
+
+The catalogue is exported as data rather than living only in code, for the same
+reason the gates were moved out of ``ShadowReleaseGate``: a control nobody can
+read is a control nobody can review. Unlike
+``config/mlflow_promotion_policy.json`` — which declared gate ids that no code
+ever parsed — this file is generated *from* the catalogue the engine uses, so
+the published document and the enforced policy cannot drift apart.
+
+    python scripts/export_v32_contracts.py
+"""
+
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+from typing import Any, Dict, List
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from wallet_twin_v2.canonical import write_canonical_json  # noqa: E402
+from wallet_twin_v32 import (  # noqa: E402
+    CATALOGUE_VERSION,
+    CONTRACTS_VERSION,
+    ENGINE_VERSION,
+    EVIDENCE_MODE_POLICY_VERSION,
+    GATE_CATALOGUE,
+    SCORING_VERSION,
+    SEVERITY_WEIGHTS,
+    STATE_MACHINE_VERSION,
+    E3SampleSizePlan,
+    GateDefinition,
+    GateEvaluation,
+    GateEvidence,
+    IncidentInjection,
+    PromotionApproval,
+    PromotionDecision,
+    PromotionScore,
+    RehearsalScenario,
+    SignedEvidenceEnvelope,
+    VirtualClockState,
+    catalogue_summary,
+)
+from wallet_twin_v32.catalogue import LEGACY_GATE_ALIASES  # noqa: E402
+from wallet_twin_v32.modes import (  # noqa: E402
+    EVIDENCE_MODES,
+    TRACKS,
+    bank_evidence_weight,
+)
+from wallet_twin_v32.states import (  # noqa: E402
+    CAPABILITY_STATE_THRESHOLD,
+    EVIDENCE_PREREQUISITES,
+    PERMANENTLY_WITHHELD,
+    PROMOTION_ORDER,
+    TRANSITION_IDS,
+    CAPABILITIES,
+)
+
+CONTRACTS = ROOT / "contracts"
+SCHEMAS = CONTRACTS / "jsonschema"
+OUTPUTS = ROOT / "outputs" / "v32"
+
+MODELS = {
+    "v32-gate-definition": GateDefinition,
+    "v32-gate-evidence": GateEvidence,
+    "v32-signed-evidence-envelope": SignedEvidenceEnvelope,
+    "v32-gate-evaluation": GateEvaluation,
+    "v32-promotion-approval": PromotionApproval,
+    "v32-promotion-score": PromotionScore,
+    "v32-promotion-decision": PromotionDecision,
+    "v32-rehearsal-scenario": RehearsalScenario,
+    "v32-virtual-clock-state": VirtualClockState,
+    "v32-incident-injection": IncidentInjection,
+    "v32-e3-sample-size-plan": E3SampleSizePlan,
+}
+
+
+def gate_catalogue_document() -> Dict[str, Any]:
+    gates: List[Dict[str, Any]] = []
+    for gate in GATE_CATALOGUE:
+        payload = gate.model_dump(mode="json")
+        payload["severity_weight"] = SEVERITY_WEIGHTS[gate.severity.value]
+        payload["legacy_aliases"] = list(LEGACY_GATE_ALIASES.get(gate.gate_id, ()))
+        gates.append(payload)
+    return {
+        "catalogue_version": CATALOGUE_VERSION,
+        "state_machine_version": STATE_MACHINE_VERSION,
+        "contracts_version": CONTRACTS_VERSION,
+        "purpose": (
+            "The gates governing promotion, as data. Generated from the "
+            "catalogue the engine evaluates, so the published policy and the "
+            "enforced policy cannot diverge."
+        ),
+        "transitions": list(TRANSITION_IDS),
+        "severity_weights": dict(SEVERITY_WEIGHTS),
+        "gates": gates,
+        "summary": catalogue_summary(),
+    }
+
+
+def promotion_policy_document() -> Dict[str, Any]:
+    return {
+        "policy_version": "v32-promotion-policy-1.0.0",
+        "state_machine_version": STATE_MACHINE_VERSION,
+        "evidence_mode_policy_version": EVIDENCE_MODE_POLICY_VERSION,
+        "scoring_version": SCORING_VERSION,
+        "engine_version": ENGINE_VERSION,
+        "states": [state.value for state in PROMOTION_ORDER],
+        "tracks": {
+            track.value: (
+                "governs actual bank authorisation"
+                if track.value == "REAL"
+                else "proves the promotion machinery works"
+            )
+            for track in TRACKS
+        },
+        "evidence_modes": {
+            mode.value: {
+                "bank_evidence_weight": bank_evidence_weight(mode),
+                "admissible_on_real_track": mode.value != "SYNTHETIC_REHEARSAL",
+            }
+            for mode in EVIDENCE_MODES
+        },
+        "capabilities": {
+            capability.value: {
+                "minimum_state": CAPABILITY_STATE_THRESHOLD[capability].value,
+                "required_real_gates": sorted(
+                    EVIDENCE_PREREQUISITES.get(capability, frozenset())
+                ),
+                "permanently_withheld": capability in PERMANENTLY_WITHHELD,
+            }
+            for capability in CAPABILITIES
+        },
+        "scoring": {
+            "promotion_machinery_readiness": (
+                "rehearsal track; synthetic evidence counts, because the "
+                "question is whether the machinery works"
+            ),
+            "bank_evidence_readiness": (
+                "real track; synthetic evidence contributes zero, because the "
+                "question is whether the bank has the evidence"
+            ),
+            "composite_prohibited": (
+                "No single promotability figure is published. A composite would "
+                "let a working rehearsal read as progress toward production."
+            ),
+        },
+        "legacy_vocabulary_unified": {
+            "sources": [
+                "src/wallet_twin_v2/release_gates.py",
+                "config/mlflow_promotion_policy.json",
+            ],
+            "aliases_mapped": sum(
+                len(aliases) for aliases in LEGACY_GATE_ALIASES.values()
+            ),
+            "note": (
+                "The MLflow policy declared two transitions and was never parsed "
+                "by any code. Its gate ids are preserved here as aliases so "
+                "earlier artifacts remain traceable."
+            ),
+        },
+    }
+
+
+def main() -> int:
+    for name, model in MODELS.items():
+        write_canonical_json(
+            SCHEMAS / f"{name}.schema.json", model.model_json_schema()
+        )
+
+    write_canonical_json(CONTRACTS / "promotion-gate-catalogue.json", gate_catalogue_document())
+    write_canonical_json(OUTPUTS / "v32_promotion_policy.json", promotion_policy_document())
+
+    print(
+        f"exported {len(MODELS)} V3.2 schemas, "
+        f"{len(GATE_CATALOGUE)} gates across {len(TRANSITION_IDS)} transitions"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

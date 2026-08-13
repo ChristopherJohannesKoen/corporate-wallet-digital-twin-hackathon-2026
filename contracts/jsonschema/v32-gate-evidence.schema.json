@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "PromotionEvidenceMode": {
+      "description": "Where a piece of evidence came from, ordered by authority.",
+      "enum": [
+        "SYNTHETIC_REHEARSAL",
+        "PUBLIC_PACKAGE",
+        "REAL_BANK",
+        "BANK_ATTESTED"
+      ],
+      "title": "PromotionEvidenceMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A specific artifact offered in support of a gate, with its provenance.",
+  "properties": {
+    "artifact_uri": {
+      "title": "Artifact Uri",
+      "type": "string"
+    },
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "content_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Content Sha256",
+      "type": "string"
+    },
+    "evidence_id": {
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "gate_id": {
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/PromotionEvidenceMode"
+    },
+    "produced_by": {
+      "title": "Produced By",
+      "type": "string"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "simulation_clock": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Simulation Clock"
+    },
+    "summary": {
+      "title": "Summary",
+      "type": "string"
+    }
+  },
+  "required": [
+    "evidence_id",
+    "gate_id",
+    "mode",
+    "artifact_uri",
+    "content_sha256",
+    "summary",
+    "as_of",
+    "produced_by"
+  ],
+  "title": "GateEvidence",
+  "type": "object"
+}

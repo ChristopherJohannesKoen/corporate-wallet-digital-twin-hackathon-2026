@@ -1,0 +1,103 @@
+{
+  "capabilities": {
+    "AUTONOMOUS_CLIENT_ACTION": {
+      "minimum_state": "CAUSAL_CHAMPION",
+      "permanently_withheld": true,
+      "required_real_gates": []
+    },
+    "CAUSAL_VALUE_CLAIM": {
+      "minimum_state": "CAUSAL_CHAMPION",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "randomised-trial-validated",
+        "trial-first-stage-strength-adequate"
+      ]
+    },
+    "COMMERCIAL_VALUE_CLAIM": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "bank-approved-economics-registered"
+      ]
+    },
+    "HIDDEN_SHADOW_SCORING": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "MEASURED_SHARE_REPORTING": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "e3-multibank-observation-approved"
+      ]
+    },
+    "OFFLINE_ANALYSIS": {
+      "minimum_state": "OFFLINE_CANDIDATE",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "PRODUCTION_RM_DECISION_SUPPORT": {
+      "minimum_state": "SCALE_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "SUPERVISED_RM_PILOT": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "SYNTHETIC_DEMONSTRATION": {
+      "minimum_state": "OFFLINE_CANDIDATE",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    }
+  },
+  "engine_version": "v32-promotion-engine-1.0.0",
+  "evidence_mode_policy_version": "v32-evidence-mode-policy-1.0.0",
+  "evidence_modes": {
+    "BANK_ATTESTED": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 1.0
+    },
+    "PUBLIC_PACKAGE": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 0.5
+    },
+    "REAL_BANK": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 0.8
+    },
+    "SYNTHETIC_REHEARSAL": {
+      "admissible_on_real_track": false,
+      "bank_evidence_weight": 0.0
+    }
+  },
+  "legacy_vocabulary_unified": {
+    "aliases_mapped": 38,
+    "note": "The MLflow policy declared two transitions and was never parsed by any code. Its gate ids are preserved here as aliases so earlier artifacts remain traceable.",
+    "sources": [
+      "src/wallet_twin_v2/release_gates.py",
+      "config/mlflow_promotion_policy.json"
+    ]
+  },
+  "policy_version": "v32-promotion-policy-1.0.0",
+  "scoring": {
+    "bank_evidence_readiness": "real track; synthetic evidence contributes zero, because the question is whether the bank has the evidence",
+    "composite_prohibited": "No single promotability figure is published. A composite would let a working rehearsal read as progress toward production.",
+    "promotion_machinery_readiness": "rehearsal track; synthetic evidence counts, because the question is whether the machinery works"
+  },
+  "scoring_version": "v32-promotion-scoring-1.0.0",
+  "state_machine_version": "v32-promotion-state-machine-1.0.0",
+  "states": [
+    "OFFLINE_CANDIDATE",
+    "SHADOW_READY",
+    "PILOT_READY",
+    "SCALE_READY",
+    "CAUSAL_CHAMPION"
+  ],
+  "tracks": {
+    "REAL": "governs actual bank authorisation",
+    "REHEARSAL": "proves the promotion machinery works"
+  }
+}

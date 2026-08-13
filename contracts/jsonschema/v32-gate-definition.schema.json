@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "GateSeverity": {
+      "description": "How much a gate's outcome matters. Weights in ``SEVERITY_WEIGHTS``.",
+      "enum": [
+        "CRITICAL",
+        "HIGH",
+        "STANDARD"
+      ],
+      "title": "GateSeverity",
+      "type": "string"
+    },
+    "PromotionCapability": {
+      "description": "What the system may actually be used for.\n\nSeparated from state because the two answer different questions. State is\n\"how far has this been promoted\"; capability is \"which specific claim or\naction is licensed\". A capability is granted only when both its state\nthreshold and its evidence prerequisites hold.",
+      "enum": [
+        "OFFLINE_ANALYSIS",
+        "SYNTHETIC_DEMONSTRATION",
+        "HIDDEN_SHADOW_SCORING",
+        "SUPERVISED_RM_PILOT",
+        "PRODUCTION_RM_DECISION_SUPPORT",
+        "MEASURED_SHARE_REPORTING",
+        "COMMERCIAL_VALUE_CLAIM",
+        "CAUSAL_VALUE_CLAIM",
+        "AUTONOMOUS_CLIENT_ACTION"
+      ],
+      "title": "PromotionCapability",
+      "type": "string"
+    },
+    "PromotionEvidenceMode": {
+      "description": "Where a piece of evidence came from, ordered by authority.",
+      "enum": [
+        "SYNTHETIC_REHEARSAL",
+        "PUBLIC_PACKAGE",
+        "REAL_BANK",
+        "BANK_ATTESTED"
+      ],
+      "title": "PromotionEvidenceMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A gate as governed data, not as a line of code.\n\n``ShadowReleaseGate`` in V2 hardcodes twenty checks in one method with\nstring thresholds and no evidence binding. Making the catalogue data lets a\ngate declare what evidence it needs, who owns it, what breaks if it fails,\nand \u2014 the field reviewers actually use \u2014 what would make it pass.",
+  "properties": {
+    "approver_role": {
+      "title": "Approver Role",
+      "type": "string"
+    },
+    "blocking": {
+      "default": true,
+      "title": "Blocking",
+      "type": "boolean"
+    },
+    "capability_effects": {
+      "items": {
+        "$ref": "#/$defs/PromotionCapability"
+      },
+      "title": "Capability Effects",
+      "type": "array"
+    },
+    "consequence_if_failed": {
+      "title": "Consequence If Failed",
+      "type": "string"
+    },
+    "freshness_days": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Freshness Days"
+    },
+    "gate_id": {
+      "title": "Gate Id",
+      "type": "string"
+    },
+    "minimum_real_evidence_mode": {
+      "$ref": "#/$defs/PromotionEvidenceMode"
+    },
+    "owner_role": {
+      "title": "Owner Role",
+      "type": "string"
+    },
+    "requirement": {
+      "title": "Requirement",
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/$defs/GateSeverity"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "transition_id": {
+      "title": "Transition Id",
+      "type": "string"
+    },
+    "what_would_make_real_pass": {
+      "title": "What Would Make Real Pass",
+      "type": "string"
+    }
+  },
+  "required": [
+    "gate_id",
+    "title",
+    "transition_id",
+    "severity",
+    "requirement",
+    "consequence_if_failed",
+    "minimum_real_evidence_mode",
+    "owner_role",
+    "approver_role",
+    "what_would_make_real_pass"
+  ],
+  "title": "GateDefinition",
+  "type": "object"
+}

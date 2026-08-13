@@ -1,0 +1,72 @@
+{
+  "$defs": {
+    "DecisionTrack": {
+      "description": "Which question a gate evaluation answers.",
+      "enum": [
+        "REAL",
+        "REHEARSAL"
+      ],
+      "title": "DecisionTrack",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Virtual time, kept lexically separate from elapsed time.\n\n``rehearsal_days_elapsed`` and ``elapsed_bank_shadow_days`` are published\ntogether, always. The second is what keeps the first honest: a 30-day\naccelerated rehearsal alongside a hard zero cannot be misread as a month of\nbank operation.",
+  "properties": {
+    "clock_id": {
+      "title": "Clock Id",
+      "type": "string"
+    },
+    "consecutive_clean_rehearsal_days": {
+      "minimum": 0,
+      "title": "Consecutive Clean Rehearsal Days",
+      "type": "integer"
+    },
+    "elapsed_bank_shadow_days": {
+      "minimum": 0,
+      "title": "Elapsed Bank Shadow Days",
+      "type": "integer"
+    },
+    "incidents_injected": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Incidents Injected",
+      "type": "integer"
+    },
+    "last_reset_reason": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Last Reset Reason"
+    },
+    "rehearsal_days_elapsed": {
+      "minimum": 0,
+      "title": "Rehearsal Days Elapsed",
+      "type": "integer"
+    },
+    "simulation_clock": {
+      "format": "date-time",
+      "title": "Simulation Clock",
+      "type": "string"
+    },
+    "track": {
+      "$ref": "#/$defs/DecisionTrack",
+      "default": "REHEARSAL"
+    }
+  },
+  "required": [
+    "clock_id",
+    "simulation_clock",
+    "rehearsal_days_elapsed",
+    "consecutive_clean_rehearsal_days",
+    "elapsed_bank_shadow_days"
+  ],
+  "title": "VirtualClockState",
+  "type": "object"
+}

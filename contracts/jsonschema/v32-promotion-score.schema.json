@@ -1,0 +1,72 @@
+{
+  "additionalProperties": false,
+  "description": "Two scores that must never be averaged into one.\n\n``promotion_machinery_readiness`` (PMR) measures whether the promotion\napparatus works \u2014 computed on the rehearsal track, where synthetic evidence\nis exactly what should be counted.\n\n``bank_evidence_readiness`` (BER) measures whether the *bank* has the\nevidence \u2014 computed on the real track, where synthetic contributes zero.\n\nA single composite would let a high PMR mask a zero BER, which is precisely\nthe summary-over-substance reading this twin exists to prevent.",
+  "properties": {
+    "bank_evidence_readiness": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Bank Evidence Readiness",
+      "type": "number"
+    },
+    "basis": {
+      "default": "pmr-rehearsal-track-ber-real-track-1.0.0",
+      "title": "Basis",
+      "type": "string"
+    },
+    "ber_weight_available": {
+      "minimum": 0.0,
+      "title": "Ber Weight Available",
+      "type": "number"
+    },
+    "ber_weight_earned": {
+      "minimum": 0.0,
+      "title": "Ber Weight Earned",
+      "type": "number"
+    },
+    "pmr_weight_available": {
+      "minimum": 0.0,
+      "title": "Pmr Weight Available",
+      "type": "number"
+    },
+    "pmr_weight_earned": {
+      "minimum": 0.0,
+      "title": "Pmr Weight Earned",
+      "type": "number"
+    },
+    "promotion_machinery_readiness": {
+      "maximum": 1.0,
+      "minimum": 0.0,
+      "title": "Promotion Machinery Readiness",
+      "type": "number"
+    },
+    "severity_weights": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Severity Weights",
+      "type": "object"
+    },
+    "synthetic_weight_excluded_from_ber": {
+      "minimum": 0.0,
+      "title": "Synthetic Weight Excluded From Ber",
+      "type": "number"
+    },
+    "waived_gate_count": {
+      "minimum": 0,
+      "title": "Waived Gate Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "promotion_machinery_readiness",
+    "bank_evidence_readiness",
+    "pmr_weight_earned",
+    "pmr_weight_available",
+    "ber_weight_earned",
+    "ber_weight_available",
+    "synthetic_weight_excluded_from_ber",
+    "waived_gate_count"
+  ],
+  "title": "PromotionScore",
+  "type": "object"
+}

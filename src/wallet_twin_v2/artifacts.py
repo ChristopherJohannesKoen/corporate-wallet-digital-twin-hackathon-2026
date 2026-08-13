@@ -22,6 +22,7 @@ COMMITTED_ARTIFACT_PATHS: tuple[str, ...] = (
     "dashboard/app/data/v31-fixture.json",
     "outputs/v3",
     "outputs/v31",
+    "outputs/v32",
     "outputs/v3_validation/v3_validation_report.json",
     "tests/regression/v3_0/v3_0_frozen_surface.json",
     "tests/regression/v3_0/v3_0_frozen_surface.restated.json",

@@ -1,0 +1,203 @@
+{
+  "$defs": {
+    "PromotionCapability": {
+      "description": "What the system may actually be used for.\n\nSeparated from state because the two answer different questions. State is\n\"how far has this been promoted\"; capability is \"which specific claim or\naction is licensed\". A capability is granted only when both its state\nthreshold and its evidence prerequisites hold.",
+      "enum": [
+        "OFFLINE_ANALYSIS",
+        "SYNTHETIC_DEMONSTRATION",
+        "HIDDEN_SHADOW_SCORING",
+        "SUPERVISED_RM_PILOT",
+        "PRODUCTION_RM_DECISION_SUPPORT",
+        "MEASURED_SHARE_REPORTING",
+        "COMMERCIAL_VALUE_CLAIM",
+        "CAUSAL_VALUE_CLAIM",
+        "AUTONOMOUS_CLIENT_ACTION"
+      ],
+      "title": "PromotionCapability",
+      "type": "string"
+    },
+    "PromotionScore": {
+      "additionalProperties": false,
+      "description": "Two scores that must never be averaged into one.\n\n``promotion_machinery_readiness`` (PMR) measures whether the promotion\napparatus works \u2014 computed on the rehearsal track, where synthetic evidence\nis exactly what should be counted.\n\n``bank_evidence_readiness`` (BER) measures whether the *bank* has the\nevidence \u2014 computed on the real track, where synthetic contributes zero.\n\nA single composite would let a high PMR mask a zero BER, which is precisely\nthe summary-over-substance reading this twin exists to prevent.",
+      "properties": {
+        "bank_evidence_readiness": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Bank Evidence Readiness",
+          "type": "number"
+        },
+        "basis": {
+          "default": "pmr-rehearsal-track-ber-real-track-1.0.0",
+          "title": "Basis",
+          "type": "string"
+        },
+        "ber_weight_available": {
+          "minimum": 0.0,
+          "title": "Ber Weight Available",
+          "type": "number"
+        },
+        "ber_weight_earned": {
+          "minimum": 0.0,
+          "title": "Ber Weight Earned",
+          "type": "number"
+        },
+        "pmr_weight_available": {
+          "minimum": 0.0,
+          "title": "Pmr Weight Available",
+          "type": "number"
+        },
+        "pmr_weight_earned": {
+          "minimum": 0.0,
+          "title": "Pmr Weight Earned",
+          "type": "number"
+        },
+        "promotion_machinery_readiness": {
+          "maximum": 1.0,
+          "minimum": 0.0,
+          "title": "Promotion Machinery Readiness",
+          "type": "number"
+        },
+        "severity_weights": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "title": "Severity Weights",
+          "type": "object"
+        },
+        "synthetic_weight_excluded_from_ber": {
+          "minimum": 0.0,
+          "title": "Synthetic Weight Excluded From Ber",
+          "type": "number"
+        },
+        "waived_gate_count": {
+          "minimum": 0,
+          "title": "Waived Gate Count",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "promotion_machinery_readiness",
+        "bank_evidence_readiness",
+        "pmr_weight_earned",
+        "pmr_weight_available",
+        "ber_weight_earned",
+        "ber_weight_available",
+        "synthetic_weight_excluded_from_ber",
+        "waived_gate_count"
+      ],
+      "title": "PromotionScore",
+      "type": "object"
+    },
+    "PromotionState": {
+      "description": "What the system is authorised to be, not how good its numbers are.",
+      "enum": [
+        "OFFLINE_CANDIDATE",
+        "SHADOW_READY",
+        "PILOT_READY",
+        "SCALE_READY",
+        "CAUSAL_CHAMPION"
+      ],
+      "title": "PromotionState",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "The published promotion position, both tracks side by side.",
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "bank_shadow_authorized": {
+      "title": "Bank Shadow Authorized",
+      "type": "boolean"
+    },
+    "contracts_version": {
+      "default": "v32-promotion-contracts-1.0.0",
+      "title": "Contracts Version",
+      "type": "string"
+    },
+    "decision_id": {
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "granted_capabilities": {
+      "items": {
+        "$ref": "#/$defs/PromotionCapability"
+      },
+      "title": "Granted Capabilities",
+      "type": "array"
+    },
+    "passed_real_transitions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Passed Real Transitions",
+      "type": "array"
+    },
+    "passed_rehearsal_transitions": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Passed Rehearsal Transitions",
+      "type": "array"
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "real_state": {
+      "$ref": "#/$defs/PromotionState"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "refused_capabilities": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Refused Capabilities",
+      "type": "object"
+    },
+    "rehearsed_state": {
+      "$ref": "#/$defs/PromotionState"
+    },
+    "score": {
+      "$ref": "#/$defs/PromotionScore"
+    },
+    "state_machine_version": {
+      "title": "State Machine Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision_id",
+    "as_of",
+    "real_state",
+    "rehearsed_state",
+    "bank_shadow_authorized",
+    "score",
+    "state_machine_version"
+  ],
+  "title": "PromotionDecision",
+  "type": "object"
+}

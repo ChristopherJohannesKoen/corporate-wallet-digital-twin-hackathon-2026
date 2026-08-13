@@ -1,0 +1,535 @@
+{
+  "catalogue_version": "v32-promotion-gate-catalogue-1.0.0",
+  "contracts_version": "v32-promotion-contracts-1.0.0",
+  "gates": [
+    {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Numbers that cannot be reproduced cannot be defended in a model-risk review, and no later gate means anything if the artifact under review is not the artifact that was built.",
+      "freshness_days": 90,
+      "gate_id": "independent-reproduction",
+      "legacy_aliases": [
+        "independent_reproduction"
+      ],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "ENGINEERING",
+      "requirement": "A second party rebuilds every gated artifact byte-identically from the named commit.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Independent reproduction from a clean commit",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "A reviewer outside the build machine runs scripts/build_submission.py at the tagged commit and reports matching digests for all 74 gated artifacts."
+    },
+    {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Leakage inflates every accuracy number the bank would rely on, and it does so invisibly \u2014 the model looks better precisely where it is most wrong.",
+      "freshness_days": 30,
+      "gate_id": "point-in-time-zero-leakage",
+      "legacy_aliases": [
+        "pit-zero-leakage",
+        "zero_point_in_time_leakage"
+      ],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "DATA_ENGINEERING",
+      "requirement": "No input dated after a record's as_of informs that record.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Zero point-in-time leakage",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "The V3 validation report shows point_in_time_violations = 0 on bank data rather than on the public fixture."
+    },
+    {
+      "approver_role": "FINANCE_CONTROLLER",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "An unreconciled wallet means the twin and the bank disagree about how much money exists; every downstream share and value is then arithmetic on an unknown base.",
+      "freshness_days": 7,
+      "gate_id": "reconciliation-exact",
+      "legacy_aliases": [
+        "critical-reconciliation",
+        "shadow_wallet_mass_balance_exact"
+      ],
+      "minimum_real_evidence_mode": "REAL_BANK",
+      "owner_role": "FINANCE_OPERATIONS",
+      "requirement": "Shadow wallet mass balance reconciles exactly, with no tolerance.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Critical reconciliation is exact",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "Reconciliation runs against real bank balances for a full cycle and reports a rate of exactly 1.0."
+    },
+    {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "An interval that does not cover at its stated rate is a false precision claim; bankers would read a tight band as confidence the model has not earned.",
+      "freshness_days": 90,
+      "gate_id": "interval-coverage-90",
+      "legacy_aliases": [
+        "interval-coverage-90",
+        "90pct_coverage_between_85pct_and_95pct"
+      ],
+      "minimum_real_evidence_mode": "REAL_BANK",
+      "owner_role": "DATA_SCIENCE",
+      "requirement": "Empirical coverage of the nominal 90% interval falls within 0.85\u20130.95.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "90% interval coverage lands in 0.85\u20130.95",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "Coverage is measured on held-out real bank outcomes, not on the synthetic calibration lab."
+    },
+    {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Without a margin over the baseline the twin costs money and governance overhead to reproduce what the bank already had.",
+      "freshness_days": 90,
+      "gate_id": "crps-improvement",
+      "legacy_aliases": [
+        "crps-improvement",
+        "crps_improvement_at_least_10pct"
+      ],
+      "minimum_real_evidence_mode": "REAL_BANK",
+      "owner_role": "DATA_SCIENCE",
+      "requirement": "Continuous ranked probability score improves \u226510% against the registered baseline.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "CRPS improves at least 10% over baseline",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "The comparison is run on real bank outcomes with the baseline frozen before the comparison."
+    },
+    {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "A narrative that invents a number is worse than no narrative: it is delivered in the bank's voice and will be read as the bank's position.",
+      "freshness_days": 30,
+      "gate_id": "genai-schema-and-fidelity",
+      "legacy_aliases": [
+        "genai-schema",
+        "genai-critical-facts",
+        "genai-precision",
+        "genai-abstention",
+        "genai-numeric-preservation",
+        "genai-critical-unsupported",
+        "v31_genai_schema_and_golden_set_report"
+      ],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "ENGINEERING",
+      "requirement": "First-attempt schema compliance with no repair or retry; every critical fact traceable; no unsupported critical claim; numerics preserved.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "Narrative generation is schema-valid and factually bounded",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "At least three accepted live-provider briefs across providers, produced with rotated credentials injected at runtime."
+    },
+    {
+      "approver_role": "SECURITY_OFFICER",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "A successful injection lets client-supplied text steer what the bank tells another client.",
+      "freshness_days": 30,
+      "gate_id": "prompt-injection-resistance",
+      "legacy_aliases": [
+        "prompt-injection"
+      ],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "SECURITY",
+      "requirement": "No injection attempt in the registered corpus causes the model to exceed its closed fact pack.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Zero successful prompt injections",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "The injection corpus is run against the live provider path rather than the offline stub."
+    },
+    {
+      "approver_role": "SECURITY_OFFICER",
+      "blocking": true,
+      "capability_effects": [
+        "HIDDEN_SHADOW_SCORING"
+      ],
+      "consequence_if_failed": "One entitlement gap in a corporate bank is a client-confidentiality breach, which is a regulatory matter rather than a quality one.",
+      "freshness_days": 30,
+      "gate_id": "entitlement-negative-tests",
+      "legacy_aliases": [
+        "entitlement-negative-tests",
+        "security_and_entitlement_approval"
+      ],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "SECURITY",
+      "requirement": "Every cross-client, cross-region and wrong-role request is denied.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Entitlement negative tests all pass",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "Denials are proven against the request path with OPA enforcing, not against in-process entitlement computation."
+    },
+    {
+      "approver_role": "SECURITY_OFFICER",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "An unsigned or vulnerable image cannot be admitted to a bank runtime, regardless of how good the model is.",
+      "freshness_days": 14,
+      "gate_id": "supply-chain-clean",
+      "legacy_aliases": [
+        "vulnerabilities",
+        "sbom",
+        "container-signature"
+      ],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "PLATFORM_ENGINEERING",
+      "requirement": "Container image signed, SBOM published, zero unresolved CRITICAL/HIGH findings.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "Signed image, SBOM, no unresolved critical or high vulnerabilities",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "CI publishes a cosign signature and SBOM for the released digest and Trivy reports zero unresolved CRITICAL/HIGH."
+    },
+    {
+      "approver_role": "PRODUCT_OWNER",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Recommending something the client cannot execute wastes the RM's credibility, which is the scarcest resource in the relationship.",
+      "freshness_days": null,
+      "gate_id": "feasibility-gates-block-selection",
+      "legacy_aliases": [
+        "failed_feasibility_gates_block_selection",
+        "unknown_material_gates_create_discovery_only"
+      ],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "DATA_SCIENCE",
+      "requirement": "A failed material feasibility gate removes a solution from selection; an unknown one downgrades it to discovery.",
+      "severity": "STANDARD",
+      "severity_weight": 1,
+      "title": "Failed feasibility blocks selection; unknown yields discovery only",
+      "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+      "what_would_make_real_pass": "The rule is exercised against real client feasibility data rather than the fixture."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [
+        "SUPERVISED_RM_PILOT"
+      ],
+      "consequence_if_failed": "Shadow exists to surface the failures that only appear under real traffic over real time. A simulated month surfaces none of them.",
+      "freshness_days": 60,
+      "gate_id": "elapsed-clean-shadow-days",
+      "legacy_aliases": [
+        "shadow-operating-period",
+        "30_elapsed_clean_shadow_days"
+      ],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "PRODUCTION_OPERATIONS",
+      "requirement": "Thirty consecutive calendar days of shadow operation with no critical incident, measured in elapsed bank time.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Thirty elapsed clean bank shadow days",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "The bank runs the system in shadow for thirty consecutive clean calendar days. No rehearsal can substitute; this gate is why elapsed_bank_shadow_days is published beside every rehearsal count."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "An RM who finds the twin down mid-meeting stops opening it, and adoption never recovers.",
+      "freshness_days": 30,
+      "gate_id": "service-availability",
+      "legacy_aliases": [
+        "availability"
+      ],
+      "minimum_real_evidence_mode": "REAL_BANK",
+      "owner_role": "PRODUCTION_OPERATIONS",
+      "requirement": "Measured availability \u2265 0.999 over the shadow period.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "Availability at or above 99.9%",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "Availability is measured from bank monitoring over the elapsed shadow window."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Latency above roughly a second turns a decision aid into an interruption.",
+      "freshness_days": 30,
+      "gate_id": "read-latency-p95",
+      "legacy_aliases": [
+        "p95-latency"
+      ],
+      "minimum_real_evidence_mode": "REAL_BANK",
+      "owner_role": "PLATFORM_ENGINEERING",
+      "requirement": "p95 read latency < 750 ms under bank load.",
+      "severity": "STANDARD",
+      "severity_weight": 1,
+      "title": "p95 read latency below 750 ms",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "p95 is measured on bank infrastructure under production-shaped load, not on the build machine."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Stale events mean two bankers see different answers to the same question on the same morning.",
+      "freshness_days": 30,
+      "gate_id": "event-latency",
+      "legacy_aliases": [
+        "event-latency"
+      ],
+      "minimum_real_evidence_mode": "REAL_BANK",
+      "owner_role": "PLATFORM_ENGINEERING",
+      "requirement": "Domain events reach consumers in under 300 seconds.",
+      "severity": "STANDARD",
+      "severity_weight": 1,
+      "title": "Event propagation under 300 s",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "Latency is measured across the bank's actual broker."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "A refresh that lands after the RM's first meeting is a day late for the decision it was meant to inform.",
+      "freshness_days": 30,
+      "gate_id": "refresh-by-0600-sast",
+      "legacy_aliases": [
+        "refresh-by-0600"
+      ],
+      "minimum_real_evidence_mode": "REAL_BANK",
+      "owner_role": "PRODUCTION_OPERATIONS",
+      "requirement": "The overnight refresh completes before 06:00 SAST.",
+      "severity": "STANDARD",
+      "severity_weight": 1,
+      "title": "Daily refresh completes by 06:00 SAST",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "Completion time is observed over the elapsed shadow window."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Promoting over an open severe incident widens its blast radius to real client conversations.",
+      "freshness_days": 7,
+      "gate_id": "no-unresolved-sev1-sev2",
+      "legacy_aliases": [
+        "no-sev1-sev2"
+      ],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "PRODUCTION_OPERATIONS",
+      "requirement": "Zero unresolved Sev-1/Sev-2 at the promotion decision point.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "No unresolved Sev-1 or Sev-2 incidents",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "The bank incident register shows none open against this system."
+    },
+    {
+      "approver_role": "CHIEF_RISK_OFFICER",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Without model-risk approval the bank has no accountable owner for what the model tells an RM to do.",
+      "freshness_days": 365,
+      "gate_id": "model-risk-approval",
+      "legacy_aliases": [
+        "model_risk_approval"
+      ],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "MODEL_RISK",
+      "requirement": "Model risk management approves the model card, limitations and monitoring plan.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Model risk sign-off",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "Model risk reviews the V3.2 model card and records an approval with a named accountable owner."
+    },
+    {
+      "approver_role": "HEAD_OF_COVERAGE",
+      "blocking": true,
+      "capability_effects": [
+        "PRODUCTION_RM_DECISION_SUPPORT"
+      ],
+      "consequence_if_failed": "Scaling a tool nobody has used in anger scales its unknown failure modes along with it.",
+      "freshness_days": 180,
+      "gate_id": "supervised-pilot-completed",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "COMMERCIAL_BANKING",
+      "requirement": "A named RM cohort completes at least five real supervised sessions each, with recorded outcomes.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Supervised RM pilot completed with real participants",
+      "transition_id": "PILOT_READY__TO__SCALE_READY",
+      "what_would_make_real_pass": "Real RMs run real client sessions. Fixture persona sessions carry real_participant=False by construction and can never satisfy this."
+    },
+    {
+      "approver_role": "FINANCE_CONTROLLER",
+      "blocking": true,
+      "capability_effects": [
+        "COMMERCIAL_VALUE_CLAIM"
+      ],
+      "consequence_if_failed": "A money number without approved economics is the bank quoting itself a price it never agreed.",
+      "freshness_days": 365,
+      "gate_id": "bank-approved-economics-registered",
+      "legacy_aliases": [
+        "approved-economics",
+        "approved_economics",
+        "solution_specific_economics_approved"
+      ],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "PRODUCT_FINANCE",
+      "requirement": "Every monetised value traces to a bank-approved, in-date rate card.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Bank-approved economics registered and unexpired",
+      "transition_id": "PILOT_READY__TO__SCALE_READY",
+      "what_would_make_real_pass": "Product finance approves rate cards covering every product in the grid and registers them with expiry dates."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Without a proven rollback, the decision to promote is effectively irreversible, which changes the risk of every promotion after it.",
+      "freshness_days": 90,
+      "gate_id": "rollback-restores-prior-state",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "PUBLIC_PACKAGE",
+      "owner_role": "PLATFORM_ENGINEERING",
+      "requirement": "A rehearsed rollback restores the previous model alias and its outputs exactly.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "Rollback restores the prior champion exactly",
+      "transition_id": "PILOT_READY__TO__SCALE_READY",
+      "what_would_make_real_pass": "A rollback is exercised in the bank environment and the restored outputs are compared digest-for-digest."
+    },
+    {
+      "approver_role": "CHIEF_DATA_OFFICER",
+      "blocking": false,
+      "capability_effects": [
+        "MEASURED_SHARE_REPORTING"
+      ],
+      "consequence_if_failed": "Without E3 the twin can bound a competitor's share but cannot measure it. Reporting an estimate as measured would misstate what is known.",
+      "freshness_days": 365,
+      "gate_id": "e3-multibank-observation-approved",
+      "legacy_aliases": [
+        "no_measured_competitor_share_without_e3",
+        "approved_e3_calibration_panel"
+      ],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "DATA_STRATEGY",
+      "requirement": "An approved panel provides multibank observation sufficient to identify competitor share.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "E3 multibank observation panel approved",
+      "transition_id": "PILOT_READY__TO__SCALE_READY",
+      "what_would_make_real_pass": "A multibank data source is contracted, approved and calibrated. Until then MEASURED_SHARE_REPORTING stays refused \u2014 this gate does not block hidden shadow scoring, which needs no share measurement."
+    },
+    {
+      "approver_role": "CHIEF_RISK_OFFICER",
+      "blocking": true,
+      "capability_effects": [
+        "CAUSAL_VALUE_CLAIM"
+      ],
+      "consequence_if_failed": "Every observational uplift figure is confounded by which clients the RMs chose to visit. Only randomisation separates the tool's effect from the selection.",
+      "freshness_days": 365,
+      "gate_id": "randomised-trial-validated",
+      "legacy_aliases": [
+        "no_causal_incremental_value_without_trial_validation"
+      ],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "DATA_SCIENCE",
+      "requirement": "A pre-registered cluster-randomised trial reports an ITT effect with cluster-robust inference and randomization-inference confirmation.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Cluster-randomised trial shows incremental value",
+      "transition_id": "SCALE_READY__TO__CAUSAL_CHAMPION",
+      "what_would_make_real_pass": "The bank runs a pre-registered cluster-randomised trial to its planned sample size and the analysis is independently reviewed."
+    },
+    {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [
+        "CAUSAL_VALUE_CLAIM"
+      ],
+      "consequence_if_failed": "A weak first stage makes the instrument uninformative: the confidence interval is wide and badly behaved, and a point estimate drawn from it would be presented with precision it does not have.",
+      "freshness_days": 365,
+      "gate_id": "trial-first-stage-strength-adequate",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "DATA_SCIENCE",
+      "requirement": "First-stage compliance strength is at or above 0.10.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Trial first stage is not weak",
+      "transition_id": "SCALE_READY__TO__CAUSAL_CHAMPION",
+      "what_would_make_real_pass": "Observed compliance in the trial reaches the pre-registered strength threshold. If it does not, the honest outcome is a null result and the system stays SCALE_READY."
+    },
+    {
+      "approver_role": "HEAD_OF_COVERAGE",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "A causal champion nobody opens is a claim about a system that is not in use.",
+      "freshness_days": 180,
+      "gate_id": "sustained-adoption",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "COMMERCIAL_BANKING",
+      "requirement": "The RM cohort sustains use beyond the supervised period without prompting.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "Sustained RM adoption",
+      "transition_id": "SCALE_READY__TO__CAUSAL_CHAMPION",
+      "what_would_make_real_pass": "Adoption is measured from real RM sessions over a sustained window."
+    }
+  ],
+  "purpose": "The gates governing promotion, as data. Generated from the catalogue the engine evaluates, so the published policy and the enforced policy cannot diverge.",
+  "severity_weights": {
+    "CRITICAL": 5,
+    "HIGH": 3,
+    "STANDARD": 1
+  },
+  "state_machine_version": "v32-promotion-state-machine-1.0.0",
+  "summary": {
+    "by_transition": {
+      "OFFLINE_CANDIDATE__TO__SHADOW_READY": {
+        "blocking": 10,
+        "critical": 5,
+        "gates": 10,
+        "weight": 38
+      },
+      "PILOT_READY__TO__SCALE_READY": {
+        "blocking": 3,
+        "critical": 2,
+        "gates": 4,
+        "weight": 16
+      },
+      "SCALE_READY__TO__CAUSAL_CHAMPION": {
+        "blocking": 3,
+        "critical": 2,
+        "gates": 3,
+        "weight": 13
+      },
+      "SHADOW_READY__TO__PILOT_READY": {
+        "blocking": 7,
+        "critical": 3,
+        "gates": 7,
+        "weight": 21
+      }
+    },
+    "catalogue_version": "v32-promotion-gate-catalogue-1.0.0",
+    "legacy_aliases_mapped": 38,
+    "severity_weights": {
+      "CRITICAL": 5,
+      "HIGH": 3,
+      "STANDARD": 1
+    },
+    "total_gates": 24
+  },
+  "transitions": [
+    "OFFLINE_CANDIDATE__TO__SHADOW_READY",
+    "SHADOW_READY__TO__PILOT_READY",
+    "PILOT_READY__TO__SCALE_READY",
+    "SCALE_READY__TO__CAUSAL_CHAMPION"
+  ]
+}

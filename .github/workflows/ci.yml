@@ -25,10 +25,13 @@ jobs:
       # The wallet fixture is in the diff gate below, so it must actually be
       # regenerated here — otherwise the gate is inert for that artifact.
       - run: uv run python scripts/export_v311_wallet_surface.py
+      - run: uv run python scripts/export_v32_contracts.py
       - run: uv run python scripts/run_measurement_sensitivity.py
       - run: uv run ruff check src tests scripts
-      - run: uv run pytest --cov=wallet_twin_v2 --cov=wallet_twin_v3 --cov=wallet_twin_v31 --cov-report=term-missing
-      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json dashboard/app/data/v3-fixture.json dashboard/app/data/v31-fixture.json dashboard/app/data/wallet-v311-fixture.json outputs/v3 outputs/v31 outputs/v3_validation/v3_validation_report.json outputs/v2_validation/measurement_policy_sensitivity.json tests/regression/v3_0/v3_0_frozen_surface.restated.json
+      - run: uv run pytest --cov=wallet_twin_v2 --cov=wallet_twin_v3 --cov=wallet_twin_v31 --cov=wallet_twin_v32 --cov-report=term-missing
+      # V3.2 is additive: this must still pass unchanged for V3.1.1's surface.
+      - run: uv run python scripts/freeze_v311_boundary.py --check
+      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json dashboard/app/data/v3-fixture.json dashboard/app/data/v31-fixture.json dashboard/app/data/wallet-v311-fixture.json outputs/v3 outputs/v31 outputs/v32 outputs/v3_validation/v3_validation_report.json outputs/v2_validation/measurement_policy_sensitivity.json tests/regression/v3_0/v3_0_frozen_surface.restated.json
   workbench:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: dashboard } }
