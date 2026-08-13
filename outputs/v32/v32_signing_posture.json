@@ -1,0 +1,69 @@
+{
+  "bank_signing_status": "NO_REAL_BANK_SIGNING_CAPABILITY_ON_THIS_BUILD",
+  "canonicalisation": {
+    "note": "Separate on purpose. canonical.py rounds floats to the published precision and emits indented JSON, both of which are correct for byte-reproducible artifacts and disqualifying for a signature: signing a rounded payload signs a different number than the one published.",
+    "reproducibility": "wallet_twin_v2.canonical",
+    "signing": "rfc8785-jcs-1.0.0"
+  },
+  "enforcement": [
+    "A rehearsal key cannot sign REAL_BANK or BANK_ATTESTED evidence.",
+    "A key with real-bank authority cannot sit in the rehearsal trust domain.",
+    "A bank trust root is refused in a FIXTURE environment.",
+    "Expired, not-yet-valid and revoked keys all fail closed.",
+    "An unknown key is not verified by absence."
+  ],
+  "envelope": {
+    "format": "dsse-v1",
+    "payload_type": "application/vnd.wallet-twin.promotion-evidence+json"
+  },
+  "executed": [
+    "LocalECDSASigner"
+  ],
+  "not_executed": [
+    "SigstoreSigner",
+    "KMSSigner"
+  ],
+  "real_bank_signing_available": false,
+  "signers": [
+    {
+      "algorithm": "ecdsa-p256-sha256",
+      "key_id": "local-rehearsal-p256",
+      "modes": [
+        "SYNTHETIC_REHEARSAL"
+      ],
+      "note": "Rehearsal only. Cannot satisfy a real-track gate.",
+      "signer": "LocalECDSASigner",
+      "status": "EXECUTED",
+      "verifiable_in_ci": true
+    },
+    {
+      "algorithm": "sigstore-ecdsa-p256-sha256",
+      "key_id": "sigstore-github-oidc",
+      "modes": [
+        "PUBLIC_PACKAGE",
+        "SYNTHETIC_REHEARSAL"
+      ],
+      "note": "Keyless signing requires an ambient GitHub OIDC token. Runs inside Actions only; reported NOT_EXECUTED elsewhere.",
+      "reason": "SIGSTORE_LIBRARY_NOT_INSTALLED",
+      "signer": "SigstoreSigner",
+      "status": "NOT_EXECUTED",
+      "verifiable_in_ci": true
+    },
+    {
+      "algorithm": "ECDSA_SHA_256",
+      "key_id": "aws-kms-promotion-signer",
+      "modes": [
+        "BANK_ATTESTED",
+        "PUBLIC_PACKAGE",
+        "REAL_BANK"
+      ],
+      "note": "Requires a live AWS account and a new ECDSA_SHA_256 KMS key; the existing Terraform key is RSA-3072. Reported NOT_EXECUTED until both exist.",
+      "reason": "NO_KMS_KEY_ARN_CONFIGURED",
+      "signer": "KMSSigner",
+      "status": "NOT_EXECUTED",
+      "verifiable_in_ci": false
+    }
+  ],
+  "signers_version": "v32-signers-1.0.0",
+  "trust_registry_version": "v32-trust-registry-1.0.0"
+}

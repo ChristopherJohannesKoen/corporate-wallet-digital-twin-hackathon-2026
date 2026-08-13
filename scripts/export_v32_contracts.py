@@ -43,6 +43,10 @@ from wallet_twin_v32 import (  # noqa: E402
     catalogue_summary,
 )
 from wallet_twin_v32.catalogue import LEGACY_GATE_ALIASES  # noqa: E402
+from wallet_twin_v32.dsse import DSSE_VERSION, PAYLOAD_TYPE  # noqa: E402
+from wallet_twin_v32.rfc8785 import JCS_VERSION  # noqa: E402
+from wallet_twin_v32.signers import signer_capability_report  # noqa: E402
+from wallet_twin_v32.trust import TRUST_REGISTRY_VERSION  # noqa: E402
 from wallet_twin_v32.modes import (  # noqa: E402
     EVIDENCE_MODES,
     TRACKS,
@@ -163,6 +167,45 @@ def promotion_policy_document() -> Dict[str, Any]:
     }
 
 
+def signing_posture_document() -> Dict[str, Any]:
+    """What can actually sign here, and what merely has an adapter.
+
+    Listing three signers without saying which ran would let a reader assume
+    all three were exercised. The local rehearsal signer works and is tested in
+    CI; Sigstore needs an ambient GitHub OIDC token; KMS needs a live AWS
+    account and a new ECDSA key, because the existing Terraform key is RSA-3072.
+    """
+    report = signer_capability_report()
+    return {
+        **report,
+        "canonicalisation": {
+            "signing": JCS_VERSION,
+            "reproducibility": "wallet_twin_v2.canonical",
+            "note": (
+                "Separate on purpose. canonical.py rounds floats to the "
+                "published precision and emits indented JSON, both of which are "
+                "correct for byte-reproducible artifacts and disqualifying for a "
+                "signature: signing a rounded payload signs a different number "
+                "than the one published."
+            ),
+        },
+        "envelope": {"format": DSSE_VERSION, "payload_type": PAYLOAD_TYPE},
+        "trust_registry_version": TRUST_REGISTRY_VERSION,
+        "enforcement": [
+            "A rehearsal key cannot sign REAL_BANK or BANK_ATTESTED evidence.",
+            "A key with real-bank authority cannot sit in the rehearsal trust domain.",
+            "A bank trust root is refused in a FIXTURE environment.",
+            "Expired, not-yet-valid and revoked keys all fail closed.",
+            "An unknown key is not verified by absence.",
+        ],
+        "bank_signing_status": (
+            "NO_REAL_BANK_SIGNING_CAPABILITY_ON_THIS_BUILD"
+            if not report["real_bank_signing_available"]
+            else "REAL_BANK_SIGNING_AVAILABLE"
+        ),
+    }
+
+
 def main() -> int:
     for name, model in MODELS.items():
         write_canonical_json(
@@ -171,6 +214,7 @@ def main() -> int:
 
     write_canonical_json(CONTRACTS / "promotion-gate-catalogue.json", gate_catalogue_document())
     write_canonical_json(OUTPUTS / "v32_promotion_policy.json", promotion_policy_document())
+    write_canonical_json(OUTPUTS / "v32_signing_posture.json", signing_posture_document())
 
     print(
         f"exported {len(MODELS)} V3.2 schemas, "
