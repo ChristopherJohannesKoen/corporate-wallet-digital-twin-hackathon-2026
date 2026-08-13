@@ -247,9 +247,14 @@ CREATE TABLE IF NOT EXISTS client_learning.client_answer_review (
 
 CREATE TABLE IF NOT EXISTS decision_intelligence.transactional_event_outbox (
   event_id uuid PRIMARY KEY,
+  -- Widened for V3.2. wallet_twin_v32.events.declared_topics() is asserted
+  -- against this list by test, because a topic the code emits and this
+  -- constraint rejects fails at insert time, in production, with no earlier
+  -- signal.
   domain_topic text NOT NULL CHECK (domain_topic IN (
     'wallet-twin.business-twin.v1','wallet-twin.decision.v1',
-    'wallet-twin.client-learning.v1','wallet-twin.audit.v1'
+    'wallet-twin.client-learning.v1','wallet-twin.audit.v1',
+    'wallet-twin.promotion.v1'
   )),
   event_type text NOT NULL,
   schema_version text NOT NULL,

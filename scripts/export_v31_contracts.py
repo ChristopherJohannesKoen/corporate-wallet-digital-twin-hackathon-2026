@@ -173,22 +173,18 @@ def main() -> int:
             },
         },
     )
-    write_json(
-        ROOT / "dashboard" / "app" / "data" / "wallet-v311-fixture.json",
-        {
-            "projection": repository.wallet_portfolio(repository.as_of).model_dump(mode="json"),
-            "details": {
-                cell.opportunity_id: repository.wallet_opportunity(
-                    cell.opportunity_id, repository.as_of
-                ).model_dump(mode="json")
-                for cell in repository.wallet_portfolio(repository.as_of).cells
-            },
-        },
-    )
+    # ``wallet-v311-fixture.json`` is deliberately NOT written here.
+    #
+    # It was, and that was a latent defect: this exporter dumped the projection
+    # verbatim, including the HACKATHON_STATUS_PENDING_CANONICAL_BUILD sentinel,
+    # while scripts/export_v311_wallet_surface.py writes the same file and
+    # carries the stamped status forward. Two writers for one artifact meant the
+    # non-stamping one silently reverted the other, and only CI's invocation
+    # order kept the result correct. Single ownership removes the ordering
+    # dependency rather than documenting it.
 
     print(f"exported {len(MODELS)} JSON Schemas to {SCHEMAS.relative_to(ROOT)}")
     print(f"exported OpenAPI to {(CONTRACTS / 'openapi-v31.json').relative_to(ROOT)}")
-    print(f"exported workbench fixture to {DASHBOARD_FIXTURE.relative_to(ROOT)}")
     print(f"exported validation artifacts to {OUTPUTS.relative_to(ROOT)}")
     summary = {
         "conversations": repository.validation["conversation_candidates"],

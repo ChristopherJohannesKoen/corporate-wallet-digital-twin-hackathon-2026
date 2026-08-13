@@ -8,6 +8,13 @@ from .contracts import AccessDecision, DeploymentEnvironment, EntitlementContext
 
 SHADOW_ROLES = {"SHADOW_OPERATOR", "MODEL_VALIDATOR", "EVIDENCE_REVIEWER", "PILOT_RM", "PLATFORM_ADMIN"}
 SENSITIVE_ECONOMICS_ROLES = {"PRODUCT_FINANCE", "TREASURY", "RISK", "PLATFORM_ADMIN"}
+#: Roles that may write to the V3.2 promotion register. Reading the promotion
+#: position is broadly useful — a PILOT_RM should be able to see what the system
+#: is and is not authorised to do. Writing to it decides that authorisation, so
+#: it is restricted to the functions accountable for the decision. Without this,
+#: any shadow role could record a gate evaluation, and the gate register would
+#: describe who had access rather than what was established.
+PROMOTION_WRITE_ROLES = {"MODEL_VALIDATOR", "PLATFORM_ADMIN", "SHADOW_OPERATOR"}
 
 
 class EntitlementService:
@@ -46,6 +53,8 @@ class EntitlementService:
                 reasons.append("SENSITIVE_ECONOMICS_ROLE_REQUIRED")
             if action.startswith("evidence:approve") and "EVIDENCE_REVIEWER" not in roles and "PLATFORM_ADMIN" not in roles:
                 reasons.append("EVIDENCE_REVIEWER_ROLE_REQUIRED")
+            if action.startswith("v32:") and action.endswith(":write") and not roles.intersection(PROMOTION_WRITE_ROLES):
+                reasons.append("PROMOTION_WRITE_ROLE_REQUIRED")
             if context.environment == DeploymentEnvironment.PRODUCTION and context.user_id.startswith("demo-"):
                 reasons.append("DEMO_IDENTITY_FORBIDDEN_IN_PRODUCTION")
 

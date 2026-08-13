@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker build --pull --tag wallet-twin:${{ github.sha }} .
-      - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2, wallet_twin_v3, wallet_twin_v31; from wallet_twin_v2.service_apps import business_twin_app, workbench_bff_app; assert any(route.path == '/v3/decision-twin' for route in business_twin_app.routes); assert any(route.path == '/v3/coverage-plan' for route in workbench_bff_app.routes)"
+      - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2, wallet_twin_v3, wallet_twin_v31, wallet_twin_v32; from wallet_twin_v2.service_apps import SERVICE_ROUTES, business_twin_app, promotion_app, workbench_bff_app; assert any(route.path == '/v3/decision-twin' for route in business_twin_app.routes); assert any(route.path == '/v3/coverage-plan' for route in workbench_bff_app.routes); assert len(SERVICE_ROUTES) == 12; assert any(route.path == '/v3/promotion/state' for route in promotion_app.routes)"
       - run: docker run --detach --name wallet-twin-smoke --publish 18080:8080 wallet-twin:${{ github.sha }}
       # Readiness polling and assertions are separated inside the script: a
       # failed assertion fails once, loudly, instead of being retried twenty

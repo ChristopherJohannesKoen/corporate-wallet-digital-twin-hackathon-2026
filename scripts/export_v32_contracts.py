@@ -44,6 +44,12 @@ from wallet_twin_v32 import (  # noqa: E402
 )
 from wallet_twin_v32.catalogue import LEGACY_GATE_ALIASES  # noqa: E402
 from wallet_twin_v32.dsse import DSSE_VERSION, PAYLOAD_TYPE  # noqa: E402
+from wallet_twin_v32.events import (  # noqa: E402
+    EVENTS_VERSION,
+    PROMOTION_EVENT_TYPES,
+    PromotionEventEnvelope,
+    declared_topics,
+)
 from wallet_twin_v32.rfc8785 import JCS_VERSION  # noqa: E402
 from wallet_twin_v32.signers import signer_capability_report  # noqa: E402
 from wallet_twin_v32.trust import TRUST_REGISTRY_VERSION  # noqa: E402
@@ -77,6 +83,7 @@ MODELS = {
     "v32-virtual-clock-state": VirtualClockState,
     "v32-incident-injection": IncidentInjection,
     "v32-e3-sample-size-plan": E3SampleSizePlan,
+    "v32-promotion-event-envelope": PromotionEventEnvelope,
 }
 
 
@@ -148,6 +155,18 @@ def promotion_policy_document() -> Dict[str, Any]:
             "composite_prohibited": (
                 "No single promotability figure is published. A composite would "
                 "let a working rehearsal read as progress toward production."
+            ),
+        },
+        "events": {
+            "events_version": EVENTS_VERSION,
+            "topics": list(declared_topics()),
+            "event_types": [item.value for item in PROMOTION_EVENT_TYPES],
+            "note": (
+                "Every promotion event carries its track, so an audit reader can "
+                "tell a rehearsal event from a real one without resolving "
+                "anything else. Adding this topic required widening a hardcoded "
+                "CHECK constraint in the Postgres outbox, which would otherwise "
+                "have failed at insert time in production."
             ),
         },
         "legacy_vocabulary_unified": {

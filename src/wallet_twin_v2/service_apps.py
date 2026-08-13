@@ -17,6 +17,7 @@ from fastapi.routing import APIRoute
 from .api import app as canonical_app
 from wallet_twin_v3.api import router as v3_router
 from wallet_twin_v31.api import router as v31_router
+from wallet_twin_v32.api import router as v32_router
 SERVICE_ROUTES = {
     "ingestion": ("/v1/ingestion",),
     "evidence": ("/v1/evidence",),
@@ -38,6 +39,11 @@ SERVICE_ROUTES = {
     "experiment": ("/v1/outcomes", "/v1/events", "/v1/pilot"),
     "genai": ("/v1/genai",),
     "entitlement": ("/v1/access",),
+    # The twelfth service. Promotion owns its own Postgres schema and outbox
+    # (infra/sql/002_promotion_schemas.sql) and never reads another service's
+    # tables. The workbench-bff also surfaces these routes, which is what a BFF
+    # is for; the promotion deployment is the one that owns the writes.
+    "promotion": ("/v3/promotion",),
     "workbench-bff": (
         "/v1/opportunities",
         "/v1/clients",
@@ -82,7 +88,7 @@ def create_service_app(service_name: str, prefixes: Iterable[str]) -> FastAPI:
     # explicit owned-router pass makes service construction insensitive to
     # Python's circular-import order and keeps duplicate paths out of OpenAPI.
     if "/v3" in allowed or any(prefix.startswith("/v3") for prefix in allowed):
-        for owned_router in (v3_router, v31_router):
+        for owned_router in (v3_router, v31_router, v32_router):
             for route in owned_router.routes:
                 if (
                     isinstance(route, APIRoute)
@@ -104,4 +110,5 @@ recommendation_app = create_service_app("recommendation", SERVICE_ROUTES["recomm
 experiment_app = create_service_app("experiment", SERVICE_ROUTES["experiment"])
 genai_app = create_service_app("genai", SERVICE_ROUTES["genai"])
 entitlement_app = create_service_app("entitlement", SERVICE_ROUTES["entitlement"])
+promotion_app = create_service_app("promotion", SERVICE_ROUTES["promotion"])
 workbench_bff_app = create_service_app("workbench-bff", SERVICE_ROUTES["workbench-bff"])

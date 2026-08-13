@@ -2,11 +2,32 @@
   "version": "3.1.1",
   "status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-13T10:49:42.984139+00:00",
-  "source_commit": "f5015d86efbd371c0710a73a532ae50cf560efe9",
-  "clean_worktree": true,
+  "generated_at": "2026-08-13T11:46:17.347161+00:00",
+  "source_commit": "765d2a56888efd8b11949a6ccb0fd72dec3c86bd",
+  "clean_worktree": false,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
-  "dirty_paths": [],
+  "dirty_paths": [
+    "contracts/jsonschema/v32-promotion-event-envelope.schema.json",
+    "contracts/openapi-v31.json",
+    "contracts/openapi.json",
+    "infra/helm/wallet-twin/values.yaml",
+    "infra/msk/topics.yaml",
+    "infra/sql/001_operational_schemas.sql",
+    "infra/sql/002_promotion_schemas.sql",
+    "outputs/v32/v32_promotion_policy.json",
+    "scripts/export_v31_contracts.py",
+    "scripts/export_v32_contracts.py",
+    "scripts/freeze_v311_boundary.py",
+    "src/wallet_twin_v2/api.py",
+    "src/wallet_twin_v2/entitlements.py",
+    "src/wallet_twin_v2/service_apps.py",
+    "src/wallet_twin_v32/api.py",
+    "src/wallet_twin_v32/events.py",
+    "src/wallet_twin_v32/repository.py",
+    "tests/regression/v3_1_1/test_v3_1_1_boundary.py",
+    "tests/regression/v3_1_1/v3_1_1_boundary.json",
+    "tests/test_v32_service.py"
+  ],
   "rebuilt_deliverables": [
     "notebooks/01_wallet_twin_demo.ipynb",
     "output/notebook/01_wallet_twin_demo.html",
@@ -14,8 +35,7 @@
     "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
     "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
     "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx.inspect.ndjson",
-    "outputs/audit/Public-Facts-Anchor-Register.inspect.json",
-    "outputs/judging_manifest_v3.1.1.json"
+    "outputs/audit/Public-Facts-Anchor-Register.inspect.json"
   ],
   "data_mode": "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
   "checks": [
@@ -44,7 +64,6 @@
       "stdout_tail": [
         "exported 24 JSON Schemas to contracts\\jsonschema",
         "exported OpenAPI to contracts\\openapi-v31.json",
-        "exported workbench fixture to dashboard\\app\\data\\v31-fixture.json",
         "exported validation artifacts to outputs\\v31",
         "{",
         "  \"conversations\": 224,",
@@ -278,33 +297,33 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "718072c9cf1ee56d1cd11d9be7ff729c743679373a914091170a48231b71d81e",
+      "sha256": "9baf94f850278cac5c5f2180d924b3a9211bdbc94d15a1261cc68fe92b169035",
       "size_bytes": 159274
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "fd711ad975fa06598850dad4bce600d980edf545d02708b39ede1b07c70bfa74",
+      "sha256": "e8415623c019e9cdb79e582cb11885e5cc1f61e5fbb0e3d7917d2c72a0a04898",
       "size_bytes": 460277
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "a3707f0b0900e056c21acb36d5fa19a83ede924e9aaa60549b6fe6d975f0bc95",
+      "sha256": "80f5d6474da030269f88a26f1b943a0f520c5262d1603a50cb9f87d1290a4584",
       "size_bytes": 5522
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "676758bbfa986925274c898deecde567b4939819451648bc8b2cccda49f6c1ec",
-      "size_bytes": 1740245
+      "sha256": "4e6076c832d66a2b072f542951c5dcb2d5c6ea322caf8dbabbd5f347d62d731e",
+      "size_bytes": 1740237
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
-      "sha256": "d3e9aa2b6b3b74611e23c40fa06475a5217d1b2f20c3667c1c15f4e6f009ec31",
-      "size_bytes": 70568
+      "sha256": "974b8888873c1adcd37639841bdf526f459c159f8382a45f9d644358079cc314",
+      "size_bytes": 70564
     },
     {
       "path": "contracts/openapi.json",
-      "sha256": "d8b270bbf00f6b58db6dccd31c2784e7ed622ff7fef6c02abf047d9e7a5a3f78",
-      "size_bytes": 186033
+      "sha256": "98b97a53b1db0492500452ece8b9f86b4075197a601f269fe689f5feebad793a",
+      "size_bytes": 240227
     },
     {
       "path": "outputs/v2_validation/offline_validation_report.json",

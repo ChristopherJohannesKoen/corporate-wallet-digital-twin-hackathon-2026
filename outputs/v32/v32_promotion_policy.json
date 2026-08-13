@@ -54,6 +54,27 @@
     }
   },
   "engine_version": "v32-promotion-engine-1.0.0",
+  "events": {
+    "event_types": [
+      "PromotionGateEvaluated",
+      "PromotionEvidenceRegistered",
+      "PromotionEvidenceSigned",
+      "PromotionEvidenceVerificationFailed",
+      "PromotionDecisionPublished",
+      "PromotionApprovalSubmitted",
+      "PromotionApprovalReviewed",
+      "PromotionStateAdvanced",
+      "PromotionCapabilityGranted",
+      "PromotionCapabilityRefused",
+      "RehearsalScenarioExecuted",
+      "RehearsalIncidentInjected"
+    ],
+    "events_version": "v32-promotion-events-1.0.0",
+    "note": "Every promotion event carries its track, so an audit reader can tell a rehearsal event from a real one without resolving anything else. Adding this topic required widening a hardcoded CHECK constraint in the Postgres outbox, which would otherwise have failed at insert time in production.",
+    "topics": [
+      "wallet-twin.promotion.v1"
+    ]
+  },
   "evidence_mode_policy_version": "v32-evidence-mode-policy-1.0.0",
   "evidence_modes": {
     "BANK_ATTESTED": {

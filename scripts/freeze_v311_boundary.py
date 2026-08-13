@@ -39,7 +39,23 @@ from wallet_twin_v2.measurement_policy import MEASUREMENT_POLICY_VERSION  # noqa
 from wallet_twin_v2.public_evidence import ANCHOR_ACTIVATION_POLICY_VERSION  # noqa: E402
 
 BOUNDARY = ROOT / "tests" / "regression" / "v3_1_1" / "v3_1_1_boundary.json"
-BOUNDARY_VERSION = "v3.1.1-regression-boundary-1.0.0"
+BOUNDARY_VERSION = "v3.1.1-regression-boundary-1.1.0"
+
+#: Composed API documents, checked **additively** rather than byte-exactly.
+#:
+#: These files are a composition of every registered router. Adding a new API
+#: surface necessarily changes their bytes, so freezing them byte-exact would
+#: make every additive change a boundary violation — the boundary would be
+#: re-frozen on each release and would stop meaning anything.
+#:
+#: The invariant that actually matters is narrower and stronger: every path and
+#: schema V3.1.1 published must still be present and **identical**. New ones are
+#: permitted; changing or removing an existing one is not. That is precisely the
+#: "additive" claim, tested directly instead of by proxy.
+ADDITIVE_API_DOCUMENTS: tuple[str, ...] = (
+    "contracts/openapi.json",
+    "contracts/openapi-v31.json",
+)
 
 
 def git_value(*args: str, default: str = "UNKNOWN") -> str:
@@ -53,6 +69,77 @@ def sha256_of(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             digest.update(chunk)
     return digest.hexdigest()
+
+
+#: The tag whose API surface the boundary describes.
+BOUNDARY_TAG = "v3.1.1"
+
+
+def _surface_of(document: Dict[str, Any]) -> Dict[str, Any]:
+    """Paths and component schemas of a composed API document.
+
+    Operation detail is included, so a changed request body or response schema
+    on an existing path is caught. Only *additions* are invisible to this.
+    """
+    return {
+        "paths": document.get("paths", {}),
+        "schemas": document.get("components", {}).get("schemas", {}),
+    }
+
+
+def api_surface(relative_path: str) -> Dict[str, Any]:
+    """The current API surface, from the working tree."""
+    return _surface_of(
+        json.loads((ROOT / relative_path).read_text(encoding="utf-8"))
+    )
+
+
+def api_surface_at_boundary_tag(relative_path: str) -> Dict[str, Any]:
+    """The API surface as published at ``v3.1.1``.
+
+    Read from the tag rather than from the working tree. Freezing the current
+    tree would capture whatever surface exists at freeze time — including V3.2
+    routes — and the record would stop describing V3.1.1, which is the one
+    thing it is for. A missing tag fails loudly rather than silently falling
+    back to the working tree.
+    """
+    completed = subprocess.run(
+        ["git", "show", f"{BOUNDARY_TAG}:{relative_path}"],
+        cwd=ROOT,
+        text=True,
+        capture_output=True,
+    )
+    if completed.returncode != 0:
+        raise SystemExit(
+            f"cannot read {relative_path} at tag {BOUNDARY_TAG}: "
+            f"{completed.stderr.strip()}. The boundary describes the tagged "
+            "release, so freezing from the working tree instead would silently "
+            "record the wrong surface."
+        )
+    return _surface_of(json.loads(completed.stdout))
+
+
+def additive_api_drift(frozen: Dict[str, Any]) -> Dict[str, list]:
+    """Paths or schemas that V3.1.1 published and that have since changed.
+
+    Returns removals and modifications only. A path present in the current
+    document but not in the frozen one is an addition, which is what V3.2 is
+    allowed to do.
+    """
+    drift: Dict[str, list] = {}
+    for relative_path, recorded in frozen.items():
+        current = api_surface(relative_path)
+        removed = []
+        changed = []
+        for section in ("paths", "schemas"):
+            for key, value in recorded.get(section, {}).items():
+                if key not in current[section]:
+                    removed.append(f"{section}:{key}")
+                elif current[section][key] != value:
+                    changed.append(f"{section}:{key}")
+        if removed or changed:
+            drift[relative_path] = sorted(removed + changed)
+    return drift
 
 
 def build_boundary() -> Dict[str, Any]:
@@ -71,6 +158,11 @@ def build_boundary() -> Dict[str, Any]:
     gated = {
         path.relative_to(ROOT).as_posix(): sha256_of(path)
         for path in committed_artifacts()
+        if path.relative_to(ROOT).as_posix() not in ADDITIVE_API_DOCUMENTS
+    }
+    api_documents = {
+        relative_path: api_surface_at_boundary_tag(relative_path)
+        for relative_path in ADDITIVE_API_DOCUMENTS
     }
 
     return {
@@ -125,6 +217,7 @@ def build_boundary() -> Dict[str, Any]:
             "bank_production_status": manifest["bank_production_status"],
         },
         "gated_artifact_digests": gated,
+        "additive_api_documents": api_documents,
         "non_reproducible_deliverables": dict(NON_REPRODUCIBLE_DELIVERABLES),
         "not_established_at_this_boundary": [
             "No E3 multibank observation; measured competitor share remains impossible.",
@@ -159,13 +252,15 @@ def main() -> int:
             for path, digest in frozen.get("gated_artifact_digests", {}).items()
             if current["gated_artifact_digests"].get(path) != digest
         )
-        if drifted or digest_drift:
+        api_drift = additive_api_drift(frozen.get("additive_api_documents", {}))
+        if drifted or digest_drift or api_drift:
             print(
                 json.dumps(
                     {
                         "status": "BOUNDARY_DRIFTED",
                         "sections": drifted,
                         "artifacts": digest_drift[:20],
+                        "api_surface": api_drift,
                     },
                     indent=2,
                 ),

@@ -19,7 +19,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from freeze_v311_boundary import build_boundary  # noqa: E402
+from freeze_v311_boundary import additive_api_drift, build_boundary  # noqa: E402
 
 BOUNDARY = Path(__file__).with_name("v3_1_1_boundary.json")
 
@@ -35,8 +35,45 @@ def current() -> dict:
 
 
 def test_boundary_declares_its_version(frozen: dict) -> None:
-    assert frozen["boundary_version"] == "v3.1.1-regression-boundary-1.0.0"
+    assert frozen["boundary_version"] == "v3.1.1-regression-boundary-1.1.0"
     assert frozen["solution_version"] == "3.1.1"
+
+
+def test_every_v311_api_path_and_schema_survives_unchanged(frozen: dict) -> None:
+    """The composed OpenAPI documents are checked additively.
+
+    Byte-freezing a document whose whole job is to compose new surfaces would
+    make every additive API change a violation, and the boundary would be
+    re-frozen every release until it meant nothing. What must hold is narrower
+    and stronger: each path and schema V3.1.1 published is still present and
+    identical. Additions are what V3.2 is permitted to do.
+    """
+    drift = additive_api_drift(frozen["additive_api_documents"])
+    assert not drift, f"V3.1.1 API surface changed, not merely extended: {drift}"
+
+
+def test_the_v311_api_surface_was_actually_captured(frozen: dict) -> None:
+    """A guard against the additive check silently covering nothing.
+
+    Exact counts, not a threshold: V3.1.1 published 48 paths and 25 component
+    schemas. If a future refactor drops half of them out of the frozen record,
+    the additive check would still pass over what remained and report nothing.
+    """
+    documents = frozen["additive_api_documents"]
+    assert set(documents) == {"contracts/openapi.json", "contracts/openapi-v31.json"}
+    for relative_path, surface in documents.items():
+        assert len(surface["paths"]) == 48, relative_path
+        assert len(surface["schemas"]) == 25, relative_path
+
+
+def test_v32_extended_the_api_rather_than_replacing_it(current: dict) -> None:
+    """The positive half: the promotion routes are present *in addition*."""
+    from freeze_v311_boundary import api_surface
+
+    live = api_surface("contracts/openapi.json")
+    promotion = [path for path in live["paths"] if path.startswith("/v3/promotion")]
+    assert len(promotion) == 12
+    assert len(live["paths"]) == 48 + 12
 
 
 def test_evidence_surface_is_unchanged(frozen: dict, current: dict) -> None:
