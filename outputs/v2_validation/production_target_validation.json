@@ -125,7 +125,7 @@
     "siem_destination_connected": false,
     "unity_catalog_policies_applied": false
   },
-  "generated_at": "2026-08-10T20:01:47.271269+00:00",
+  "generated_at": "2026-06-30T00:00:00+00:00",
   "implementation_definitions_ready": true,
   "target": "AWS + Databricks / private EKS / Delta + Unity Catalog / MLflow / MSK / OPA / OpenTelemetry",
   "version": "production-target-validation-1.0.0"

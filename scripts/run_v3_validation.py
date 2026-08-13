@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 
 from wallet_twin_v2.api import app
 from wallet_twin_v3.repository import repository
+from wallet_twin_v2.canonical import write_canonical_json
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,10 +34,7 @@ def main() -> None:
         "evidence_acquisition": repository.evidence_acquisition.model_dump(mode="json"),
         "release": repository.release,
     }
-    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT.write_text(
-        json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8"
-    )
+    write_canonical_json(OUTPUT, report)
     print(
         json.dumps(
             {

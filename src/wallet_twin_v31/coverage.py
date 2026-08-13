@@ -12,7 +12,7 @@ the worst 10% of scenarios is not a plan a banker should be handed.
 CVaR is linearised in the standard Rockafellar-Uryasev form, so the problem is
 a genuine MILP solved by ``scipy.optimize.milp`` (HiGHS).  If the solver fails
 or is unavailable the greedy fallback runs and the plan is labelled
-``DEGRADED_FALLBACK`` — never silently substituted.
+``DEGRADED_FALLBACK`` â€” never silently substituted.
 """
 
 from __future__ import annotations
@@ -25,8 +25,8 @@ import numpy as np
 
 from .taxonomy import BankingSolution, SolutionFamily, mutually_exclusive
 
-COVERAGE_POLICY_VERSION = "v31-coverage-cvar-3.1.0"
-WEIGHTS_VERSION = "v31-policy-weights-3.1.0"
+COVERAGE_POLICY_VERSION = "v31-coverage-cvar-3.1.1"
+WEIGHTS_VERSION = "v31-policy-weights-3.1.1"
 
 #: Governed benefit weights.  They sum to one and are versioned; changing them
 #: is a policy change that must be re-approved, not a tuning exercise.

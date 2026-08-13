@@ -84,9 +84,51 @@ where `A` is observed Standard Bank activity, `q` is the bank share, and `T` is 
 
 1. **Prior-only envelope:** `A / q95` to `A / q05`, using the declared product share prior.
 2. **Audited-anchor envelope where available:** low/high bounds derived from the relevant accounting, FX, debt or trade-utilisation transformation.
-3. **Model-based posterior:** Monte Carlo P10, median and P90. For anchored opportunities, the share-prior wallet and audited-anchor distribution are precision-pooled geometrically at the declared 0.84 anchor weight.
+3. **Model-based posterior:** Monte Carlo P10, median and P90. For anchored opportunities, the share-prior wallet and audited-anchor distribution are precision-pooled geometrically at the weight declared by the measurement policy below.
 
 The posterior is not relabelled as observed truth. The frozen V1 priors live in `legacy/v1/config/assumptions.json`; no prior is hidden in code.
+
+### 6.1 Measurement and activation policy
+
+<!-- BEGIN GENERATED: measurement-policy -->
+
+Measurement policy `v2-wallet-measurement-policy-1.1.0`, activation policy `public-anchor-activation-1.0.0`.
+
+An *activated* public anchor is pooled geometrically with the share-prior
+wallet at the weight declared for its evidence tier. Activation is a separate
+gate: an anchor may inform an estimate only when every fact behind it is
+finance-SME approved. A single pending fact withholds the whole anchor and the
+cell falls back to the prior-led path.
+
+| Evidence tier | Anchor weight | Basis |
+|---|---|---|
+| `E0` | 0.00 | No anchor exists; the estimate is prior-led and is labelled PRIOR_LED. |
+| `E1` | 0.35 | An audited public accounting figure constrains scale but is not a wallet measurement. It is pooled at 0.35 so it informs the estimate without being treated as a label. |
+| `E2` | 0.60 | A client-confirmed quantity, reviewed but not independently observed. |
+| `E3` | 0.90 | Direct multibank observation — the only tier that can support a measured share. |
+| `E4` | 0.94 | Adjudicated multibank observation with an audited reconciliation. |
+
+Where no anchor is active the identification set is closed with a governed
+share floor of 0.03. That produces a deliberately
+wide, assumption-light bound; it is not narrowed to look more precise than the
+evidence supports.
+
+The V1 anchor weight of 0.84 is **retired**. It is retained in
+`legacy/v1/config/assumptions.json` and the frozen V1 regression fixtures for
+historical reproducibility only, and is not used by the V2 measurement model.
+<!-- END GENERATED: measurement-policy -->
+
+### 6.2 Deferred determinism work (`DET-002`)
+
+Monetary aggregation in the V3/V3.1 layers uses IEEE-754 `sum` over `float`.
+Published artifact precision is fixed by `CANONICALISATION_VERSION`, which
+rounds values at or above 1,000 to two decimals — absorbing the ~1e-7 relative
+error that accumulates over a bundle's components. `math.fsum` and `Decimal`
+quantisation at the V3.1 aggregation boundary are therefore deferred to V3.2:
+they would not address the residual platform sensitivity, which lies in
+transcendental draws and mixed-integer tie resolution rather than in summation
+order, and adopting them alongside the V3.1.1 restatement would make the two
+numeric changes impossible to attribute separately.
 
 Share is sampled as:
 

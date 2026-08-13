@@ -92,7 +92,7 @@ class V31EventEnvelope(StrictModel):
     event_id: str
     event_type: V31EventType
     topic: DomainTopic
-    schema_version: str = "3.1.0"
+    schema_version: str = "3.1.1"
     occurred_at: Optional[str] = None
     entity_id: Optional[str] = None
     as_of: Optional[date] = None

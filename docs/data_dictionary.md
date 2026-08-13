@@ -1,4 +1,21 @@
-# Corporate Wallet Digital Twin V3.1 — data dictionary
+# Corporate Wallet Digital Twin V3.1.1 — data dictionary
+
+## V3.1.1 primary wallet products
+
+`WalletPortfolioProjection` contains exactly 20 clients, five products and 100
+`WalletPortfolioCell` records. Each cell keeps observed activity `A`,
+identification bounds, posterior wallet `T`, share `q`, target-share scenario
+`q*`, contestable gap `G`, scenario contribution, timing, evidence/approval
+state and artifact versions. `WalletOpportunityDetail` is the complete
+`A/T/q/q*/G` explanation and claim boundary. `ProviderBriefEvaluation` records
+the provider, canonical model ID, pack hash, prompt/schema versions, validation
+metrics, latency, tokens, estimated cost and acceptance status.
+
+Only `APPROVED` E1 facts may affect these products. Consequently the V3.1.1
+private judging projection has 15 approved-anchor cells and 85 prior-led cells.
+FX is an exposure proxy and Liquidity is a liquidity-flow opportunity proxy;
+heterogeneous activity quantities are never summed as a single banking-spend
+measure.
 
 ## V3.1 canonical decision products
 
@@ -205,6 +222,6 @@ A decision brief contains the opportunity ID, title, summary, observed facts, id
 | `dashboard/app/data/v3-fixture.json` | V3 Decision Lab fixture |
 | `outputs/v3/` | Canonical V3 machine outputs and selected briefs |
 | `outputs/v3_validation/` | V3 validation report |
-| `outputs/audit/Public-Facts-Anchor-Register.xlsx` | Human-auditable evidence/approval/impact workbook |
+| `outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx` | Human-auditable evidence/approval/impact workbook |
 | `contracts/` | Composed OpenAPI and JSON Schemas |
 | `legacy/v1/` | Frozen V1 assumptions and outputs; regression only |

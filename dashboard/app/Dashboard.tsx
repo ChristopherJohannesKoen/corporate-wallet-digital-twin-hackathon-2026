@@ -10,9 +10,13 @@ import type {
   V31FundingRoutes,
   V31Graph,
   V31PlanEntry,
+  WalletOpportunityDetail,
+  WalletPortfolioCell,
+  WalletPortfolioProjection,
 } from "@/lib/contracts";
 
-type View = "Coverage plan" | "Client twin" | "Governance";
+type View = "Wallet portfolio" | "Coverage plan" | "Client twin" | "Governance";
+type WalletMetric = "contestable contribution" | "observed activity" | "posterior wallet" | "estimated Syn share" | "contestable gap" | "evidence status";
 
 function money(value: number | null | undefined): string {
   if (value == null) return "Unavailable";
@@ -31,6 +35,15 @@ function label(value: string): string {
   return value.replaceAll("_", " ").toLowerCase().replace(/\b\w/g, (character) => character.toUpperCase())
     .replace(/\bFx\b/g, "FX").replace(/\bDcm\b/g, "DCM").replace(/\bEsg\b/g, "ESG")
     .replace(/\bMa\b/g, "M&A").replace(/\bCoo\b/g, "COO").replace(/\bCfo\b/g, "CFO");
+}
+
+function heatMetricValue(cell: WalletPortfolioCell, metric: WalletMetric): number {
+  if (metric === "observed activity") return Number(cell.observed_activity.normalized_amount);
+  if (metric === "posterior wallet") return cell.posterior_wallet.median;
+  if (metric === "estimated Syn share") return cell.share_interval.median;
+  if (metric === "contestable gap") return cell.contestable_activity.median;
+  if (metric === "evidence status") return cell.anchor_activation === "ACTIVATED" ? 1 : 0;
+  return cell.scenario_contribution?.median ?? 0;
 }
 
 function Status({ children, tone = "neutral" }: { children: React.ReactNode; tone?: string }) {
@@ -68,8 +81,12 @@ async function getJson<T>(url: string): Promise<T> {
 }
 
 export default function Dashboard({ viewer, asOf, weekStart }: { viewer: string; asOf: string; weekStart: string }) {
-  const [view, setView] = useState<View>("Coverage plan");
+  const [view, setView] = useState<View>("Wallet portfolio");
   const [projection, setProjection] = useState<V31DecisionTwin | null>(null);
+  const [wallet, setWallet] = useState<WalletPortfolioProjection | null>(null);
+  const [walletMetric, setWalletMetric] = useState<WalletMetric>("contestable contribution");
+  const [walletOpportunityId, setWalletOpportunityId] = useState("");
+  const [walletDetail, setWalletDetail] = useState<WalletOpportunityDetail | null>(null);
   const [selectedId, setSelectedId] = useState("");
   const [conversation, setConversation] = useState<V31Conversation | null>(null);
   const [brief, setBrief] = useState<V31Brief | null>(null);
@@ -82,16 +99,30 @@ export default function Dashboard({ viewer, asOf, weekStart }: { viewer: string;
 
   useEffect(() => {
     let active = true;
-    getJson<V31DecisionTwin>(`/api/v3/decision-twin?as_of=${asOf}&week_start=${weekStart}`)
-      .then((data) => {
+    Promise.all([
+      getJson<WalletPortfolioProjection>(`/api/v3/wallet-portfolio?as_of=${asOf}`),
+      getJson<V31DecisionTwin>(`/api/v3/decision-twin?as_of=${asOf}&week_start=${weekStart}`),
+    ])
+      .then(([walletData, data]) => {
         if (!active) return;
+        setWallet(walletData);
         setProjection(data);
         setSelectedId(data.coverage_plan.entries[0]?.conversation_id ?? data.conversation_summaries[0]?.conversation_id ?? "");
+        setWalletOpportunityId(walletData.top_opportunity_ids[0] ?? walletData.cells[0]?.opportunity_id ?? "");
       })
       .catch((reason: Error) => active && setError(reason.message))
       .finally(() => active && setLoading(false));
     return () => { active = false; };
   }, [asOf, weekStart]);
+
+  useEffect(() => {
+    if (!walletOpportunityId) return;
+    let active = true;
+    getJson<WalletOpportunityDetail>(`/api/v3/wallet-opportunities/${encodeURIComponent(walletOpportunityId)}?as_of=${asOf}`)
+      .then((detail) => active && setWalletDetail(detail))
+      .catch((reason: Error) => active && setError(reason.message));
+    return () => { active = false; };
+  }, [walletOpportunityId, asOf]);
 
   useEffect(() => {
     if (!selectedId) return;
@@ -124,6 +155,20 @@ export default function Dashboard({ viewer, asOf, weekStart }: { viewer: string;
   const plan = useMemo(() => projection?.coverage_plan.entries ?? [], [projection]);
   const topFive = plan.slice(0, 5);
   const planIds = useMemo(() => new Set(plan.map((item) => item.conversation_id)), [plan]);
+  const walletClients = useMemo(() => {
+    if (!wallet) return [];
+    const index = new Map<string, { entity_id: string; entity_name: string; sector: string }>();
+    wallet.cells.forEach((cell) => index.set(cell.entity_id, { entity_id: cell.entity_id, entity_name: cell.entity_name, sector: cell.sector }));
+    return [...index.values()].sort((a, b) => a.entity_name.localeCompare(b.entity_name));
+  }, [wallet]);
+
+  const walletMax = useMemo(() => wallet ? Math.max(...wallet.cells.map((cell) => heatMetricValue(cell, walletMetric)), 1) : 1, [wallet, walletMetric]);
+
+  function walletCellLabel(cell: WalletPortfolioCell): string {
+    if (walletMetric === "estimated Syn share") return pct(cell.share_interval.median, 1);
+    if (walletMetric === "evidence status") return cell.anchor_activation === "ACTIVATED" ? "E1 approved" : "E0 prior";
+    return money(heatMetricValue(cell, walletMetric));
+  }
 
   function selectClient(clientId: string) {
     const candidate = projection?.conversation_summaries.find(
@@ -133,22 +178,77 @@ export default function Dashboard({ viewer, asOf, weekStart }: { viewer: string;
   }
 
   if (loading) return <div className="dt-loading"><i /><p>Building the point-in-time Decision Twin…</p></div>;
-  if (error || !projection) return <div className="dt-loading dt-error"><b>Decision Twin unavailable</b><p>{error || "No projection returned"}</p></div>;
+  if (error || !projection || !wallet) return <div className="dt-loading dt-error"><b>Wallet Twin unavailable</b><p>{error || "No projection returned"}</p></div>;
 
   return (
     <div className="dt-shell">
       <header className="dt-masthead">
-        <div className="dt-brand"><span className="dt-brand-mark"><i /><i /><i /></span><div><b>Corporate Wallet</b><small>Digital Twin · V3.1</small></div></div>
+        <div className="dt-brand"><span className="dt-brand-mark"><i /><i /><i /></span><div><b>Corporate Wallet</b><small>Digital Twin · V3.1.1</small></div></div>
         <div className="dt-session"><Status tone="demo">Client demonstration</Status><span>As of <b>{asOf}</b></span><span>{viewer}</span></div>
       </header>
 
       <div className="dt-boundary"><b>GOVERNED DEMONSTRATION</b><span>{projection.metadata.watermark}</span><em>{projection.release.bank_production_status}</em></div>
 
       <nav className="dt-nav" aria-label="Decision Twin views">
-        {(["Coverage plan", "Client twin", "Governance"] as View[]).map((item, index) => (
+        {(["Wallet portfolio", "Coverage plan", "Client twin", "Governance"] as View[]).map((item, index) => (
           <button key={item} onClick={() => setView(item)} className={view === item ? "active" : ""}><span>0{index + 1}</span>{item}</button>
         ))}
       </nav>
+
+      {view === "Wallet portfolio" && (
+        <main className="dt-main">
+          <section className="dt-wallet-hero">
+            <div><p className="dt-kicker">Observed activity → latent wallet → contestable gap</p><h1>Find the wallet gap.<br /><em>Then earn the conversation.</em></h1></div>
+            <div className="dt-wallet-boundary"><b>{wallet.approved_anchor_cells} approved-anchor cells</b><span>{wallet.prior_led_cells} prior-led cells</span><small>31 approved · 51 pending source facts</small></div>
+          </section>
+
+          <section className="dt-wallet-controls" aria-label="Heatmap metric">
+            {(["contestable contribution", "observed activity", "posterior wallet", "estimated Syn share", "contestable gap", "evidence status"] as WalletMetric[]).map((metric) => (
+              <button key={metric} className={walletMetric === metric ? "active" : ""} onClick={() => setWalletMetric(metric)}>{metric}</button>
+            ))}
+          </section>
+
+          <section className="dt-wallet-workspace">
+            <article className="dt-panel dt-heatmap-panel">
+              <div className="dt-panel-head"><div><p className="dt-kicker">Complete 20 × 5 opportunity surface</p><h2>{label(walletMetric)}</h2></div><Status tone="scenario">{wallet.cells.length} governed cells</Status></div>
+              <div className="dt-heatmap" style={{ gridTemplateColumns: `minmax(150px, 1.25fr) repeat(${wallet.products.length}, minmax(88px, 1fr))` }}>
+                <span className="dt-heat-corner">Client / product</span>
+                {wallet.products.map((product) => <b className="dt-heat-head" key={product}>{product === "Cross-border FX" ? "FX exposure" : product === "Liquidity" ? "Liquidity flow" : product}</b>)}
+                {walletClients.map((client) => {
+                  const cells = wallet.products.map((product) => wallet.cells.find((cell) => cell.entity_id === client.entity_id && cell.product === product)!);
+                  return [<div className="dt-heat-client" key={`${client.entity_id}:label`}><b>{client.entity_name}</b><small>{client.sector}</small></div>, ...cells.map((cell) => {
+                    const ratio = walletMetric === "evidence status" ? (cell.anchor_activation === "ACTIVATED" ? 1 : .12) : Math.max(.06, Math.sqrt(heatMetricValue(cell, walletMetric) / walletMax));
+                    const active = walletOpportunityId === cell.opportunity_id;
+                    return <button key={cell.opportunity_id} className={`dt-heat-cell ${active ? "selected" : ""} ${cell.anchor_activation === "ACTIVATED" ? "anchored" : "prior"}`} onClick={() => setWalletOpportunityId(cell.opportunity_id)} style={{ "--heat": ratio } as React.CSSProperties}><b>{walletCellLabel(cell)}</b><small>{cell.anchor_activation === "ACTIVATED" ? "E1 approved" : "E0 prior-led"}</small></button>;
+                  })];
+                })}
+              </div>
+              <footer className="dt-heatmap-note">FX is an exposure proxy. Liquidity is a liquidity-flow opportunity proxy. Heterogeneous product quantities are never summed as “banking spend”; only scenario contribution is aggregated.</footer>
+            </article>
+
+            <aside className="dt-panel dt-wallet-detail">
+              {walletDetail ? <>
+                <div className="dt-panel-head"><div><p className="dt-kicker">Wallet forensic drill-down</p><h2>{walletDetail.cell.entity_name} · {walletDetail.cell.product}</h2></div><Status tone={walletDetail.cell.anchor_activation === "ACTIVATED" ? "ready" : "blocked"}>{walletDetail.cell.approval_state}</Status></div>
+                <div className="dt-wallet-equation"><b>A = qT</b><span>Observed activity is only one share of latent total wallet</span></div>
+                <div className="dt-wallet-variables">
+                  <article><span>A · observed</span><b>{money(walletDetail.explanation.A.value)}</b><small>OBSERVED · Syn Bank simulation</small></article>
+                  <article><span>T · total wallet P10/P50/P90</span><b>{money(walletDetail.explanation.T.p50)}</b><small>{money(walletDetail.explanation.T.p10)} — {money(walletDetail.explanation.T.p90)}</small></article>
+                  <article><span>q · estimated Syn share</span><b>{pct(walletDetail.explanation.q.p50, 1)}</b><small>{pct(walletDetail.explanation.q.p10, 1)} — {pct(walletDetail.explanation.q.p90, 1)} · POSTERIOR</small></article>
+                  <article><span>q* · target scenario</span><b>{pct(walletDetail.explanation.q_star.value)}</b><small>SCENARIO · not an optimized claim</small></article>
+                  <article><span>G · contestable P10/P50/P90</span><b>{money(walletDetail.explanation.G.p50)}</b><small>{money(walletDetail.explanation.G.p10)} — {money(walletDetail.explanation.G.p90)}</small></article>
+                  <article><span>Scenario contribution</span><b>{money(walletDetail.cell.scenario_contribution?.median)}</b><small>Representative economics · not causal value</small></article>
+                </div>
+                <div className="dt-wallet-action"><span>Permitted action now</span><b>{label(walletDetail.cell.permitted_action_now)}</b><p>{walletDetail.cell.conditional_action}</p></div>
+                {walletDetail.decision_twin_action && <button className="dt-link-button" onClick={() => { setSelectedId(walletDetail.decision_twin_action!.conversation_id); setView("Coverage plan"); }}>Continue to stakeholder, problem and timing →</button>}
+              </> : <p>Loading wallet cell…</p>}
+            </aside>
+          </section>
+
+          <section className="dt-wallet-summary">
+            {wallet.product_summaries.map((summary) => <article className="dt-panel" key={summary.product}><span>{summary.product}</span><b>{money(summary.scenario_contribution_zar)}</b><small>scenario contribution · {summary.approved_anchor_cells} approved / {summary.prior_led_cells} prior-led</small></article>)}
+          </section>
+        </main>
+      )}
 
       {view === "Coverage plan" && (
         <main className="dt-main">
@@ -267,11 +367,11 @@ export default function Dashboard({ viewer, asOf, weekStart }: { viewer: string;
 
           <section className="dt-panel dt-open-gates"><div className="dt-panel-head"><div><p className="dt-kicker">Non-delegable external gates</p><h2>What code and public data cannot legitimately close</h2></div><Status tone="blocked">{projection.release.blocking_external_gates.length} open</Status></div><div>{projection.release.blocking_external_gates.map((gate, index) => <article key={gate}><span>{String(index + 1).padStart(2, "0")}</span><b>{gate}</b><Status tone="blocked">Open</Status></article>)}</div></section>
 
-          <section className="dt-panel dt-capabilities"><div className="dt-panel-head"><div><p className="dt-kicker">V3.1 implementation</p><h2>Decision Twin capabilities now operating in the demo</h2></div><Status tone="ready">3.1.0</Status></div><div>{projection.release.new_v31_capabilities.map((capability) => <article key={capability}><i>✓</i><span>{capability}</span></article>)}</div></section>
+          <section className="dt-panel dt-capabilities"><div className="dt-panel-head"><div><p className="dt-kicker">V3.1.1 implementation</p><h2>Decision Twin capabilities now operating in the demo</h2></div><Status tone="ready">3.1.1</Status></div><div>{projection.release.new_v31_capabilities.map((capability) => <article key={capability}><i>✓</i><span>{capability}</span></article>)}</div></section>
         </main>
       )}
 
-      <footer className="dt-footer"><span>Corporate Wallet Digital Twin V3.1.0</span><p>Client demonstration · no automated pricing, credit, booking, CRM-stage change or customer communication</p><b>{projection.release.bank_production_status}</b></footer>
+      <footer className="dt-footer"><span>Corporate Wallet Digital Twin V3.1.1</span><p>Hackathon submission surface · no automated pricing, credit, booking, CRM-stage change or customer communication</p><b>{projection.release.bank_production_status}</b></footer>
     </div>
   );
 }

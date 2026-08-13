@@ -30,17 +30,17 @@ from .contracts import (
 )
 from .taxonomy import FundingRoute as R
 
-SCORECARD_VERSION = "v31-funding-route-scorecard-3.1.0"
-CHALLENGER_VERSION = "v31-funding-route-multinomial-challenger-3.1.0"
+SCORECARD_VERSION = "v31-funding-route-scorecard-3.1.1"
+CHALLENGER_VERSION = "v31-funding-route-multinomial-challenger-3.1.1"
 
 CHALLENGER_STATUS = (
-    "REGISTERED_NOT_ELIGIBLE — a multinomial challenger is registered but cannot replace "
+    "REGISTERED_NOT_ELIGIBLE â€” a multinomial challenger is registered but cannot replace "
     "the scorecard until a point-in-time panel holds at least 500 labelled financing "
     "events with at least 50 events per promoted route, validated issuer-held-out and "
     "temporally"
 )
 MODEL_STATUS = (
-    "TRANSPARENT_SCORECARD_BASELINE_NOT_EMPIRICALLY_VALIDATED — route weights are "
+    "TRANSPARENT_SCORECARD_BASELINE_NOT_EMPIRICALLY_VALIDATED â€” route weights are "
     "governed policy, not fitted coefficients"
 )
 

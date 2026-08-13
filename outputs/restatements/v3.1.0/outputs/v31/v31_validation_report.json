@@ -1,0 +1,579 @@
+{
+  "event_topics": {
+    "wallet-twin.audit.v1": 224,
+    "wallet-twin.business-twin.v1": 348,
+    "wallet-twin.client-learning.v1": 127,
+    "wallet-twin.decision.v1": 449
+  },
+  "evidence_coverage": {
+    "all_clients_have_approved_critical_path_fact": true,
+    "all_clients_meet_claim_threshold": true,
+    "all_clients_meet_domain_threshold": true,
+    "all_clients_meet_e1_threshold": false,
+    "approval_counts": {
+      "APPROVED": 854,
+      "PENDING_REVIEW": 51
+    },
+    "as_of": "2026-06-30",
+    "claims_relinked_to_legacy_facts": 85,
+    "clients": 20,
+    "e1_threshold_note": "The V3.1 plan targets 15 reviewed E1 claims per client. The real audited public evidence base does not reach that depth for every client, and no audited figure has been invented to close the gap. The shortfall is reported as an open curation gate and every affected client-facing problem falls back to a discovery conversation.",
+    "e1_threshold_shortfall_clients": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E05",
+      "E06",
+      "E07",
+      "E08",
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E14",
+      "E15",
+      "E16",
+      "E17",
+      "E18",
+      "E19",
+      "E20"
+    ],
+    "e1_threshold_status": "BLOCKING_GATE_OPEN_INSUFFICIENT_AUDITED_PUBLIC_EVIDENCE",
+    "evidence_version": "v31-business-evidence-3.1.0",
+    "kind_counts": {
+      "CATEGORICAL": 180,
+      "COUNT": 60,
+      "DATE_OR_MATURITY": 3,
+      "MONEY": 322,
+      "RATIO": 240,
+      "STRUCTURE_RELATIONSHIP": 60,
+      "TEXTUAL": 40
+    },
+    "legacy_facts_migrated": 82,
+    "meets_total_claim_threshold": true,
+    "pending_review_claims_cannot_support_eligibility": true,
+    "per_client": {
+      "E01": {
+        "approved_claims": 52,
+        "approved_critical_path_claims": 18,
+        "claims": 52,
+        "domains_covered": 11,
+        "e1_approved_claims": 11,
+        "e1_claims": 11,
+        "e1_pending_claims": 0,
+        "gaps": 1,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E02": {
+        "approved_claims": 52,
+        "approved_critical_path_claims": 18,
+        "claims": 52,
+        "domains_covered": 11,
+        "e1_approved_claims": 11,
+        "e1_claims": 11,
+        "e1_pending_claims": 0,
+        "gaps": 1,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E03": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E04": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E05": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E06": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E07": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E08": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E09": {
+        "approved_claims": 53,
+        "approved_critical_path_claims": 19,
+        "claims": 53,
+        "domains_covered": 11,
+        "e1_approved_claims": 12,
+        "e1_claims": 12,
+        "e1_pending_claims": 0,
+        "gaps": 1,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E10": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E11": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E12": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E13": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E14": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E15": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E16": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E17": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E18": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E19": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      },
+      "E20": {
+        "approved_claims": 41,
+        "approved_critical_path_claims": 10,
+        "claims": 44,
+        "domains_covered": 11,
+        "e1_approved_claims": 0,
+        "e1_claims": 3,
+        "e1_pending_claims": 3,
+        "gaps": 4,
+        "has_approved_critical_path_fact": true,
+        "meets_claim_threshold": true,
+        "meets_domain_threshold": true,
+        "meets_e1_threshold": false
+      }
+    },
+    "thresholds": {
+      "min_claims_per_client": 15,
+      "min_domains_per_client": 9,
+      "min_e1_claims_per_client": 15,
+      "min_total_claims": 300
+    },
+    "tier_counts": {
+      "E0": 820,
+      "E1": 85
+    },
+    "total_claims": 905,
+    "total_gaps": 71
+  },
+  "metadata": {
+    "as_of": "2026-06-30",
+    "central_idea": "Reconstruct the client's business model from partial evidence, detect the banking problem it creates, resolve who owns it, evaluate every supported solution, separate client value from bank value, and spend a banker's eight weekly conversations where they matter most.",
+    "decision_object": "(client, stakeholder, business problem, solution bundle, engagement window)",
+    "deployment_mode": "CLIENT_DEMO_REPRESENTATIVE_LAB",
+    "title": "Corporate Wallet Digital Twin V3.1",
+    "version": "3.1.0",
+    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN",
+    "week_start": "2026-07-06"
+  },
+  "policy": {
+    "benefit_weights": {
+      "bank_value": 0.2,
+      "client_value": 0.2,
+      "need": 0.25,
+      "relationship_value": 0.1,
+      "strategic_value": 0.1,
+      "timing": 0.15
+    },
+    "constraints": {
+      "capacity": 8,
+      "max_per_client": 2,
+      "max_per_client_role": 1,
+      "max_per_sector": 3,
+      "max_per_solution_family": 3
+    },
+    "coverage_policy_version": "v31-coverage-cvar-3.1.0",
+    "funding_route_challenger_gate": {
+      "challenger": "v31-funding-route-multinomial-challenger-3.1.0",
+      "champion": "v31-funding-route-scorecard-3.1.0",
+      "current_labelled_events": 0,
+      "promotion_allowed": false,
+      "reason": "no labelled financing-event panel exists in the demonstration boundary",
+      "required_events_per_promoted_route": 50,
+      "required_labelled_events": 500,
+      "required_validation": [
+        "issuer-held-out split",
+        "temporal (point-in-time) split",
+        "route-level calibration"
+      ]
+    },
+    "registered_taxonomies": [
+      {
+        "approval_required_before_production": true,
+        "artifact": "business-domain-taxonomy",
+        "blocking_gates": [
+          "bank business-domain ontology approval"
+        ],
+        "notes": "Twelve Business Twin domains, eighteen problems, sixteen solutions.",
+        "owner": "Corporate Banking Analytics",
+        "version": "v31-business-taxonomy-3.1.0"
+      },
+      {
+        "approval_required_before_production": true,
+        "artifact": "stakeholder-responsibility-matrix",
+        "blocking_gates": [
+          "coverage policy approval",
+          "CRM entitlement design"
+        ],
+        "notes": "Role personas only; CRM person resolution is out of scope for the demo.",
+        "owner": "Client Coverage",
+        "version": "v31-stakeholder-responsibility-3.1.0"
+      },
+      {
+        "approval_required_before_production": true,
+        "artifact": "problem-solution-matrix",
+        "blocking_gates": [
+          "product capability confirmation",
+          "credit policy approval"
+        ],
+        "notes": "PRIMARY/SUPPORTING/REQUIRES_CONFIRMATION/INCOMPATIBLE with prerequisites and lead times.",
+        "owner": "Product Management",
+        "version": "v31-problem-solution-matrix-3.1.0"
+      }
+    ],
+    "value_policy": {
+      "bank_value_assumptions": {
+        "coverage_hourly_cost_zar": 1450.0,
+        "relationship_discount_rate": 0.11,
+        "relationship_horizon_years": 3,
+        "relationship_retention": [
+          0.55,
+          0.72,
+          0.86
+        ],
+        "specialist_daily_cost_zar": 9800.0
+      },
+      "client_value_assumptions": {
+        "ccc_days_released": [
+          2.0,
+          5.0,
+          9.0
+        ],
+        "funding_saving_bps": [
+          10.0,
+          25.0,
+          45.0
+        ],
+        "idle_cash_share": [
+          0.03,
+          0.06,
+          0.1
+        ],
+        "implementation_cost_by_family": {
+          "ADVISORY_AND_AGENCY": 1500000.0,
+          "CAPITAL_MARKETS": 3500000.0,
+          "LENDING": 900000.0,
+          "RISK_MANAGEMENT": 400000.0,
+          "TRADE_AND_WORKING_CAPITAL": 2400000.0,
+          "TRANSACTION_BANKING": 1200000.0
+        },
+        "unit_cost_saving_share": [
+          0.04,
+          0.09,
+          0.16
+        ],
+        "yield_improvement": [
+          0.0025,
+          0.006,
+          0.011
+        ]
+      },
+      "policy_version": "v31-dual-value-3.1.0",
+      "production_requirement": "Production outputs require approved rate cards for every one of the sixteen solutions. Eleven solutions have none, so their contribution is blocked rather than estimated.",
+      "watermarked": true
+    },
+    "weights_version": "v31-policy-weights-3.1.0"
+  },
+  "release": {
+    "bank_production_status": "NOT_PROMOTABLE",
+    "blocking_external_gates": [
+      "representative E3 multibank calibration panel",
+      "approved bank economics",
+      "finance-SME approval of 51 pending public facts",
+      "qualified RM-action timing outcomes",
+      "real recommendation/action/outcome history",
+      "bank provider approval and scanned-document golden-set adjudication",
+      "bank SSO, Unity Catalog, SIEM and independent security validation",
+      "30 consecutive clean shadow days",
+      "bank approval of the business-domain ontology and responsibility matrix",
+      "approved rate cards for the eleven new solution families",
+      "empirical funding-route and problem-detection validation",
+      "finance-SME review of the outstanding pending public facts"
+    ],
+    "client_demo_status": "V31_DECISION_TWIN_READY",
+    "new_v31_capabilities": [
+      "twelve-component Business Model Twin per client",
+      "attribute and event knowledge-graph layers with explanation paths",
+      "eighteen interpretable business-problem detectors",
+      "governed stakeholder-role resolution",
+      "sixteen solution-family estimators with fail-closed behaviour",
+      "separated client-value and bank-value engines",
+      "six operational feasibility gates",
+      "robust Pareto frontiers and a mixed-integer CVaR weekly coverage plan",
+      "decision-directed questions with a reviewed client-answer loop",
+      "deterministic Why-How-What conversation briefs"
+    ]
+  },
+  "validation": {
+    "all_clients_have_approved_critical_path_fact": true,
+    "all_clients_meet_claim_threshold": true,
+    "all_clients_meet_domain_threshold": true,
+    "all_selected_questions_can_change_a_decision": true,
+    "all_selected_questions_positive_net_voi": true,
+    "all_twins_have_twelve_components": true,
+    "available_solution_estimates": 198,
+    "blocked_conversations": 0,
+    "business_events": 84,
+    "business_evidence_claims": 905,
+    "business_evidence_gaps": 71,
+    "business_twin_components": 240,
+    "causal_value_claims": 0,
+    "clients": 20,
+    "commercially_eligible_problems": 194,
+    "conversation_candidates": 224,
+    "coverage_degraded_fallback": false,
+    "coverage_plan_size": 8,
+    "coverage_plan_within_capacity": true,
+    "coverage_solver_status": "OPTIMAL",
+    "dangling_edges": 0,
+    "discovery_conversations": 224,
+    "e1_threshold_shortfall_clients": [
+      "E01",
+      "E02",
+      "E03",
+      "E04",
+      "E05",
+      "E06",
+      "E07",
+      "E08",
+      "E09",
+      "E10",
+      "E11",
+      "E12",
+      "E13",
+      "E14",
+      "E15",
+      "E16",
+      "E17",
+      "E18",
+      "E19",
+      "E20"
+    ],
+    "e1_threshold_status": "BLOCKING_GATE_OPEN_INSUFFICIENT_AUDITED_PUBLIC_EVIDENCE",
+    "eligible_conversations": 0,
+    "every_client_has_a_change_digest": true,
+    "every_client_has_a_twin": true,
+    "every_estimate_has_estimate_or_reason": true,
+    "fail_closed_solution_estimates": 122,
+    "funding_route_probabilities_sum_to_one": true,
+    "funding_route_projections": 20,
+    "graph_edges": 1154,
+    "graph_nodes": 993,
+    "guaranteed_saving_claims": 0,
+    "identified_problems": 224,
+    "measured_competitor_share_claims": 0,
+    "meets_minimum_claim_threshold": true,
+    "named_stakeholders_displayed": 0,
+    "opaque_confidence_scores": 0,
+    "orphan_nodes": 0,
+    "problem_hypotheses": 360,
+    "solution_projections": 320,
+    "solution_projections_expected": 320,
+    "status": "REPRESENTATIVE_VALIDATION",
+    "voi_questions_evaluated": 891,
+    "voi_questions_selected": 308
+  }
+}

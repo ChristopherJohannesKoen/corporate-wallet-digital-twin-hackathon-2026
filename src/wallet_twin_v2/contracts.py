@@ -94,6 +94,19 @@ class CalibrationStatus(str, Enum):
     EMPIRICALLY_CALIBRATED = "EMPIRICALLY_CALIBRATED"
 
 
+class AnchorActivationState(str, Enum):
+    """Whether a compiled public anchor was allowed to inform an estimate.
+
+    Compiling an anchor and activating it are separate acts. Only approved
+    facts may move a published number; see
+    ``wallet_twin_v2.public_evidence.ANCHOR_ACTIVATION_POLICY_VERSION``.
+    """
+
+    ACTIVATED = "ACTIVATED"
+    WITHHELD_PENDING_APPROVAL = "WITHHELD_PENDING_APPROVAL"
+    NOT_AVAILABLE = "NOT_AVAILABLE"
+
+
 class EventType(str, Enum):
     ELIGIBILITY_RECORDED = "EligibilityRecorded"
     RECOMMENDATION_ASSIGNED = "RecommendationAssigned"
@@ -169,6 +182,7 @@ class ArtifactReference(StrictModel):
     transformation_version: str
     rate_card_version: Optional[str] = None
     prompt_version: Optional[str] = None
+    measurement_policy_version: Optional[str] = None
     schema_version: str = "v1"
 
 
@@ -342,7 +356,27 @@ class OpportunityView(StrictModel):
     rank: Optional[int] = None
     rank_probability: Optional[float] = Field(default=None, ge=0, le=1)
     evidence_fact_ids: List[str] = Field(default_factory=list)
+    #: Facts that would have anchored this cell but are not finance-SME approved.
+    #: They informed nothing; they are published so the shortfall is visible
+    #: rather than silently absent.
+    pending_evidence_fact_ids: List[str] = Field(default_factory=list)
+    anchor_activation: AnchorActivationState = AnchorActivationState.NOT_AVAILABLE
+    activation_reason_code: str = "ANCHOR_UNAVAILABLE_NO_FACT_RULE"
     artifacts: ArtifactReference
+
+    @model_validator(mode="after")
+    def _approved_evidence_only(self) -> "OpportunityView":
+        """A cell may cite anchoring evidence only when its anchor activated."""
+        if self.anchor_activation is not AnchorActivationState.ACTIVATED:
+            if self.evidence_fact_ids:
+                raise ValueError(
+                    "evidence_fact_ids must be empty unless the anchor is ACTIVATED"
+                )
+            if self.evidence_tier is not EvidenceTier.E0:
+                raise ValueError(
+                    "a cell without an activated anchor must be reported as tier E0"
+                )
+        return self
 
 
 class EventEnvelope(StrictModel):

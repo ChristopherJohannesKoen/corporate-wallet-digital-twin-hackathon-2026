@@ -2,16 +2,16 @@
 
 Three honest sources feed this registry, and they are never blended:
 
-1. **E1 audited public facts** — the 82 point-in-time facts already curated in
+1. **E1 audited public facts** â€” the 82 point-in-time facts already curated in
    V2.  They are migrated and re-linked to Business Twin domains, not
    re-derived and never invented.  31 are finance-SME approved; 51 remain
    ``PENDING_REVIEW`` and therefore cannot support an eligible client-facing
    conversation.
-2. **E0 bank-observed claims** — quantities the bank genuinely holds in its own
+2. **E0 bank-observed claims** â€” quantities the bank genuinely holds in its own
    books, taken from the Syn Bank simulation: product flows, corridor and
    currency exposures, relationship breadth and dated trade events.  These are
    ``OBSERVED`` claims with ``SYNTHETIC_SIMULATION`` provenance.
-3. **E0 representative structural claims** — sector operating-model and
+3. **E0 representative structural claims** â€” sector operating-model and
    responsibility statements derived from governed policy, marked ``INFERRED``
    and ``REPRESENTATIVE_PUBLIC``.
 
@@ -51,7 +51,7 @@ from .taxonomy import (
 ROOT = Path(__file__).resolve().parents[2]
 V1_BASELINE = ROOT / "legacy" / "v1" / "fixtures" / "portfolio.json"
 
-EVIDENCE_VERSION = "v31-business-evidence-3.1.0"
+EVIDENCE_VERSION = "v31-business-evidence-3.1.1"
 REVIEWER_FINANCE_SME = "finance-sme-01"
 REVIEWER_COVERAGE = "coverage-analytics-01"
 

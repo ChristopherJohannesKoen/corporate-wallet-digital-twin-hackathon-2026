@@ -51,15 +51,15 @@ SERVICE_ROUTES = {
 
 def create_service_app(service_name: str, prefixes: Iterable[str]) -> FastAPI:
     service = FastAPI(
-        title=f"Corporate Wallet Digital Twin V3.1 — {service_name}",
-        version="3.1.0",
+        title=f"Corporate Wallet Digital Twin V3.1.1 — {service_name}",
+        version="3.1.1",
         docs_url=None,
         redoc_url=None,
     )
 
     @service.get("/health", tags=["operational"])
     def health() -> dict[str, str]:
-        return {"status": "ok", "service": service_name, "version": "3.1.0"}
+        return {"status": "ok", "service": service_name, "version": "3.1.1"}
 
     @service.get("/ready", tags=["operational"])
     def ready() -> dict:

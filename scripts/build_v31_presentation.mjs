@@ -20,9 +20,10 @@ async function loadArtifactTool() {
 const { FileBlob, PresentationFile } = await loadArtifactTool();
 
 const ROOT = path.resolve(process.argv[2] || process.cwd());
-const SOURCE = path.join(ROOT, "assets", "presentation", "Corporate-Wallet-Digital-Twin-V3-Template.pptx");
+const SOURCE = path.join(ROOT, "tmp", "v311-deck", "template-starter.pptx");
 const OUT = path.join(ROOT, "output", "presentation");
-const COVER = path.join(ROOT, "dashboard", "public", "og-v31.png");
+const HEATMAP = path.join(ROOT, "tmp", "v311-deck", "wallet-heatmap.png");
+const PUBLIC_REPO = "https://github.com/ChristopherJohannesKoen/corporate-wallet-digital-twin-hackathon-2026-public";
 
 const presentation = await PresentationFile.importPptx(await FileBlob.load(SOURCE));
 const inspected = await presentation.inspect({
@@ -78,280 +79,291 @@ function setNotes(oneBased, presenter, sources) {
 
 for (const n of [2, 3, 4, 5, 6, 7, 8, 9]) {
   const sourceNo = { 2: 2, 3: 4, 4: 3, 5: 9, 6: 5, 7: 7, 8: 6, 9: 8 }[n];
-  setText(`footer-team-${sourceNo}`, "TEAM: Corporate Wallet Digital Twin | Christopher Koen | V3.1.0");
-  setText(`footer-data-${sourceNo}`, "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE PRIORS");
+  setText(`footer-team-${sourceNo}`, "TEAM: Corporate Wallet Digital Twin | Christopher Koen | V3.1.1");
+  setText(`footer-data-${sourceNo}`, "CONFIDENTIAL SYN BANK ACTIVITY + APPROVED PUBLIC E1 + GOVERNED PRIORS");
   setText(`footer-page-${sourceNo}`, String(n).padStart(2, "0"));
 }
 
 // 1 â€” opening thesis.
 setMany({
-  "cover-proof": "Business-model reconstruction and decision intelligence for corporate relationship teams",
-  "cover-version": "V3.1.0 | AS OF 30 JUNE 2026 | CLIENT DEMO — PUBLIC E1 + SYN BANK",
+  "cover-proof": "Find the latent wallet. Quantify the gap. Plan the governed conversation.",
+  "cover-version": "V3.1.1 | AS OF 30 JUNE 2026 | HACKATHON SUBMISSION",
 });
-styledText("cover-subtitle", "Know the business.\nPlan the right conversation.", { fontSize: 29, color: "#C7D5E8" });
-const coverImageRecord = records.find((record) => record.kind === "image" && record.slide === 1);
-if (!coverImageRecord) throw new Error("Missing cover image");
-const coverImage = presentation.resolve(coverImageRecord.id);
-const placement = {
-  frame: coverImage.frame,
-  crop: coverImage.crop,
-  fit: coverImage.fit,
-  alt: coverImage.alt,
-  prompt: coverImage.prompt,
-  geometry: coverImage.geometry,
-  borderRadius: coverImage.borderRadius,
-  rotation: coverImage.rotation,
-  flipHorizontal: coverImage.flipHorizontal,
-  flipVertical: coverImage.flipVertical,
-  lockAspectRatio: coverImage.lockAspectRatio,
-};
-coverImage.replace({
-  blob: await fs.readFile(COVER),
-  contentType: "image/png",
-  alt: "Abstract latent corporate financial network with observed and reconstructed flows",
-  fit: placement.fit || "cover",
-  prompt: "Premium abstract corporate-finance network: observed bank node and partially hidden wallet flows, deep navy with cyan, violet and amber accents; no text or logos.",
-});
-coverImage.frame = placement.frame;
-coverImage.crop = placement.crop;
-coverImage.geometry = placement.geometry;
-coverImage.borderRadius = placement.borderRadius;
-coverImage.rotation = placement.rotation;
-coverImage.flipHorizontal = placement.flipHorizontal;
-coverImage.flipVertical = placement.flipVertical;
-coverImage.lockAspectRatio = placement.lockAspectRatio;
-setNotes(1, "Open with the V3.1 shift: the final analytical object is a client conversation, not a product row. The twin reconstructs the business, detects a problem, resolves the responsible role, evaluates solution bundles, separates client from bank value and allocates eight weekly conversations.", [
-  "docs/Corporate_Wallet_Digital_Twin_V3_1_System_Dossier.md",
-  "dashboard/app/data/v31-fixture.json",
-  "config/submission.json",
+styledText("cover-subtitle", "See the wallet. Size the gap.\nChoose the conversation.", { fontSize: 29, color: "#C7D5E8" });
+setNotes(1, "Lead with the commercial answer: Syn Bank observes only its own activity. The solution estimates an interval for total client wallet and bank share, sizes the contestable gap, then turns it into an evidence-backed relationship-manager conversation.", [
+  "dashboard/app/data/wallet-v311-fixture.json",
+  "outputs/v2_validation/measurement_policy_sensitivity.json",
+  PUBLIC_REPO,
 ]);
 
-// 2 â€” partial-observation problem and claim ladder.
+// 2 — latent-wallet equation and claim ladder.
 setMany({
-  "eyebrow-2": "THE DECISION OBJECT",
-  "title-2": "The decision starts beyond a client–product row",
-  "s2-thesis": "Syn Bank observes product activity—not the full business model, total wallet, decision owner or response to an RM action. V3.1 adds the context needed for a governed conversation.",
-  "s2-answer": "One claim ladder governs every twin, value and conversation",
-  "s2-claim-copy-1": "Accounting interval",
-  "s2-claim-copy-2": "Wallet distribution",
-  "s2-claim-copy-3": "Problem, bundle and value",
-  "s2-proof-text": "85 E1 and 820 E0 claims remain separated; measured competitor share and causal value remain zero; unknown bank feasibility stays UNKNOWN.",
+  "eyebrow-2": "THE LATENT-WALLET PROBLEM",
+  "title-2": "One observed number cannot identify the full wallet",
+  "s2-thesis": "Syn Bank observes A—its own client–product activity. Total wallet T and bank share q remain latent. The identity A=qT admits many answers, so V3.1.1 reports bounds and posterior intervals rather than false precision.",
+  "s2-answer": "The claim ladder keeps evidence, inference and economics distinct",
+  "s2-claim-copy-1": "Identification interval",
+  "s2-claim-copy-2": "Wallet + share distribution",
+  "s2-claim-copy-3": "Target-share economics",
+  "s2-proof-text": "Observed ≠ inferred ≠ scenario ≠ causal. Measured competitor share and causal incremental value remain prohibited without E3 observations and a qualified trial.",
 });
-setNotes(2, "Explain that V3.1 extends the V3 wallet substrate without changing its interpretation. Public and accounting evidence can constrain a wallet and support a business problem; it cannot reveal competitor transactions or causal RM impact.", [
-  "src/wallet_twin_v31/contracts.py",
-  "outputs/v31/v31_validation_report.json",
-  "docs/Corporate_Wallet_Digital_Twin_V3_1_Technical_Foundations.md",
+setNotes(2, "Explain the core identification problem using A=qT. A is observed in supplied Syn Bank activity; T and q are not. Approved public anchors can narrow plausible T, while governed priors form a posterior interval. Nothing in this chain directly observes competitor transactions.", [
+  "src/wallet_twin_v2/wallet_model.py",
+  "src/wallet_twin_v2/measurement_policy.py",
+  "docs/methodology.md",
 ]);
 
-// 3 â€” entropy-constrained Shadow Wallet.
+// 3 — supplied data and product transformation.
 setMany({
-  "eyebrow-4": "BUSINESS MODEL TWIN",
-  "title-4": "Twenty clients receive the same twelve-domain twin",
-  "s4-metric-0-value": "20",
-  "s4-metric-0-label": "client twins",
-  "s4-metric-1-value": "240",
-  "s4-metric-1-label": "domain components",
-  "s4-metric-2-value": "905",
-  "s4-metric-2-label": "typed evidence claims",
-  "s4-metric-3-value": "71",
-  "s4-metric-3-label": "explicit evidence gaps",
-  "s4-width-title": "Evidence and graph projection",
-  "s4-prior-label": "Approved claims",
-  "s4-prior-value": "854",
-  "s4-anchor-label": "Pending review",
-  "s4-anchor-value": "51",
-  "s4-reduction": "12/12 domains each",
-  "s4-confidence": "993 nodes · 1,154 edges",
-  "s4-source-label": "BOUNDARY",
-  "s4-source-title": "Unknown remains unknown",
+  "eyebrow-4": "SUPPLIED DATA → FIVE PRODUCT LENSES",
+  "title-4": "Every supplied relationship is modelled",
+  "s4-metric-0-value": "3.064m",
+  "s4-metric-0-label": "supplied rows",
+  "s4-metric-1-value": "20",
+  "s4-metric-1-label": "supplied relationships",
+  "s4-metric-2-value": "5",
+  "s4-metric-2-label": "product mappings",
+  "s4-metric-3-value": "100",
+  "s4-metric-3-label": "client × product cells",
+  "s4-width-title": "Private evaluator transformation",
+  "s4-prior-label": "Transaction legs",
+  "s4-prior-value": "C / P / L",
+  "s4-anchor-label": "Specialist feeds",
+  "s4-anchor-value": "FX / TF",
+  "s4-reduction": "PIT aggregated",
+  "s4-confidence": "hash + schema retained",
+  "s4-source-label": "SCOPE NOTE",
+  "s4-source-title": "Brief says 50; supply contains 20",
 });
-styledText("s4-source-body", "Attribute + event graph\nPoint-in-time availability\nApproved lineage on every path\nNo named people in demo", { fontSize: 16, color: "#627086" });
+styledText("s4-source-body", "Collections + Payments\nLiquidity-flow proxy\nCross-border FX exposure\nTrade Finance instruments", { fontSize: 16, color: "#627086" });
 const shadowTotalBar = presentation.resolve(byName.get("s4-prior-bar").id);
 const shadowComponentsBar = presentation.resolve(byName.get("s4-anchor-bar").id);
-shadowComponentsBar.frame = { ...shadowComponentsBar.frame, width: Math.max(28, shadowTotalBar.frame.width * 51 / 854) };
-setNotes(3, "Every client receives the same twelve Business Twin domains. The register is structurally complete but not public-evidence complete: all clients remain below the target of 15 reviewed E1 claims, and the gap is a release blocker rather than a filled assumption.", [
-  "outputs/v31/v31_business_twins.json",
-  "outputs/v31/v31_business_evidence_claims.json",
-  "outputs/v31/v31_validation_report.json",
+shadowComponentsBar.frame = { ...shadowComponentsBar.frame, width: shadowTotalBar.frame.width * 0.62 };
+setNotes(3, "Show the supplied-data chain. Transaction legs produce Collections, Payments and a liquidity-flow opportunity proxy. Cross-border activity provides an FX exposure proxy; instruments provide Trade Finance activity. The conceptual problem statement mentions fifty clients, while the supplied archive contains twenty relationships; all twenty are modelled.", [
+  "notebooks/01_wallet_twin_demo.ipynb",
+  "output/notebook/01_wallet_twin_demo.html",
+  "dashboard/app/data/wallet-v311-fixture.json",
 ]);
 
-// 4 â€” robust portfolio action.
+// 4 — observed activity, approved anchors and priors.
 setMany({
-  "eyebrow-3": "MONDAY-MORNING COVERAGE PLAN",
-  "title-3": "Eight conversations survive feasibility and downside risk",
-  "s3-call-label": "NEXT ACTION",
-  "s3-call-client": "Bid Corporation",
-  "s3-call-product": "Liquidity · Treasurer",
-  "s3-call-gap": "R13.7m",
-  "s3-call-gap-label": "client-value proxy",
-  "s3-call-confidence": "R4.0m bank scenario | 79.2% stability",
-  "s3-call-action": "Discovery only: validate the liquidity structure and feasibility before any product proposal.",
-  "s3-chart-title": "Top five client-value scenarios",
-  "s3-pack-copy": "Capacity: 8. At most two per client; one per client/role; three per solution and sector. Solver status: OPTIMAL over 512 common draws.",
+  "eyebrow-3": "GOVERNED MEASUREMENT",
+  "title-3": "Only approved evidence is allowed to narrow the wallet",
+  "s3-call-label": "AUTHORITATIVE SOURCE ESTATE",
+  "s3-call-client": "82 public facts",
+  "s3-call-product": "31 approved · 51 pending",
+  "s3-call-gap": "15",
+  "s3-call-gap-label": "active anchored cells",
+  "s3-call-confidence": "85 E0 prior-led cells · three approved-anchor clients",
+  "s3-call-action": "Pending candidates may pass deterministic QA, but cannot activate anchors, change ranks or enter banker-facing claim paths.",
+  "s3-chart-title": "E1 pooling-weight sensitivity",
+  "s3-pack-copy": "Measurement policy v2-wallet-measurement-policy-1.1.0 fixes E1 at 0.35. The 0.20 / 0.35 / 0.50 sweep reports coverage, CRPS, width and rank effects.",
 });
 const chartRecord = records.find((record) => record.kind === "chart" && record.slide === 4);
 if (!chartRecord) throw new Error("Missing portfolio chart");
 const chart = presentation.resolve(chartRecord.id);
-chart.series.getItemAt(0).categories = ["Bid Corp · Liquidity", "Sanlam · Payments", "Sanlam · Liquidity", "BHP · FX", "Shoprite · FX"];
-chart.series.getItemAt(0).values = [13.7, 17.0, 17.0, 14.6, 5.9];
-chart.xAxis = { title: "Client-value proxy (R million)", numberFormatCode: "0.0\"m\"" };
-setNotes(4, "Lead with the banker decision: eight discovery conversations, selected after Pareto filtering and mixed-integer CVaR optimization. Unknown bank feasibility prevents product-proposal actions even when a need signal and scenario value are high.", [
-  "outputs/v31/v31_coverage_plan.json",
-  "src/wallet_twin_v31/portfolio.py",
-  "config/v31_decision_policy.json",
+chart.series.getItemAt(0).categories = ["E1 weight 0.20", "E1 weight 0.35", "E1 weight 0.50"];
+chart.series.getItemAt(0).values = [5.826, 4.374, 3.293];
+chart.xAxis = { title: "Known-truth interval width (ZAR bn)", numberFormatCode: "0.0\"bn\"" };
+setNotes(4, "Approval is authoritative. Thirty-one approved facts activate fifteen client–product anchors for BHP, Glencore and Shoprite; fifty-one candidates remain pending and cannot alter estimation. The active E1 pooling weight is 0.35, with 0.20 and 0.50 evaluated as sensitivity arms.", [
+  "outputs/v2_validation/public_evidence_qa.json",
+  "outputs/v2_validation/measurement_policy_sensitivity.json",
+  "src/wallet_twin_v2/measurement_policy.py",
 ]);
 
-// 5 â€” BOCPD and leakage signal.
+// 5 — 20 × 5 opportunity heatmap.
 setMany({
-  "eyebrow-9": "BHP EXPLANATION PATH",
-  "title-9": "BHP’s FX case is valuable—but not yet urgent",
-  "s9-timing-label": "BHP · TREASURER · FX EXPOSURE · DISCOVERY",
-  "s9-h-value-0": "90.3%",
-  "s9-h-label-0": "NEED SCENARIO",
-  "s9-h-value-1": "R14.6m",
-  "s9-h-label-1": "CLIENT PROXY",
-  "s9-h-value-2": "R8.1m",
-  "s9-h-label-2": "BANK SCENARIO",
-  "s9-timing-title": "Event → impact → problem → role → bundle → value",
-  "s9-timing-copy": "Audited FX evidence plus observed cross-border activity supports the problem; no dated trigger supports time-critical urgency.",
-  "s9-timing-decision": "Decision: ask who signs off—and abstain from urgency",
-  "s9-causal-label": "CLAIM BOUNDARY",
+  "eyebrow-9": "THE 20 × 5 COMMERCIAL SURFACE",
+  "title-9": "One heatmap makes the latent opportunity actionable",
+  "s9-timing-label": "DEFAULT COLOUR: CONTESTABLE SCENARIO CONTRIBUTION",
+  "s9-h-value-0": "100",
+  "s9-h-label-0": "INTERACTIVE CELLS",
+  "s9-h-value-1": "15",
+  "s9-h-label-1": "E1 APPROVED",
+  "s9-h-value-2": "85",
+  "s9-h-label-2": "E0 PRIOR-LED",
+  "s9-timing-title": "Five product lenses · one explicit evidence state",
+  "s9-timing-copy": "Toggle A, posterior T, estimated q, contestable G or approval status. FX and Liquidity remain labelled proxies.",
+  "s9-timing-decision": "Click a cell to open A / T / q / q* / G",
+  "s9-causal-label": "AGGREGATION RULE",
   "s9-zero": "0",
-  "s9-zero-label": "causal value claims",
-  "s9-prohibit": "Hedge ratio, decision authority and bank feasibility remain unknown; product proposal and guaranteed-saving claims are prohibited.",
+  "s9-zero-label": "heterogeneous spend totals",
+  "s9-prohibit": "Product activities are never summed as a single banking-spend number. Only scenario contribution is aggregated.",
 });
-styledText("s9-trial", "DISCOVERY ONLY\nClient and bank value are separate; causal value is null.", { fontSize: 18, color: "#C7D5E8" });
-setNotes(5, "Walk the BHP path. The problem is well supported, but the engagement trigger is not. V3.1 therefore surfaces a discovery conversation and the highest-VOI decision-authority question rather than inventing urgency or proposing a product.", [
-  "dashboard/app/data/v31-fixture.json — conv:686ef2a1e7530b6d84a28714",
-  "src/wallet_twin_v31/business_graph.py",
+styledText("s9-trial", "WALLET FIRST\nCoverage Plan is the governed action layer below this evidence.", { fontSize: 18, color: "#C7D5E8" });
+const heatmapCover = slideAt(5).shapes.add({
+  geometry: "rect",
+  position: { left: 54, top: 152, width: 1180, height: 516 },
+  fill: "white",
+  line: { style: "solid", fill: "#D7DEE8", width: 1 },
+});
+const heatmapImage = slideAt(5).images.add({
+  blob: await fs.readFile(HEATMAP),
+  contentType: "image/png",
+  alt: "Corporate Wallet Digital Twin 20 by 5 wallet portfolio heatmap showing approved and prior-led cells",
+  fit: "contain",
+  position: { left: 70, top: 160, width: 1140, height: 500 },
+});
+setNotes(5, "Show the actual rendered Wallet Portfolio view. The default colour encodes contestable scenario contribution. Teal underlines mark the fifteen approved E1 cells; amber marks the eighty-five prior-led cells. Judges can toggle observed activity, posterior wallet, estimated share, contestable gap and evidence status.", [
+  "dashboard/app/Dashboard.tsx",
+  "dashboard/app/data/wallet-v311-fixture.json",
+  "src/wallet_twin_v31/wallet_portfolio.py",
+]);
+
+// 6 — BHP forensic drill-down.
+setMany({
+  "eyebrow-5": "BHP FORENSIC DRILL-DOWN",
+  "title-5": "Trade Finance: A → T → q → q* → G",
+  "s5-facts-value": "R1.445bn",
+  "s5-facts-label": "A · observed activity",
+  "s5-facts-note": "Syn Bank supplied annual trade-flow activity",
+  "s5-clients-value": "R5.15–22.08bn",
+  "s5-clients-label": "T · posterior wallet",
+  "s5-clients-note": "P10–P90; P50 R8.93bn",
+  "s5-review-value": "6.5–28.0%",
+  "s5-review-label": "q · estimated share",
+  "s5-review-note": "P50 16.2%; POSTERIOR, not measured competitor share",
+  "s5-progress-title": "q* = 40% governed target-share scenario",
+  "s5-original-text": "G P50 = R2.126bn contestable activity",
+  "s5-expanded-text": "Scenario contribution P50 = R7.367m",
+  "s5-total": "Rank #2 · E1 approved",
+  "s5-tier-0": "A",
+  "s5-tier-copy-0": "observed activity",
+  "s5-tier-1": "T",
+  "s5-tier-copy-1": "wallet posterior",
+  "s5-tier-2": "q",
+  "s5-tier-copy-2": "A ÷ T",
+  "s5-tier-3": "q*",
+  "s5-tier-copy-3": "40% scenario",
+  "s5-tier-4": "G",
+  "s5-tier-copy-4": "max(q*T−A,0)",
+});
+setNotes(6, "Walk the BHP Trade Finance cell. Syn Bank observes A=R1.445bn. Approved issuer accounting anchors constrain the total-wallet measurement; the posterior T spans R5.15bn–R22.08bn, implying q=6.5%–28.0%. A 40% target-share scenario creates a median contestable activity gap of R2.126bn and R7.367m representative scenario contribution.", [
+  "dashboard/app/data/wallet-v311-fixture.json — E01-trade-finance",
+  "BHP Annual Report 2025 — approved facts BHP-2025-COST, INV and AP",
+  "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
+]);
+
+// 7 — wallet gap to governed conversation.
+setMany({
+  "eyebrow-7": "DECISION TWIN ACTION LAYER",
+  "title-7": "Wallet gap → stakeholder → problem → solution → timing",
+  "s7-left-label": "BHP TRADE FINANCE CELL",
+  "s7-left-main": "#2 in wallet",
+  "s7-left-sub": "The wallet interval starts the investigation; it does not automatically become a product pitch.",
+  "s7-col-0": "STAKEHOLDER",
+  "s7-col-1": "PROBLEM",
+  "s7-col-2": "SOLUTION",
+  "s7-cell-text-0-0": "TREASURER",
+  "s7-cell-text-0-1": "WC PRESSURE",
+  "s7-cell-text-0-2": "TRADE FINANCE",
+  "s7-cell-text-1-0": "CFO",
+  "s7-cell-text-1-1": "SUPPLY RISK",
+  "s7-cell-text-1-2": "+ SCF",
+  "s7-cell-text-2-0": "FIN OPS",
+  "s7-cell-text-2-1": "CONFIRM",
+  "s7-cell-text-2-2": "DISCOVERY",
+  "s7-global-label": "WHY NOW + WHAT TO ASK",
+  "s7-first-value": "36.0%",
+  "s7-first-label": "90-day baseline",
+  "s7-first-note": "Transparent—not calibrated hazard",
+  "s7-top10-value": "1",
+  "s7-top10-label": "primary VOI question",
+  "s7-top10-note": "Only if it can change the decision",
+  "s7-fx-value": "8",
+  "s7-fx-label": "weekly conversations",
+  "s7-fx-note": "All discovery under unknown bank gates",
+  "s7-econ-value": "NULL",
+  "s7-econ-label": "causal value",
+  "s7-econ-note": "No qualified RM trial history",
+  "s7-conclusion": "Permitted action now: validate wallet, stakeholder and feasibility. Conditional commercial action begins only after the missing facts and required gates are confirmed.",
+});
+setNotes(7, "The Decision Twin remains the action layer, not a replacement for share-of-wallet estimation. It resolves a role, problem, solution bundle, engagement window and next-best question from the wallet gap. Missing credit, conduct, operational or integration feasibility converts the action into discovery; it never silently passes.", [
+  "outputs/v31/v31_coverage_plan.json",
   "src/wallet_twin_v31/conversations.py",
-]);
-
-// 6 â€” value-of-information queue.
-setMany({
-  "eyebrow-5": "ACTIVE COVERAGE LEARNING",
-  "title-5": "Ask only when the answer can change the decision",
-  "s5-facts-value": "308",
-  "s5-facts-label": "positive-net-VOI questions",
-  "s5-facts-note": "Selected from 891 evaluations with 512 common draws",
-  "s5-clients-value": "R10.6k",
-  "s5-clients-label": "BHP question net VOI",
-  "s5-clients-note": "Decision value—not booked, client or causal value",
-  "s5-review-value": "0",
-  "s5-review-label": "direct model updates",
-  "s5-review-note": "Every submitted answer remains pending until approval",
-  "s5-progress-title": "Value comes from decision change—not semantic relevance",
-  "s5-original-text": "Model explicit answer states and decision effects",
-  "s5-expanded-text": "Subtract question cost and delay penalty",
-  "s5-total": "1 primary question",
-  "s5-tier-0": "E3",
-  "s5-tier-copy-0": "multibank observation",
-  "s5-tier-1": "RATE",
-  "s5-tier-copy-1": "approved economics",
-  "s5-tier-2": "E2",
-  "s5-tier-copy-2": "client / RM attestation",
-  "s5-tier-3": "PIT",
-  "s5-tier-copy-3": "point-in-time source",
-  "s5-tier-4": "4EYE",
-  "s5-tier-copy-4": "human approval",
-});
-setNotes(6, "The governing question is not 'what is uncertain?' but 'what answer could change rank, bundle, feasibility or abstention?' The client answer becomes a pending E2 candidate and cannot change the twin until a reviewer approves it.", [
   "src/wallet_twin_v31/questions.py",
-  "outputs/v31/v31_validation_report.json",
-  "Sundin et al., Active Learning for Decision-Making, ICML 2019",
 ]);
 
-// 7 â€” sensitivity continuity and diversified action portfolio.
+// 8 — grounded GenAI proof and live-provider boundary.
 setMany({
-  "title-7": "Trade Finance remains robust—but conversations diversify",
-  "s7-left-sub": "The five-product V3 benchmark remains reproducible: Trade Finance is first-ranked in all frozen rate/prior cases.",
-  "s7-conclusion": "V3.1 selects two Trade Finance, three FX and three transaction-banking conversations after stakeholder, problem, feasibility and concentration constraints.",
+  "eyebrow-6": "GROUNDED GENAI BRIEFING",
+  "title-6": "A closed evidence pack controls every published word",
+  "s6-wallet-value": "3 / 3",
+  "s6-wallet-label": "showcase fallback briefs",
+  "s6-wallet-note": "BHP · Glencore · Shoprite; deterministic and validated",
+  "s6-share-value": "9",
+  "s6-share-label": "comparative target runs",
+  "s6-share-note": "OpenAI · Anthropic · Google × three clients",
+  "s6-narrow-value": "0",
+  "s6-narrow-label": "live runs executed",
+  "s6-narrow-note": "Fresh rotated credentials and acknowledgement absent",
+  "s6-design-label": "CONTROLLED WORKFLOW",
+  "s6-line-0": "Resolve exact provider model; no silent substitution",
+  "s6-line-1": "Send approved public evidence + minimal synthetic aggregates only",
+  "s6-line-2": "Validate schema, every number, sign, currency and citation",
+  "s6-line-3": "Provider failure returns the deterministic brief",
+  "s6-boundary-title": "Implemented and honest;\nlive proof remains a gate",
+  "s6-boundary-copy": "The report records all nine runs as NOT_EXECUTED. It will not present provider access failure as successful evaluation.",
 });
-setNotes(7, "Preserve the V3 continuity benchmark. Trade Finance survives the frozen five-product rate/prior cases, yet the V3.1 conversation plan diversifies because the decision object also contains business problem, stakeholder, feasibility, timing and concentration.", [
-  "dashboard/app/data/shadow-fixture.json â€” sensitivity",
-  "docs/v3_methodology.md",
-  "dashboard/app/data/shadow-fixture.json â€” sensitivity.product_summary",
-]);
-
-// 8 â€” representative validation and honest boundaries.
-setMany({
-  "eyebrow-6": "V3.1 REPRESENTATIVE VALIDATION",
-  "title-6": "Complete mechanics still do not create bank evidence",
-  "s6-wallet-value": "320",
-  "s6-wallet-label": "solution projections",
-  "s6-wallet-note": "Sixteen solution families across all twenty clients",
-  "s6-share-value": "224",
-  "s6-share-label": "conversation candidates",
-  "s6-share-note": "All discovery-only under unknown bank feasibility",
-  "s6-narrow-value": "8 / 8",
-  "s6-narrow-label": "plan constraints satisfied",
-  "s6-narrow-note": "Mixed-integer solver status: OPTIMAL",
-  "s6-design-label": "CONTROLLED DESIGN",
-  "s6-line-0": "Twenty twins × twelve components reproduce point-in-time",
-  "s6-line-1": "All 320 solution rows return an interval or fail-closed reason",
-  "s6-line-2": "Pareto + CVaR enforce role, client, solution and sector limits",
-  "s6-line-3": "Every V3.1 read requires as_of and deny-by-default ABAC",
-  "s6-boundary-title": "Strong mechanics,\nnot measured competitors",
-  "s6-boundary-copy": "No E3 share, approved economics or RM outcomes exist. Measured-share and causal-value claims: zero.",
-});
-setNotes(8, "Separate representative validation from bank-production validation. V3.1 proves contracts, point-in-time reconstruction, fail-closed estimators, graph integrity, constraints, deterministic replay and claim suppression; it does not prove a bank's empirical accuracy.", [
-  "outputs/v31/v31_validation_report.json",
-  "tests/test_v31_decision_twin.py",
-  "docs/v31_implementation_status.md",
-]);
-
-// 9 â€” decision-directed RAG and governed brief.
-setMany({
-  "eyebrow-8": "CONTROLLED GENAI",
-  "title-8": "The narrator translates a closed decision pack",
-  "s8-title-0": "Score",
-  "s8-copy-0": "Deterministic problem, value and rank",
-  "s8-title-1": "Value",
-  "s8-copy-1": "Question utility minus cost and delay",
-  "s8-title-2": "Acquire",
-  "s8-copy-2": "Approved, entitled claims only",
-  "s8-title-3": "Compile",
-  "s8-copy-3": "Why–How–What closed pack",
-  "s8-title-4": "Brief",
-  "s8-copy-4": "LLM gateway or deterministic fallback",
-  "s8-checks-value": "224",
-  "s8-checks-label": "deterministic briefs",
-  "s8-checks-note": "One closed pack per conversation",
-  "s8-cases-value": "100%",
-  "s8-cases-label": "schema requirement",
-  "s8-cases-note": "Numbers and citations must survive exactly",
-  "s8-stress-value": "0",
-  "s8-stress-label": "unsupported paths allowed",
-  "s8-stress-note": "Unknown urgency and roles force abstention",
-  "s8-fail-value": "0",
-  "s8-fail-label": "autonomous actions",
-  "s8-fail-note": "No CRM, client, pricing or retrieval action is delegated",
-});
-setNotes(9, "The LLM is last, not first. V3.1 compiles a closed Why–How–What pack and permits the provider only to translate approved content. Arithmetic, ranks, graph paths, values, VOI and citations remain deterministic; provider failure returns the deterministic brief.", [
-  "src/wallet_twin_v31/briefs.py",
-  "src/wallet_twin_v2/genai_gateway.py",
-  "prompts/v3_decision_brief.schema.json",
+setNotes(8, "GenAI is a bounded narrator. The same sanitized pack is prepared for BHP, Glencore and Shoprite across OpenAI, Anthropic and Google. Because no fresh rotated credential and explicit acknowledgement were supplied, all nine target runs remain NOT_EXECUTED. Deterministic briefs remain visible and accepted; no live claim is fabricated.", [
+  "outputs/v2_validation/live_provider_comparison.json",
   "outputs/v2_validation/genai_golden_eval.json",
+  "src/wallet_twin_v2/live_provider_eval.py",
 ]);
 
-// 10 â€” summary and explicit production gates.
+// 9 — validation hierarchy.
 setMany({
-  "s10-step-title-0": "Reconstruct the client business",
-  "s10-step-copy-0": "Twenty twelve-domain twins, temporal graphs, problems, stakeholders and sixteen solution families.",
-  "s10-step-title-1": "Plan eight conversations",
-  "s10-step-copy-1": "Pareto-filtered, CVaR-aware discovery actions plus positive-net-VOI client questions.",
-  "s10-step-title-2": "Close external gates",
-  "s10-step-copy-2": "E3 calibration, approved economics, bank identity/infrastructure, live evaluation and RM trial.",
-  "s10-close": "A better conversation today. A measurable learning system tomorrow.",
-  "s10-team": "Corporate Wallet Digital Twin | Christopher Koen | V3.1.0",
+  "eyebrow-8": "VALIDATION HIERARCHY",
+  "title-8": "Each claim earns the strongest label its evidence permits",
+  "s8-title-0": "Mechanical",
+  "s8-copy-0": "Contracts, identities, arithmetic, PIT lineage",
+  "s8-title-1": "Known truth",
+  "s8-copy-1": "Synthetic panel coverage, width and CRPS",
+  "s8-title-2": "Predictive",
+  "s8-copy-2": "Posterior intervals and ranking stability",
+  "s8-title-3": "External",
+  "s8-copy-3": "E3 calibration, approved rates and live eval",
+  "s8-title-4": "Causal",
+  "s8-copy-4": "Qualified randomized RM outcome history",
+  "s8-checks-value": "100",
+  "s8-checks-label": "wallet identities",
+  "s8-checks-note": "T ≥ A; q=A/T; G=max(q*T−A,0)",
+  "s8-cases-value": "88.0%",
+  "s8-cases-label": "base 90% coverage",
+  "s8-cases-note": "Known-truth E1 weight 0.35 arm",
+  "s8-stress-value": "100%",
+  "s8-stress-label": "TF first-rank frequency",
+  "s8-stress-note": "10,000-draw global benchmark",
+  "s8-fail-value": "0",
+  "s8-fail-label": "measured-share claims",
+  "s8-fail-note": "No E3 multibank observation exists",
 });
-styledText("s10-title", "Demonstrate the Decision Twin\nthen earn bank production", { fontSize: 54, color: "#FFFFFF", bold: true });
-styledText("s10-subtitle", "V3.1 turns partial evidence into business context, solution bundles, dual value, governed conversations and an active learning loop—without overstating what was measured.", { fontSize: 24, color: "#C7D5E8" });
-setNotes(10, "Close on the implemented V3.1 decision loop and the remaining external gates. The client demo is complete and reproducible; bank-production claims remain deliberately fail-closed until bank data, controls and supervised outcomes exist.", [
+setNotes(9, "Separate what the implementation proves. Mechanical checks validate data and equations. A known-truth synthetic panel assesses interval behavior. Posterior and ranking diagnostics are predictive model evidence. E3 observations, approved economics, live-provider adjudication and causal RM outcomes remain external gates.", [
+  "outputs/v2_validation/measurement_policy_sensitivity.json",
+  "outputs/v2_validation/offline_validation_report.json",
+  "docs/methodology.md",
+]);
+
+// 10 — conclusion and next steps.
+setMany({
+  "s10-step-title-0": "Demonstrate the wallet",
+  "s10-step-copy-0": "Twenty relationships × five products, approval-authoritative anchors, intervals and contestable gaps.",
+  "s10-step-title-1": "Run eight discovery conversations",
+  "s10-step-copy-1": "Decision Twin adds stakeholder, business issue, bundle, timing, feasibility and the highest-VOI question.",
+  "s10-step-title-2": "Earn production",
+  "s10-step-copy-2": "E3 panel, bank rates and controls, live provider adjudication, RM pilot and randomized outcomes.",
+  "s10-close": "Submission mechanics validated; live-provider proof remains an explicit gate. Bank-production claims stay fail-closed.",
+  "s10-team": "Corporate Wallet Digital Twin | Christopher Koen | V3.1.1",
+  "s10-repository": `CODE: ${PUBLIC_REPO}`,
+});
+styledText("s10-title", "Find the gap.\nPlan the conversation.", { fontSize: 54, color: "#FFFFFF", bold: true });
+styledText("s10-subtitle", "V3.1.1 converts partial bank observation into a governed wallet interval, a commercial scenario and a relationship action—while preserving every evidence boundary.", { fontSize: 24, color: "#C7D5E8" });
+setNotes(10, "Close with the commercial story and honest boundary. V3.1.1 is a reproducible hackathon submission once the artifact and public-access gates pass. Bank production stays NOT_PROMOTABLE until representative external calibration, approved bank economics and controls, live provider adjudication and qualified RM outcomes exist.", [
   "docs/v31_implementation_status.md",
-  "docs/production_deployment_runbook.md",
+  "outputs/v2_validation/production_candidate_scorecard.json",
   "notebooks/01_wallet_twin_demo.ipynb",
   "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+  PUBLIC_REPO,
 ]);
 
 await fs.mkdir(OUT, { recursive: true });

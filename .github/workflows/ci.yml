@@ -1,4 +1,4 @@
-name: v31-decision-twin-ci
+name: v311-hackathon-submission-ci
 on:
   pull_request:
   push:
@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   python:
@@ -21,9 +22,10 @@ jobs:
       - run: uv run python scripts/export_v3_contracts.py
       - run: uv run python scripts/run_v3_validation.py
       - run: uv run python scripts/export_v31_contracts.py
+      - run: uv run python scripts/run_measurement_sensitivity.py
       - run: uv run ruff check src tests scripts
       - run: uv run pytest --cov=wallet_twin_v2 --cov=wallet_twin_v3 --cov=wallet_twin_v31 --cov-report=term-missing
-      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json dashboard/app/data/v3-fixture.json dashboard/app/data/v31-fixture.json outputs/v3 outputs/v31 outputs/v3_validation/v3_validation_report.json tests/regression/v3_0/v3_0_frozen_surface.json
+      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json dashboard/app/data/v3-fixture.json dashboard/app/data/v31-fixture.json dashboard/app/data/wallet-v311-fixture.json outputs/v3 outputs/v31 outputs/v3_validation/v3_validation_report.json outputs/v2_validation/measurement_policy_sensitivity.json tests/regression/v3_0/v3_0_frozen_surface.restated.json
   workbench:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: dashboard } }
@@ -44,7 +46,7 @@ jobs:
       - run: docker run --detach --name wallet-twin-smoke --publish 18080:8080 wallet-twin:${{ github.sha }}
       - run: |
           for attempt in $(seq 1 20); do
-            if docker exec wallet-twin-smoke python -c "import json,urllib.request; assert json.load(urllib.request.urlopen('http://127.0.0.1:8080/health', timeout=2))['version'] == '3.1.0'; payload=json.load(urllib.request.urlopen('http://127.0.0.1:8080/v3/decision-twin?as_of=2026-06-30&week_start=2026-07-06', timeout=10)); assert payload['metadata']['version'] == '3.1.0'; assert len(payload['coverage_plan']['entries']) == 8"; then
+            if docker exec wallet-twin-smoke python -c "import urllib.error,urllib.request; url='http://127.0.0.1:8080/v3/decision-twin?as_of=2026-06-30&week_start=2026-07-06'; exec('try:\n urllib.request.urlopen(url, timeout=2)\n raise AssertionError(\"unauthenticated read unexpectedly allowed\")\nexcept urllib.error.HTTPError as exc:\n assert exc.code == 401'); headers={'x-user-id':'ci-smoke','x-user-roles':'SHADOW_OPERATOR,MODEL_VALIDATOR','x-user-team':'model-risk','x-user-clients':'*','x-user-products':'*'}; payload=__import__('json').load(urllib.request.urlopen(urllib.request.Request(url,headers=headers), timeout=10)); assert payload['metadata']['version'] == '3.1.1'; assert len(payload['coverage_plan']['entries']) == 8; wallet=__import__('json').load(urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8080/v3/wallet-portfolio?as_of=2026-06-30',headers=headers),timeout=10)); assert len(wallet['cells']) == 100; assert wallet['approved_anchor_cells'] == 15"; then
               exit 0
             fi
             sleep 2
@@ -68,3 +70,5 @@ jobs:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
       - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

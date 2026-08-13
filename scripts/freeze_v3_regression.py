@@ -23,8 +23,16 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from wallet_twin_v3.repository import repository as v3_repository  # noqa: E402
+from wallet_twin_v2.canonical import write_canonical_json
 
-FROZEN = ROOT / "tests" / "regression" / "v3_0" / "v3_0_frozen_surface.json"
+#: The pre-restatement historical asset.  It is never regenerated: it records
+#: the V3.0 surface as it stood when public anchors activated without an
+#: approval check, and it exists so the V3.1.1 restatement can be shown to have
+#: moved measured quantities and no governance claim.
+HISTORICAL = ROOT / "tests" / "regression" / "v3_0" / "v3_0_frozen_surface.json"
+#: The live boundary, restated under the anchor-activation policy.
+FROZEN = ROOT / "tests" / "regression" / "v3_0" / "v3_0_frozen_surface.restated.json"
+RESTATEMENT_ID = "V3.1.1-ANCHOR-APPROVAL"
 
 
 def _canonical(value: Any) -> Any:
@@ -58,11 +66,55 @@ def build_frozen_surface() -> dict[str, Any]:
     }
     portfolio = v3_repository.action_portfolio.model_dump(mode="json")
     evidence_plan = v3_repository.evidence_acquisition.model_dump(mode="json")
+    portfolio_structure = {
+        "portfolio_id": portfolio["portfolio_id"],
+        "as_of": portfolio["as_of"],
+        "capacity": portfolio["capacity"],
+        "selected_actions": [
+            {
+                key: item[key]
+                for key in (
+                    "action_id", "opportunity_id", "entity_id", "entity_name",
+                    "sector", "product", "evidence_tier",
+                )
+            }
+            for item in portfolio["selected_actions"]
+        ],
+        "product_counts": portfolio["product_counts"],
+        "sector_counts": portfolio["sector_counts"],
+        "constraints": portfolio["constraints"],
+        "scenario_draws": portfolio["scenario_draws"],
+        "method": portfolio["method"],
+        "commercial_status": portfolio["commercial_status"],
+        "causal_status": portfolio["causal_status"],
+    }
+    portfolio_numerics = {
+        "expected_scenario_value_zar": portfolio["expected_scenario_value_zar"],
+        "downside_cvar_zar": portfolio["downside_cvar_zar"],
+        "selected_actions": {
+            item["action_id"]: {
+                key: item[key]
+                for key in (
+                    "robust_score", "expected_scenario_value_zar",
+                    "downside_cvar_zar", "need_probability",
+                    "leakage_probability",
+                )
+            }
+            for item in portfolio["selected_actions"]
+        },
+    }
     return {
-        "frozen_version": "3.0.0",
+        "frozen_version": "3.0.0+restatement-V3.1.1",
+        "supersedes": "3.0.0",
+        "supersedes_asset": HISTORICAL.name,
+        "restatement_id": RESTATEMENT_ID,
+        "restatement_reason_code": "ANCHOR_ACTIVATED_WITHOUT_APPROVAL_CHECK",
         "boundary_policy": (
-            "V3.1.0 is additive. Any change to these digests is a breaking change to the "
-            "frozen V3.0 regression boundary and must be justified in review."
+            "V3.1 is additive. Any change to these digests is a breaking change to the "
+            "restated V3.0 regression boundary and must be justified in review. The "
+            "superseded pre-restatement asset is retained alongside this one; the "
+            "'invariants' block must match it exactly, because the restatement moved "
+            "measured quantities and no governance claim."
         ),
         "as_of": v3_repository.metadata["as_of"],
         "counts": {
@@ -90,6 +142,12 @@ def build_frozen_surface() -> dict[str, Any]:
             "evidence_acquisition": digest(evidence_plan),
             "validation": digest(v3_repository.validation),
         },
+        "action_portfolio_structure": portfolio_structure,
+        "action_portfolio_numerics": portfolio_numerics,
+        "numeric_tolerances": {
+            "money_zar_absolute": 0.05,
+            "probability_absolute": 0.000001,
+        },
         "ranked_opportunity_ids": [item["opportunity_id"] for item in opportunities],
         "selected_action_ids": sorted(
             item["action_id"] for item in portfolio["selected_actions"]
@@ -98,11 +156,34 @@ def build_frozen_surface() -> dict[str, Any]:
 
 
 def main() -> int:
+    if not HISTORICAL.exists():
+        print(
+            f"refusing to run: the historical asset {HISTORICAL.name} is missing. "
+            "It is immutable evidence of the pre-restatement boundary.",
+            file=sys.stderr,
+        )
+        return 2
     surface = build_frozen_surface()
-    FROZEN.parent.mkdir(parents=True, exist_ok=True)
-    FROZEN.write_text(json.dumps(surface, indent=2) + "\n", encoding="utf-8")
-    print(f"frozen V3.0 regression surface written to {FROZEN.relative_to(ROOT)}")
+    write_canonical_json(FROZEN, surface)
+    print(f"restated V3.0 regression surface written to {FROZEN.relative_to(ROOT)}")
+    print(f"historical asset left untouched at {HISTORICAL.relative_to(ROOT)}")
+
+    historical = json.loads(HISTORICAL.read_text(encoding="utf-8"))
+    moved = [
+        name
+        for name, value in surface["digests"].items()
+        if historical["digests"].get(name) != value
+    ]
     print(json.dumps(surface["counts"], indent=2))
+    print(f"digests moved by the restatement: {moved or 'none'}")
+    if surface["invariants"] != historical["invariants"]:
+        print(
+            "ERROR: the restatement changed a governance invariant. That is not a "
+            "restatement, it is a policy change and must be reviewed as one.",
+            file=sys.stderr,
+        )
+        return 1
+    print("governance invariants unchanged: the restatement moved measured quantities only")
     return 0
 
 

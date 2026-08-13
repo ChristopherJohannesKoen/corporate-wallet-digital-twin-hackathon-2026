@@ -12,7 +12,8 @@ from fastapi.testclient import TestClient
 
 from .api import app
 from .contracts import EventEnvelope, EventType
-from .events import EventStore, new_event_id
+from .events import EventStore
+from .canonical import ARTIFACT_AS_OF, artifact_timestamp
 
 
 def _canonical(events: List[EventEnvelope]) -> bytes:
@@ -86,14 +87,22 @@ def entitlement_negative_rehearsal() -> dict:
 
 
 def event_recovery_rehearsal(event_count: int = 500) -> dict:
+    """Serialisation round-trip rehearsal over a synthetic event stream.
+
+    The stream is deliberately deterministic — fixed ids and a fixed instant —
+    because the published digests are a reproducibility claim. Minting UUIDs and
+    stamping wall-clock time here would make ``original_sha256`` a fresh random
+    number on every run, which cannot evidence anything.
+    """
     store = EventStore()
+    occurred_at = datetime.combine(ARTIFACT_AS_OF, datetime.min.time(), tzinfo=timezone.utc)
     for index in range(event_count):
         store.append(EventEnvelope(
-            event_id=new_event_id(),
+            event_id=f"rehearsal-{index:06d}",
             event_type=EventType.ELIGIBILITY_RECORDED,
             entity_id=f"E{index % 20 + 1:02d}",
             product="Collections",
-            occurred_at=datetime.now(timezone.utc),
+            occurred_at=occurred_at,
             payload={"sequence": index, "synthetic_recovery_rehearsal": True},
         ))
     original = _canonical(store.list())
@@ -134,7 +143,7 @@ def thirty_day_shadow_rehearsal() -> dict:
 def run_operational_rehearsal() -> dict:
     return {
         "version": "local-operational-rehearsal-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": artifact_timestamp(),
         "load": api_load_rehearsal(),
         "entitlements": entitlement_negative_rehearsal(),
         "recovery": event_recovery_rehearsal(),

@@ -1,0 +1,49 @@
+{
+  "metadata": {
+    "as_of": "2026-06-30",
+    "central_idea": "Reconstruct the latent corporate financial system from one bank's partial observations, then optimize decisions and evidence acquisition under uncertainty.",
+    "deployment_mode": "CLIENT_DEMO_REPRESENTATIVE_LAB",
+    "title": "Corporate Wallet Digital Twin V3",
+    "version": "3.0.0",
+    "watermark": "SYN BANK SIMULATION + PUBLIC E1 + REPRESENTATIVE PRIORS \u2014 RECONSTRUCTED COMPETITOR FLOWS ARE NOT MEASURED"
+  },
+  "release": {
+    "bank_production_status": "NOT_PROMOTABLE",
+    "blocking_external_gates": [
+      "representative E3 multibank calibration panel",
+      "approved bank economics",
+      "finance-SME approval of 51 pending public facts",
+      "qualified RM-action timing outcomes",
+      "real recommendation/action/outcome history",
+      "bank provider approval and scanned-document golden-set adjudication",
+      "bank SSO, Unity Catalog, SIEM and independent security validation",
+      "30 consecutive clean shadow days"
+    ],
+    "client_demo_status": "V3_DECISION_LAB_READY",
+    "new_v3_capabilities": [
+      "entropy-constrained shadow-wallet reconstruction",
+      "positive-unlabelled product-need estimation",
+      "Bayesian change-point and leakage signals",
+      "CVaR-aware RM capacity portfolio",
+      "decision-directed value-of-information evidence plan",
+      "evidence-cited LLM claim-pack compiler"
+    ]
+  },
+  "validation": {
+    "all_selected_voi_positive": true,
+    "anonymous_provider_nodes_only": true,
+    "causal_value_claims": 0,
+    "change_point_series": 100,
+    "clients": 20,
+    "max_mass_balance_error_zar": 0.0,
+    "measured_competitor_share_claims": 0,
+    "opportunities": 100,
+    "positive_net_voi_requests": 8,
+    "pu_labelled_positives": 33,
+    "pu_selection_constant": 0.70031845,
+    "rm_actions_selected": 12,
+    "rm_capacity_respected": true,
+    "shadow_flow_edges": 1500,
+    "status": "REPRESENTATIVE_VALIDATION"
+  }
+}

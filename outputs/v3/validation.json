@@ -40,7 +40,7 @@
     "opportunities": 100,
     "positive_net_voi_requests": 8,
     "pu_labelled_positives": 33,
-    "pu_selection_constant": 0.70031845,
+    "pu_selection_constant": 0.70032,
     "rm_actions_selected": 12,
     "rm_capacity_respected": true,
     "shadow_flow_edges": 1500,

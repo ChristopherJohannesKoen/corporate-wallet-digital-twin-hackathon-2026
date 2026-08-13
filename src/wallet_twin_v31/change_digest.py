@@ -2,7 +2,7 @@
 
 The digest answers a narrow question honestly: between ``since`` and ``as_of``,
 what new evidence became *available* and what dated events fall inside the
-window?  Availability date — not period end and not ingestion date — is the
+window?  Availability date â€” not period end and not ingestion date â€” is the
 only admissible clock, so a document published after ``since`` counts as a
 change even when it reports an older period, and a document that existed
 before ``since`` never does.
@@ -23,7 +23,7 @@ from .business_twin import DOMAIN_MATERIALITY
 from .contracts import BusinessEvent, ChangeDigest, ChangeDigestItem
 from .taxonomy import DOMAIN_LABELS
 
-DIGEST_VERSION = "v31-change-digest-3.1.0"
+DIGEST_VERSION = "v31-change-digest-3.1.1"
 
 
 class ChangeDigestBuilder:

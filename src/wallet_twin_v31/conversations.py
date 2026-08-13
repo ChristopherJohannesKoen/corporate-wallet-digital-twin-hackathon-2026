@@ -7,7 +7,7 @@ This is where the five coordinates come together:
 A candidate is only created when a problem is identified *and* at least one
 PRIMARY solution for it has an available estimate.  A problem with no
 quantifiable solution produces an evidence-acquisition conversation instead of
-a product conversation — which is the honest output, not a gap in coverage.
+a product conversation â€” which is the honest output, not a gap in coverage.
 """
 
 from __future__ import annotations
@@ -52,7 +52,7 @@ from .taxonomy import (
 from .timing import EngagementWindowEngine
 from .value import BankValueEngine, ClientValueEngine
 
-CONVERSATION_VERSION = "v31-conversation-assembly-3.1.0"
+CONVERSATION_VERSION = "v31-conversation-assembly-3.1.1"
 
 #: Strategic weight per problem: how much a solved instance changes the shape of
 #: the relationship rather than this quarter's revenue.  Governed policy.
@@ -497,9 +497,9 @@ class ConversationBuilder:
             artifacts=ArtifactReference(
                 model_version=CONVERSATION_VERSION,
                 dataset_version=self.registry.version,
-                prior_version="v31-governed-policy-3.1.0",
+                prior_version="v31-governed-policy-3.1.1",
                 transformation_version=CONVERSATION_VERSION,
-                schema_version="3.1.0",
+                schema_version="3.1.1",
             ),
             claim_classes=claim_classes,
             provenance=provenance,

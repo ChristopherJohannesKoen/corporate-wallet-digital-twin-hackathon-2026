@@ -27,6 +27,8 @@ from .contracts import (
     ConversationCandidate,
     CoveragePlan,
     FundingRouteProjection,
+    WalletOpportunityDetail,
+    WalletPortfolioProjection,
 )
 from .events import (
     V31EventStore,
@@ -35,6 +37,8 @@ from .events import (
 )
 from .fixtures import DEFAULT_DIGEST_SINCE, build_v31_fixture
 from .questions import ClientAnswerWorkflow
+from .wallet_portfolio import build_wallet_detail, build_wallet_portfolio
+from wallet_twin_v2.repository import repository as v2_repository
 
 
 class V31Repository(ABC):
@@ -67,6 +71,12 @@ class V31Repository(ABC):
 
     @abstractmethod
     def funding_routes(self, entity_id: str, as_of: date) -> FundingRouteProjection: ...
+
+    @abstractmethod
+    def wallet_portfolio(self, as_of: date) -> WalletPortfolioProjection: ...
+
+    @abstractmethod
+    def wallet_opportunity(self, opportunity_id: str, as_of: date) -> WalletOpportunityDetail: ...
 
 
 class DeltaAnalyticalRepository(V31Repository):
@@ -108,6 +118,12 @@ class DeltaAnalyticalRepository(V31Repository):
         raise NotImplementedError(self._REASON)
 
     def funding_routes(self, entity_id: str, as_of: date) -> FundingRouteProjection:
+        raise NotImplementedError(self._REASON)
+
+    def wallet_portfolio(self, as_of: date) -> WalletPortfolioProjection:
+        raise NotImplementedError(self._REASON)
+
+    def wallet_opportunity(self, opportunity_id: str, as_of: date) -> WalletOpportunityDetail:
         raise NotImplementedError(self._REASON)
 
 
@@ -407,6 +423,27 @@ class FixtureV31Repository(V31Repository):
         self.check_as_of(as_of)
         self._require_entitlement(entity_id, client_ids)
         return self.routes[entity_id]
+
+    def wallet_portfolio(
+        self, as_of: date, client_ids: Sequence[str] = ("*",)
+    ) -> WalletPortfolioProjection:
+        self.check_as_of(as_of)
+        return build_wallet_portfolio(v2_repository, entitled_client_ids=client_ids)
+
+    def wallet_opportunity(
+        self,
+        opportunity_id: str,
+        as_of: date,
+        client_ids: Sequence[str] = ("*",),
+    ) -> WalletOpportunityDetail:
+        self.check_as_of(as_of)
+        observation = v2_repository.opportunity(opportunity_id, as_of)
+        self._require_entitlement(observation.entity_id, client_ids)
+        return build_wallet_detail(
+            v2_repository,
+            opportunity_id,
+            conversations=self.conversation_list,
+        )
 
     def questions_for(self, conversation_id: str) -> List[Any]:
         return list(self.questions.get(conversation_id, []))

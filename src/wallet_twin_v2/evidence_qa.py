@@ -5,13 +5,14 @@ import hashlib
 import json
 import re
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import date
 from pathlib import Path
 from typing import Dict, List, Optional
 
 from pypdf import PdfReader
 
 from .public_evidence import EXPANDED_FACTS, ROOT, SOURCE_REGISTRY
+from .canonical import artifact_timestamp
 
 
 EVIDENCE_DIR = ROOT / "tmp" / "evidence-v2"
@@ -103,6 +104,32 @@ def _concept_found(concept: str, text: str, notes: str) -> bool:
     return any(term in lowered for term in terms)
 
 
+def _iso_date(value: str) -> Optional[date]:
+    try:
+        return date.fromisoformat(value)
+    except (TypeError, ValueError):
+        return None
+
+
+def _unit_and_sign_checks(fact: dict) -> Dict[str, bool]:
+    """Validate normalized magnitude semantics without pretending to do SME review.
+
+    The curated public register stores audited balance-sheet and income-statement
+    amounts as *magnitudes* in millions. Liability signs therefore cannot be
+    inferred from the source presentation alone (parentheses are common). The
+    deterministic gate proves that the normalization is declared, finite and
+    non-negative; a finance reviewer still owns the accounting interpretation.
+    """
+
+    value = float(fact["value"])
+    return {
+        "unit_supported": fact.get("unit") in {"million", "billion", "unit", "percent"},
+        "normalized_value_finite": value == value and abs(value) != float("inf"),
+        "magnitude_sign_consistent": value >= 0.0,
+        "currency_code_valid": bool(re.fullmatch(r"[A-Z]{3}", fact.get("currency", ""))),
+    }
+
+
 def verify_expanded_evidence(
     *, evidence_dir: Path = EVIDENCE_DIR, text_dir: Path = TEXT_DIR,
 ) -> dict:
@@ -141,37 +168,63 @@ def verify_expanded_evidence(
         }
 
     fact_results = []
+    fact_keys = Counter(
+        (fact["entity_id"], fact["concept"], fact["period_start"], fact["period_end"])
+        for fact in facts
+    )
     for fact in facts:
         entity_id = fact["entity_id"]
         page = int(fact["page"])
         page_text = page_cache.get(entity_id, {}).get(page, "")
         value = float(fact["value"])
+        period_start = _iso_date(fact.get("period_start", ""))
+        period_end = _iso_date(fact.get("period_end", ""))
+        available_date = _iso_date(fact.get("available_date", ""))
+        as_of = _iso_date(registry["as_of"])
+        normalized_checks = _unit_and_sign_checks(fact)
         checks = {
             "document_hash_match": doc_results.get(entity_id, {}).get("hash_match", False),
             "page_exists": bool(page_text),
             "value_exact_on_page": _number_found(value, page_text),
             "concept_term_on_page": _concept_found(fact["concept"], page_text, fact.get("notes", "")),
-            "point_in_time_eligible": fact["available_date"] <= registry["as_of"],
+            "period_dates_valid": bool(period_start and period_end and period_start <= period_end),
+            "period_not_after_as_of": bool(period_end and as_of and period_end <= as_of),
+            "available_date_valid": bool(available_date),
+            "point_in_time_eligible": bool(available_date and as_of and available_date <= as_of),
             "currency_consistent": fact["currency"] == documents[entity_id]["currency"],
             "source_hash_consistent": fact["source_sha256"] == documents[entity_id]["sha256"],
+            "arithmetic_consistent": fact.get("method", "").lower().startswith("direct"),
+            "no_unresolved_restatement_conflict": fact_keys[
+                (fact["entity_id"], fact["concept"], fact["period_start"], fact["period_end"])
+            ] == 1,
+            **normalized_checks,
         }
-        blocking_checks = ("document_hash_match", "page_exists", "value_exact_on_page", "point_in_time_eligible", "currency_consistent", "source_hash_consistent")
+        blocking_checks = (
+            "document_hash_match", "page_exists", "value_exact_on_page",
+            "period_dates_valid", "period_not_after_as_of", "available_date_valid",
+            "point_in_time_eligible", "currency_consistent", "source_hash_consistent",
+            "arithmetic_consistent", "no_unresolved_restatement_conflict",
+            "unit_supported", "normalized_value_finite", "magnitude_sign_consistent",
+            "currency_code_valid",
+        )
         status = "PASS" if all(checks[name] for name in blocking_checks) else "FAIL"
         fact_results.append({
             "fact_id": fact["fact_id"], "entity_id": entity_id, "entity_name": fact["entity_name"],
             "concept": fact["concept"], "value": value, "currency": fact["currency"], "unit": fact["unit"],
             "page": page, "source_url": fact["source_url"], "source_hash": fact["source_sha256"],
             "automated_status": status, "checks": checks,
+            "developer_qa_state": "DEVELOPER_VERIFIED" if status == "PASS" else "DEVELOPER_REJECTED",
             "review_state": "READY_FOR_FINANCE_SME" if status == "PASS" else "RESEARCH_REMEDIATION_REQUIRED",
             "required_reviewers": ["FINANCE_SME", "INDEPENDENT_EVIDENCE_APPROVER"],
             "approval_status": fact["approval_status"],
+            "approval_boundary": "DEVELOPER_VERIFIED is deterministic QA only; it never activates an anchor or claim path.",
         })
 
     counts = Counter(item["automated_status"] for item in fact_results)
     ready = sum(item["review_state"] == "READY_FOR_FINANCE_SME" for item in fact_results)
     return {
-        "qa_version": "public-evidence-qa-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "qa_version": "public-evidence-qa-1.1.0",
+        "generated_at": artifact_timestamp(),
         "as_of": registry["as_of"],
         "documents": len(doc_results),
         "source_cache_complete": all(item["automated_status"] == "PASS" for item in doc_results.values()),
@@ -180,6 +233,7 @@ def verify_expanded_evidence(
         "fact_passes": counts["PASS"],
         "fact_failures": counts["FAIL"],
         "ready_for_finance_sme": ready,
+        "developer_verified": sum(item["developer_qa_state"] == "DEVELOPER_VERIFIED" for item in fact_results),
         "human_approvals_completed": 0,
         "production_approval_claim_allowed": False,
         "documents_detail": doc_results,
@@ -192,7 +246,7 @@ def write_review_pack(output_dir: Path) -> dict:
     output_dir.mkdir(parents=True, exist_ok=True)
     (output_dir / "public_evidence_qa.json").write_text(json.dumps(report, indent=2, sort_keys=True), encoding="utf-8")
     with (output_dir / "finance_sme_review_pack.csv").open("w", newline="", encoding="utf-8") as handle:
-        fields = ["fact_id", "entity_id", "entity_name", "concept", "value", "currency", "unit", "page", "source_url", "source_hash", "automated_status", "review_state", "approval_status"]
+        fields = ["fact_id", "entity_id", "entity_name", "concept", "value", "currency", "unit", "page", "source_url", "source_hash", "automated_status", "developer_qa_state", "review_state", "approval_status"]
         writer = csv.DictWriter(handle, fieldnames=fields)
         writer.writeheader()
         for item in report["facts_detail"]:

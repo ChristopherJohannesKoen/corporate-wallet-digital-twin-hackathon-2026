@@ -1,10 +1,7 @@
 from __future__ import annotations
 
 import json
-import math
-import re
 import sys
-from decimal import Decimal, ROUND_HALF_EVEN
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,37 +36,22 @@ from wallet_twin_v3.contracts import (
     V3OpportunityView,
 )
 from wallet_twin_v3.repository import repository as v3_repository
+from wallet_twin_v2.canonical import canonical_value, write_canonical_json
 
 
 CONTRACTS = ROOT / "contracts"
 SCHEMAS = CONTRACTS / "jsonschema"
 DASHBOARD_DATA = ROOT / "dashboard" / "app" / "data"
 V3_OUTPUTS = ROOT / "outputs" / "v3"
-LONG_DECIMAL = re.compile(r"^-?\d+\.\d{9,}$")
-
-
-def canonical_dashboard_value(value: object) -> object:
-    """Remove platform-only floating-point noise from the checked-in UI fixture."""
-    if isinstance(value, dict):
-        return {key: canonical_dashboard_value(item) for key, item in value.items()}
-    if isinstance(value, list):
-        return [canonical_dashboard_value(item) for item in value]
-    if isinstance(value, float) and math.isfinite(value):
-        if abs(value) < 0.0000001:
-            return 0.0
-        # Portfolio currency values are displayed at cent precision; ratios and
-        # probabilities retain eight decimals. This removes BLAS/platform noise
-        # without changing any decision-relevant value.
-        return round(value, 2 if abs(value) >= 1_000 else 8)
-    if isinstance(value, str) and LONG_DECIMAL.fullmatch(value):
-        rounded = Decimal(value).quantize(Decimal("0.00000001"), rounding=ROUND_HALF_EVEN)
-        return format(rounded, "f")
-    return value
+#: Retained as an alias so existing call sites keep reading naturally. The
+#: implementation now lives in ``wallet_twin_v2.canonical`` so the V3 and V3.1
+#: exporters share one published-precision policy instead of one having a copy
+#: and the other having none.
+canonical_dashboard_value = canonical_value
 
 
 def write_json(path: Path, value: object) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    write_canonical_json(path, value)
 
 
 def main() -> None:
@@ -141,9 +123,23 @@ def main() -> None:
             "release": canonical_v3["release"],
         },
     )
+    # The briefs directory must mirror the current selection exactly. Writing
+    # only the selected briefs leaves orphans from a previous portfolio on disk,
+    # so the committed set would advertise briefs for actions the optimizer no
+    # longer selects.
+    briefs_dir = V3_OUTPUTS / "briefs"
+    briefs_dir.mkdir(parents=True, exist_ok=True)
+    selected = {
+        f"{action.opportunity_id}.json"
+        for action in v3_repository.action_portfolio.selected_actions
+    }
+    for stale in sorted(briefs_dir.glob("*.json")):
+        if stale.name not in selected:
+            stale.unlink()
+            print(f"removed superseded brief {stale.relative_to(ROOT)}")
     for action in v3_repository.action_portfolio.selected_actions:
         write_json(
-            V3_OUTPUTS / "briefs" / f"{action.opportunity_id}.json",
+            briefs_dir / f"{action.opportunity_id}.json",
             v3_repository.brief(action.opportunity_id, v3_repository.as_of),
         )
     print(json.dumps({

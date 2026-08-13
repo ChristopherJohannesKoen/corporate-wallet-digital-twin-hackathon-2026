@@ -6,8 +6,8 @@ to restate an already-closed pack in stakeholder-appropriate language.
 
 ``compile_claim_pack`` produces the closed pack.  ``ClaimCompiler.verify``
 rejects any candidate narration containing a number, stakeholder assertion,
-graph path or citation that is not in the pack.  When verification fails — or
-when no provider is configured — the deterministic brief is returned unchanged.
+graph path or citation that is not in the pack.  When verification fails â€” or
+when no provider is configured â€” the deterministic brief is returned unchanged.
 """
 
 from __future__ import annotations
@@ -27,7 +27,7 @@ from .taxonomy import (
     SOLUTION_LABELS,
 )
 
-BRIEF_COMPILER_VERSION = "v31-deterministic-brief-3.1.0"
+BRIEF_COMPILER_VERSION = "v31-deterministic-brief-3.1.1"
 
 PROHIBITED_CLAIMS = (
     "measured competitor share",
@@ -251,7 +251,7 @@ def compile_brief(
     return ConversationBrief(
         brief_id=f"brief:{candidate.conversation_id}",
         conversation_id=candidate.conversation_id,
-        headline=f"{candidate.entity_name} · {role} · {pack['problem']}",
+        headline=f"{candidate.entity_name} Â· {role} Â· {pack['problem']}",
         why=why,
         how=how,
         what=what,

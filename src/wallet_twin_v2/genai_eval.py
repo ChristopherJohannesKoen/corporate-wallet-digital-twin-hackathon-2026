@@ -3,12 +3,13 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from datetime import date, datetime, timezone
+from datetime import date
 from pathlib import Path
 from typing import Dict, List
 
 from .evidence_qa import verify_expanded_evidence
 from .public_evidence import PublicEvidenceRegistry
+from .canonical import artifact_timestamp
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -131,6 +132,36 @@ def generated_stress_suite(case_count: int = 640) -> dict:
     }
 
 
+def governed_check_scopes(
+    *,
+    golden_cases: int = 36,
+    evidence_register_replays: int = 82,
+    page_grounding_facts: int = 51,
+    generated_stress_cases: int = 640,
+) -> dict:
+    """Separate the two governed-check populations that were being conflated.
+
+    The headline "809 governed checks" sums two different things: a small set of
+    evidence-grounded checks that touch real curated facts, and a large
+    machine-generated suite that exercises the deterministic validators and
+    abstention mechanics with no model call at all.  Reporting only the total
+    overstates the evidential weight; reporting only the evidence-grounded
+    figure understates the validator coverage.  Both are published, with scope.
+    """
+    evidence_grounded = golden_cases + evidence_register_replays + page_grounding_facts
+    return {
+        "golden_cases": golden_cases,
+        "evidence_register_replays": evidence_register_replays,
+        "page_grounding_facts": page_grounding_facts,
+        "evidence_grounded_total": evidence_grounded,
+        "generated_stress_cases": generated_stress_cases,
+        "governed_checks_total": evidence_grounded + generated_stress_cases,
+        "stress_suite_scope": (
+            "deterministic validators and abstention mechanics only; no model call"
+        ),
+    }
+
+
 def evaluate_golden_set(path: Path = CASES) -> dict:
     cases = load_cases(path)
     split_metrics: Dict[str, dict] = {}
@@ -174,13 +205,20 @@ def evaluate_golden_set(path: Path = CASES) -> dict:
         evidence_replay.append({"fact_id": fact.fact_id, "passed": all(checks.values()), "checks": checks})
     page_grounding = verify_expanded_evidence()
     stress = generated_stress_suite()
-    governed_checks = len(cases) + len(evidence_replay) + page_grounding["facts"] + stress["cases"]
+    scopes = governed_check_scopes(
+        golden_cases=len(cases),
+        evidence_register_replays=len(evidence_replay),
+        page_grounding_facts=page_grounding["facts"],
+        generated_stress_cases=stress["cases"],
+    )
+    governed_checks = scopes["governed_checks_total"]
     return {
         "evaluation_version": "deterministic-golden-eval-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": artifact_timestamp(),
         "dataset_sha256": digest,
         "dataset_cases": len(cases),
         "governed_evaluation_checks": governed_checks,
+        "governed_check_scopes": scopes,
         "schema_compliance": 1.0,
         "splits": split_metrics,
         "evidence_register_replay": {

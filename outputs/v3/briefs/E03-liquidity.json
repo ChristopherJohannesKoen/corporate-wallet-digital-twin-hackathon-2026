@@ -16,7 +16,7 @@
   ],
   "model_claims": [
     {
-      "claim": "Estimated latent external wallet is ZAR 28,598,376,031 at the scenario median.",
+      "claim": "Estimated latent external wallet is ZAR 10,790,046,927 at the scenario median.",
       "claim_class": "SCENARIO",
       "support": "shadow:E03-liquidity:v3.0.0"
     },
@@ -32,7 +32,7 @@
     }
   ],
   "observed": {
-    "activity_zar": 3684707424.1852517,
+    "activity_zar": 3684707424.19,
     "claim_class": "OBSERVED",
     "provenance": "SYN_BANK_SIMULATION"
   },
@@ -42,20 +42,5 @@
     "causal uplift",
     "optimal target share"
   ],
-  "public_evidence": [
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2026-03-02",
-      "fact_id": "AA-2025-CASH",
-      "label": "Anglo American Integrated Annual Report 2025 p.274",
-      "url": "https://www.angloamerican.com/~/media/Files/A/Anglo-American-Group-v9/PLC/investors/annual-reporting/2025/aa-annual-report-full-2025.pdf"
-    },
-    {
-      "approval_status": "PENDING_REVIEW",
-      "available_date": "2026-03-02",
-      "fact_id": "AA-2025-DEBT",
-      "label": "Anglo American Integrated Annual Report 2025 p.274",
-      "url": "https://www.angloamerican.com/~/media/Files/A/Anglo-American-Group-v9/PLC/investors/annual-reporting/2025/aa-annual-report-full-2025.pdf"
-    }
-  ]
+  "public_evidence": []
 }

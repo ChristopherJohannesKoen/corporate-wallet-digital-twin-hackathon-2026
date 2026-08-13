@@ -1,16 +1,18 @@
-# Corporate Wallet Digital Twin V3.1 — operational runbook
+# Corporate Wallet Digital Twin V3.1.1 — operational runbook
 
-## V3.1 canonical rebuild and smoke test
+## V3.1.1 canonical rebuild and smoke test
 
 V3.1 adds the Business Twin service while keeping `/v1` and existing `/v3`
 responses backward compatible. Rebuild contracts, canonical outputs and the
 server-only workbench fixture with:
 
 ```powershell
-uv run python scripts/freeze_v3_regression.py
-uv run python scripts/export_v31_contracts.py
-uv run python scripts/build_v31_notebook.py
+uv run python scripts/build_submission.py
 ```
+
+This is the only command permitted to write the final judging notebook, PDF,
+PPTX, workbook and manifest. `freeze_v3_regression.py` is a historical
+maintenance utility and is not part of submission reproduction.
 
 Start the composed BFF with `uv run uvicorn wallet_twin_v2.service_apps:workbench_bff_app`
 and smoke-test `GET /v3/decision-twin?as_of=2026-06-30&week_start=2026-07-06`.
@@ -148,7 +150,11 @@ npm run dev
 6. Publish `EvidenceApproved` only after approval; restatements append a new version.
 7. Rebuild the audit workbook and ensure all formula checks pass.
 
-The active register is `outputs/audit/Public-Facts-Anchor-Register.xlsx`: 82 E1 facts, 20 clients, 31 approved and 51 pending. Pending facts remain candidate evidence.
+The active register is
+`outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx`: 82 E1 source facts,
+20 clients, 31 approved and 51 pending. Pending facts remain candidate evidence
+and cannot activate anchors. The expected wallet surface is exactly 15 E1
+anchored and 85 E0 prior-led client-product opportunities.
 
 ## V3 analytical cycle
 

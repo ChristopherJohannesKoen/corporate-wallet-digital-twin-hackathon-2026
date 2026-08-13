@@ -8,12 +8,12 @@
         "break_even_target_share": {
           "definition": "current share plus capture required to recover explicit acquisition cost",
           "maximum": 0.41874351247493935,
-          "median": 0.11405130729864814,
+          "median": 0.28552321102510725,
           "note": "Benchmark acquisition cost is zero; bank implementation costs must be supplied before production."
         },
         "concentration": {
-          "product_hhi": 0.2846886690970129,
-          "top_product_share": 0.3885795657508792
+          "product_hhi": 0.36818750968373576,
+          "top_product_share": 0.5507527454101014
         },
         "margin_waterfalls": {
           "Collections": {
@@ -114,54 +114,54 @@
         },
         "portfolio_frontier": [
           {
-            "scenario_value_zar": 7921073.330331773,
+            "scenario_value_zar": 3787084.5439979252,
             "target_share": 0.25
           },
           {
-            "scenario_value_zar": 11533093.509555345,
+            "scenario_value_zar": 6616329.8651849665,
             "target_share": 0.3
           },
           {
-            "scenario_value_zar": 15773815.481515992,
+            "scenario_value_zar": 10224309.86570191,
             "target_share": 0.35
           },
           {
-            "scenario_value_zar": 20185192.95051505,
+            "scenario_value_zar": 13965019.33805205,
             "target_share": 0.4
           },
           {
-            "scenario_value_zar": 24687367.408771038,
+            "scenario_value_zar": 17727700.900049694,
             "target_share": 0.45
           },
           {
-            "scenario_value_zar": 29235368.889402054,
+            "scenario_value_zar": 21502406.101933874,
             "target_share": 0.5
           },
           {
-            "scenario_value_zar": 38331371.85066401,
+            "scenario_value_zar": 29051816.505702198,
             "target_share": 0.6
           }
         ],
-        "portfolio_observed_contribution_zar": 16244645.916907879,
-        "portfolio_scenario_value_zar": 11533093.509555345,
+        "portfolio_observed_contribution_zar": 16244645.91690788,
+        "portfolio_scenario_value_zar": 6616329.8651849665,
         "product_observed_contribution_zar": {
           "Collections": 577080.7436399563,
           "Cross-border FX": 4661602.301538001,
           "Liquidity": 3356100.2490491522,
           "Payments": 660581.6285307717,
-          "Trade finance": 6989280.994150001
+          "Trade finance": 6989280.99415
         },
         "product_scenario_value_zar": {
-          "Collections": 1019141.4639661692,
-          "Cross-border FX": 4481524.4677073,
-          "Liquidity": 1939461.1205441868,
-          "Payments": 528808.7358781245,
-          "Trade finance": 3564157.721459561
+          "Collections": 529401.9273074013,
+          "Cross-border FX": 1346213.5434216526,
+          "Liquidity": 817877.8648915684,
+          "Payments": 278874.69177487504,
+          "Trade finance": 3643961.8377894666
         },
         "reconciliation": {
-          "difference_zar": 3.725290298461914e-09,
+          "difference_zar": 2.7939677238464355e-09,
           "passes": true,
-          "product_sum_zar": 11533093.509555342
+          "product_sum_zar": 6616329.865184964
         },
         "sample_frontiers": [
           {
@@ -240,31 +240,6 @@
             ]
           },
           {
-            "opportunity_id": "E16-cross-border-fx",
-            "points": [
-              {
-                "scenario_value_zar": 451816.77893507323,
-                "target_share": 0.3
-              },
-              {
-                "scenario_value_zar": 634557.8147922787,
-                "target_share": 0.35
-              },
-              {
-                "scenario_value_zar": 817298.8506494843,
-                "target_share": 0.4
-              },
-              {
-                "scenario_value_zar": 1000039.8865066901,
-                "target_share": 0.45
-              },
-              {
-                "scenario_value_zar": 1182780.9223638957,
-                "target_share": 0.5
-              }
-            ]
-          },
-          {
             "opportunity_id": "E01-cross-border-fx",
             "points": [
               {
@@ -288,21 +263,46 @@
                 "target_share": 0.5
               }
             ]
+          },
+          {
+            "opportunity_id": "E02-liquidity",
+            "points": [
+              {
+                "scenario_value_zar": 331426.85549922904,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 405468.0128554173,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 479509.1702116056,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 553550.3275677939,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 627591.4849239822,
+                "target_share": 0.5
+              }
+            ]
           }
         ],
         "target_share": 0.3,
-        "top_product": "Cross-border FX"
+        "top_product": "Trade finance"
       },
       "reference": {
         "break_even_target_share": {
           "definition": "current share plus capture required to recover explicit acquisition cost",
           "maximum": 0.41874351247493935,
-          "median": 0.11405130729864814,
+          "median": 0.28552321102510725,
           "note": "Benchmark acquisition cost is zero; bank implementation costs must be supplied before production."
         },
         "concentration": {
-          "product_hhi": 0.27451123831575885,
-          "top_product_share": 0.34747712517735896
+          "product_hhi": 0.32668383057649186,
+          "top_product_share": 0.4849388109292672
         },
         "margin_waterfalls": {
           "Collections": {
@@ -403,54 +403,54 @@
         },
         "portfolio_frontier": [
           {
-            "scenario_value_zar": 36589221.110759184,
+            "scenario_value_zar": 17066416.403868604,
             "target_share": 0.25
           },
           {
-            "scenario_value_zar": 53417816.21112528,
+            "scenario_value_zar": 30184151.293597113,
             "target_share": 0.3
           },
           {
-            "scenario_value_zar": 72977824.0014401,
+            "scenario_value_zar": 46846111.29219959,
             "target_share": 0.35
           },
           {
-            "scenario_value_zar": 93297225.11432014,
+            "scenario_value_zar": 64139123.94109643,
             "target_share": 0.4
           },
           {
-            "scenario_value_zar": 114140148.290262,
+            "scenario_value_zar": 81556681.42403656,
             "target_share": 0.45
           },
           {
-            "scenario_value_zar": 135247458.13375193,
+            "scenario_value_zar": 99043606.06016815,
             "target_share": 0.5
           },
           {
-            "scenario_value_zar": 177462077.82073176,
+            "scenario_value_zar": 134017455.33243127,
             "target_share": 0.6
           }
         ],
-        "portfolio_observed_contribution_zar": 75825640.30114758,
-        "portfolio_scenario_value_zar": 93297225.11432014,
+        "portfolio_observed_contribution_zar": 75825640.30114754,
+        "portfolio_scenario_value_zar": 64139123.94109643,
         "product_observed_contribution_zar": {
-          "Collections": 2663449.5860305675,
-          "Cross-border FX": 20170394.573962495,
-          "Liquidity": 19362116.82143742,
+          "Collections": 2663449.586030567,
+          "Cross-border FX": 20170394.5739625,
+          "Liquidity": 19362116.82143741,
           "Payments": 3387598.095029597,
-          "Trade finance": 30242081.2246875
+          "Trade finance": 30242081.22468751
         },
         "product_scenario_value_zar": {
-          "Collections": 7159456.306930207,
-          "Cross-border FX": 32418651.56974886,
-          "Liquidity": 19190295.183236893,
-          "Payments": 4559411.901434656,
-          "Trade finance": 29969410.152969502
+          "Collections": 3792958.7190764807,
+          "Cross-border FX": 14330319.314254746,
+          "Liquidity": 12228836.47882924,
+          "Payments": 2683458.930895819,
+          "Trade finance": 31103550.4980402
         },
         "reconciliation": {
-          "difference_zar": 2.9802322387695312e-08,
+          "difference_zar": -5.21540641784668e-08,
           "passes": true,
-          "product_sum_zar": 93297225.11432011
+          "product_sum_zar": 64139123.941096485
         },
         "sample_frontiers": [
           {
@@ -529,31 +529,6 @@
             ]
           },
           {
-            "opportunity_id": "E16-cross-border-fx",
-            "points": [
-              {
-                "scenario_value_zar": 1954976.4473152207,
-                "target_share": 0.3
-              },
-              {
-                "scenario_value_zar": 2745682.8524665907,
-                "target_share": 0.35
-              },
-              {
-                "scenario_value_zar": 3536389.257617961,
-                "target_share": 0.4
-              },
-              {
-                "scenario_value_zar": 4327095.662769332,
-                "target_share": 0.45
-              },
-              {
-                "scenario_value_zar": 5117802.0679207025,
-                "target_share": 0.5
-              }
-            ]
-          },
-          {
             "opportunity_id": "E01-cross-border-fx",
             "points": [
               {
@@ -577,21 +552,46 @@
                 "target_share": 0.5
               }
             ]
+          },
+          {
+            "opportunity_id": "E02-liquidity",
+            "points": [
+              {
+                "scenario_value_zar": 1912078.0124955522,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 2339238.535704331,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 2766399.0589131094,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 3193559.582121888,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 3620720.1053306665,
+                "target_share": 0.5
+              }
+            ]
           }
         ],
         "target_share": 0.4,
-        "top_product": "Cross-border FX"
+        "top_product": "Trade finance"
       },
       "upside": {
         "break_even_target_share": {
           "definition": "current share plus capture required to recover explicit acquisition cost",
           "maximum": 0.41874351247493935,
-          "median": 0.11405130729864814,
+          "median": 0.28552321102510725,
           "note": "Benchmark acquisition cost is zero; bank implementation costs must be supplied before production."
         },
         "concentration": {
-          "product_hhi": 0.27299010848003774,
-          "top_product_share": 0.34222298271150164
+          "product_hhi": 0.31037548943882576,
+          "top_product_share": 0.45361938725817647
         },
         "margin_waterfalls": {
           "Collections": {
@@ -692,54 +692,54 @@
         },
         "portfolio_frontier": [
           {
-            "scenario_value_zar": 91096303.26404196,
+            "scenario_value_zar": 42010152.55877489,
             "target_share": 0.25
           },
           {
-            "scenario_value_zar": 132947731.40330425,
+            "scenario_value_zar": 74113217.6190527,
             "target_share": 0.3
           },
           {
-            "scenario_value_zar": 181384917.43370476,
+            "scenario_value_zar": 115085703.48134205,
             "target_share": 0.35
           },
           {
-            "scenario_value_zar": 231665032.7788986,
+            "scenario_value_zar": 157674355.92734057,
             "target_share": 0.4
           },
           {
-            "scenario_value_zar": 283264423.72300833,
+            "scenario_value_zar": 200577792.58820632,
             "target_share": 0.45
           },
           {
-            "scenario_value_zar": 335530069.06933886,
+            "scenario_value_zar": 243656034.4751147,
             "target_share": 0.5
           },
           {
-            "scenario_value_zar": 440061359.76200044,
+            "scenario_value_zar": 329812518.24893135,
             "target_share": 0.6
           }
         ],
-        "portfolio_observed_contribution_zar": 187126384.39396876,
-        "portfolio_scenario_value_zar": 335530069.06933886,
+        "portfolio_observed_contribution_zar": 187126384.3939687,
+        "portfolio_scenario_value_zar": 243656034.4751147,
         "product_observed_contribution_zar": {
-          "Collections": 6991555.163330242,
-          "Cross-border FX": 50829394.326385505,
-          "Liquidity": 48792534.39002229,
+          "Collections": 6991555.16333024,
+          "Cross-border FX": 50829394.32638551,
+          "Liquidity": 48792534.390022285,
           "Payments": 8536747.199474588,
-          "Trade finance": 71976153.31475626
+          "Trade finance": 71976153.31475627
         },
         "product_scenario_value_zar": {
-          "Collections": 25239854.7979473,
-          "Cross-border FX": 114826101.0263053,
-          "Liquidity": 71814745.42192523,
-          "Payments": 16496334.289387817,
-          "Trade finance": 107153033.53377336
+          "Collections": 14193534.587802261,
+          "Cross-border FX": 57847854.42149881,
+          "Liquidity": 50500461.97326443,
+          "Payments": 10587082.43219048,
+          "Trade finance": 110527101.06035866
         },
         "reconciliation": {
-          "difference_zar": -1.7881393432617188e-07,
+          "difference_zar": 5.960464477539063e-08,
           "passes": true,
-          "product_sum_zar": 335530069.06933904
+          "product_sum_zar": 243656034.47511464
         },
         "sample_frontiers": [
           {
@@ -818,31 +818,6 @@
             ]
           },
           {
-            "opportunity_id": "E16-cross-border-fx",
-            "points": [
-              {
-                "scenario_value_zar": 4926540.647234356,
-                "target_share": 0.3
-              },
-              {
-                "scenario_value_zar": 6919120.788215809,
-                "target_share": 0.35
-              },
-              {
-                "scenario_value_zar": 8911700.929197261,
-                "target_share": 0.4
-              },
-              {
-                "scenario_value_zar": 10904281.070178716,
-                "target_share": 0.45
-              },
-              {
-                "scenario_value_zar": 12896861.21116017,
-                "target_share": 0.5
-              }
-            ]
-          },
-          {
             "opportunity_id": "E01-cross-border-fx",
             "points": [
               {
@@ -866,10 +841,35 @@
                 "target_share": 0.5
               }
             ]
+          },
+          {
+            "opportunity_id": "E02-liquidity",
+            "points": [
+              {
+                "scenario_value_zar": 4818436.591488792,
+                "target_share": 0.3
+              },
+              {
+                "scenario_value_zar": 5894881.109974914,
+                "target_share": 0.35
+              },
+              {
+                "scenario_value_zar": 6971325.628461036,
+                "target_share": 0.4
+              },
+              {
+                "scenario_value_zar": 8047770.146947158,
+                "target_share": 0.45
+              },
+              {
+                "scenario_value_zar": 9124214.66543328,
+                "target_share": 0.5
+              }
+            ]
           }
         ],
         "target_share": 0.5,
-        "top_product": "Cross-border FX"
+        "top_product": "Trade finance"
       }
     },
     "production_eligible": false,
@@ -934,7 +934,7 @@
     },
     "status": "SIMULATED_TRIAL_DESIGN_ONLY"
   },
-  "generated_at": "2026-08-10T20:02:07.554815+00:00",
+  "generated_at": "2026-06-30T00:00:00+00:00",
   "global_watermark": "SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE \u2014 NOT BANK-VALIDATED",
   "historical_validation": {
     "entities": 20,

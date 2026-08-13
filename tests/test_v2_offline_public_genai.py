@@ -27,15 +27,71 @@ def test_expanded_public_register_is_point_in_time_and_complete():
     assert all(fact.page > 0 and fact.source_url.startswith("https://") for fact in registry.facts)
 
 
-def test_all_relationship_products_receive_explicit_e1_anchor_inputs():
+def test_anchor_activation_requires_approved_public_facts():
+    """Only approved evidence may move a published number.
+
+    Asserted as an invariant derived from fact state, never as a hard-coded
+    count: when a finance SME approves pending facts, the affected anchors
+    activate on the next run and this test must still pass unchanged.
+    """
+    registry = PublicEvidenceRegistry(date(2026, 6, 30))
+    approved_entities = {
+        fact.entity_id for fact in registry.facts if fact.approval_status == "APPROVED"
+    }
     fixture = build_fixture()
-    assert len(fixture["opportunities"]) == 100
-    assert all(item.evidence_tier.value == "E1" for item in fixture["opportunities"])
-    assert fixture["evidence_coverage"]["e1_clients"] == 20
-    assert fixture["evidence_coverage"]["pending_sme_facts"] == 51
+    opportunities = fixture["opportunities"]
+    assert len(opportunities) == 100
+
+    anchored = [item for item in opportunities if item.evidence_tier.value == "E1"]
+    prior_led = [item for item in opportunities if item.evidence_tier.value == "E0"]
+    assert len(anchored) + len(prior_led) == 100
+
+    # Tier follows activation, and activation follows approval.
+    assert {item.entity_id for item in anchored} == approved_entities
+    assert all(item.anchor_activation.value == "ACTIVATED" for item in anchored)
+    assert all(item.calibration_status.value == "PUBLICLY_ANCHORED" for item in anchored)
+    assert all(item.calibration_status.value == "PRIOR_LED" for item in prior_led)
+
+    # A withheld cell cites nothing and says why.
+    assert all(not item.evidence_fact_ids for item in prior_led)
+    assert all(item.evidence_fact_ids for item in anchored)
+    assert all(
+        item.activation_reason_code == "ANCHOR_WITHHELD_PENDING_SME_APPROVAL"
+        for item in prior_led
+    )
+    assert all(
+        "ANCHOR_WITHHELD_PENDING_SME_APPROVAL" in item.eligibility.reason_codes
+        for item in prior_led
+    )
+
+    # No pending fact may appear in an active anchor path anywhere.
+    pending_ids = {
+        fact.fact_id for fact in registry.facts if fact.approval_status != "APPROVED"
+    }
+    cited = {fact_id for item in opportunities for fact_id in item.evidence_fact_ids}
+    assert cited.isdisjoint(pending_ids)
+
+    # The client cards must agree with their own cells.
+    assert fixture["evidence_coverage"]["e1_clients"] == len(approved_entities)
     assert fixture["release"]["status"] == "CLIENT_DEMO_READY_BANK_PRODUCTION_NOT_PROMOTABLE"
     assert fixture["release"]["client_demo_status"] == "READY"
     assert fixture["release"]["bank_production_status"] == "NOT_PROMOTABLE"
+
+
+def test_pre_signoff_evidence_snapshot():
+    """Records today's approval state. Expected to change when the SME signs off.
+
+    This is a snapshot, not a contract: if it fails because facts were approved,
+    update it. The invariant above is what must never break.
+    """
+    fixture = build_fixture()
+    coverage = fixture["evidence_coverage"]
+    assert coverage["approved_e1_facts"] == 31
+    assert coverage["pending_sme_facts"] == 51
+    assert coverage["e1_clients"] == 3
+    tiers = [item.evidence_tier.value for item in fixture["opportunities"]]
+    assert tiers.count("E1") == 15
+    assert tiers.count("E0") == 85
 
 
 def test_known_truth_lab_reports_narrowing_only_when_coverage_is_preserved():

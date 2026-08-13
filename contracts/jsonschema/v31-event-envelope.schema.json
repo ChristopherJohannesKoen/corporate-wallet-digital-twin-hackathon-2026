@@ -7,6 +7,18 @@
           "title": "Dataset Version",
           "type": "string"
         },
+        "measurement_policy_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measurement Policy Version"
+        },
         "model_version": {
           "title": "Model Version",
           "type": "string"
@@ -280,7 +292,7 @@
       "type": "array"
     },
     "schema_version": {
-      "default": "3.1.0",
+      "default": "3.1.1",
       "title": "Schema Version",
       "type": "string"
     },

@@ -21,7 +21,7 @@ import numpy as np
 
 from .contracts import ParetoStatus
 
-PARETO_POLICY_VERSION = "v31-robust-dominance-3.1.0"
+PARETO_POLICY_VERSION = "v31-robust-dominance-3.1.1"
 DEFAULT_DRAWS = 512
 DOMINANCE_THRESHOLD = 0.80
 

@@ -19,6 +19,7 @@ from .contracts import CalibrationObservation, CuratedMetadata, EvidenceTier, Qu
 from .fixtures import ROOT, build_fixture
 from .timing import TimingService
 from .wallet_model import DEFAULT_PRIORS, HierarchicalWalletModel, sample_crps
+from .canonical import artifact_timestamp
 
 
 PRODUCTS = tuple(DEFAULT_PRIORS)
@@ -607,7 +608,7 @@ def run_offline_lab(include_history: bool = True, zip_path: Path | None = None) 
     history, monthly = historical_validation_lab(zip_path or RAW_ZIP) if include_history else ({"status": "NOT_RUN"}, pd.DataFrame())
     report = {
         "report_version": "offline-validation-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": artifact_timestamp(),
         "global_watermark": "SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE — NOT BANK-VALIDATED",
         "as_of": fixture["metadata"]["as_of"],
         "synthetic_calibration": synthetic_calibration_lab(),

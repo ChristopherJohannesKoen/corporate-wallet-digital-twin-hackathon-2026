@@ -1,0 +1,2812 @@
+{
+  "activated_cells": 15,
+  "arms": {
+    "0.20": {
+      "activated_cells": 15,
+      "cells": [
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 8614736.08,
+          "opportunity_id": "E02-trade-finance",
+          "posterior_wallet_interval_width": 20723024824.27,
+          "posterior_wallet_median": 8928222234.51,
+          "rank": 1
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 5360452.66,
+          "opportunity_id": "E01-trade-finance",
+          "posterior_wallet_interval_width": 18888298775.76,
+          "posterior_wallet_median": 7478945755.5,
+          "rank": 2
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4181909.12,
+          "opportunity_id": "E10-trade-finance",
+          "posterior_wallet_interval_width": 27636394820.33,
+          "posterior_wallet_median": 7713997311.43,
+          "rank": 3
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4091701.18,
+          "opportunity_id": "E11-liquidity",
+          "posterior_wallet_interval_width": 178308571814.91,
+          "posterior_wallet_median": 63793860142.72,
+          "rank": 4
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3527651.23,
+          "opportunity_id": "E16-trade-finance",
+          "posterior_wallet_interval_width": 22310956616.59,
+          "posterior_wallet_median": 6153125810.53,
+          "rank": 5
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3387785.9,
+          "opportunity_id": "E11-trade-finance",
+          "posterior_wallet_interval_width": 22936978403.44,
+          "posterior_wallet_median": 6276983485.22,
+          "rank": 6
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3339106.95,
+          "opportunity_id": "E18-trade-finance",
+          "posterior_wallet_interval_width": 22189163724.99,
+          "posterior_wallet_median": 6065059686.19,
+          "rank": 7
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 3057795.47,
+          "opportunity_id": "E02-cross-border-fx",
+          "posterior_wallet_interval_width": 31391269332.69,
+          "posterior_wallet_median": 16832761015.61,
+          "rank": 8
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2666547.87,
+          "opportunity_id": "E09-trade-finance",
+          "posterior_wallet_interval_width": 14832697146.58,
+          "posterior_wallet_median": 5771642681.57,
+          "rank": 9
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2535885.05,
+          "opportunity_id": "E01-cross-border-fx",
+          "posterior_wallet_interval_width": 25516240031.9,
+          "posterior_wallet_median": 14346933509.9,
+          "rank": 10
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 2337403.63,
+          "opportunity_id": "E08-liquidity",
+          "posterior_wallet_interval_width": 106834544886.17,
+          "posterior_wallet_median": 36109260245.64,
+          "rank": 11
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2278508.91,
+          "opportunity_id": "E01-liquidity",
+          "posterior_wallet_interval_width": 66535464114.03,
+          "posterior_wallet_median": 32731242923.78,
+          "rank": 12
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2097061.28,
+          "opportunity_id": "E02-liquidity",
+          "posterior_wallet_interval_width": 36066774487.97,
+          "posterior_wallet_median": 16771776935.16,
+          "rank": 13
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1743799.56,
+          "opportunity_id": "E11-cross-border-fx",
+          "posterior_wallet_interval_width": 56961401763.38,
+          "posterior_wallet_median": 22875976294.53,
+          "rank": 14
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1629387.94,
+          "opportunity_id": "E16-cross-border-fx",
+          "posterior_wallet_interval_width": 51756162327.33,
+          "posterior_wallet_median": 21373922775.57,
+          "rank": 15
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1584705.74,
+          "opportunity_id": "E10-cross-border-fx",
+          "posterior_wallet_interval_width": 50851915434.41,
+          "posterior_wallet_median": 21085465680.61,
+          "rank": 16
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1571622.96,
+          "opportunity_id": "E05-trade-finance",
+          "posterior_wallet_interval_width": 10317600437.27,
+          "posterior_wallet_median": 2872391481.59,
+          "rank": 17
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1522932.42,
+          "opportunity_id": "E10-liquidity",
+          "posterior_wallet_interval_width": 69429876444.83,
+          "posterior_wallet_median": 23967449251.79,
+          "rank": 18
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1450925.06,
+          "opportunity_id": "E03-trade-finance",
+          "posterior_wallet_interval_width": 10056984723.12,
+          "posterior_wallet_median": 2626885044.8,
+          "rank": 19
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1262213.13,
+          "opportunity_id": "E16-liquidity",
+          "posterior_wallet_interval_width": 54610827989.91,
+          "posterior_wallet_median": 19543878247.55,
+          "rank": 20
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1172762.47,
+          "opportunity_id": "E04-trade-finance",
+          "posterior_wallet_interval_width": 7853297707.96,
+          "posterior_wallet_median": 2135383604.65,
+          "rank": 21
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1163722.98,
+          "opportunity_id": "E19-trade-finance",
+          "posterior_wallet_interval_width": 7946613404.97,
+          "posterior_wallet_median": 2170683763.78,
+          "rank": 22
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 1126317.89,
+          "opportunity_id": "E01-collections",
+          "posterior_wallet_interval_width": 66746474741.35,
+          "posterior_wallet_median": 53438753973.94,
+          "rank": 23
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 972599.77,
+          "opportunity_id": "E03-liquidity",
+          "posterior_wallet_interval_width": 42607194074.61,
+          "posterior_wallet_median": 14474754350.93,
+          "rank": 24
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 784847.95,
+          "opportunity_id": "E17-cross-border-fx",
+          "posterior_wallet_interval_width": 24356946487.23,
+          "posterior_wallet_median": 10079484847.83,
+          "rank": 25
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 736100.41,
+          "opportunity_id": "E08-cross-border-fx",
+          "posterior_wallet_interval_width": 23590760844.09,
+          "posterior_wallet_median": 9301997517.42,
+          "rank": 26
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 701955.67,
+          "opportunity_id": "E02-collections",
+          "posterior_wallet_interval_width": 31596866262.82,
+          "posterior_wallet_median": 25150119860.73,
+          "rank": 27
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 666210.03,
+          "opportunity_id": "E09-cross-border-fx",
+          "posterior_wallet_interval_width": 18975028920.63,
+          "posterior_wallet_median": 10771948473.11,
+          "rank": 28
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 584131.24,
+          "opportunity_id": "E01-payments",
+          "posterior_wallet_interval_width": 55643439308.42,
+          "posterior_wallet_median": 41545138550.62,
+          "rank": 29
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 565406.42,
+          "opportunity_id": "E15-cross-border-fx",
+          "posterior_wallet_interval_width": 17661478453.84,
+          "posterior_wallet_median": 7167983194.04,
+          "rank": 30
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 546060.57,
+          "opportunity_id": "E18-liquidity",
+          "posterior_wallet_interval_width": 23110899112.66,
+          "posterior_wallet_median": 8736184854.94,
+          "rank": 31
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 531515.38,
+          "opportunity_id": "E14-cross-border-fx",
+          "posterior_wallet_interval_width": 16659674743.08,
+          "posterior_wallet_median": 6845668425.34,
+          "rank": 32
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 442593.47,
+          "opportunity_id": "E18-cross-border-fx",
+          "posterior_wallet_interval_width": 13852857881.53,
+          "posterior_wallet_median": 5626888318.58,
+          "rank": 33
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 423268.53,
+          "opportunity_id": "E17-trade-finance",
+          "posterior_wallet_interval_width": 2580742326.03,
+          "posterior_wallet_median": 757235737.47,
+          "rank": 34
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 416474.07,
+          "opportunity_id": "E19-liquidity",
+          "posterior_wallet_interval_width": 17550529699.14,
+          "posterior_wallet_median": 6570429868.52,
+          "rank": 35
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 414542.1,
+          "opportunity_id": "E02-payments",
+          "posterior_wallet_interval_width": 28520071389.03,
+          "posterior_wallet_median": 21514221599.31,
+          "rank": 36
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 400375.46,
+          "opportunity_id": "E09-liquidity",
+          "posterior_wallet_interval_width": 30617015646.81,
+          "posterior_wallet_median": 15080800206.06,
+          "rank": 37
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 398797.04,
+          "opportunity_id": "E09-payments",
+          "posterior_wallet_interval_width": 47859281007.75,
+          "posterior_wallet_median": 35329739620.59,
+          "rank": 38
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 392089.41,
+          "opportunity_id": "E19-cross-border-fx",
+          "posterior_wallet_interval_width": 11452577893.62,
+          "posterior_wallet_median": 4942360689.03,
+          "rank": 39
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 356220.39,
+          "opportunity_id": "E08-trade-finance",
+          "posterior_wallet_interval_width": 2455674391.68,
+          "posterior_wallet_median": 633982715.79,
+          "rank": 40
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 323114.18,
+          "opportunity_id": "E09-collections",
+          "posterior_wallet_interval_width": 19245073534.91,
+          "posterior_wallet_median": 15426004502.53,
+          "rank": 41
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 296926.27,
+          "opportunity_id": "E11-payments",
+          "posterior_wallet_interval_width": 130526471282.81,
+          "posterior_wallet_median": 72021783593.12,
+          "rank": 42
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 289747.95,
+          "opportunity_id": "E07-cross-border-fx",
+          "posterior_wallet_interval_width": 9256446348.41,
+          "posterior_wallet_median": 3884904817.06,
+          "rank": 43
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 285611.67,
+          "opportunity_id": "E12-cross-border-fx",
+          "posterior_wallet_interval_width": 8244574062.14,
+          "posterior_wallet_median": 3542594057.98,
+          "rank": 44
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 278541.91,
+          "opportunity_id": "E06-trade-finance",
+          "posterior_wallet_interval_width": 1898246360.6,
+          "posterior_wallet_median": 489413991.53,
+          "rank": 45
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 274765.57,
+          "opportunity_id": "E03-cross-border-fx",
+          "posterior_wallet_interval_width": 8611962931.89,
+          "posterior_wallet_median": 3471227415.8,
+          "rank": 46
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 250022.17,
+          "opportunity_id": "E04-liquidity",
+          "posterior_wallet_interval_width": 10169849200.67,
+          "posterior_wallet_median": 3770962987.24,
+          "rank": 47
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 244749.69,
+          "opportunity_id": "E05-cross-border-fx",
+          "posterior_wallet_interval_width": 7516917684.16,
+          "posterior_wallet_median": 3121336355.39,
+          "rank": 48
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 235796.69,
+          "opportunity_id": "E04-cross-border-fx",
+          "posterior_wallet_interval_width": 7355677031.42,
+          "posterior_wallet_median": 2967059225.3,
+          "rank": 49
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 221971.42,
+          "opportunity_id": "E14-liquidity",
+          "posterior_wallet_interval_width": 10037964374.05,
+          "posterior_wallet_median": 3557844289.99,
+          "rank": 50
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 200535.06,
+          "opportunity_id": "E05-liquidity",
+          "posterior_wallet_interval_width": 8919971110.32,
+          "posterior_wallet_median": 3188833625.04,
+          "rank": 51
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 186345.56,
+          "opportunity_id": "E07-trade-finance",
+          "posterior_wallet_interval_width": 1310640403.22,
+          "posterior_wallet_median": 330967119.65,
+          "rank": 52
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 175033.12,
+          "opportunity_id": "E08-payments",
+          "posterior_wallet_interval_width": 73368086629.27,
+          "posterior_wallet_median": 40768161837.03,
+          "rank": 53
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 170802.18,
+          "opportunity_id": "E15-liquidity",
+          "posterior_wallet_interval_width": 8080149123.32,
+          "posterior_wallet_median": 2707909572.72,
+          "rank": 54
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 153889.79,
+          "opportunity_id": "E12-trade-finance",
+          "posterior_wallet_interval_width": 979480761.23,
+          "posterior_wallet_median": 270700453.24,
+          "rank": 55
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 120870.58,
+          "opportunity_id": "E11-collections",
+          "posterior_wallet_interval_width": 45189038074.43,
+          "posterior_wallet_median": 26604343535.12,
+          "rank": 56
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 116287.85,
+          "opportunity_id": "E10-payments",
+          "posterior_wallet_interval_width": 49102477508.44,
+          "posterior_wallet_median": 27923990728.74,
+          "rank": 57
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 108283.2,
+          "opportunity_id": "E15-trade-finance",
+          "posterior_wallet_interval_width": 681786457.79,
+          "posterior_wallet_median": 191597262.08,
+          "rank": 58
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 91339.36,
+          "opportunity_id": "E16-payments",
+          "posterior_wallet_interval_width": 42095947043.88,
+          "posterior_wallet_median": 22592618554.19,
+          "rank": 59
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 78340.98,
+          "opportunity_id": "E13-cross-border-fx",
+          "posterior_wallet_interval_width": 2644194158.31,
+          "posterior_wallet_median": 1040819196.36,
+          "rank": 60
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 76979.52,
+          "opportunity_id": "E14-trade-finance",
+          "posterior_wallet_interval_width": 515677061.13,
+          "posterior_wallet_median": 136481679.13,
+          "rank": 61
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 67090.45,
+          "opportunity_id": "E08-collections",
+          "posterior_wallet_interval_width": 26379359518.6,
+          "posterior_wallet_median": 15072617325.97,
+          "rank": 62
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 57272.56,
+          "opportunity_id": "E06-cross-border-fx",
+          "posterior_wallet_interval_width": 1666247237.56,
+          "posterior_wallet_median": 712889814.01,
+          "rank": 63
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 52068.41,
+          "opportunity_id": "E03-collections",
+          "posterior_wallet_interval_width": 19837816201.92,
+          "posterior_wallet_median": 12145025815.29,
+          "rank": 64
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 46002.97,
+          "opportunity_id": "E18-payments",
+          "posterior_wallet_interval_width": 18346915563.28,
+          "posterior_wallet_median": 10327025845.37,
+          "rank": 65
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 40697.44,
+          "opportunity_id": "E10-collections",
+          "posterior_wallet_interval_width": 15005738701.55,
+          "posterior_wallet_median": 9349551001.7,
+          "rank": 66
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 37539.11,
+          "opportunity_id": "E07-liquidity",
+          "posterior_wallet_interval_width": 1863795976.87,
+          "posterior_wallet_median": 614690765.0,
+          "rank": 67
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 35986.32,
+          "opportunity_id": "E03-payments",
+          "posterior_wallet_interval_width": 17366544169.41,
+          "posterior_wallet_median": 9147772277.86,
+          "rank": 68
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 34881.31,
+          "opportunity_id": "E16-collections",
+          "posterior_wallet_interval_width": 12611899659.53,
+          "posterior_wallet_median": 7485535432.45,
+          "rank": 69
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 33113.63,
+          "opportunity_id": "E19-payments",
+          "posterior_wallet_interval_width": 13995579898.27,
+          "posterior_wallet_median": 7811174780.7,
+          "rank": 70
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 31317.75,
+          "opportunity_id": "E20-cross-border-fx",
+          "posterior_wallet_interval_width": 960481953.3,
+          "posterior_wallet_median": 391426780.97,
+          "rank": 71
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 29035.38,
+          "opportunity_id": "E17-liquidity",
+          "posterior_wallet_interval_width": 1368992292.38,
+          "posterior_wallet_median": 452950020.44,
+          "rank": 72
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 24220.51,
+          "opportunity_id": "E12-liquidity",
+          "posterior_wallet_interval_width": 1091493200.07,
+          "posterior_wallet_median": 372391795.06,
+          "rank": 73
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 19359.7,
+          "opportunity_id": "E20-trade-finance",
+          "posterior_wallet_interval_width": 128460043.9,
+          "posterior_wallet_median": 34819939.75,
+          "rank": 74
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 17007.88,
+          "opportunity_id": "E14-payments",
+          "posterior_wallet_interval_width": 8029642306.25,
+          "posterior_wallet_median": 4144466380.59,
+          "rank": 75
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 14670.35,
+          "opportunity_id": "E18-collections",
+          "posterior_wallet_interval_width": 5866550330.24,
+          "posterior_wallet_median": 3499526111.31,
+          "rank": 76
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 13980.44,
+          "opportunity_id": "E04-collections",
+          "posterior_wallet_interval_width": 4952999666.68,
+          "posterior_wallet_median": 2947014028.24,
+          "rank": 77
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 13143.68,
+          "opportunity_id": "E15-payments",
+          "posterior_wallet_interval_width": 5884695346.86,
+          "posterior_wallet_median": 3201937085.29,
+          "rank": 78
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 12576.57,
+          "opportunity_id": "E05-collections",
+          "posterior_wallet_interval_width": 4657608930.92,
+          "posterior_wallet_median": 2603786863.96,
+          "rank": 79
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 11977.86,
+          "opportunity_id": "E04-payments",
+          "posterior_wallet_interval_width": 4844274421.99,
+          "posterior_wallet_median": 2753417612.1,
+          "rank": 80
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 11593.51,
+          "opportunity_id": "E19-collections",
+          "posterior_wallet_interval_width": 4206338553.58,
+          "posterior_wallet_median": 2479964325.0,
+          "rank": 81
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 10029.06,
+          "opportunity_id": "E05-payments",
+          "posterior_wallet_interval_width": 4147500090.53,
+          "posterior_wallet_median": 2350886058.46,
+          "rank": 82
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 9110.68,
+          "opportunity_id": "E13-trade-finance",
+          "posterior_wallet_interval_width": 58771833.03,
+          "posterior_wallet_median": 16334254.38,
+          "rank": 83
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 6474.35,
+          "opportunity_id": "E06-liquidity",
+          "posterior_wallet_interval_width": 265857738.21,
+          "posterior_wallet_median": 97417773.95,
+          "rank": 84
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 5787.93,
+          "opportunity_id": "E14-collections",
+          "posterior_wallet_interval_width": 2306077395.63,
+          "posterior_wallet_median": 1415788655.98,
+          "rank": 85
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 5679.48,
+          "opportunity_id": "E13-liquidity",
+          "posterior_wallet_interval_width": 255366539.01,
+          "posterior_wallet_median": 90056389.48,
+          "rank": 86
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4628.42,
+          "opportunity_id": "E15-collections",
+          "posterior_wallet_interval_width": 1798675045.01,
+          "posterior_wallet_median": 1024029913.54,
+          "rank": 87
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 2589.98,
+          "opportunity_id": "E07-payments",
+          "posterior_wallet_interval_width": 1175981047.37,
+          "posterior_wallet_median": 654669306.64,
+          "rank": 88
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1885.74,
+          "opportunity_id": "E17-payments",
+          "posterior_wallet_interval_width": 831840897.27,
+          "posterior_wallet_median": 455596150.94,
+          "rank": 89
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1682.48,
+          "opportunity_id": "E12-payments",
+          "posterior_wallet_interval_width": 691158815.08,
+          "posterior_wallet_median": 379256227.55,
+          "rank": 90
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1526.54,
+          "opportunity_id": "E07-collections",
+          "posterior_wallet_interval_width": 522634310.09,
+          "posterior_wallet_median": 314860044.93,
+          "rank": 91
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1419.23,
+          "opportunity_id": "E20-liquidity",
+          "posterior_wallet_interval_width": 63258305.47,
+          "posterior_wallet_median": 22550427.34,
+          "rank": 92
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1035.6,
+          "opportunity_id": "E17-collections",
+          "posterior_wallet_interval_width": 413979139.1,
+          "posterior_wallet_median": 240619352.62,
+          "rank": 93
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 818.23892163,
+          "opportunity_id": "E12-collections",
+          "posterior_wallet_interval_width": 320261948.02,
+          "posterior_wallet_median": 193821456.24,
+          "rank": 94
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 409.07864799,
+          "opportunity_id": "E13-payments",
+          "posterior_wallet_interval_width": 170976511.36,
+          "posterior_wallet_median": 95237654.53,
+          "rank": 95
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 405.10983355,
+          "opportunity_id": "E06-collections",
+          "posterior_wallet_interval_width": 162516088.72,
+          "posterior_wallet_median": 92529026.06,
+          "rank": 96
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 225.89407248,
+          "opportunity_id": "E06-payments",
+          "posterior_wallet_interval_width": 93998534.41,
+          "posterior_wallet_median": 52366395.69,
+          "rank": 97
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 219.03563015,
+          "opportunity_id": "E13-collections",
+          "posterior_wallet_interval_width": 76320578.67,
+          "posterior_wallet_median": 45937422.52,
+          "rank": 98
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 79.90993555,
+          "opportunity_id": "E20-payments",
+          "posterior_wallet_interval_width": 32100863.55,
+          "posterior_wallet_median": 18710431.61,
+          "rank": 99
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 71.09881415,
+          "opportunity_id": "E20-collections",
+          "posterior_wallet_interval_width": 27579633.56,
+          "posterior_wallet_median": 16197528.01,
+          "rank": 100
+        }
+      ],
+      "e1_anchor_weight": 0.2,
+      "known_truth_diagnostics": {
+        "median_wallet_interval_width_zar": 5826512163.77,
+        "median_wallet_relative_interval_width": 1.70778275,
+        "production_claim_allowed": false,
+        "records": 500,
+        "status": "SYNTHETIC_KNOWN_TRUTH_ONLY",
+        "wallet_90_coverage": 0.888,
+        "wallet_scaled_crps": 0.2361564
+      },
+      "policy_version": "v2-wallet-measurement-policy-1.1.0+e1w0.20",
+      "ranking": [
+        "E02-trade-finance",
+        "E01-trade-finance",
+        "E10-trade-finance",
+        "E11-liquidity",
+        "E16-trade-finance",
+        "E11-trade-finance",
+        "E18-trade-finance",
+        "E02-cross-border-fx",
+        "E09-trade-finance",
+        "E01-cross-border-fx",
+        "E08-liquidity",
+        "E01-liquidity",
+        "E02-liquidity",
+        "E11-cross-border-fx",
+        "E16-cross-border-fx",
+        "E10-cross-border-fx",
+        "E05-trade-finance",
+        "E10-liquidity",
+        "E03-trade-finance",
+        "E16-liquidity",
+        "E04-trade-finance",
+        "E19-trade-finance",
+        "E01-collections",
+        "E03-liquidity",
+        "E17-cross-border-fx",
+        "E08-cross-border-fx",
+        "E02-collections",
+        "E09-cross-border-fx",
+        "E01-payments",
+        "E15-cross-border-fx",
+        "E18-liquidity",
+        "E14-cross-border-fx",
+        "E18-cross-border-fx",
+        "E17-trade-finance",
+        "E19-liquidity",
+        "E02-payments",
+        "E09-liquidity",
+        "E09-payments",
+        "E19-cross-border-fx",
+        "E08-trade-finance",
+        "E09-collections",
+        "E11-payments",
+        "E07-cross-border-fx",
+        "E12-cross-border-fx",
+        "E06-trade-finance",
+        "E03-cross-border-fx",
+        "E04-liquidity",
+        "E05-cross-border-fx",
+        "E04-cross-border-fx",
+        "E14-liquidity",
+        "E05-liquidity",
+        "E07-trade-finance",
+        "E08-payments",
+        "E15-liquidity",
+        "E12-trade-finance",
+        "E11-collections",
+        "E10-payments",
+        "E15-trade-finance",
+        "E16-payments",
+        "E13-cross-border-fx",
+        "E14-trade-finance",
+        "E08-collections",
+        "E06-cross-border-fx",
+        "E03-collections",
+        "E18-payments",
+        "E10-collections",
+        "E07-liquidity",
+        "E03-payments",
+        "E16-collections",
+        "E19-payments",
+        "E20-cross-border-fx",
+        "E17-liquidity",
+        "E12-liquidity",
+        "E20-trade-finance",
+        "E14-payments",
+        "E18-collections",
+        "E04-collections",
+        "E15-payments",
+        "E05-collections",
+        "E04-payments",
+        "E19-collections",
+        "E05-payments",
+        "E13-trade-finance",
+        "E06-liquidity",
+        "E14-collections",
+        "E13-liquidity",
+        "E15-collections",
+        "E07-payments",
+        "E17-payments",
+        "E12-payments",
+        "E07-collections",
+        "E20-liquidity",
+        "E17-collections",
+        "E12-collections",
+        "E13-payments",
+        "E06-collections",
+        "E06-payments",
+        "E13-collections",
+        "E20-payments",
+        "E20-collections"
+      ],
+      "trade_finance": {
+        "absolute_economics_top10_zar": 31078189.81,
+        "first_ranked": true,
+        "majority_dominant": true,
+        "top10_count": 7,
+        "top10_share": 0.7
+      }
+    },
+    "0.35": {
+      "activated_cells": 15,
+      "cells": [
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 17018165.14,
+          "opportunity_id": "E02-trade-finance",
+          "posterior_wallet_interval_width": 27404568064.99,
+          "posterior_wallet_median": 14991302365.6,
+          "rank": 1
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 7367423.5,
+          "opportunity_id": "E01-trade-finance",
+          "posterior_wallet_interval_width": 16930632179.75,
+          "posterior_wallet_median": 8926976666.06,
+          "rank": 2
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 6451426.72,
+          "opportunity_id": "E02-cross-border-fx",
+          "posterior_wallet_interval_width": 42366622711.3,
+          "posterior_wallet_median": 29075297991.25,
+          "rank": 3
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 5181991.54,
+          "opportunity_id": "E01-cross-border-fx",
+          "posterior_wallet_interval_width": 32846148222.89,
+          "posterior_wallet_median": 23892772227.19,
+          "rank": 4
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 4260254.55,
+          "opportunity_id": "E02-liquidity",
+          "posterior_wallet_interval_width": 46647452160.55,
+          "posterior_wallet_median": 28477368213.92,
+          "rank": 5
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4181909.12,
+          "opportunity_id": "E10-trade-finance",
+          "posterior_wallet_interval_width": 27636394820.33,
+          "posterior_wallet_median": 7713997311.43,
+          "rank": 6
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4091701.18,
+          "opportunity_id": "E11-liquidity",
+          "posterior_wallet_interval_width": 178308571814.91,
+          "posterior_wallet_median": 63793860142.72,
+          "rank": 7
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3527651.23,
+          "opportunity_id": "E16-trade-finance",
+          "posterior_wallet_interval_width": 22310956616.59,
+          "posterior_wallet_median": 6153125810.53,
+          "rank": 8
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3387785.9,
+          "opportunity_id": "E11-trade-finance",
+          "posterior_wallet_interval_width": 22936978403.44,
+          "posterior_wallet_median": 6276983485.22,
+          "rank": 9
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3339106.95,
+          "opportunity_id": "E18-trade-finance",
+          "posterior_wallet_interval_width": 22189163724.99,
+          "posterior_wallet_median": 6065059686.19,
+          "rank": 10
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2522140.61,
+          "opportunity_id": "E01-collections",
+          "posterior_wallet_interval_width": 89312425848.09,
+          "posterior_wallet_median": 91204520081.61,
+          "rank": 11
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2475069.97,
+          "opportunity_id": "E01-liquidity",
+          "posterior_wallet_interval_width": 52705412073.83,
+          "posterior_wallet_median": 33794885018.51,
+          "rank": 12
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 2337403.63,
+          "opportunity_id": "E08-liquidity",
+          "posterior_wallet_interval_width": 106834544886.17,
+          "posterior_wallet_median": 36109260245.64,
+          "rank": 13
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2217653.24,
+          "opportunity_id": "E02-collections",
+          "posterior_wallet_interval_width": 64858395453.01,
+          "posterior_wallet_median": 66159253386.74,
+          "rank": 14
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2106393.16,
+          "opportunity_id": "E09-trade-finance",
+          "posterior_wallet_interval_width": 10524962214.1,
+          "posterior_wallet_median": 5367490652.4,
+          "rank": 15
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1743799.56,
+          "opportunity_id": "E11-cross-border-fx",
+          "posterior_wallet_interval_width": 56961401763.38,
+          "posterior_wallet_median": 22875976294.53,
+          "rank": 16
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1629387.94,
+          "opportunity_id": "E16-cross-border-fx",
+          "posterior_wallet_interval_width": 51756162327.33,
+          "posterior_wallet_median": 21373922775.57,
+          "rank": 17
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1584705.74,
+          "opportunity_id": "E10-cross-border-fx",
+          "posterior_wallet_interval_width": 50851915434.41,
+          "posterior_wallet_median": 21085465680.61,
+          "rank": 18
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1571622.96,
+          "opportunity_id": "E05-trade-finance",
+          "posterior_wallet_interval_width": 10317600437.27,
+          "posterior_wallet_median": 2872391481.59,
+          "rank": 19
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1522932.42,
+          "opportunity_id": "E10-liquidity",
+          "posterior_wallet_interval_width": 69429876444.83,
+          "posterior_wallet_median": 23967449251.79,
+          "rank": 20
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1450925.06,
+          "opportunity_id": "E03-trade-finance",
+          "posterior_wallet_interval_width": 10056984723.12,
+          "posterior_wallet_median": 2626885044.8,
+          "rank": 21
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 1314814.01,
+          "opportunity_id": "E02-payments",
+          "posterior_wallet_interval_width": 60359012468.24,
+          "posterior_wallet_median": 58051230695.35,
+          "rank": 22
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1262213.13,
+          "opportunity_id": "E16-liquidity",
+          "posterior_wallet_interval_width": 54610827989.91,
+          "posterior_wallet_median": 19543878247.55,
+          "rank": 23
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 1238865.6,
+          "opportunity_id": "E01-payments",
+          "posterior_wallet_interval_width": 71585569382.89,
+          "posterior_wallet_median": 68117149749.91,
+          "rank": 24
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1172762.47,
+          "opportunity_id": "E04-trade-finance",
+          "posterior_wallet_interval_width": 7853297707.96,
+          "posterior_wallet_median": 2135383604.65,
+          "rank": 25
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1163722.98,
+          "opportunity_id": "E19-trade-finance",
+          "posterior_wallet_interval_width": 7946613404.97,
+          "posterior_wallet_median": 2170683763.78,
+          "rank": 26
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 972599.77,
+          "opportunity_id": "E03-liquidity",
+          "posterior_wallet_interval_width": 42607194074.61,
+          "posterior_wallet_median": 14474754350.93,
+          "rank": 27
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 784847.95,
+          "opportunity_id": "E17-cross-border-fx",
+          "posterior_wallet_interval_width": 24356946487.23,
+          "posterior_wallet_median": 10079484847.83,
+          "rank": 28
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 736100.41,
+          "opportunity_id": "E08-cross-border-fx",
+          "posterior_wallet_interval_width": 23590760844.09,
+          "posterior_wallet_median": 9301997517.42,
+          "rank": 29
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 725126.07,
+          "opportunity_id": "E09-payments",
+          "posterior_wallet_interval_width": 51025313767.9,
+          "posterior_wallet_median": 48573612754.68,
+          "rank": 30
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 718441.55,
+          "opportunity_id": "E09-collections",
+          "posterior_wallet_interval_width": 25710084573.6,
+          "posterior_wallet_median": 26122091405.51,
+          "rank": 31
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 565406.42,
+          "opportunity_id": "E15-cross-border-fx",
+          "posterior_wallet_interval_width": 17661478453.84,
+          "posterior_wallet_median": 7167983194.04,
+          "rank": 32
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 546060.57,
+          "opportunity_id": "E18-liquidity",
+          "posterior_wallet_interval_width": 23110899112.66,
+          "posterior_wallet_median": 8736184854.94,
+          "rank": 33
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 531515.38,
+          "opportunity_id": "E14-cross-border-fx",
+          "posterior_wallet_interval_width": 16659674743.08,
+          "posterior_wallet_median": 6845668425.34,
+          "rank": 34
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 527224.33,
+          "opportunity_id": "E09-cross-border-fx",
+          "posterior_wallet_interval_width": 14296008164.58,
+          "posterior_wallet_median": 10270557088.05,
+          "rank": 35
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 442593.47,
+          "opportunity_id": "E18-cross-border-fx",
+          "posterior_wallet_interval_width": 13852857881.53,
+          "posterior_wallet_median": 5626888318.58,
+          "rank": 36
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 423268.53,
+          "opportunity_id": "E17-trade-finance",
+          "posterior_wallet_interval_width": 2580742326.03,
+          "posterior_wallet_median": 757235737.47,
+          "rank": 37
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 416474.07,
+          "opportunity_id": "E19-liquidity",
+          "posterior_wallet_interval_width": 17550529699.14,
+          "posterior_wallet_median": 6570429868.52,
+          "rank": 38
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 392089.41,
+          "opportunity_id": "E19-cross-border-fx",
+          "posterior_wallet_interval_width": 11452577893.62,
+          "posterior_wallet_median": 4942360689.03,
+          "rank": 39
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 356220.39,
+          "opportunity_id": "E08-trade-finance",
+          "posterior_wallet_interval_width": 2455674391.68,
+          "posterior_wallet_median": 633982715.79,
+          "rank": 40
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 296926.27,
+          "opportunity_id": "E11-payments",
+          "posterior_wallet_interval_width": 130526471282.81,
+          "posterior_wallet_median": 72021783593.12,
+          "rank": 41
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 289747.95,
+          "opportunity_id": "E07-cross-border-fx",
+          "posterior_wallet_interval_width": 9256446348.41,
+          "posterior_wallet_median": 3884904817.06,
+          "rank": 42
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 285611.67,
+          "opportunity_id": "E12-cross-border-fx",
+          "posterior_wallet_interval_width": 8244574062.14,
+          "posterior_wallet_median": 3542594057.98,
+          "rank": 43
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 278541.91,
+          "opportunity_id": "E06-trade-finance",
+          "posterior_wallet_interval_width": 1898246360.6,
+          "posterior_wallet_median": 489413991.53,
+          "rank": 44
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 274765.57,
+          "opportunity_id": "E03-cross-border-fx",
+          "posterior_wallet_interval_width": 8611962931.89,
+          "posterior_wallet_median": 3471227415.8,
+          "rank": 45
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 250022.17,
+          "opportunity_id": "E04-liquidity",
+          "posterior_wallet_interval_width": 10169849200.67,
+          "posterior_wallet_median": 3770962987.24,
+          "rank": 46
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 244749.69,
+          "opportunity_id": "E05-cross-border-fx",
+          "posterior_wallet_interval_width": 7516917684.16,
+          "posterior_wallet_median": 3121336355.39,
+          "rank": 47
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 235796.69,
+          "opportunity_id": "E04-cross-border-fx",
+          "posterior_wallet_interval_width": 7355677031.42,
+          "posterior_wallet_median": 2967059225.3,
+          "rank": 48
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 221971.42,
+          "opportunity_id": "E14-liquidity",
+          "posterior_wallet_interval_width": 10037964374.05,
+          "posterior_wallet_median": 3557844289.99,
+          "rank": 49
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 200535.06,
+          "opportunity_id": "E05-liquidity",
+          "posterior_wallet_interval_width": 8919971110.32,
+          "posterior_wallet_median": 3188833625.04,
+          "rank": 50
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 186345.56,
+          "opportunity_id": "E07-trade-finance",
+          "posterior_wallet_interval_width": 1310640403.22,
+          "posterior_wallet_median": 330967119.65,
+          "rank": 51
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 175033.12,
+          "opportunity_id": "E08-payments",
+          "posterior_wallet_interval_width": 73368086629.27,
+          "posterior_wallet_median": 40768161837.03,
+          "rank": 52
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 170802.18,
+          "opportunity_id": "E15-liquidity",
+          "posterior_wallet_interval_width": 8080149123.32,
+          "posterior_wallet_median": 2707909572.72,
+          "rank": 53
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 153889.79,
+          "opportunity_id": "E12-trade-finance",
+          "posterior_wallet_interval_width": 979480761.23,
+          "posterior_wallet_median": 270700453.24,
+          "rank": 54
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 120870.58,
+          "opportunity_id": "E11-collections",
+          "posterior_wallet_interval_width": 45189038074.43,
+          "posterior_wallet_median": 26604343535.12,
+          "rank": 55
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 116287.85,
+          "opportunity_id": "E10-payments",
+          "posterior_wallet_interval_width": 49102477508.44,
+          "posterior_wallet_median": 27923990728.74,
+          "rank": 56
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 108283.2,
+          "opportunity_id": "E15-trade-finance",
+          "posterior_wallet_interval_width": 681786457.79,
+          "posterior_wallet_median": 191597262.08,
+          "rank": 57
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 91339.36,
+          "opportunity_id": "E16-payments",
+          "posterior_wallet_interval_width": 42095947043.88,
+          "posterior_wallet_median": 22592618554.19,
+          "rank": 58
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 78340.98,
+          "opportunity_id": "E13-cross-border-fx",
+          "posterior_wallet_interval_width": 2644194158.31,
+          "posterior_wallet_median": 1040819196.36,
+          "rank": 59
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 76979.52,
+          "opportunity_id": "E14-trade-finance",
+          "posterior_wallet_interval_width": 515677061.13,
+          "posterior_wallet_median": 136481679.13,
+          "rank": 60
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 67090.45,
+          "opportunity_id": "E08-collections",
+          "posterior_wallet_interval_width": 26379359518.6,
+          "posterior_wallet_median": 15072617325.97,
+          "rank": 61
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 57272.56,
+          "opportunity_id": "E06-cross-border-fx",
+          "posterior_wallet_interval_width": 1666247237.56,
+          "posterior_wallet_median": 712889814.01,
+          "rank": 62
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 52068.41,
+          "opportunity_id": "E03-collections",
+          "posterior_wallet_interval_width": 19837816201.92,
+          "posterior_wallet_median": 12145025815.29,
+          "rank": 63
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 46002.97,
+          "opportunity_id": "E18-payments",
+          "posterior_wallet_interval_width": 18346915563.28,
+          "posterior_wallet_median": 10327025845.37,
+          "rank": 64
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 40697.44,
+          "opportunity_id": "E10-collections",
+          "posterior_wallet_interval_width": 15005738701.55,
+          "posterior_wallet_median": 9349551001.7,
+          "rank": 65
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 37539.11,
+          "opportunity_id": "E07-liquidity",
+          "posterior_wallet_interval_width": 1863795976.87,
+          "posterior_wallet_median": 614690765.0,
+          "rank": 66
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 35986.32,
+          "opportunity_id": "E03-payments",
+          "posterior_wallet_interval_width": 17366544169.41,
+          "posterior_wallet_median": 9147772277.86,
+          "rank": 67
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 34881.31,
+          "opportunity_id": "E16-collections",
+          "posterior_wallet_interval_width": 12611899659.53,
+          "posterior_wallet_median": 7485535432.45,
+          "rank": 68
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 33113.63,
+          "opportunity_id": "E19-payments",
+          "posterior_wallet_interval_width": 13995579898.27,
+          "posterior_wallet_median": 7811174780.7,
+          "rank": 69
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 31317.75,
+          "opportunity_id": "E20-cross-border-fx",
+          "posterior_wallet_interval_width": 960481953.3,
+          "posterior_wallet_median": 391426780.97,
+          "rank": 70
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 29035.38,
+          "opportunity_id": "E17-liquidity",
+          "posterior_wallet_interval_width": 1368992292.38,
+          "posterior_wallet_median": 452950020.44,
+          "rank": 71
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 24220.51,
+          "opportunity_id": "E12-liquidity",
+          "posterior_wallet_interval_width": 1091493200.07,
+          "posterior_wallet_median": 372391795.06,
+          "rank": 72
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 19359.7,
+          "opportunity_id": "E20-trade-finance",
+          "posterior_wallet_interval_width": 128460043.9,
+          "posterior_wallet_median": 34819939.75,
+          "rank": 73
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 17007.88,
+          "opportunity_id": "E14-payments",
+          "posterior_wallet_interval_width": 8029642306.25,
+          "posterior_wallet_median": 4144466380.59,
+          "rank": 74
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 14670.35,
+          "opportunity_id": "E18-collections",
+          "posterior_wallet_interval_width": 5866550330.24,
+          "posterior_wallet_median": 3499526111.31,
+          "rank": 75
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 13980.44,
+          "opportunity_id": "E04-collections",
+          "posterior_wallet_interval_width": 4952999666.68,
+          "posterior_wallet_median": 2947014028.24,
+          "rank": 76
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 13143.68,
+          "opportunity_id": "E15-payments",
+          "posterior_wallet_interval_width": 5884695346.86,
+          "posterior_wallet_median": 3201937085.29,
+          "rank": 77
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 12576.57,
+          "opportunity_id": "E05-collections",
+          "posterior_wallet_interval_width": 4657608930.92,
+          "posterior_wallet_median": 2603786863.96,
+          "rank": 78
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 11977.86,
+          "opportunity_id": "E04-payments",
+          "posterior_wallet_interval_width": 4844274421.99,
+          "posterior_wallet_median": 2753417612.1,
+          "rank": 79
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 11593.51,
+          "opportunity_id": "E19-collections",
+          "posterior_wallet_interval_width": 4206338553.58,
+          "posterior_wallet_median": 2479964325.0,
+          "rank": 80
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 10029.06,
+          "opportunity_id": "E05-payments",
+          "posterior_wallet_interval_width": 4147500090.53,
+          "posterior_wallet_median": 2350886058.46,
+          "rank": 81
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 9110.68,
+          "opportunity_id": "E13-trade-finance",
+          "posterior_wallet_interval_width": 58771833.03,
+          "posterior_wallet_median": 16334254.38,
+          "rank": 82
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 6474.35,
+          "opportunity_id": "E06-liquidity",
+          "posterior_wallet_interval_width": 265857738.21,
+          "posterior_wallet_median": 97417773.95,
+          "rank": 83
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 5787.93,
+          "opportunity_id": "E14-collections",
+          "posterior_wallet_interval_width": 2306077395.63,
+          "posterior_wallet_median": 1415788655.98,
+          "rank": 84
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 5679.48,
+          "opportunity_id": "E13-liquidity",
+          "posterior_wallet_interval_width": 255366539.01,
+          "posterior_wallet_median": 90056389.48,
+          "rank": 85
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4628.42,
+          "opportunity_id": "E15-collections",
+          "posterior_wallet_interval_width": 1798675045.01,
+          "posterior_wallet_median": 1024029913.54,
+          "rank": 86
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 2589.98,
+          "opportunity_id": "E07-payments",
+          "posterior_wallet_interval_width": 1175981047.37,
+          "posterior_wallet_median": 654669306.64,
+          "rank": 87
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1885.74,
+          "opportunity_id": "E17-payments",
+          "posterior_wallet_interval_width": 831840897.27,
+          "posterior_wallet_median": 455596150.94,
+          "rank": 88
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1682.48,
+          "opportunity_id": "E12-payments",
+          "posterior_wallet_interval_width": 691158815.08,
+          "posterior_wallet_median": 379256227.55,
+          "rank": 89
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1526.54,
+          "opportunity_id": "E07-collections",
+          "posterior_wallet_interval_width": 522634310.09,
+          "posterior_wallet_median": 314860044.93,
+          "rank": 90
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1419.23,
+          "opportunity_id": "E20-liquidity",
+          "posterior_wallet_interval_width": 63258305.47,
+          "posterior_wallet_median": 22550427.34,
+          "rank": 91
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1035.6,
+          "opportunity_id": "E17-collections",
+          "posterior_wallet_interval_width": 413979139.1,
+          "posterior_wallet_median": 240619352.62,
+          "rank": 92
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 818.23892163,
+          "opportunity_id": "E12-collections",
+          "posterior_wallet_interval_width": 320261948.02,
+          "posterior_wallet_median": 193821456.24,
+          "rank": 93
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 409.07864799,
+          "opportunity_id": "E13-payments",
+          "posterior_wallet_interval_width": 170976511.36,
+          "posterior_wallet_median": 95237654.53,
+          "rank": 94
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 405.10983355,
+          "opportunity_id": "E06-collections",
+          "posterior_wallet_interval_width": 162516088.72,
+          "posterior_wallet_median": 92529026.06,
+          "rank": 95
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 225.89407248,
+          "opportunity_id": "E06-payments",
+          "posterior_wallet_interval_width": 93998534.41,
+          "posterior_wallet_median": 52366395.69,
+          "rank": 96
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 219.03563015,
+          "opportunity_id": "E13-collections",
+          "posterior_wallet_interval_width": 76320578.67,
+          "posterior_wallet_median": 45937422.52,
+          "rank": 97
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 79.90993555,
+          "opportunity_id": "E20-payments",
+          "posterior_wallet_interval_width": 32100863.55,
+          "posterior_wallet_median": 18710431.61,
+          "rank": 98
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 71.09881415,
+          "opportunity_id": "E20-collections",
+          "posterior_wallet_interval_width": 27579633.56,
+          "posterior_wallet_median": 16197528.01,
+          "rank": 99
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 0.0,
+          "opportunity_id": "E09-liquidity",
+          "posterior_wallet_interval_width": 19042813210.43,
+          "posterior_wallet_median": 12336206718.16,
+          "rank": 100
+        }
+      ],
+      "e1_anchor_weight": 0.35,
+      "known_truth_diagnostics": {
+        "median_wallet_interval_width_zar": 4373701084.33,
+        "median_wallet_relative_interval_width": 1.31473927,
+        "production_claim_allowed": false,
+        "records": 500,
+        "status": "SYNTHETIC_KNOWN_TRUTH_ONLY",
+        "wallet_90_coverage": 0.88,
+        "wallet_scaled_crps": 0.19502938
+      },
+      "policy_version": "v2-wallet-measurement-policy-1.1.0+e1w0.35",
+      "ranking": [
+        "E02-trade-finance",
+        "E01-trade-finance",
+        "E02-cross-border-fx",
+        "E01-cross-border-fx",
+        "E02-liquidity",
+        "E10-trade-finance",
+        "E11-liquidity",
+        "E16-trade-finance",
+        "E11-trade-finance",
+        "E18-trade-finance",
+        "E01-collections",
+        "E01-liquidity",
+        "E08-liquidity",
+        "E02-collections",
+        "E09-trade-finance",
+        "E11-cross-border-fx",
+        "E16-cross-border-fx",
+        "E10-cross-border-fx",
+        "E05-trade-finance",
+        "E10-liquidity",
+        "E03-trade-finance",
+        "E02-payments",
+        "E16-liquidity",
+        "E01-payments",
+        "E04-trade-finance",
+        "E19-trade-finance",
+        "E03-liquidity",
+        "E17-cross-border-fx",
+        "E08-cross-border-fx",
+        "E09-payments",
+        "E09-collections",
+        "E15-cross-border-fx",
+        "E18-liquidity",
+        "E14-cross-border-fx",
+        "E09-cross-border-fx",
+        "E18-cross-border-fx",
+        "E17-trade-finance",
+        "E19-liquidity",
+        "E19-cross-border-fx",
+        "E08-trade-finance",
+        "E11-payments",
+        "E07-cross-border-fx",
+        "E12-cross-border-fx",
+        "E06-trade-finance",
+        "E03-cross-border-fx",
+        "E04-liquidity",
+        "E05-cross-border-fx",
+        "E04-cross-border-fx",
+        "E14-liquidity",
+        "E05-liquidity",
+        "E07-trade-finance",
+        "E08-payments",
+        "E15-liquidity",
+        "E12-trade-finance",
+        "E11-collections",
+        "E10-payments",
+        "E15-trade-finance",
+        "E16-payments",
+        "E13-cross-border-fx",
+        "E14-trade-finance",
+        "E08-collections",
+        "E06-cross-border-fx",
+        "E03-collections",
+        "E18-payments",
+        "E10-collections",
+        "E07-liquidity",
+        "E03-payments",
+        "E16-collections",
+        "E19-payments",
+        "E20-cross-border-fx",
+        "E17-liquidity",
+        "E12-liquidity",
+        "E20-trade-finance",
+        "E14-payments",
+        "E18-collections",
+        "E04-collections",
+        "E15-payments",
+        "E05-collections",
+        "E04-payments",
+        "E19-collections",
+        "E05-payments",
+        "E13-trade-finance",
+        "E06-liquidity",
+        "E14-collections",
+        "E13-liquidity",
+        "E15-collections",
+        "E07-payments",
+        "E17-payments",
+        "E12-payments",
+        "E07-collections",
+        "E20-liquidity",
+        "E17-collections",
+        "E12-collections",
+        "E13-payments",
+        "E06-collections",
+        "E06-payments",
+        "E13-collections",
+        "E20-payments",
+        "E20-collections",
+        "E09-liquidity"
+      ],
+      "trade_finance": {
+        "absolute_economics_top10_zar": 38822041.84,
+        "first_ranked": true,
+        "majority_dominant": true,
+        "top10_count": 6,
+        "top10_share": 0.6
+      }
+    },
+    "0.50": {
+      "activated_cells": 15,
+      "cells": [
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 31331854.78,
+          "opportunity_id": "E02-trade-finance",
+          "posterior_wallet_interval_width": 35916023573.54,
+          "posterior_wallet_median": 25318639771.57,
+          "rank": 1
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 12280779.13,
+          "opportunity_id": "E02-cross-border-fx",
+          "posterior_wallet_interval_width": 57606693242.46,
+          "posterior_wallet_median": 50104707833.05,
+          "rank": 2
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 9833053.11,
+          "opportunity_id": "E01-trade-finance",
+          "posterior_wallet_interval_width": 15477741889.95,
+          "posterior_wallet_median": 10705930210.6,
+          "rank": 3
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 9518068.86,
+          "opportunity_id": "E01-cross-border-fx",
+          "posterior_wallet_interval_width": 42947833590.67,
+          "posterior_wallet_median": 39535186810.73,
+          "rank": 4
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 7908908.1,
+          "opportunity_id": "E02-liquidity",
+          "posterior_wallet_interval_width": 57490725677.09,
+          "posterior_wallet_median": 48221164498.17,
+          "rank": 5
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 6218286.59,
+          "opportunity_id": "E02-collections",
+          "posterior_wallet_interval_width": 126646072164.68,
+          "posterior_wallet_median": 174401497616.76,
+          "rank": 6
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 4907512.56,
+          "opportunity_id": "E01-collections",
+          "posterior_wallet_interval_width": 113045284492.0,
+          "posterior_wallet_median": 155743804502.83,
+          "rank": 7
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4181909.12,
+          "opportunity_id": "E10-trade-finance",
+          "posterior_wallet_interval_width": 27636394820.33,
+          "posterior_wallet_median": 7713997311.43,
+          "rank": 8
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4091701.18,
+          "opportunity_id": "E11-liquidity",
+          "posterior_wallet_interval_width": 178308571814.91,
+          "posterior_wallet_median": 63793860142.72,
+          "rank": 9
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 3737554.07,
+          "opportunity_id": "E02-payments",
+          "posterior_wallet_interval_width": 120984082375.09,
+          "posterior_wallet_median": 156376720081.38,
+          "rank": 10
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3527651.23,
+          "opportunity_id": "E16-trade-finance",
+          "posterior_wallet_interval_width": 22310956616.59,
+          "posterior_wallet_median": 6153125810.53,
+          "rank": 11
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3387785.9,
+          "opportunity_id": "E11-trade-finance",
+          "posterior_wallet_interval_width": 22936978403.44,
+          "posterior_wallet_median": 6276983485.22,
+          "rank": 12
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 3339106.95,
+          "opportunity_id": "E18-trade-finance",
+          "posterior_wallet_interval_width": 22189163724.99,
+          "posterior_wallet_median": 6065059686.19,
+          "rank": 13
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2707936.4,
+          "opportunity_id": "E01-liquidity",
+          "posterior_wallet_interval_width": 40370105324.28,
+          "posterior_wallet_median": 35054984738.37,
+          "rank": 14
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 2337403.63,
+          "opportunity_id": "E08-liquidity",
+          "posterior_wallet_interval_width": 106834544886.17,
+          "posterior_wallet_median": 36109260245.64,
+          "rank": 15
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 2316070.06,
+          "opportunity_id": "E01-payments",
+          "posterior_wallet_interval_width": 86165632707.73,
+          "posterior_wallet_median": 111834863304.32,
+          "rank": 16
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1743799.56,
+          "opportunity_id": "E11-cross-border-fx",
+          "posterior_wallet_interval_width": 56961401763.38,
+          "posterior_wallet_median": 22875976294.53,
+          "rank": 17
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1629387.94,
+          "opportunity_id": "E16-cross-border-fx",
+          "posterior_wallet_interval_width": 51756162327.33,
+          "posterior_wallet_median": 21373922775.57,
+          "rank": 18
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 1606518.01,
+          "opportunity_id": "E09-trade-finance",
+          "posterior_wallet_interval_width": 7582765217.25,
+          "posterior_wallet_median": 5006830372.05,
+          "rank": 19
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1584705.74,
+          "opportunity_id": "E10-cross-border-fx",
+          "posterior_wallet_interval_width": 50851915434.41,
+          "posterior_wallet_median": 21085465680.61,
+          "rank": 20
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1571622.96,
+          "opportunity_id": "E05-trade-finance",
+          "posterior_wallet_interval_width": 10317600437.27,
+          "posterior_wallet_median": 2872391481.59,
+          "rank": 21
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1522932.42,
+          "opportunity_id": "E10-liquidity",
+          "posterior_wallet_interval_width": 69429876444.83,
+          "posterior_wallet_median": 23967449251.79,
+          "rank": 22
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1450925.06,
+          "opportunity_id": "E03-trade-finance",
+          "posterior_wallet_interval_width": 10056984723.12,
+          "posterior_wallet_median": 2626885044.8,
+          "rank": 23
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 1387359.66,
+          "opportunity_id": "E09-collections",
+          "posterior_wallet_interval_width": 32600097221.58,
+          "posterior_wallet_median": 44220524976.75,
+          "rank": 24
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1262213.13,
+          "opportunity_id": "E16-liquidity",
+          "posterior_wallet_interval_width": 54610827989.91,
+          "posterior_wallet_median": 19543878247.55,
+          "rank": 25
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1172762.47,
+          "opportunity_id": "E04-trade-finance",
+          "posterior_wallet_interval_width": 7853297707.96,
+          "posterior_wallet_median": 2135383604.65,
+          "rank": 26
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 1170765.04,
+          "opportunity_id": "E09-payments",
+          "posterior_wallet_interval_width": 51594797024.32,
+          "posterior_wallet_median": 66659609901.14,
+          "rank": 27
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1163722.98,
+          "opportunity_id": "E19-trade-finance",
+          "posterior_wallet_interval_width": 7946613404.97,
+          "posterior_wallet_median": 2170683763.78,
+          "rank": 28
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 972599.77,
+          "opportunity_id": "E03-liquidity",
+          "posterior_wallet_interval_width": 42607194074.61,
+          "posterior_wallet_median": 14474754350.93,
+          "rank": 29
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 784847.95,
+          "opportunity_id": "E17-cross-border-fx",
+          "posterior_wallet_interval_width": 24356946487.23,
+          "posterior_wallet_median": 10079484847.83,
+          "rank": 30
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 736100.41,
+          "opportunity_id": "E08-cross-border-fx",
+          "posterior_wallet_interval_width": 23590760844.09,
+          "posterior_wallet_median": 9301997517.42,
+          "rank": 31
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 565406.42,
+          "opportunity_id": "E15-cross-border-fx",
+          "posterior_wallet_interval_width": 17661478453.84,
+          "posterior_wallet_median": 7167983194.04,
+          "rank": 32
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 546060.57,
+          "opportunity_id": "E18-liquidity",
+          "posterior_wallet_interval_width": 23110899112.66,
+          "posterior_wallet_median": 8736184854.94,
+          "rank": 33
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 531515.38,
+          "opportunity_id": "E14-cross-border-fx",
+          "posterior_wallet_interval_width": 16659674743.08,
+          "posterior_wallet_median": 6845668425.34,
+          "rank": 34
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 442593.47,
+          "opportunity_id": "E18-cross-border-fx",
+          "posterior_wallet_interval_width": 13852857881.53,
+          "posterior_wallet_median": 5626888318.58,
+          "rank": 35
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 423268.53,
+          "opportunity_id": "E17-trade-finance",
+          "posterior_wallet_interval_width": 2580742326.03,
+          "posterior_wallet_median": 757235737.47,
+          "rank": 36
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 416474.07,
+          "opportunity_id": "E19-liquidity",
+          "posterior_wallet_interval_width": 17550529699.14,
+          "posterior_wallet_median": 6570429868.52,
+          "rank": 37
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 394176.64,
+          "opportunity_id": "E09-cross-border-fx",
+          "posterior_wallet_interval_width": 10715336892.38,
+          "posterior_wallet_median": 9790587033.8,
+          "rank": 38
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 392089.41,
+          "opportunity_id": "E19-cross-border-fx",
+          "posterior_wallet_interval_width": 11452577893.62,
+          "posterior_wallet_median": 4942360689.03,
+          "rank": 39
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 356220.39,
+          "opportunity_id": "E08-trade-finance",
+          "posterior_wallet_interval_width": 2455674391.68,
+          "posterior_wallet_median": 633982715.79,
+          "rank": 40
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 296926.27,
+          "opportunity_id": "E11-payments",
+          "posterior_wallet_interval_width": 130526471282.81,
+          "posterior_wallet_median": 72021783593.12,
+          "rank": 41
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 289747.95,
+          "opportunity_id": "E07-cross-border-fx",
+          "posterior_wallet_interval_width": 9256446348.41,
+          "posterior_wallet_median": 3884904817.06,
+          "rank": 42
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 285611.67,
+          "opportunity_id": "E12-cross-border-fx",
+          "posterior_wallet_interval_width": 8244574062.14,
+          "posterior_wallet_median": 3542594057.98,
+          "rank": 43
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 278541.91,
+          "opportunity_id": "E06-trade-finance",
+          "posterior_wallet_interval_width": 1898246360.6,
+          "posterior_wallet_median": 489413991.53,
+          "rank": 44
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 274765.57,
+          "opportunity_id": "E03-cross-border-fx",
+          "posterior_wallet_interval_width": 8611962931.89,
+          "posterior_wallet_median": 3471227415.8,
+          "rank": 45
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 250022.17,
+          "opportunity_id": "E04-liquidity",
+          "posterior_wallet_interval_width": 10169849200.67,
+          "posterior_wallet_median": 3770962987.24,
+          "rank": 46
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 244749.69,
+          "opportunity_id": "E05-cross-border-fx",
+          "posterior_wallet_interval_width": 7516917684.16,
+          "posterior_wallet_median": 3121336355.39,
+          "rank": 47
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 235796.69,
+          "opportunity_id": "E04-cross-border-fx",
+          "posterior_wallet_interval_width": 7355677031.42,
+          "posterior_wallet_median": 2967059225.3,
+          "rank": 48
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 221971.42,
+          "opportunity_id": "E14-liquidity",
+          "posterior_wallet_interval_width": 10037964374.05,
+          "posterior_wallet_median": 3557844289.99,
+          "rank": 49
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 200535.06,
+          "opportunity_id": "E05-liquidity",
+          "posterior_wallet_interval_width": 8919971110.32,
+          "posterior_wallet_median": 3188833625.04,
+          "rank": 50
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 186345.56,
+          "opportunity_id": "E07-trade-finance",
+          "posterior_wallet_interval_width": 1310640403.22,
+          "posterior_wallet_median": 330967119.65,
+          "rank": 51
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 175033.12,
+          "opportunity_id": "E08-payments",
+          "posterior_wallet_interval_width": 73368086629.27,
+          "posterior_wallet_median": 40768161837.03,
+          "rank": 52
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 170802.18,
+          "opportunity_id": "E15-liquidity",
+          "posterior_wallet_interval_width": 8080149123.32,
+          "posterior_wallet_median": 2707909572.72,
+          "rank": 53
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 153889.79,
+          "opportunity_id": "E12-trade-finance",
+          "posterior_wallet_interval_width": 979480761.23,
+          "posterior_wallet_median": 270700453.24,
+          "rank": 54
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 120870.58,
+          "opportunity_id": "E11-collections",
+          "posterior_wallet_interval_width": 45189038074.43,
+          "posterior_wallet_median": 26604343535.12,
+          "rank": 55
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 116287.85,
+          "opportunity_id": "E10-payments",
+          "posterior_wallet_interval_width": 49102477508.44,
+          "posterior_wallet_median": 27923990728.74,
+          "rank": 56
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 108283.2,
+          "opportunity_id": "E15-trade-finance",
+          "posterior_wallet_interval_width": 681786457.79,
+          "posterior_wallet_median": 191597262.08,
+          "rank": 57
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 91339.36,
+          "opportunity_id": "E16-payments",
+          "posterior_wallet_interval_width": 42095947043.88,
+          "posterior_wallet_median": 22592618554.19,
+          "rank": 58
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 78340.98,
+          "opportunity_id": "E13-cross-border-fx",
+          "posterior_wallet_interval_width": 2644194158.31,
+          "posterior_wallet_median": 1040819196.36,
+          "rank": 59
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 76979.52,
+          "opportunity_id": "E14-trade-finance",
+          "posterior_wallet_interval_width": 515677061.13,
+          "posterior_wallet_median": 136481679.13,
+          "rank": 60
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 67090.45,
+          "opportunity_id": "E08-collections",
+          "posterior_wallet_interval_width": 26379359518.6,
+          "posterior_wallet_median": 15072617325.97,
+          "rank": 61
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 57272.56,
+          "opportunity_id": "E06-cross-border-fx",
+          "posterior_wallet_interval_width": 1666247237.56,
+          "posterior_wallet_median": 712889814.01,
+          "rank": 62
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 52068.41,
+          "opportunity_id": "E03-collections",
+          "posterior_wallet_interval_width": 19837816201.92,
+          "posterior_wallet_median": 12145025815.29,
+          "rank": 63
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 46002.97,
+          "opportunity_id": "E18-payments",
+          "posterior_wallet_interval_width": 18346915563.28,
+          "posterior_wallet_median": 10327025845.37,
+          "rank": 64
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 40697.44,
+          "opportunity_id": "E10-collections",
+          "posterior_wallet_interval_width": 15005738701.55,
+          "posterior_wallet_median": 9349551001.7,
+          "rank": 65
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 37539.11,
+          "opportunity_id": "E07-liquidity",
+          "posterior_wallet_interval_width": 1863795976.87,
+          "posterior_wallet_median": 614690765.0,
+          "rank": 66
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 35986.32,
+          "opportunity_id": "E03-payments",
+          "posterior_wallet_interval_width": 17366544169.41,
+          "posterior_wallet_median": 9147772277.86,
+          "rank": 67
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 34881.31,
+          "opportunity_id": "E16-collections",
+          "posterior_wallet_interval_width": 12611899659.53,
+          "posterior_wallet_median": 7485535432.45,
+          "rank": 68
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 33113.63,
+          "opportunity_id": "E19-payments",
+          "posterior_wallet_interval_width": 13995579898.27,
+          "posterior_wallet_median": 7811174780.7,
+          "rank": 69
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 31317.75,
+          "opportunity_id": "E20-cross-border-fx",
+          "posterior_wallet_interval_width": 960481953.3,
+          "posterior_wallet_median": 391426780.97,
+          "rank": 70
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 29035.38,
+          "opportunity_id": "E17-liquidity",
+          "posterior_wallet_interval_width": 1368992292.38,
+          "posterior_wallet_median": 452950020.44,
+          "rank": 71
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 24220.51,
+          "opportunity_id": "E12-liquidity",
+          "posterior_wallet_interval_width": 1091493200.07,
+          "posterior_wallet_median": 372391795.06,
+          "rank": 72
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 19359.7,
+          "opportunity_id": "E20-trade-finance",
+          "posterior_wallet_interval_width": 128460043.9,
+          "posterior_wallet_median": 34819939.75,
+          "rank": 73
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 17007.88,
+          "opportunity_id": "E14-payments",
+          "posterior_wallet_interval_width": 8029642306.25,
+          "posterior_wallet_median": 4144466380.59,
+          "rank": 74
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 14670.35,
+          "opportunity_id": "E18-collections",
+          "posterior_wallet_interval_width": 5866550330.24,
+          "posterior_wallet_median": 3499526111.31,
+          "rank": 75
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 13980.44,
+          "opportunity_id": "E04-collections",
+          "posterior_wallet_interval_width": 4952999666.68,
+          "posterior_wallet_median": 2947014028.24,
+          "rank": 76
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 13143.68,
+          "opportunity_id": "E15-payments",
+          "posterior_wallet_interval_width": 5884695346.86,
+          "posterior_wallet_median": 3201937085.29,
+          "rank": 77
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 12576.57,
+          "opportunity_id": "E05-collections",
+          "posterior_wallet_interval_width": 4657608930.92,
+          "posterior_wallet_median": 2603786863.96,
+          "rank": 78
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 11977.86,
+          "opportunity_id": "E04-payments",
+          "posterior_wallet_interval_width": 4844274421.99,
+          "posterior_wallet_median": 2753417612.1,
+          "rank": 79
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 11593.51,
+          "opportunity_id": "E19-collections",
+          "posterior_wallet_interval_width": 4206338553.58,
+          "posterior_wallet_median": 2479964325.0,
+          "rank": 80
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 10029.06,
+          "opportunity_id": "E05-payments",
+          "posterior_wallet_interval_width": 4147500090.53,
+          "posterior_wallet_median": 2350886058.46,
+          "rank": 81
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 9110.68,
+          "opportunity_id": "E13-trade-finance",
+          "posterior_wallet_interval_width": 58771833.03,
+          "posterior_wallet_median": 16334254.38,
+          "rank": 82
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 6474.35,
+          "opportunity_id": "E06-liquidity",
+          "posterior_wallet_interval_width": 265857738.21,
+          "posterior_wallet_median": 97417773.95,
+          "rank": 83
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 5787.93,
+          "opportunity_id": "E14-collections",
+          "posterior_wallet_interval_width": 2306077395.63,
+          "posterior_wallet_median": 1415788655.98,
+          "rank": 84
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 5679.48,
+          "opportunity_id": "E13-liquidity",
+          "posterior_wallet_interval_width": 255366539.01,
+          "posterior_wallet_median": 90056389.48,
+          "rank": 85
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 4628.42,
+          "opportunity_id": "E15-collections",
+          "posterior_wallet_interval_width": 1798675045.01,
+          "posterior_wallet_median": 1024029913.54,
+          "rank": 86
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 2589.98,
+          "opportunity_id": "E07-payments",
+          "posterior_wallet_interval_width": 1175981047.37,
+          "posterior_wallet_median": 654669306.64,
+          "rank": 87
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1885.74,
+          "opportunity_id": "E17-payments",
+          "posterior_wallet_interval_width": 831840897.27,
+          "posterior_wallet_median": 455596150.94,
+          "rank": 88
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1682.48,
+          "opportunity_id": "E12-payments",
+          "posterior_wallet_interval_width": 691158815.08,
+          "posterior_wallet_median": 379256227.55,
+          "rank": 89
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1526.54,
+          "opportunity_id": "E07-collections",
+          "posterior_wallet_interval_width": 522634310.09,
+          "posterior_wallet_median": 314860044.93,
+          "rank": 90
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1419.23,
+          "opportunity_id": "E20-liquidity",
+          "posterior_wallet_interval_width": 63258305.47,
+          "posterior_wallet_median": 22550427.34,
+          "rank": 91
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 1035.6,
+          "opportunity_id": "E17-collections",
+          "posterior_wallet_interval_width": 413979139.1,
+          "posterior_wallet_median": 240619352.62,
+          "rank": 92
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 818.23892163,
+          "opportunity_id": "E12-collections",
+          "posterior_wallet_interval_width": 320261948.02,
+          "posterior_wallet_median": 193821456.24,
+          "rank": 93
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 409.07864799,
+          "opportunity_id": "E13-payments",
+          "posterior_wallet_interval_width": 170976511.36,
+          "posterior_wallet_median": 95237654.53,
+          "rank": 94
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 405.10983355,
+          "opportunity_id": "E06-collections",
+          "posterior_wallet_interval_width": 162516088.72,
+          "posterior_wallet_median": 92529026.06,
+          "rank": 95
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 225.89407248,
+          "opportunity_id": "E06-payments",
+          "posterior_wallet_interval_width": 93998534.41,
+          "posterior_wallet_median": 52366395.69,
+          "rank": 96
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 219.03563015,
+          "opportunity_id": "E13-collections",
+          "posterior_wallet_interval_width": 76320578.67,
+          "posterior_wallet_median": 45937422.52,
+          "rank": 97
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 79.90993555,
+          "opportunity_id": "E20-payments",
+          "posterior_wallet_interval_width": 32100863.55,
+          "posterior_wallet_median": 18710431.61,
+          "rank": 98
+        },
+        {
+          "activated": false,
+          "contestable_scenario_contribution": 71.09881415,
+          "opportunity_id": "E20-collections",
+          "posterior_wallet_interval_width": 27579633.56,
+          "posterior_wallet_median": 16197528.01,
+          "rank": 99
+        },
+        {
+          "activated": true,
+          "contestable_scenario_contribution": 0.0,
+          "opportunity_id": "E09-liquidity",
+          "posterior_wallet_interval_width": 11285501862.42,
+          "posterior_wallet_median": 10091108834.72,
+          "rank": 100
+        }
+      ],
+      "e1_anchor_weight": 0.5,
+      "known_truth_diagnostics": {
+        "median_wallet_interval_width_zar": 3293118178.95,
+        "median_wallet_relative_interval_width": 0.98553212,
+        "production_claim_allowed": false,
+        "records": 500,
+        "status": "SYNTHETIC_KNOWN_TRUTH_ONLY",
+        "wallet_90_coverage": 0.868,
+        "wallet_scaled_crps": 0.15870271
+      },
+      "policy_version": "v2-wallet-measurement-policy-1.1.0+e1w0.50",
+      "ranking": [
+        "E02-trade-finance",
+        "E02-cross-border-fx",
+        "E01-trade-finance",
+        "E01-cross-border-fx",
+        "E02-liquidity",
+        "E02-collections",
+        "E01-collections",
+        "E10-trade-finance",
+        "E11-liquidity",
+        "E02-payments",
+        "E16-trade-finance",
+        "E11-trade-finance",
+        "E18-trade-finance",
+        "E01-liquidity",
+        "E08-liquidity",
+        "E01-payments",
+        "E11-cross-border-fx",
+        "E16-cross-border-fx",
+        "E09-trade-finance",
+        "E10-cross-border-fx",
+        "E05-trade-finance",
+        "E10-liquidity",
+        "E03-trade-finance",
+        "E09-collections",
+        "E16-liquidity",
+        "E04-trade-finance",
+        "E09-payments",
+        "E19-trade-finance",
+        "E03-liquidity",
+        "E17-cross-border-fx",
+        "E08-cross-border-fx",
+        "E15-cross-border-fx",
+        "E18-liquidity",
+        "E14-cross-border-fx",
+        "E18-cross-border-fx",
+        "E17-trade-finance",
+        "E19-liquidity",
+        "E09-cross-border-fx",
+        "E19-cross-border-fx",
+        "E08-trade-finance",
+        "E11-payments",
+        "E07-cross-border-fx",
+        "E12-cross-border-fx",
+        "E06-trade-finance",
+        "E03-cross-border-fx",
+        "E04-liquidity",
+        "E05-cross-border-fx",
+        "E04-cross-border-fx",
+        "E14-liquidity",
+        "E05-liquidity",
+        "E07-trade-finance",
+        "E08-payments",
+        "E15-liquidity",
+        "E12-trade-finance",
+        "E11-collections",
+        "E10-payments",
+        "E15-trade-finance",
+        "E16-payments",
+        "E13-cross-border-fx",
+        "E14-trade-finance",
+        "E08-collections",
+        "E06-cross-border-fx",
+        "E03-collections",
+        "E18-payments",
+        "E10-collections",
+        "E07-liquidity",
+        "E03-payments",
+        "E16-collections",
+        "E19-payments",
+        "E20-cross-border-fx",
+        "E17-liquidity",
+        "E12-liquidity",
+        "E20-trade-finance",
+        "E14-payments",
+        "E18-collections",
+        "E04-collections",
+        "E15-payments",
+        "E05-collections",
+        "E04-payments",
+        "E19-collections",
+        "E05-payments",
+        "E13-trade-finance",
+        "E06-liquidity",
+        "E14-collections",
+        "E13-liquidity",
+        "E15-collections",
+        "E07-payments",
+        "E17-payments",
+        "E12-payments",
+        "E07-collections",
+        "E20-liquidity",
+        "E17-collections",
+        "E12-collections",
+        "E13-payments",
+        "E06-collections",
+        "E06-payments",
+        "E13-collections",
+        "E20-payments",
+        "E20-collections",
+        "E09-liquidity"
+      ],
+      "trade_finance": {
+        "absolute_economics_top10_zar": 45346817.02,
+        "first_ranked": true,
+        "majority_dominant": false,
+        "top10_count": 3,
+        "top10_share": 0.3
+      }
+    }
+  },
+  "arms_evaluated": [
+    0.2,
+    0.35,
+    0.5
+  ],
+  "baseline_e1_anchor_weight": 0.35,
+  "baseline_policy_version": "v2-wallet-measurement-policy-1.1.0",
+  "claim_boundary": "A sensitivity sweep evidences robustness to one governed assumption. It is not a calibration and does not license a measured-share claim.",
+  "comparisons": {
+    "0.20": {
+      "activated_cell_max_rank_move": 63,
+      "cells_moving_more_than_five_ranks": 10,
+      "kendall_tau_vs_baseline": 0.93979798,
+      "max_absolute_rank_move": 63,
+      "top8_identical": false,
+      "top8_overlap_with_baseline": 6
+    },
+    "0.50": {
+      "activated_cell_max_rank_move": 12,
+      "cells_moving_more_than_five_ranks": 4,
+      "kendall_tau_vs_baseline": 0.97979798,
+      "max_absolute_rank_move": 12,
+      "top8_identical": false,
+      "top8_overlap_with_baseline": 6
+    }
+  },
+  "design": "Paired comparison under common random numbers: the Beta draw seed excludes the anchor weight, so the arms share draws and differences are attributable to the weight rather than to Monte Carlo noise.",
+  "generated_at": "2026-06-30T00:00:00+00:00",
+  "headline": "The top-8 selection is NOT invariant across 0.20-0.50; see comparisons.",
+  "known_truth_boundary": "Coverage and CRPS are evaluated only in a seeded synthetic known-truth laboratory. They do not demonstrate real-client calibration.",
+  "top8_invariant": false,
+  "version": "measurement-policy-sensitivity-1.1.0"
+}

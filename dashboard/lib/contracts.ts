@@ -708,3 +708,82 @@ export type V31Fixture = {
   change_digests: Record<string, V31Digest>;
   funding_routes: Record<string, V31FundingRoutes>;
 };
+
+export type WalletPortfolioCell = {
+  opportunity_id: string;
+  entity_id: string;
+  entity_name: string;
+  sector: string;
+  product: string;
+  product_quantity_semantics: string;
+  as_of: string;
+  observed_activity: Money;
+  identification_bounds: IntervalEstimate;
+  posterior_wallet: IntervalEstimate;
+  share_interval: IntervalEstimate;
+  target_share_scenario: number;
+  contestable_activity: AmountInterval & { unit: string };
+  scenario_contribution: (AmountInterval & { unit: string }) | null;
+  timing: Opportunity["timing"];
+  evidence_tier: EvidenceTier;
+  approval_state: string;
+  anchor_activation: string;
+  calibration_status: string;
+  share_claim_class: ClaimClass;
+  commercial_claim_class: ClaimClass;
+  rank: number | null;
+  active_fact_ids: string[];
+  pending_fact_ids: string[];
+  permitted_action_now: string;
+  conditional_action: string;
+  artifact_versions: Opportunity["artifacts"] & { measurement_policy_version?: string | null };
+};
+
+export type WalletPortfolioProjection = {
+  version: string;
+  as_of: string;
+  clients: number;
+  products: string[];
+  cells: WalletPortfolioCell[];
+  product_summaries: Array<{
+    product: string;
+    cells: number;
+    observed_activity_zar: number;
+    scenario_contribution_zar: number;
+    approved_anchor_cells: number;
+    prior_led_cells: number;
+  }>;
+  top_opportunity_ids: string[];
+  approved_anchor_cells: number;
+  prior_led_cells: number;
+  approved_source_facts: number;
+  pending_source_facts: number;
+  active_anchor_policy_version: string;
+  measurement_policy_version: string;
+  claim_boundary: Record<string, string>;
+  release: { hackathon_status: string; bank_production_status: string; data_mode: string };
+};
+
+export type WalletOpportunityDetail = {
+  cell: WalletPortfolioCell;
+  equation: string;
+  contestable_equation: string;
+  explanation: {
+    A: { value: number; unit: string; claim_class: ClaimClass };
+    T: { p10: number; p50: number; p90: number; claim_class: ClaimClass };
+    q: { p10: number; p50: number; p90: number; identity_check: boolean; declared_tolerance: string };
+    q_star: { value: number; claim_class: ClaimClass };
+    G: { p10: number; p50: number; p90: number; claim_class: ClaimClass };
+  };
+  supporting_facts: Array<Record<string, string | number | boolean | null>>;
+  decision_twin_action: null | {
+    conversation_id: string;
+    stakeholder_role: string;
+    problem: string;
+    solution_bundle: string[];
+    why_now: string;
+    permitted_action: string;
+    conditional_action: string;
+  };
+  claim_boundary: Record<string, string>;
+};

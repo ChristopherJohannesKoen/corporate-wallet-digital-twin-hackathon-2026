@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,6 +14,7 @@ from wallet_twin_v2.offline_lab import run_offline_lab
 from wallet_twin_v2.operational_validation import run_operational_rehearsal
 from wallet_twin_v2.runtime_config import RuntimeConfig
 from wallet_twin_v2.production_target import write_production_target_report
+from wallet_twin_v2.canonical import artifact_timestamp
 
 
 def main() -> None:
@@ -40,7 +40,7 @@ def main() -> None:
 
     scorecard = {
         "version": "production-candidate-scorecard-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": artifact_timestamp(),
         "status": "BANK_PRODUCTION_CANDIDATE_NOT_PROMOTABLE",
         "claim": "Maximum offline production-candidate maturity; bank-dependent release gates remain explicit.",
         "scores": {

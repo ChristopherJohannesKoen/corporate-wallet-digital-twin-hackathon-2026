@@ -2,13 +2,14 @@
   "E01": {
     "approved_claim_count": 52,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 52,
@@ -44,7 +45,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 9185914038.405224,
+          "bank_observed_collections_ltm_zar": 9185914038.41,
           "collections_yoy_change": 0.065062
         },
         "freshness_days": 0,
@@ -88,7 +89,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": true,
-          "bank_observed_payments_ltm_zar": 7135405353.229999,
+          "bank_observed_payments_ltm_zar": 7135405353.23,
           "payments_yoy_change": 0.137516
         },
         "freshness_days": 0,
@@ -160,9 +161,9 @@
             "formula": "CCC = DIO + DSO - DPO",
             "indicator_id": "CCC",
             "inputs": {
-              "DIO": 79.15166001423312,
-              "DPO": 58.84000123766206,
-              "DSO": 24.095041161093988,
+              "DIO": 79.15166001,
+              "DPO": 58.84000124,
+              "DSO": 24.09504116,
               "inventories_close": 124627080000.0,
               "inventories_open": 125716540000.0,
               "operating_cost_base": 577217340000.0,
@@ -174,16 +175,16 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 37.74569494701529,
-              "median": 44.406699937665046,
+              "lower": 37.74569495,
+              "median": 44.40669994,
               "unit": "days",
-              "upper": 51.0677049283148
+              "upper": 51.06770493
             },
             "label": "Cash conversion cycle",
             "missing_inputs": [],
             "pending_evidence_claim_ids": [],
             "status": "SUPPORTED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -207,7 +208,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -273,7 +274,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -290,16 +291,16 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.033461433420467396,
-              "median": 0.03936639225937341,
+              "lower": 0.03346143,
+              "median": 0.03936639,
               "unit": "ratio",
-              "upper": 0.04527135109827942
+              "upper": 0.04527135
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
             "pending_evidence_claim_ids": [],
             "status": "SUPPORTED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -340,7 +341,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 8160659695.8176155,
+          "bank_observed_liquidity_ltm_zar": 8160659695.82,
           "liquidity_volatility_index": 0.068
         },
         "freshness_days": 0,
@@ -363,7 +364,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -383,7 +384,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -486,8 +487,8 @@
           "international_exposure_index": 0.178,
           "top_corridor_values_zar": [
             1165001591.04,
-            1093915013.569999,
-            1081543005.710001
+            1093915013.57,
+            1081543005.71
           ],
           "top_corridors": [
             "China",
@@ -555,7 +556,7 @@
               "bec:BHP-2025-FX",
               "bec:E01:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
               "cross_border_turnover": 2079487623.08,
@@ -563,10 +564,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1663590098.464,
+              "lower": 1663590098.46,
               "median": 2079487623.08,
               "unit": "ZAR",
-              "upper": 2495385147.6959996
+              "upper": 2495385147.7
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -574,7 +575,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -653,7 +654,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -777,21 +778,22 @@
       "E01"
     ],
     "sector": "mining",
-    "snapshot_id": "twin:E01:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E01:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E02": {
     "approved_claim_count": 52,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 52,
@@ -827,7 +829,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 2463125157.400795,
+          "bank_observed_collections_ltm_zar": 2463125157.4,
           "collections_yoy_change": 0.132802
         },
         "freshness_days": 0,
@@ -871,7 +873,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": true,
-          "bank_observed_payments_ltm_zar": 1876109020.9800003,
+          "bank_observed_payments_ltm_zar": 1876109020.98,
           "payments_yoy_change": 0.09596
         },
         "freshness_days": 0,
@@ -943,9 +945,9 @@
             "formula": "CCC = DIO + DSO - DPO",
             "indicator_id": "CCC",
             "inputs": {
-              "DIO": 48.36923598927472,
-              "DPO": 41.842424856830746,
-              "DSO": 17.920071909022965,
+              "DIO": 48.36923599,
+              "DPO": 41.84242486,
+              "DSO": 17.92007191,
               "inventories_close": 606436300000.0,
               "inventories_open": 537532420000.0,
               "operating_cost_base": 4316261920000.0,
@@ -957,16 +959,16 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 20.779850585246905,
-              "median": 24.446883041466947,
+              "lower": 20.77985059,
+              "median": 24.44688304,
               "unit": "days",
-              "upper": 28.113915497686985
+              "upper": 28.1139155
             },
             "label": "Cash conversion cycle",
             "missing_inputs": [],
             "pending_evidence_claim_ids": [],
             "status": "SUPPORTED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -990,7 +992,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -1056,7 +1058,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -1073,16 +1075,16 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.04977033550810996,
-              "median": 0.05855333589189408,
+              "lower": 0.04977034,
+              "median": 0.05855334,
               "unit": "ratio",
-              "upper": 0.06733633627567819
+              "upper": 0.06733634
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
             "pending_evidence_claim_ids": [],
             "status": "SUPPORTED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -1123,7 +1125,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 2169617089.1903973,
+          "bank_observed_liquidity_ltm_zar": 2169617089.19,
           "liquidity_volatility_index": 0.1
         },
         "freshness_days": 0,
@@ -1146,7 +1148,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -1166,7 +1168,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -1268,9 +1270,9 @@
           "active_country_count": 15,
           "international_exposure_index": 0.44,
           "top_corridor_values_zar": [
-            3659029310.1000013,
-            594605909.7900001,
-            577306625.8199999
+            3659029310.1,
+            594605909.79,
+            577306625.82
           ],
           "top_corridors": [
             "DRC",
@@ -1322,7 +1324,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": true,
-          "bank_observed_cross_border_fx_ltm_zar": 2320701124.5699997,
+          "bank_observed_cross_border_fx_ltm_zar": 2320701124.57,
           "commodity_linked_sector": true,
           "top_currency_pairs": [
             "USD/ZAR",
@@ -1338,18 +1340,18 @@
               "bec:E02:obs:flow:cross-border-fx",
               "bec:GLEN-2025-FX"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 2320701124.5699997,
+              "cross_border_turnover": 2320701124.57,
               "disclosed_fx_exposure": 135503820000.0
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1856560899.656,
-              "median": 2320701124.5699997,
+              "lower": 1856560899.66,
+              "median": 2320701124.57,
               "unit": "ZAR",
-              "upper": 2784841349.4839997
+              "upper": 2784841349.48
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -1357,7 +1359,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -1436,7 +1438,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -1560,21 +1562,22 @@
       "E02"
     ],
     "sector": "mining",
-    "snapshot_id": "twin:E02:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E02:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E03": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -1609,7 +1612,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 4294499422.710504,
+          "bank_observed_collections_ltm_zar": 4294499422.71,
           "collections_yoy_change": -0.100017
         },
         "freshness_days": 0,
@@ -1650,7 +1653,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 3074915425.6599994,
+          "bank_observed_payments_ltm_zar": 3074915425.66,
           "payments_yoy_change": -0.12212
         },
         "freshness_days": 0,
@@ -1728,7 +1731,7 @@
               "bec:AA-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -1752,7 +1755,7 @@
               "bec:AA-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -1825,7 +1828,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -107237155200.00002,
+              "lower": -107237155200.0,
               "median": -95747460000.0,
               "unit": "ZAR",
               "upper": -84257764800.0
@@ -1837,7 +1840,7 @@
               "bec:AA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -1854,10 +1857,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.049269384233797044,
-              "median": 0.05796398145152593,
+              "lower": 0.04926938,
+              "median": 0.05796398,
               "unit": "ratio",
-              "upper": 0.06665857866925481
+              "upper": 0.06665858
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -1866,7 +1869,7 @@
               "bec:AA-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -1909,7 +1912,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 3684707424.185252,
+          "bank_observed_liquidity_ltm_zar": 3684707424.19,
           "liquidity_volatility_index": 0.044
         },
         "freshness_days": 0,
@@ -1932,7 +1935,7 @@
               "lower": 84257764800.0,
               "median": 95747460000.0,
               "unit": "ZAR",
-              "upper": 107237155200.00002
+              "upper": 107237155200.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -1941,7 +1944,7 @@
               "bec:AA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -1958,10 +1961,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 5.088930232558139,
-              "median": 5.986976744186046,
+              "lower": 5.08893023,
+              "median": 5.98697674,
               "unit": "ratio",
-              "upper": 6.885023255813953
+              "upper": 6.88502326
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -1970,7 +1973,7 @@
               "bec:AA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -2070,9 +2073,9 @@
           "active_country_count": 16,
           "international_exposure_index": 0.181,
           "top_corridor_values_zar": [
-            1188102298.8399994,
-            1069891099.559999,
-            381686070.7499999
+            1188102298.84,
+            1069891099.56,
+            381686070.75
           ],
           "top_corridors": [
             "Namibia",
@@ -2123,7 +2126,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 992003847.4299998,
+          "bank_observed_cross_border_fx_ltm_zar": 992003847.43,
           "commodity_linked_sector": true,
           "top_currency_pairs": [
             "CNY/ZAR",
@@ -2138,17 +2141,17 @@
             "evidence_claim_ids": [
               "bec:E03:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 992003847.4299998
+              "cross_border_turnover": 992003847.43
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 793603077.9439999,
-              "median": 992003847.4299998,
+              "lower": 793603077.94,
+              "median": 992003847.43,
               "unit": "ZAR",
-              "upper": 1190404616.9159997
+              "upper": 1190404616.92
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -2156,7 +2159,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -2235,7 +2238,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -2392,21 +2395,22 @@
       "E03"
     ],
     "sector": "mining",
-    "snapshot_id": "twin:E03:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E03:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E04": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -2441,7 +2445,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 1027502123.9642994,
+          "bank_observed_collections_ltm_zar": 1027502123.96,
           "collections_yoy_change": 0.080492
         },
         "freshness_days": 0,
@@ -2482,7 +2486,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 906921192.7899997,
+          "bank_observed_payments_ltm_zar": 906921192.79,
           "payments_yoy_change": 0.141877
         },
         "freshness_days": 0,
@@ -2529,7 +2533,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_trade_finance_ltm_zar": 515693855.48999995,
+          "bank_observed_trade_finance_ltm_zar": 515693855.49,
           "trade_events_next_90d": 71,
           "working_capital_intensity_index": 0.587
         },
@@ -2560,7 +2564,7 @@
               "bec:AGA-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -2584,7 +2588,7 @@
               "bec:AGA-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -2657,7 +2661,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -57729235200.00001,
+              "lower": -57729235200.0,
               "median": -51543960000.0,
               "unit": "ZAR",
               "upper": -45358684800.0
@@ -2669,7 +2673,7 @@
               "bec:AGA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -2686,10 +2690,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.0016324674011927625,
-              "median": 0.0019205498837561912,
+              "lower": 0.00163247,
+              "median": 0.00192055,
               "unit": "ratio",
-              "upper": 0.00220863236631962
+              "upper": 0.00220863
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -2698,7 +2702,7 @@
               "bec:AGA-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -2741,7 +2745,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 967211658.3771496,
+          "bank_observed_liquidity_ltm_zar": 967211658.38,
           "liquidity_volatility_index": 0.111
         },
         "freshness_days": 0,
@@ -2764,7 +2768,7 @@
               "lower": 45358684800.0,
               "median": 51543960000.0,
               "unit": "ZAR",
-              "upper": 57729235200.00001
+              "upper": 57729235200.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -2773,7 +2777,7 @@
               "bec:AGA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -2790,10 +2794,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 129.96052631578948,
-              "median": 152.89473684210526,
+              "lower": 129.96052632,
+              "median": 152.89473684,
               "unit": "ratio",
-              "upper": 175.82894736842104
+              "upper": 175.82894737
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -2802,7 +2806,7 @@
               "bec:AGA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -2902,9 +2906,9 @@
           "active_country_count": 18,
           "international_exposure_index": 0.413,
           "top_corridor_values_zar": [
-            425079125.8800001,
-            337342410.3600001,
-            279738993.6499998
+            425079125.88,
+            337342410.36,
+            279738993.65
           ],
           "top_corridors": [
             "Ghana",
@@ -2955,7 +2959,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 846568733.0200001,
+          "bank_observed_cross_border_fx_ltm_zar": 846568733.02,
           "commodity_linked_sector": true,
           "top_currency_pairs": [
             "AED/ZAR",
@@ -2970,17 +2974,17 @@
             "evidence_claim_ids": [
               "bec:E04:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 846568733.0200001
+              "cross_border_turnover": 846568733.02
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 677254986.4160001,
-              "median": 846568733.0200001,
+              "lower": 677254986.42,
+              "median": 846568733.02,
               "unit": "ZAR",
-              "upper": 1015882479.6240001
+              "upper": 1015882479.62
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -2988,7 +2992,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -3067,7 +3071,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -3224,21 +3228,22 @@
       "E04"
     ],
     "sector": "mining",
-    "snapshot_id": "twin:E04:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E04:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E05": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -3273,7 +3278,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 905404726.9369229,
+          "bank_observed_collections_ltm_zar": 905404726.94,
           "collections_yoy_change": 0.105932
         },
         "freshness_days": 0,
@@ -3314,7 +3319,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 777545050.7299999,
+          "bank_observed_payments_ltm_zar": 777545050.73,
           "payments_yoy_change": 0.164105
         },
         "freshness_days": 0,
@@ -3361,7 +3366,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_trade_finance_ltm_zar": 695385751.8499999,
+          "bank_observed_trade_finance_ltm_zar": 695385751.85,
           "trade_events_next_90d": 79,
           "working_capital_intensity_index": 0.514
         },
@@ -3392,7 +3397,7 @@
               "bec:GF-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -3416,7 +3421,7 @@
               "bec:GF-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -3489,7 +3494,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -32015121600.000004,
+              "lower": -32015121600.0,
               "median": -28584930000.0,
               "unit": "ZAR",
               "upper": -25154738400.0
@@ -3501,7 +3506,7 @@
               "bec:GF-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -3518,10 +3523,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.01735684983945242,
-              "median": 0.020419823340532262,
+              "lower": 0.01735685,
+              "median": 0.02041982,
               "unit": "ratio",
-              "upper": 0.0234827968416121
+              "upper": 0.0234828
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -3530,7 +3535,7 @@
               "bec:GF-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -3573,7 +3578,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 841474888.8334614,
+          "bank_observed_liquidity_ltm_zar": 841474888.83,
           "liquidity_volatility_index": 0.129
         },
         "freshness_days": 0,
@@ -3596,7 +3601,7 @@
               "lower": 25154738400.0,
               "median": 28584930000.0,
               "unit": "ZAR",
-              "upper": 32015121600.000004
+              "upper": 32015121600.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -3605,7 +3610,7 @@
               "bec:GF-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -3622,10 +3627,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 8.462898712926693,
-              "median": 9.95635142697258,
+              "lower": 8.46289871,
+              "median": 9.95635143,
               "unit": "ratio",
-              "upper": 11.449804141018467
+              "upper": 11.44980414
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -3634,7 +3639,7 @@
               "bec:GF-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -3734,9 +3739,9 @@
           "active_country_count": 14,
           "international_exposure_index": 0.486,
           "top_corridor_values_zar": [
-            1653408337.3100035,
-            255095703.66999993,
-            252673961.5999999
+            1653408337.31,
+            255095703.67,
+            252673961.6
           ],
           "top_corridors": [
             "Ghana",
@@ -3802,17 +3807,17 @@
             "evidence_claim_ids": [
               "bec:E05:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
               "cross_border_turnover": 895360389.99
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 716288311.9920001,
+              "lower": 716288311.99,
               "median": 895360389.99,
               "unit": "ZAR",
-              "upper": 1074432467.988
+              "upper": 1074432467.99
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -3820,7 +3825,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -3899,7 +3904,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -4056,21 +4061,22 @@
       "E05"
     ],
     "sector": "mining",
-    "snapshot_id": "twin:E05:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E05:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E06": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -4105,7 +4111,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 32627304.865051642,
+          "bank_observed_collections_ltm_zar": 32627304.87,
           "collections_yoy_change": 0.00488
         },
         "freshness_days": 0,
@@ -4193,7 +4199,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_trade_finance_ltm_zar": 115378320.22999999,
+          "bank_observed_trade_finance_ltm_zar": 115378320.23,
           "trade_events_next_90d": 13,
           "working_capital_intensity_index": 0.136
         },
@@ -4224,7 +4230,7 @@
               "bec:VALTERRA-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -4248,7 +4254,7 @@
               "bec:VALTERRA-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -4321,7 +4327,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -14062720000.000002,
+              "lower": -14062720000.0,
               "median": -12556000000.0,
               "unit": "ZAR",
               "upper": -11049280000.0
@@ -4333,7 +4339,7 @@
               "bec:VALTERRA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -4350,10 +4356,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.02956331126966389,
-              "median": 0.034780366199604576,
+              "lower": 0.02956331,
+              "median": 0.03478037,
               "unit": "ratio",
-              "upper": 0.03999742112954526
+              "upper": 0.03999742
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -4362,7 +4368,7 @@
               "bec:VALTERRA-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -4405,7 +4411,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 24953375.78752582,
+          "bank_observed_liquidity_ltm_zar": 24953375.79,
           "liquidity_volatility_index": 0.554
         },
         "freshness_days": 0,
@@ -4428,7 +4434,7 @@
               "lower": 11049280000.0,
               "median": 12556000000.0,
               "unit": "ZAR",
-              "upper": 14062720000.000002
+              "upper": 14062720000.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -4437,7 +4443,7 @@
               "bec:VALTERRA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -4454,10 +4460,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 3.48781512605042,
-              "median": 4.1033119130004945,
+              "lower": 3.48781513,
+              "median": 4.10331191,
               "unit": "ratio",
-              "upper": 4.718808699950568
+              "upper": 4.7188087
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -4466,7 +4472,7 @@
               "bec:VALTERRA-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -4566,9 +4572,9 @@
           "active_country_count": 15,
           "international_exposure_index": 0.864,
           "top_corridor_values_zar": [
-            284450279.22999984,
-            67502269.69000001,
-            66102307.41999998
+            284450279.23,
+            67502269.69,
+            66102307.42
           ],
           "top_corridors": [
             "Zimbabwe",
@@ -4634,17 +4640,17 @@
             "evidence_claim_ids": [
               "bec:E06:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
               "cross_border_turnover": 202511540.88
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 162009232.704,
+              "lower": 162009232.7,
               "median": 202511540.88,
               "unit": "ZAR",
-              "upper": 243013849.056
+              "upper": 243013849.06
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -4652,7 +4658,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -4731,7 +4737,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -4888,21 +4894,22 @@
       "E06"
     ],
     "sector": "mining",
-    "snapshot_id": "twin:E06:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E06:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E07": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -4937,7 +4944,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 109422978.92000002,
+          "bank_observed_collections_ltm_zar": 109422978.92,
           "collections_yoy_change": 0.131669
         },
         "freshness_days": 0,
@@ -4978,7 +4985,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 219822672.67999998,
+          "bank_observed_payments_ltm_zar": 219822672.68,
           "payments_yoy_change": 0.206135
         },
         "freshness_days": 0,
@@ -5025,7 +5032,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_trade_finance_ltm_zar": 78607464.89999999,
+          "bank_observed_trade_finance_ltm_zar": 78607464.9,
           "trade_events_next_90d": 22,
           "working_capital_intensity_index": 0.213
         },
@@ -5056,7 +5063,7 @@
               "bec:OUT-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -5080,7 +5087,7 @@
               "bec:OUT-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -5158,7 +5165,7 @@
               "bec:OUT-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -5180,7 +5187,7 @@
               "bec:OUT-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -5225,7 +5232,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 164622825.79999998,
+          "bank_observed_liquidity_ltm_zar": 164622825.8,
           "liquidity_volatility_index": 0.124
         },
         "freshness_days": 0,
@@ -5245,7 +5252,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -16087680000.000002,
+              "lower": -16087680000.0,
               "median": -14364000000.0,
               "unit": "ZAR",
               "upper": -12640320000.0
@@ -5257,7 +5264,7 @@
               "bec:OUT-2025-INS-LIAB"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -5274,10 +5281,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.09768007887115657,
-              "median": 0.11491773984841949,
+              "lower": 0.09768008,
+              "median": 0.11491774,
               "unit": "ratio",
-              "upper": 0.13215540082568242
+              "upper": 0.1321554
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -5286,7 +5293,7 @@
               "bec:OUT-2025-INS-LIAB"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -5386,9 +5393,9 @@
           "active_country_count": 10,
           "international_exposure_index": 0.787,
           "top_corridor_values_zar": [
-            289782866.2300002,
-            268613656.04999995,
-            266727509.49999976
+            289782866.23,
+            268613656.05,
+            266727509.5
           ],
           "top_corridors": [
             "Germany",
@@ -5454,17 +5461,17 @@
             "evidence_claim_ids": [
               "bec:E07:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
               "cross_border_turnover": 1135855217.79
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 908684174.232,
+              "lower": 908684174.23,
               "median": 1135855217.79,
               "unit": "ZAR",
-              "upper": 1363026261.3479998
+              "upper": 1363026261.35
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -5472,7 +5479,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -5550,7 +5557,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -5707,21 +5714,22 @@
       "E07"
     ],
     "sector": "insurance",
-    "snapshot_id": "twin:E07:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E07:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E08": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -5756,7 +5764,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 5302959760.240003,
+          "bank_observed_collections_ltm_zar": 5302959760.24,
           "collections_yoy_change": -0.218329
         },
         "freshness_days": 0,
@@ -5797,7 +5805,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 13465817999.559992,
+          "bank_observed_payments_ltm_zar": 13465817999.56,
           "payments_yoy_change": -0.231805
         },
         "freshness_days": 0,
@@ -5875,7 +5883,7 @@
               "bec:SANLAM-2024-INSREV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -5899,7 +5907,7 @@
               "bec:SANLAM-2024-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -5972,7 +5980,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -16612960000.000002,
+              "lower": -16612960000.0,
               "median": -14833000000.0,
               "unit": "ZAR",
               "upper": -13053040000.0
@@ -5984,7 +5992,7 @@
               "bec:SANLAM-2024-TERM"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -6001,10 +6009,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.17976624765980206,
-              "median": 0.21148970312917892,
+              "lower": 0.17976625,
+              "median": 0.2114897,
               "unit": "ratio",
-              "upper": 0.24321315859855575
+              "upper": 0.24321316
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -6013,7 +6021,7 @@
               "bec:SANLAM-2024-TERM"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -6056,7 +6064,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 9384388879.899994,
+          "bank_observed_liquidity_ltm_zar": 9384388879.9,
           "liquidity_volatility_index": 0.019
         },
         "freshness_days": 0,
@@ -6079,7 +6087,7 @@
               "lower": 13053040000.0,
               "median": 14833000000.0,
               "unit": "ZAR",
-              "upper": 16612960000.000002
+              "upper": 16612960000.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -6088,7 +6096,7 @@
               "bec:SANLAM-2024-TERM"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -6105,10 +6113,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1.487768728817846,
-              "median": 1.750316151550407,
+              "lower": 1.48776873,
+              "median": 1.75031615,
               "unit": "ratio",
-              "upper": 2.012863574282968
+              "upper": 2.01286357
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -6117,7 +6125,7 @@
               "bec:SANLAM-2024-TERM"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -6217,8 +6225,8 @@
           "active_country_count": 20,
           "international_exposure_index": 0.13,
           "top_corridor_values_zar": [
-            704496404.619999,
-            626211720.3799998,
+            704496404.62,
+            626211720.38,
             604500631.46
           ],
           "top_corridors": [
@@ -6270,7 +6278,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 2658605045.9500003,
+          "bank_observed_cross_border_fx_ltm_zar": 2658605045.95,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "AED/ZAR",
@@ -6285,17 +6293,17 @@
             "evidence_claim_ids": [
               "bec:E08:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 2658605045.9500003
+              "cross_border_turnover": 2658605045.95
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 2126884036.7600002,
-              "median": 2658605045.9500003,
+              "lower": 2126884036.76,
+              "median": 2658605045.95,
               "unit": "ZAR",
-              "upper": 3190326055.1400003
+              "upper": 3190326055.14
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -6303,7 +6311,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -6381,7 +6389,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -6538,21 +6546,22 @@
       "E08"
     ],
     "sector": "insurance",
-    "snapshot_id": "twin:E08:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E08:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E09": {
     "approved_claim_count": 53,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 53,
@@ -6588,7 +6597,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 2673495088.859999,
+          "bank_observed_collections_ltm_zar": 2673495088.86,
           "collections_yoy_change": 0.031083
         },
         "freshness_days": 0,
@@ -6632,7 +6641,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": true,
-          "bank_observed_payments_ltm_zar": 7657917973.610004,
+          "bank_observed_payments_ltm_zar": 7657917973.61,
           "payments_yoy_change": 0.019779
         },
         "freshness_days": 0,
@@ -6704,9 +6713,9 @@
             "formula": "CCC = DIO + DSO - DPO",
             "indicator_id": "CCC",
             "inputs": {
-              "DIO": 55.45258000930675,
-              "DPO": 63.6491877506418,
-              "DSO": 9.24650929944445,
+              "DIO": 55.45258001,
+              "DPO": 63.64918775,
+              "DSO": 9.2465093,
               "inventories_close": 29748000000.0,
               "inventories_open": 28366000000.0,
               "operating_cost_base": 191259000000.0,
@@ -6718,16 +6727,16 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.8924163243929876,
-              "median": 1.0499015581093971,
+              "lower": 0.89241632,
+              "median": 1.04990156,
               "unit": "days",
-              "upper": 1.2073867918258065
+              "upper": 1.20738679
             },
             "label": "Cash conversion cycle",
             "missing_inputs": [],
             "pending_evidence_claim_ids": [],
             "status": "SUPPORTED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -6759,7 +6768,7 @@
             "missing_inputs": [],
             "pending_evidence_claim_ids": [],
             "status": "SUPPORTED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -6824,7 +6833,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -6841,16 +6850,16 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.0016193188458871288,
-              "median": 0.001905080995161328,
+              "lower": 0.00161932,
+              "median": 0.00190508,
               "unit": "ratio",
-              "upper": 0.002190843144435527
+              "upper": 0.00219084
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
             "pending_evidence_claim_ids": [],
             "status": "SUPPORTED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -6892,7 +6901,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 5165706531.235001,
+          "bank_observed_liquidity_ltm_zar": 5165706531.24,
           "liquidity_volatility_index": 0.059
         },
         "freshness_days": 0,
@@ -6916,7 +6925,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -6936,7 +6945,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -7038,9 +7047,9 @@
           "active_country_count": 21,
           "international_exposure_index": 0.321,
           "top_corridor_values_zar": [
-            901171291.8000016,
-            782329443.0500009,
-            781849059.7299997
+            901171291.8,
+            782329443.05,
+            781849059.73
           ],
           "top_corridors": [
             "Ghana",
@@ -7092,7 +7101,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": true,
-          "bank_observed_cross_border_fx_ltm_zar": 3347437360.4100003,
+          "bank_observed_cross_border_fx_ltm_zar": 3347437360.41,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "USD/ZAR",
@@ -7108,18 +7117,18 @@
               "bec:E09:obs:flow:cross-border-fx",
               "bec:SHP-2025-FX"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 3347437360.4100003,
+              "cross_border_turnover": 3347437360.41,
               "disclosed_fx_exposure": 3572000000.0
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 2677949888.3280005,
-              "median": 3347437360.4100003,
+              "lower": 2677949888.33,
+              "median": 3347437360.41,
               "unit": "ZAR",
-              "upper": 4016924832.492
+              "upper": 4016924832.49
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -7127,7 +7136,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -7205,7 +7214,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -7329,21 +7338,22 @@
       "E09"
     ],
     "sector": "consumer",
-    "snapshot_id": "twin:E09:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E09:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E10": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -7378,7 +7388,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 3299371889.189999,
+          "bank_observed_collections_ltm_zar": 3299371889.19,
           "collections_yoy_change": 0.176646
         },
         "freshness_days": 0,
@@ -7419,7 +7429,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 9281806459.159998,
+          "bank_observed_payments_ltm_zar": 9281806459.16,
           "payments_yoy_change": 0.128883
         },
         "freshness_days": 0,
@@ -7497,7 +7507,7 @@
               "bec:BIDCORP-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -7521,7 +7531,7 @@
               "bec:BIDCORP-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -7606,7 +7616,7 @@
               "bec:BIDCORP-2025-CL"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -7623,10 +7633,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.15513682426365177,
-              "median": 0.18251391089841384,
+              "lower": 0.15513682,
+              "median": 0.18251391,
               "unit": "ratio",
-              "upper": 0.20989099753317592
+              "upper": 0.209891
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -7635,7 +7645,7 @@
               "bec:BIDCORP-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -7678,7 +7688,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 6290589174.174996,
+          "bank_observed_liquidity_ltm_zar": 6290589174.17,
           "liquidity_volatility_index": 0.04
         },
         "freshness_days": 0,
@@ -7710,7 +7720,7 @@
               "bec:BIDCORP-2025-CL"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -7727,10 +7737,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.23262293031960898,
-              "median": 0.2736740356701282,
+              "lower": 0.23262293,
+              "median": 0.27367404,
               "unit": "ratio",
-              "upper": 0.3147251410206474
+              "upper": 0.31472514
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -7739,7 +7749,7 @@
               "bec:BIDCORP-2025-CL"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -7839,9 +7849,9 @@
           "active_country_count": 15,
           "international_exposure_index": 0.389,
           "top_corridor_values_zar": [
-            4345773942.950012,
-            4147208059.960006,
-            1105723703.8999996
+            4345773942.95,
+            4147208059.96,
+            1105723703.9
           ],
           "top_corridors": [
             "Zambia",
@@ -7892,7 +7902,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 6147453597.410001,
+          "bank_observed_cross_border_fx_ltm_zar": 6147453597.41,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "CNY/ZAR",
@@ -7907,17 +7917,17 @@
             "evidence_claim_ids": [
               "bec:E10:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 6147453597.410001
+              "cross_border_turnover": 6147453597.41
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 4917962877.928,
-              "median": 6147453597.410001,
+              "lower": 4917962877.93,
+              "median": 6147453597.41,
               "unit": "ZAR",
-              "upper": 7376944316.892001
+              "upper": 7376944316.89
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -7925,7 +7935,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -8003,7 +8013,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -8160,21 +8170,22 @@
       "E10"
     ],
     "sector": "consumer",
-    "snapshot_id": "twin:E10:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E10:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E11": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -8250,7 +8261,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 23988481713.60997,
+          "bank_observed_payments_ltm_zar": 23988481713.61,
           "payments_yoy_change": -0.010466
         },
         "freshness_days": 0,
@@ -8328,7 +8339,7 @@
               "bec:PEPKOR-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -8352,7 +8363,7 @@
               "bec:PEPKOR-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -8437,7 +8448,7 @@
               "bec:PEPKOR-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -8454,10 +8465,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.010698552548772814,
-              "median": 0.012586532410320957,
+              "lower": 0.01069855,
+              "median": 0.01258653,
               "unit": "ratio",
-              "upper": 0.0144745122718691
+              "upper": 0.01447451
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -8466,7 +8477,7 @@
               "bec:PEPKOR-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -8509,7 +8520,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 16661048006.124994,
+          "bank_observed_liquidity_ltm_zar": 16661048006.12,
           "liquidity_volatility_index": 0.028
         },
         "freshness_days": 0,
@@ -8541,7 +8552,7 @@
               "bec:PEPKOR-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -8558,10 +8569,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 3.5884166666666664,
-              "median": 4.221666666666667,
+              "lower": 3.58841667,
+              "median": 4.22166667,
               "unit": "ratio",
-              "upper": 4.854916666666666
+              "upper": 4.85491667
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -8570,7 +8581,7 @@
               "bec:PEPKOR-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -8670,9 +8681,9 @@
           "active_country_count": 21,
           "international_exposure_index": 0.197,
           "top_corridor_values_zar": [
-            1602256298.5599973,
-            1550260768.659999,
-            1511753782.9000056
+            1602256298.56,
+            1550260768.66,
+            1511753782.9
           ],
           "top_corridors": [
             "Zambia",
@@ -8723,7 +8734,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 6634085230.000002,
+          "bank_observed_cross_border_fx_ltm_zar": 6634085230.0,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "CNY/ZAR",
@@ -8738,17 +8749,17 @@
             "evidence_claim_ids": [
               "bec:E11:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 6634085230.000002
+              "cross_border_turnover": 6634085230.0
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 5307268184.000002,
-              "median": 6634085230.000002,
+              "lower": 5307268184.0,
+              "median": 6634085230.0,
               "unit": "ZAR",
-              "upper": 7960902276.000002
+              "upper": 7960902276.0
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -8756,7 +8767,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -8834,7 +8845,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -8991,21 +9002,22 @@
       "E11"
     ],
     "sector": "consumer",
-    "snapshot_id": "twin:E11:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E11:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E12": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -9083,7 +9095,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 124389561.87999997,
+          "bank_observed_payments_ltm_zar": 124389561.88,
           "payments_yoy_change": -0.052942
         },
         "freshness_days": 0,
@@ -9166,7 +9178,7 @@
               "bec:CLICKS-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -9190,7 +9202,7 @@
               "bec:CLICKS-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -9265,7 +9277,7 @@
               "bec:CLICKS-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -9287,7 +9299,7 @@
               "bec:CLICKS-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -9332,7 +9344,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 96531372.395,
+          "bank_observed_liquidity_ltm_zar": 96531372.39,
           "liquidity_volatility_index": 0.115
         },
         "freshness_days": 0,
@@ -9357,7 +9369,7 @@
               "bec:CLICKS-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -9379,7 +9391,7 @@
               "bec:CLICKS-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -9481,9 +9493,9 @@
           "active_country_count": 18,
           "international_exposure_index": 0.847,
           "top_corridor_values_zar": [
-            431239619.04000044,
-            404045288.2299996,
-            393224903.28999966
+            431239619.04,
+            404045288.23,
+            393224903.29
           ],
           "top_corridors": [
             "Lesotho",
@@ -9534,7 +9546,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 1004899575.8800001,
+          "bank_observed_cross_border_fx_ltm_zar": 1004899575.88,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "CNY/ZAR",
@@ -9549,17 +9561,17 @@
             "evidence_claim_ids": [
               "bec:E12:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 1004899575.8800001
+              "cross_border_turnover": 1004899575.88
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 803919660.7040001,
-              "median": 1004899575.8800001,
+              "lower": 803919660.7,
+              "median": 1004899575.88,
               "unit": "ZAR",
-              "upper": 1205879491.056
+              "upper": 1205879491.06
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -9567,7 +9579,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -9645,7 +9657,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -9802,21 +9814,22 @@
       "E12"
     ],
     "sector": "consumer",
-    "snapshot_id": "twin:E12:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E12:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E13": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -9851,7 +9864,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 16004453.530000001,
+          "bank_observed_collections_ltm_zar": 16004453.53,
           "collections_yoy_change": 0.163772
         },
         "freshness_days": 0,
@@ -9892,7 +9905,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 31454174.669999998,
+          "bank_observed_payments_ltm_zar": 31454174.67,
           "payments_yoy_change": 0.279762
         },
         "freshness_days": 0,
@@ -9970,7 +9983,7 @@
               "bec:NEPI-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -9994,7 +10007,7 @@
               "bec:NEPI-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -10067,7 +10080,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -700718480.0000001,
+              "lower": -700718480.0,
               "median": -625641500.0,
               "unit": "ZAR",
               "upper": -550564520.0
@@ -10079,7 +10092,7 @@
               "bec:NEPI-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -10096,10 +10109,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.38672367013268244,
-              "median": 0.45496902368550873,
+              "lower": 0.38672367,
+              "median": 0.45496902,
               "unit": "ratio",
-              "upper": 0.523214377238335
+              "upper": 0.52321438
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -10108,7 +10121,7 @@
               "bec:NEPI-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -10174,7 +10187,7 @@
               "lower": 550564520.0,
               "median": 625641500.0,
               "unit": "ZAR",
-              "upper": 700718480.0000001
+              "upper": 700718480.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -10183,7 +10196,7 @@
               "bec:NEPI-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -10200,10 +10213,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.9395755811292725,
-              "median": 1.1053830366226736,
+              "lower": 0.93957558,
+              "median": 1.10538304,
               "unit": "ratio",
-              "upper": 1.2711904921160746
+              "upper": 1.27119049
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -10212,7 +10225,7 @@
               "bec:NEPI-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -10312,9 +10325,9 @@
           "active_country_count": 10,
           "international_exposure_index": 0.866,
           "top_corridor_values_zar": [
-            81402509.79999997,
-            77178436.86999996,
-            76477224.36999997
+            81402509.8,
+            77178436.87,
+            76477224.37
           ],
           "top_corridors": [
             "China",
@@ -10380,17 +10393,17 @@
             "evidence_claim_ids": [
               "bec:E13:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
               "cross_border_turnover": 303281526.08
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 242625220.864,
+              "lower": 242625220.86,
               "median": 303281526.08,
               "unit": "ZAR",
-              "upper": 363937831.29599994
+              "upper": 363937831.3
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -10398,7 +10411,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -10476,7 +10489,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -10633,21 +10646,22 @@
       "E13"
     ],
     "sector": "real_estate",
-    "snapshot_id": "twin:E13:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E13:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E14": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -10682,7 +10696,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 503675527.22000027,
+          "bank_observed_collections_ltm_zar": 503675527.22,
           "collections_yoy_change": 0.009587
         },
         "freshness_days": 0,
@@ -10723,7 +10737,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 1381684662.0800002,
+          "bank_observed_payments_ltm_zar": 1381684662.08,
           "payments_yoy_change": -0.024472
         },
         "freshness_days": 0,
@@ -10801,7 +10815,7 @@
               "bec:PROSUS-2026-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -10825,7 +10839,7 @@
               "bec:PROSUS-2026-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -10898,7 +10912,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -94595132800.00002,
+              "lower": -94595132800.0,
               "median": -84459940000.0,
               "unit": "ZAR",
               "upper": -74324747200.0
@@ -10910,7 +10924,7 @@
               "bec:PROSUS-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -10927,10 +10941,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.17105100463678516,
-              "median": 0.20123647604327666,
+              "lower": 0.171051,
+              "median": 0.20123648,
               "unit": "ratio",
-              "upper": 0.23142194744976813
+              "upper": 0.23142195
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -10939,7 +10953,7 @@
               "bec:PROSUS-2026-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -10982,7 +10996,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 942680094.6499999,
+          "bank_observed_liquidity_ltm_zar": 942680094.65,
           "liquidity_volatility_index": 0.085
         },
         "freshness_days": 0,
@@ -11005,7 +11019,7 @@
               "lower": 74324747200.0,
               "median": 84459940000.0,
               "unit": "ZAR",
-              "upper": 94595132800.00002
+              "upper": 94595132800.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -11014,7 +11028,7 @@
               "bec:PROSUS-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -11031,10 +11045,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 2.9081925243215565,
-              "median": 3.4214029697900665,
+              "lower": 2.90819252,
+              "median": 3.42140297,
               "unit": "ratio",
-              "upper": 3.934613415258576
+              "upper": 3.93461342
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -11043,7 +11057,7 @@
               "bec:PROSUS-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -11143,9 +11157,9 @@
           "active_country_count": 10,
           "international_exposure_index": 0.515,
           "top_corridor_values_zar": [
-            656353887.7900007,
-            637727042.8100009,
-            612462309.4200003
+            656353887.79,
+            637727042.81,
+            612462309.42
           ],
           "top_corridors": [
             "Japan",
@@ -11196,7 +11210,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 1971289911.8700001,
+          "bank_observed_cross_border_fx_ltm_zar": 1971289911.87,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "CNY/ZAR",
@@ -11211,17 +11225,17 @@
             "evidence_claim_ids": [
               "bec:E14:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 1971289911.8700001
+              "cross_border_turnover": 1971289911.87
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1577031929.4960003,
-              "median": 1971289911.8700001,
+              "lower": 1577031929.5,
+              "median": 1971289911.87,
               "unit": "ZAR",
-              "upper": 2365547894.244
+              "upper": 2365547894.24
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -11229,7 +11243,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -11307,7 +11321,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -11464,21 +11478,22 @@
       "E14"
     ],
     "sector": "tech",
-    "snapshot_id": "twin:E14:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E14:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E15": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -11554,7 +11569,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 1067403466.3000002,
+          "bank_observed_payments_ltm_zar": 1067403466.3,
           "payments_yoy_change": 0.08127
         },
         "freshness_days": 0,
@@ -11632,7 +11647,7 @@
               "bec:NASPERS-2026-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -11656,7 +11671,7 @@
               "bec:NASPERS-2026-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -11729,7 +11744,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -96675465600.00002,
+              "lower": -96675465600.0,
               "median": -86317380000.0,
               "unit": "ZAR",
               "upper": -75959294400.0
@@ -11741,7 +11756,7 @@
               "bec:NASPERS-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -11758,10 +11773,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.1556922935103245,
-              "median": 0.18316740412979352,
+              "lower": 0.15569229,
+              "median": 0.1831674,
               "unit": "ratio",
-              "upper": 0.21064251474926252
+              "upper": 0.21064251
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -11770,7 +11785,7 @@
               "bec:NASPERS-2026-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -11813,7 +11828,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 713462143.3249999,
+          "bank_observed_liquidity_ltm_zar": 713462143.32,
           "liquidity_volatility_index": 0.115
         },
         "freshness_days": 0,
@@ -11836,7 +11851,7 @@
               "lower": 75959294400.0,
               "median": 86317380000.0,
               "unit": "ZAR",
-              "upper": 96675465600.00002
+              "upper": 96675465600.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -11845,7 +11860,7 @@
               "bec:NASPERS-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -11862,10 +11877,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 2.917463512833417,
-              "median": 3.432310015098138,
+              "lower": 2.91746351,
+              "median": 3.43231002,
               "unit": "ratio",
-              "upper": 3.9471565173628584
+              "upper": 3.94715652
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -11874,7 +11889,7 @@
               "bec:NASPERS-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -11974,9 +11989,9 @@
           "active_country_count": 10,
           "international_exposure_index": 0.595,
           "top_corridor_values_zar": [
-            652102628.0400009,
-            649895457.6499993,
-            639898474.3700006
+            652102628.04,
+            649895457.65,
+            639898474.37
           ],
           "top_corridors": [
             "Switzerland",
@@ -12027,7 +12042,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 2051310999.4299998,
+          "bank_observed_cross_border_fx_ltm_zar": 2051310999.43,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "AED/ZAR",
@@ -12042,17 +12057,17 @@
             "evidence_claim_ids": [
               "bec:E15:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 2051310999.4299998
+              "cross_border_turnover": 2051310999.43
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1641048799.544,
-              "median": 2051310999.4299998,
+              "lower": 1641048799.54,
+              "median": 2051310999.43,
               "unit": "ZAR",
-              "upper": 2461573199.3159995
+              "upper": 2461573199.32
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -12060,7 +12075,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -12138,7 +12153,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -12295,21 +12310,22 @@
       "E15"
     ],
     "sector": "tech",
-    "snapshot_id": "twin:E15:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E15:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E16": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -12344,7 +12360,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 2616710862.209999,
+          "bank_observed_collections_ltm_zar": 2616710862.21,
           "collections_yoy_change": -0.017199
         },
         "freshness_days": 0,
@@ -12385,7 +12401,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 7554265622.219994,
+          "bank_observed_payments_ltm_zar": 7554265622.22,
           "payments_yoy_change": -0.007709
         },
         "freshness_days": 0,
@@ -12432,7 +12448,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_trade_finance_ltm_zar": 1443169160.9699998,
+          "bank_observed_trade_finance_ltm_zar": 1443169160.97,
           "trade_events_next_90d": 159,
           "working_capital_intensity_index": 0.571
         },
@@ -12463,7 +12479,7 @@
               "bec:MTN-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -12487,7 +12503,7 @@
               "bec:MTN-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -12560,7 +12576,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -27854400000.000004,
+              "lower": -27854400000.0,
               "median": -24870000000.0,
               "unit": "ZAR",
               "upper": -21885600000.0
@@ -12572,7 +12588,7 @@
               "bec:MTN-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -12589,10 +12605,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.06656940456183531,
-              "median": 0.07831694654333567,
+              "lower": 0.0665694,
+              "median": 0.07831695,
               "unit": "ratio",
-              "upper": 0.090064488524836
+              "upper": 0.09006449
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -12601,7 +12617,7 @@
               "bec:MTN-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -12644,7 +12660,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 5085488242.215,
+          "bank_observed_liquidity_ltm_zar": 5085488242.22,
           "liquidity_volatility_index": 0.034
         },
         "freshness_days": 0,
@@ -12667,7 +12683,7 @@
               "lower": 21885600000.0,
               "median": 24870000000.0,
               "unit": "ZAR",
-              "upper": 27854400000.000004
+              "upper": 27854400000.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -12676,7 +12692,7 @@
               "bec:MTN-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -12693,10 +12709,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 2.04062235989862,
-              "median": 2.4007321881160237,
+              "lower": 2.04062236,
+              "median": 2.40073219,
               "unit": "ratio",
-              "upper": 2.7608420163334273
+              "upper": 2.76084202
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -12705,7 +12721,7 @@
               "bec:MTN-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -12805,9 +12821,9 @@
           "active_country_count": 19,
           "international_exposure_index": 0.429,
           "top_corridor_values_zar": [
-            2013627477.0299988,
-            1946735818.940005,
-            1613555820.4499989
+            2013627477.03,
+            1946735818.94,
+            1613555820.45
           ],
           "top_corridors": [
             "Nigeria",
@@ -12858,7 +12874,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 6198359963.540001,
+          "bank_observed_cross_border_fx_ltm_zar": 6198359963.54,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "USD/ZAR",
@@ -12873,17 +12889,17 @@
             "evidence_claim_ids": [
               "bec:E16:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 6198359963.540001
+              "cross_border_turnover": 6198359963.54
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 4958687970.832001,
-              "median": 6198359963.540001,
+              "lower": 4958687970.83,
+              "median": 6198359963.54,
               "unit": "ZAR",
-              "upper": 7438031956.248001
+              "upper": 7438031956.25
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -12891,7 +12907,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -12969,7 +12985,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -13126,21 +13142,22 @@
       "E16"
     ],
     "sector": "telecoms",
-    "snapshot_id": "twin:E16:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E16:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E17": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -13294,7 +13311,7 @@
               "bec:VODACOM-2026-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -13318,7 +13335,7 @@
               "bec:VODACOM-2026-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -13391,7 +13408,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -25119360000.000004,
+              "lower": -25119360000.0,
               "median": -22428000000.0,
               "unit": "ZAR",
               "upper": -19736640000.0
@@ -13403,7 +13420,7 @@
               "bec:VODACOM-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -13420,10 +13437,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.04451989836089042,
-              "median": 0.05237635101281225,
+              "lower": 0.0445199,
+              "median": 0.05237635,
               "unit": "ratio",
-              "upper": 0.06023280366473409
+              "upper": 0.0602328
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -13432,7 +13449,7 @@
               "bec:VODACOM-2026-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -13498,7 +13515,7 @@
               "lower": 19736640000.0,
               "median": 22428000000.0,
               "unit": "ZAR",
-              "upper": 25119360000.000004
+              "upper": 25119360000.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -13507,7 +13524,7 @@
               "bec:VODACOM-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -13524,10 +13541,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 3.0210283566791936,
-              "median": 3.554151007857875,
+              "lower": 3.02102836,
+              "median": 3.55415101,
               "unit": "ratio",
-              "upper": 4.087273659036556
+              "upper": 4.08727366
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -13536,7 +13553,7 @@
               "bec:VODACOM-2026-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -13636,9 +13653,9 @@
           "active_country_count": 20,
           "international_exposure_index": 0.929,
           "top_corridor_values_zar": [
-            840306000.2000003,
-            703338119.8499986,
-            697763322.8200012
+            840306000.2,
+            703338119.85,
+            697763322.82
           ],
           "top_corridors": [
             "Kenya",
@@ -13704,17 +13721,17 @@
             "evidence_claim_ids": [
               "bec:E17:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
               "cross_border_turnover": 2899257210.24
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 2319405768.192,
+              "lower": 2319405768.19,
               "median": 2899257210.24,
               "unit": "ZAR",
-              "upper": 3479108652.2879996
+              "upper": 3479108652.29
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -13722,7 +13739,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -13800,7 +13817,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -13957,21 +13974,22 @@
       "E17"
     ],
     "sector": "telecoms",
-    "snapshot_id": "twin:E17:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E17:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E18": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -14006,7 +14024,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 1241040470.6599996,
+          "bank_observed_collections_ltm_zar": 1241040470.66,
           "collections_yoy_change": 0.122871
         },
         "freshness_days": 0,
@@ -14047,7 +14065,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 3384008828.950001,
+          "bank_observed_payments_ltm_zar": 3384008828.95,
           "payments_yoy_change": 0.067979
         },
         "freshness_days": 0,
@@ -14125,7 +14143,7 @@
               "bec:BIDVEST-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -14149,7 +14167,7 @@
               "bec:BIDVEST-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -14222,7 +14240,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -960428000.0000001,
+              "lower": -960428000.0,
               "median": -857525000.0,
               "unit": "ZAR",
               "upper": -754622000.0
@@ -14234,7 +14252,7 @@
               "bec:BIDVEST-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -14251,10 +14269,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.035825453219588424,
-              "median": 0.04214759202304521,
+              "lower": 0.03582545,
+              "median": 0.04214759,
               "unit": "ratio",
-              "upper": 0.04846973082650199
+              "upper": 0.04846973
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -14263,7 +14281,7 @@
               "bec:BIDVEST-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -14306,7 +14324,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 2312524649.8050003,
+          "bank_observed_liquidity_ltm_zar": 2312524649.81,
           "liquidity_volatility_index": 0.052
         },
         "freshness_days": 0,
@@ -14329,7 +14347,7 @@
               "lower": 754622000.0,
               "median": 857525000.0,
               "unit": "ZAR",
-              "upper": 960428000.0000001
+              "upper": 960428000.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -14338,7 +14356,7 @@
               "bec:BIDVEST-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -14355,10 +14373,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.9865968543019984,
-              "median": 1.1607021815317629,
+              "lower": 0.98659685,
+              "median": 1.16070218,
               "unit": "ratio",
-              "upper": 1.3348075087615272
+              "upper": 1.33480751
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -14367,7 +14385,7 @@
               "bec:BIDVEST-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -14467,8 +14485,8 @@
           "active_country_count": 22,
           "international_exposure_index": 0.399,
           "top_corridor_values_zar": [
-            526727367.8500002,
-            513217924.43999994,
+            526727367.85,
+            513217924.44,
             487822529.07
           ],
           "top_corridors": [
@@ -14520,7 +14538,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 1612092315.4000003,
+          "bank_observed_cross_border_fx_ltm_zar": 1612092315.4,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "CNY/ZAR",
@@ -14535,17 +14553,17 @@
             "evidence_claim_ids": [
               "bec:E18:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 1612092315.4000003
+              "cross_border_turnover": 1612092315.4
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1289673852.3200004,
-              "median": 1612092315.4000003,
+              "lower": 1289673852.32,
+              "median": 1612092315.4,
               "unit": "ZAR",
-              "upper": 1934510778.4800003
+              "upper": 1934510778.48
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -14553,7 +14571,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -14631,7 +14649,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -14788,21 +14806,22 @@
       "E18"
     ],
     "sector": "industrials_pharma",
-    "snapshot_id": "twin:E18:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E18:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E19": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -14837,7 +14856,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 866514826.5999995,
+          "bank_observed_collections_ltm_zar": 866514826.6,
           "collections_yoy_change": 0.13301
         },
         "freshness_days": 0,
@@ -14956,7 +14975,7 @@
               "bec:ASPEN-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -14980,7 +14999,7 @@
               "bec:ASPEN-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -15053,7 +15072,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -2012640000.0000002,
+              "lower": -2012640000.0,
               "median": -1797000000.0,
               "unit": "ZAR",
               "upper": -1581360000.0
@@ -15065,7 +15084,7 @@
               "bec:ASPEN-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -15082,10 +15101,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.09040426169776077,
-              "median": 0.10635795493854208,
+              "lower": 0.09040426,
+              "median": 0.10635795,
               "unit": "ratio",
-              "upper": 0.12231164817932338
+              "upper": 0.12231165
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -15094,7 +15113,7 @@
               "bec:ASPEN-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -15137,7 +15156,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 1726712925.1000004,
+          "bank_observed_liquidity_ltm_zar": 1726712925.1,
           "liquidity_volatility_index": 0.049
         },
         "freshness_days": 0,
@@ -15160,7 +15179,7 @@
               "lower": 1581360000.0,
               "median": 1797000000.0,
               "unit": "ZAR",
-              "upper": 2012640000.0000002
+              "upper": 2012640000.0
             },
             "label": "Liquidity and cash buffer",
             "missing_inputs": [],
@@ -15169,7 +15188,7 @@
               "bec:ASPEN-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -15186,10 +15205,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1.181190372940156,
-              "median": 1.3896357328707718,
+              "lower": 1.18119037,
+              "median": 1.38963573,
               "unit": "ratio",
-              "upper": 1.5980810928013875
+              "upper": 1.59808109
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -15198,7 +15217,7 @@
               "bec:ASPEN-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -15298,9 +15317,9 @@
           "active_country_count": 17,
           "international_exposure_index": 0.36,
           "top_corridor_values_zar": [
-            535966006.3700001,
+            535966006.37,
             528060439.35,
-            485602026.3600005
+            485602026.36
           ],
           "top_corridors": [
             "Ghana",
@@ -15351,7 +15370,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 1411158689.6200001,
+          "bank_observed_cross_border_fx_ltm_zar": 1411158689.62,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "EUR/ZAR",
@@ -15366,17 +15385,17 @@
             "evidence_claim_ids": [
               "bec:E19:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 1411158689.6200001
+              "cross_border_turnover": 1411158689.62
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1128926951.696,
-              "median": 1411158689.6200001,
+              "lower": 1128926951.7,
+              "median": 1411158689.62,
               "unit": "ZAR",
-              "upper": 1693390427.5440001
+              "upper": 1693390427.54
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -15384,7 +15403,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -15462,7 +15481,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -15619,21 +15638,22 @@
       "E19"
     ],
     "sector": "industrials_pharma",
-    "snapshot_id": "twin:E19:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E19:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   },
   "E20": {
     "approved_claim_count": 41,
     "artifacts": {
-      "dataset_version": "v31-business-evidence-3.1.0",
-      "model_version": "v31-business-twin-3.1.0",
-      "prior_version": "v31-governed-policy-3.1.0",
+      "dataset_version": "v31-business-evidence-3.1.1",
+      "measurement_policy_version": null,
+      "model_version": "v31-business-twin-3.1.1",
+      "prior_version": "v31-governed-policy-3.1.1",
       "prompt_version": null,
       "rate_card_version": null,
-      "schema_version": "3.1.0",
-      "transformation_version": "v31-business-twin-3.1.0"
+      "schema_version": "3.1.1",
+      "transformation_version": "v31-business-twin-3.1.1"
     },
     "as_of": "2026-06-30",
     "claim_count": 44,
@@ -15668,7 +15688,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_revenue_available": true,
-          "bank_observed_collections_ltm_zar": 5709543.5200000005,
+          "bank_observed_collections_ltm_zar": 5709543.52,
           "collections_yoy_change": -0.090644
         },
         "freshness_days": 0,
@@ -15709,7 +15729,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_cost_base_available": false,
-          "bank_observed_payments_ltm_zar": 6186933.430000001,
+          "bank_observed_payments_ltm_zar": 6186933.43,
           "payments_yoy_change": 0.037749
         },
         "freshness_days": 0,
@@ -15787,7 +15807,7 @@
               "bec:SHC-2025-REV"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "days"
           },
           {
@@ -15811,7 +15831,7 @@
               "bec:SHC-2025-CASH"
             ],
             "status": "UNKNOWN",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -15887,7 +15907,7 @@
               "lower": 1656732000.0,
               "median": 1882650000.0,
               "unit": "ZAR",
-              "upper": 2108568000.0000002
+              "upper": 2108568000.0
             },
             "label": "Refinancing exposure (12M horizon)",
             "missing_inputs": [],
@@ -15896,7 +15916,7 @@
               "bec:SHC-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -15913,10 +15933,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 1.5598158225198828,
-              "median": 1.8350774382586856,
+              "lower": 1.55981582,
+              "median": 1.83507744,
               "unit": "ratio",
-              "upper": 2.1103390539974884
+              "upper": 2.11033905
             },
             "label": "Short-term debt to revenue",
             "missing_inputs": [],
@@ -15925,7 +15945,7 @@
               "bec:SHC-2025-REV"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -15968,7 +15988,7 @@
         ],
         "evidence_tier": "E0",
         "facts": {
-          "bank_observed_liquidity_ltm_zar": 5948238.475000001,
+          "bank_observed_liquidity_ltm_zar": 5948238.48,
           "liquidity_volatility_index": 0.314
         },
         "freshness_days": 0,
@@ -15988,7 +16008,7 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": -2108568000.0000002,
+              "lower": -2108568000.0,
               "median": -1882650000.0,
               "unit": "ZAR",
               "upper": -1656732000.0
@@ -16000,7 +16020,7 @@
               "bec:SHC-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           },
           {
@@ -16017,10 +16037,10 @@
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 0.7007071167883211,
-              "median": 0.8243613138686131,
+              "lower": 0.70070712,
+              "median": 0.82436131,
               "unit": "ratio",
-              "upper": 0.948015510948905
+              "upper": 0.94801551
             },
             "label": "Cash cover of near-term obligations",
             "missing_inputs": [],
@@ -16029,7 +16049,7 @@
               "bec:SHC-2025-DEBT"
             ],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ratio"
           }
         ],
@@ -16129,9 +16149,9 @@
           "active_country_count": 10,
           "international_exposure_index": 0.91,
           "top_corridor_values_zar": [
-            44079580.51000002,
-            43989466.109999985,
-            38108195.66000001
+            44079580.51,
+            43989466.11,
+            38108195.66
           ],
           "top_corridors": [
             "United States",
@@ -16182,7 +16202,7 @@
         "evidence_tier": "E0",
         "facts": {
           "audited_fx_exposure_available": false,
-          "bank_observed_cross_border_fx_ltm_zar": 111379150.66000001,
+          "bank_observed_cross_border_fx_ltm_zar": 111379150.66,
           "commodity_linked_sector": false,
           "top_currency_pairs": [
             "GBP/ZAR",
@@ -16197,17 +16217,17 @@
             "evidence_claim_ids": [
               "bec:E20:obs:flow:cross-border-fx"
             ],
-            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u2014 only gross turnover is bank-observed, so this is an upper bound on net exposure",
+            "formula": "FXExposure_c = ForeignCurrencyInflows_c - ForeignCurrencyOutflows_c \u00e2\u20ac\u201d only gross turnover is bank-observed, so this is an upper bound on net exposure",
             "indicator_id": "FX_EXPOSURE",
             "inputs": {
-              "cross_border_turnover": 111379150.66000001
+              "cross_border_turnover": 111379150.66
             },
             "interval": {
               "currency": "ZAR",
-              "lower": 89103320.52800001,
-              "median": 111379150.66000001,
+              "lower": 89103320.53,
+              "median": 111379150.66,
               "unit": "ZAR",
-              "upper": 133654980.79200001
+              "upper": 133654980.79
             },
             "label": "Currency exposure (gross cross-border turnover bound)",
             "missing_inputs": [
@@ -16215,7 +16235,7 @@
             ],
             "pending_evidence_claim_ids": [],
             "status": "INFERRED",
-            "transformation_version": "v31-business-indicators-3.1.0",
+            "transformation_version": "v31-business-indicators-3.1.1",
             "unit": "ZAR"
           }
         ],
@@ -16293,7 +16313,7 @@
             "REFINANCING_CLIFF": "TREASURER",
             "WORKING_CAPITAL_PRESSURE": "CFO"
           },
-          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.0. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
+          "model": "Responsibility is assigned by role persona using governed matrix v31-stakeholder-responsibility-3.1.1. Named individuals are not resolved in the demonstration and require CRM entitlement checks in production.",
           "named_contacts_resolved": false,
           "role_personas_only": true
         },
@@ -16450,9 +16470,9 @@
       "E20"
     ],
     "sector": "real_estate",
-    "snapshot_id": "twin:E20:2026-06-30:3.1.0",
-    "snapshot_version": "3.1.0",
+    "snapshot_id": "twin:E20:2026-06-30:3.1.1",
+    "snapshot_version": "3.1.1",
     "supported_domain_count": 11,
-    "watermark": "CLIENT DEMONSTRATION \u2014 AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u2014 UNKNOWN INPUTS REMAIN UNKNOWN"
+    "watermark": "CLIENT DEMONSTRATION \u00e2\u20ac\u201d AUDITED PUBLIC E1 FACTS + SYN BANK SIMULATION + REPRESENTATIVE POLICY \u00e2\u20ac\u201d UNKNOWN INPUTS REMAIN UNKNOWN"
   }
 }

@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from .contracts import (
+    AnchorActivationState,
     ApprovalStatus,
     CuratedMetadata,
     DeploymentEnvironment,
@@ -18,6 +19,7 @@ from .contracts import (
     RateCard,
     RecommendationEligibility,
 )
+from .canonical import redact_machine_measurements
 from .economics import EconomicsService
 from .public_evidence import PublicEvidenceRegistry
 from .sensitivity import SensitivityEngine, SensitivityOpportunity
@@ -27,6 +29,9 @@ from .wallet_model import HierarchicalWalletModel
 
 ROOT = Path(__file__).resolve().parents[2]
 V1_BASELINE = ROOT / "legacy" / "v1" / "fixtures" / "portfolio.json"
+
+#: The five simulated products, in the declared order used by every projection.
+PRODUCTS = ("Collections", "Payments", "Liquidity", "Cross-border FX", "Trade finance")
 
 
 def _hash(value: str) -> str:
@@ -102,21 +107,21 @@ def build_fixture() -> Dict[str, Any]:
     sensitivity_inputs: List[SensitivityOpportunity] = []
 
     for raw in baseline["opportunities"]:
-        anchor = raw.get("public_anchor")
-        expanded_anchor = public_evidence.anchor_for(
-            raw["entity_id"], raw["product"], raw["sector"], float(raw["observed_activity_zar"])
+        # Activation, not mere existence, decides the tier.  A compiled anchor
+        # resting on facts that no finance SME has approved is withheld: the
+        # cell falls back to the prior-led path and the pending fact ids are
+        # published so the shortfall is visible rather than silent.
+        decision = public_evidence.activate(
+            raw["entity_id"],
+            raw["product"],
+            raw["sector"],
+            float(raw["observed_activity_zar"]),
+            preset=raw.get("public_anchor"),
+            preset_fact_ids=raw.get("anchor_impact", {}).get("fact_ids", ()),
         )
-        if anchor is None and expanded_anchor is not None:
-            anchor = {
-                "low_zar": expanded_anchor.low_zar,
-                "base_zar": expanded_anchor.base_zar,
-                "high_zar": expanded_anchor.high_zar,
-            }
-        tier = EvidenceTier.E1 if anchor else EvidenceTier.E0
-        anchor_range = [anchor["low_zar"], anchor["base_zar"], anchor["high_zar"]] if anchor else None
-        fact_ids = list(raw.get("anchor_impact", {}).get("fact_ids", []))
-        if not fact_ids and expanded_anchor is not None:
-            fact_ids = list(expanded_anchor.fact_ids)
+        tier = EvidenceTier.E1 if decision.activated else EvidenceTier.E0
+        anchor_range = list(decision.anchor_range) if decision.anchor_range else None
+        fact_ids = list(decision.active_fact_ids)
         estimate, _, _ = model.estimate(
             opportunity_id=raw["opportunity_id"],
             entity_id=raw["entity_id"],
@@ -151,6 +156,7 @@ def build_fixture() -> Dict[str, Any]:
             reason_codes.append("PRIOR_LED_WALLET")
         else:
             reason_codes.append("PUBLIC_PROXY_NOT_MULTIBANK_MEASUREMENT")
+        reason_codes.append(decision.reason_code)
         opportunity = OpportunityView(
             opportunity_id=raw["opportunity_id"],
             entity_id=raw["entity_id"],
@@ -174,6 +180,9 @@ def build_fixture() -> Dict[str, Any]:
                 evaluated_at=datetime.combine(as_of, datetime.min.time(), tzinfo=timezone.utc),
             ),
             evidence_fact_ids=fact_ids,
+            pending_evidence_fact_ids=list(decision.pending_fact_ids),
+            anchor_activation=decision.activation,
+            activation_reason_code=decision.reason_code,
             artifacts=estimate.artifacts.model_copy(update={"rate_card_version": card.version}),
         )
         opportunities.append(opportunity)
@@ -186,15 +195,22 @@ def build_fixture() -> Dict[str, Any]:
                 price_bps=rate_bps,
                 ftp_bps=float(card.ftp_bps),
                 capital_bps=float(card.capital_bps),
-                anchor_active=bool(anchor),
+                anchor_active=decision.activated,
             )
         )
 
+    # Total ordering: 85 prior-led cells now share near-degenerate economics, so
+    # near-ties are common. The opportunity id breaks them deterministically
+    # rather than leaving the result to list order and BLAS rounding.
     opportunities.sort(
-        key=lambda item: float(item.commercial.contestable_scenario_contribution.normalized_amount)
-        if item.commercial.contestable_scenario_contribution
-        else 0.0,
-        reverse=True,
+        key=lambda item: (
+            -(
+                float(item.commercial.contestable_scenario_contribution.normalized_amount)
+                if item.commercial.contestable_scenario_contribution
+                else 0.0
+            ),
+            item.opportunity_id,
+        )
     )
     for rank, opportunity in enumerate(opportunities, start=1):
         opportunity.rank = rank
@@ -214,10 +230,23 @@ def build_fixture() -> Dict[str, Any]:
             "relationship_breadth": client["relationship_breadth"],
             "country_count": client["country_count"],
             "public_facts": [public_evidence.fact_payload(fact) for fact in public_evidence.facts_for(entity_id)],
-            "evidence_tier": "E1" if public_evidence.facts_for(entity_id) else "E0",
+            # Holding a public fact is not the same as being publicly anchored.
+            # A client is E1 only where an anchor actually activated on approved
+            # evidence; otherwise the client card would contradict its own cells.
+            "evidence_tier": "E1"
+            if any(
+                public_evidence.activate(entity_id, product, client["sector"], 1.0).activated
+                for product in PRODUCTS
+            )
+            else "E0",
             "active_public_anchors": sum(
-                public_evidence.anchor_for(entity_id, product, client["sector"], 1.0) is not None
-                for product in ("Collections", "Payments", "Liquidity", "Cross-border FX", "Trade finance")
+                public_evidence.activate(entity_id, product, client["sector"], 1.0).activated
+                for product in PRODUCTS
+            ),
+            "withheld_public_anchors": sum(
+                public_evidence.activate(entity_id, product, client["sector"], 1.0).activation
+                is AnchorActivationState.WITHHELD_PENDING_APPROVAL
+                for product in PRODUCTS
             ),
             "competitor_activity_status": "REPRESENTATIVE_ANALOG_ONLY_NOT_MEASURED",
             "pricing_status": "REPRESENTATIVE_SCENARIO_NOT_BANK_APPROVED",
@@ -291,10 +320,17 @@ def build_fixture() -> Dict[str, Any]:
         "genai_evaluation": json.loads(genai_evaluation_path.read_text(encoding="utf-8")) if genai_evaluation_path.exists() else evaluate_golden_set(),
         "genai_provider_status": ProviderGateway().status(),
         "shadow_replay": shadow_replay,
-        "production_candidate": json.loads(scorecard_path.read_text(encoding="utf-8")) if scorecard_path.exists() else {},
+        # Host timings are redacted here only. The full measurement stays in
+        # outputs/v2_validation/, which is not a reproducibility-gated artifact;
+        # embedding it would make this fixture unreproducible on any other host.
+        "production_candidate": redact_machine_measurements(
+            json.loads(scorecard_path.read_text(encoding="utf-8"))
+        ) if scorecard_path.exists() else {},
         "public_evidence_qa": json.loads(evidence_qa_path.read_text(encoding="utf-8")) if evidence_qa_path.exists() else {},
         "trial_rehearsal": json.loads(trial_path.read_text(encoding="utf-8")) if trial_path.exists() else {},
-        "operational_rehearsal": json.loads(operational_path.read_text(encoding="utf-8")) if operational_path.exists() else {},
+        "operational_rehearsal": redact_machine_measurements(
+            json.loads(operational_path.read_text(encoding="utf-8"))
+        ) if operational_path.exists() else {},
         "client_demo_data": json.loads(demo_manifest_path.read_text(encoding="utf-8")) if demo_manifest_path.exists() else {},
         "client_demo_scorecard": json.loads(demo_scorecard_path.read_text(encoding="utf-8")) if demo_scorecard_path.exists() else {},
         "production_target": json.loads(production_target_path.read_text(encoding="utf-8")) if production_target_path.exists() else {},

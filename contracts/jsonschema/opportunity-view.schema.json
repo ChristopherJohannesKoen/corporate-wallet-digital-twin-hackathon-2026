@@ -1,11 +1,33 @@
 {
   "$defs": {
+    "AnchorActivationState": {
+      "description": "Whether a compiled public anchor was allowed to inform an estimate.\n\nCompiling an anchor and activating it are separate acts. Only approved\nfacts may move a published number; see\n``wallet_twin_v2.public_evidence.ANCHOR_ACTIVATION_POLICY_VERSION``.",
+      "enum": [
+        "ACTIVATED",
+        "WITHHELD_PENDING_APPROVAL",
+        "NOT_AVAILABLE"
+      ],
+      "title": "AnchorActivationState",
+      "type": "string"
+    },
     "ArtifactReference": {
       "additionalProperties": false,
       "properties": {
         "dataset_version": {
           "title": "Dataset Version",
           "type": "string"
+        },
+        "measurement_policy_version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Measurement Policy Version"
         },
         "model_version": {
           "title": "Model Version",
@@ -402,6 +424,15 @@
   },
   "additionalProperties": false,
   "properties": {
+    "activation_reason_code": {
+      "default": "ANCHOR_UNAVAILABLE_NO_FACT_RULE",
+      "title": "Activation Reason Code",
+      "type": "string"
+    },
+    "anchor_activation": {
+      "$ref": "#/$defs/AnchorActivationState",
+      "default": "NOT_AVAILABLE"
+    },
     "artifacts": {
       "$ref": "#/$defs/ArtifactReference"
     },
@@ -451,6 +482,13 @@
     "opportunity_id": {
       "title": "Opportunity Id",
       "type": "string"
+    },
+    "pending_evidence_fact_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Pending Evidence Fact Ids",
+      "type": "array"
     },
     "posterior_wallet": {
       "$ref": "#/$defs/IntervalEstimate"

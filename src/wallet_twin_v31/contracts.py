@@ -31,7 +31,10 @@ from wallet_twin_v2.contracts import (
     CuratedMetadata,
     DataProvenanceClass,
     EvidenceTier,
+    IntervalEstimate,
+    Money,
     StrictModel,
+    TimingPrediction,
 )
 
 from .taxonomy import (
@@ -51,7 +54,7 @@ from .taxonomy import (
     StakeholderRole,
 )
 
-V31_VERSION = "3.1.0"
+V31_VERSION = "3.1.1"
 
 
 def conversation_id(
@@ -98,6 +101,136 @@ class SignedInterval(StrictModel):
         if not self.lower <= self.median <= self.upper:
             raise ValueError("interval must satisfy lower <= median <= upper")
         return self
+
+
+class WalletValueInterval(StrictModel):
+    """Non-negative interval used for activity and scenario contribution.
+
+    It is intentionally separate from ``IntervalEstimate`` because a commercial
+    scenario interval has no empirical coverage claim.
+    """
+
+    lower: float = Field(ge=0)
+    median: float = Field(ge=0)
+    upper: float = Field(ge=0)
+    currency: str = "ZAR"
+    unit: str
+
+    @model_validator(mode="after")
+    def ordered(self) -> "WalletValueInterval":
+        if not self.lower <= self.median <= self.upper:
+            raise ValueError("interval must satisfy lower <= median <= upper")
+        return self
+
+
+class WalletPortfolioCell(StrictModel):
+    """One governed client-product cell in the primary 20 x 5 wallet surface."""
+
+    opportunity_id: str
+    entity_id: str
+    entity_name: str
+    sector: str
+    product: str
+    product_quantity_semantics: str
+    as_of: date
+    observed_activity: Money
+    identification_bounds: IntervalEstimate
+    posterior_wallet: IntervalEstimate
+    share_interval: IntervalEstimate
+    target_share_scenario: float = Field(ge=0, le=1)
+    contestable_activity: WalletValueInterval
+    scenario_contribution: Optional[WalletValueInterval] = None
+    timing: TimingPrediction
+    evidence_tier: EvidenceTier
+    approval_state: str
+    anchor_activation: str
+    calibration_status: str
+    share_claim_class: ClaimClass
+    commercial_claim_class: ClaimClass = ClaimClass.SCENARIO
+    rank: Optional[int] = None
+    active_fact_ids: List[str] = Field(default_factory=list)
+    pending_fact_ids: List[str] = Field(default_factory=list)
+    permitted_action_now: str
+    conditional_action: str
+    artifact_versions: ArtifactReference
+
+    @model_validator(mode="after")
+    def active_evidence_is_approved(self) -> "WalletPortfolioCell":
+        if self.anchor_activation != "ACTIVATED" and self.active_fact_ids:
+            raise ValueError("inactive cells cannot expose active_fact_ids")
+        if self.anchor_activation == "ACTIVATED" and self.approval_state != "APPROVED":
+            raise ValueError("an activated anchor must be APPROVED")
+        return self
+
+
+class WalletProductSummary(StrictModel):
+    product: str
+    cells: int
+    observed_activity_zar: float = Field(ge=0)
+    scenario_contribution_zar: float = Field(ge=0)
+    approved_anchor_cells: int = Field(ge=0)
+    prior_led_cells: int = Field(ge=0)
+
+
+class WalletPortfolioProjection(StrictModel):
+    version: str = V31_VERSION
+    as_of: date
+    clients: int
+    products: List[str]
+    cells: List[WalletPortfolioCell]
+    product_summaries: List[WalletProductSummary]
+    top_opportunity_ids: List[str]
+    approved_anchor_cells: int
+    prior_led_cells: int
+    approved_source_facts: int
+    pending_source_facts: int
+    active_anchor_policy_version: str
+    measurement_policy_version: str
+    claim_boundary: Dict[str, str]
+    release: Dict[str, Any]
+
+    @model_validator(mode="after")
+    def complete_grid(self) -> "WalletPortfolioProjection":
+        expected = self.clients * len(self.products)
+        if len(self.cells) != expected:
+            raise ValueError(f"wallet grid contains {len(self.cells)} cells; expected {expected}")
+        if self.approved_anchor_cells + self.prior_led_cells != len(self.cells):
+            raise ValueError("anchor-state counts must partition the wallet grid")
+        keys = {(item.entity_id, item.product) for item in self.cells}
+        if len(keys) != len(self.cells):
+            raise ValueError("wallet grid contains duplicate client-product cells")
+        return self
+
+
+class WalletOpportunityDetail(StrictModel):
+    cell: WalletPortfolioCell
+    equation: str = "A = qT"
+    contestable_equation: str = "G = max(q* x T - A, 0)"
+    explanation: Dict[str, Any]
+    supporting_facts: List[Dict[str, Any]]
+    decision_twin_action: Optional[Dict[str, Any]] = None
+    claim_boundary: Dict[str, str]
+
+
+class ProviderBriefEvaluation(StrictModel):
+    evaluation_id: str
+    entity_id: str
+    entity_name: str
+    provider: str
+    canonical_model_id: str
+    execution_status: str
+    pack_hash: str
+    prompt_version: str
+    schema_version: str
+    accepted_narrative: Optional[Dict[str, Any]] = None
+    validation_metrics: Dict[str, float | int | bool | str]
+    latency_ms: Optional[float] = Field(default=None, ge=0)
+    input_tokens: Optional[int] = Field(default=None, ge=0)
+    output_tokens: Optional[int] = Field(default=None, ge=0)
+    estimated_cost_usd: Optional[float] = Field(default=None, ge=0)
+    acceptance_status: str
+    deterministic_fallback_equivalent: bool
+    audit_metadata_retained: bool = True
 
 
 class IndicatorValue(StrictModel):

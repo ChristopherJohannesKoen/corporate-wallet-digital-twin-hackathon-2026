@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-import hashlib
 import json
 import sys
 from collections import Counter
-from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +11,11 @@ sys.path.insert(0, str(ROOT / "src"))
 from wallet_twin_v2.contracts import DeploymentEnvironment, EntitlementContext, EventEnvelope, EventType
 from wallet_twin_v2.events import ClusterRandomizedEncouragement, EventStore, new_event_id
 from wallet_twin_v2.fixtures import build_fixture
+from wallet_twin_v2.canonical import (
+    EVENT_STREAM_VOLATILE_FIELDS,
+    artifact_timestamp,
+    content_digest,
+)
 
 
 def main() -> None:
@@ -39,15 +42,21 @@ def main() -> None:
             artifacts=opportunity.artifacts, entitlement_context=context,
         ))
     serialized = [event.model_dump(mode="json") for event in store.list()]
-    canonical = json.dumps(serialized, sort_keys=True, separators=(",", ":"))
     summary = {
         "replay_version": "local-shadow-replay-1.0.0",
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": artifact_timestamp(),
         "watermark": "SYNTHETIC SHADOW REPLAY — NO RM EXPOSURE",
         "recommendations_visible_to_rm": False,
         "events": len(serialized),
         "event_types": dict(Counter(event["event_type"] for event in serialized)),
-        "event_stream_sha256": hashlib.sha256(canonical.encode("utf-8")).hexdigest(),
+        # Content digest over the business payload only. Event envelopes carry a
+        # real emission instant and a freshly minted UUID, so hashing those would
+        # change every run and the digest could never detect the content drift it
+        # exists to catch.
+        "event_stream_sha256": content_digest(serialized, EVENT_STREAM_VOLATILE_FIELDS),
+        "event_stream_digest_scope": (
+            "business payload; emission timestamps and per-run identifiers excluded"
+        ),
         "production_release_allowed": False,
     }
     output = ROOT / "outputs" / "v2_validation" / "shadow_replay_summary.json"
