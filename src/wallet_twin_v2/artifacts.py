@@ -20,6 +20,7 @@ COMMITTED_ARTIFACT_PATHS: tuple[str, ...] = (
     "dashboard/app/data/shadow-fixture.json",
     "dashboard/app/data/v3-fixture.json",
     "dashboard/app/data/v31-fixture.json",
+    "dashboard/app/data/promotion-fixture.json",
     "outputs/v3",
     "outputs/v31",
     "outputs/v32",

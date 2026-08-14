@@ -13,8 +13,10 @@ the single worst failure mode this service has, so it raises.
 from __future__ import annotations
 
 import threading
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, timedelta
 from typing import Dict, List, Optional, Sequence
+
+from wallet_twin_v2.canonical import ARTIFACT_AS_OF, artifact_timestamp
 
 from .catalogue import GATE_CATALOGUE
 from .contracts import (
@@ -41,10 +43,12 @@ from .trust import TrustRegistry, rehearsal_key
 
 REPOSITORY_VERSION = "v32-promotion-repository-1.0.0"
 
-#: Fixed so the fixture is reproducible. The build canonicaliser stamps
-#: artifacts with ARTIFACT_AS_OF; this matches it.
-FIXTURE_AS_OF = date(2026, 6, 30)
-FIXTURE_GENERATED_AT = datetime(2026, 6, 30, 6, 0, tzinfo=timezone.utc)
+#: Fixed so the fixture is reproducible, and taken from the canonicaliser rather
+#: than written out again here. An independent literal drifted once already:
+#: this was 06:00 while every other committed artifact carried the canonical
+#: midnight stamp, which the artifact-stability test correctly rejected.
+FIXTURE_AS_OF = ARTIFACT_AS_OF
+FIXTURE_GENERATED_AT = datetime.fromisoformat(artifact_timestamp())
 
 
 class FixtureModeError(RuntimeError):
