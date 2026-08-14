@@ -28,6 +28,25 @@ identification bounds and posterior intervals—not a falsely precise point
 estimate. Observed, identified, posterior, scenario and causal claims remain
 distinct throughout the API, workbench, notebook and submission artifacts.
 
+## V3.2 — Promotion Readiness Twin
+
+V3.2 adds the question V3.1.1 cannot express: **is this system allowed to be
+used, and for what?** Five ordered states, 24 governed gates, and every gate
+evaluated twice — once on a REAL track that governs bank authorisation, once on
+a REHEARSAL track that proves the machinery works.
+
+```
+Real state      OFFLINE_CANDIDATE        Rehearsed to   CAUSAL_CHAMPION
+PMR  100%  (machinery works)             BER  0%  (bank has no evidence)
+shadow_rehearsal_days 30                 elapsed_bank_shadow_days 0
+BANK_SHADOW_AUTHORIZED  FALSE            BANK_PRODUCTION_STATUS  NOT_PROMOTABLE
+```
+
+The two scores are never combined. A single figure would let a fully rehearsed
+system with no bank evidence read as nearly production-ready; the two numbers
+disagreeing is the finding. See
+[docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md](docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md).
+
 ## Authoritative V3.1.1 result
 
 - 3,064,295 confidential supplied Syn Bank rows in private-evaluator mode.

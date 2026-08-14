@@ -30,3 +30,20 @@
 | Is the GenAI result live? | The deterministic brief is accepted. Live provider runs remain `NOT_EXECUTED` unless fresh rotated credentials and explicit acknowledgement are present. |
 | Is this production-ready for a bank? | No. Hackathon submission status is separate; bank release remains `NOT_PROMOTABLE`. |
 | What is confidential? | Supplied Syn Bank rows and challenge-derived row-level data remain private. The public mirror uses independently generated anonymized fixtures. |
+
+## V3.2 — Promotion Readiness Twin
+
+| Question | Answer |
+|---|---|
+| What does V3.2 add? | The question V3.1.1 could not express: *is this system allowed to be used, and for what?* Five ordered states, 24 gates, and a capability register. |
+| Is the system promoted? | No. Real state is `OFFLINE_CANDIDATE`. `BANK_SHADOW_AUTHORIZED = FALSE`. |
+| Then what does "rehearsed to CAUSAL_CHAMPION" mean? | Only that the promotion machinery works end to end. It says nothing about bank authorisation, which is why the two tracks are reported separately and never merged. |
+| PMR is 100% — is that good? | It means the apparatus works. **BER is 0%**: the bank has no admissible evidence. The two disagreeing is the finding, which is why there is no combined score. |
+| Why no single promotability percentage? | It would let a fully rehearsed system with no bank evidence read as nearly production-ready. `assert_no_composite_score` enforces the prohibition in four places. |
+| You report 30 shadow days — is that a month of operation? | No. Those are *simulated* days on a virtual clock. `elapsed_bank_shadow_days = 0` is published beside them everywhere, and the clock has no field, method or parameter that could advance it. |
+| Why does the rehearsal fail on day 17? | Deliberately. A run that counted straight to thirty would show the same number while proving far less; the reset shows the counter is a control, not a loop bound. |
+| Is anything signed? | Rehearsal evidence, by a local ECDSA key that is cryptographically barred from signing `REAL_BANK` evidence. Sigstore and KMS ship as adapters and report `NOT_EXECUTED`; neither returns plausible bytes when unavailable. |
+| How many E3 clients would you need? | `NOT_DETERMINED_UP_TO_150`. The sweep did not converge, and returning 150 would recommend a data contract the analysis says would not work. |
+| Is the trial design sound? | Type I error is controlled; **power is 0.20**, so it is reported `UNDERPOWERED_AT_THIS_CLUSTER_COUNT`. A null result from it would be uninformative. |
+| Do the 120 RM sessions show adoption? | No. Every one carries `real_participant=False` as a non-init field, so no simulated session can satisfy the supervised-pilot gate. |
+| Did wiring OPA change anything? | It found three live entitlement gaps: the Rego ignored the `"*"` wildcard, the in-process policy never checked region, and evidence approval was not product- or region-scoped. All three are fixed and 4,860 principal/request combinations now agree. |

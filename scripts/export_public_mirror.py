@@ -158,7 +158,18 @@ def main() -> None:
         "PYTHONPATH": str(out / "src"),
         "WALLET_TWIN_REPOSITORY_BACKEND": "fixture",
     }
-    for script in ("export_v3_contracts.py", "export_v31_contracts.py"):
+    # The V3.2 exporters join this loop for the same reason the others are in
+    # it: dashboard/ is copied wholesale, so promotion-fixture.json would
+    # otherwise be published verbatim from the private tree rather than
+    # regenerated from exported code and data. Its content is entirely synthetic
+    # rehearsal evidence, but "we checked and it was safe" is a weaker guarantee
+    # than "it was rebuilt inside the export".
+    for script in (
+        "export_v3_contracts.py",
+        "export_v31_contracts.py",
+        "export_v32_contracts.py",
+        "export_v32_workbench_fixture.py",
+    ):
         subprocess.run(
             [sys.executable, str(out / "scripts" / script)],
             cwd=out,

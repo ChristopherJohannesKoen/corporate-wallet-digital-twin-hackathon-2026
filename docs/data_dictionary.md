@@ -225,3 +225,28 @@ A decision brief contains the opportunity ID, title, summary, observed facts, id
 | `outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx` | Human-auditable evidence/approval/impact workbook |
 | `contracts/` | Composed OpenAPI and JSON Schemas |
 | `legacy/v1/` | Frozen V1 assumptions and outputs; regression only |
+
+## V3.2 promotion artifacts
+
+| Path | Contents |
+|---|---|
+| `contracts/promotion-gate-catalogue.json` | 24 gates as governed data, generated from the enforced catalogue |
+| `contracts/jsonschema/v32-*.schema.json` | The 12 V3.2 contract schemas |
+| `outputs/v32/v32_promotion_policy.json` | States, tracks, evidence modes, capability prerequisites, scoring policy |
+| `outputs/v32/v32_signing_posture.json` | Which signers ran; `NO_REAL_BANK_SIGNING_CAPABILITY_ON_THIS_BUILD` |
+| `outputs/v32/v32_simulation_laboratories.json` | Canonical-tier results for all seven laboratories |
+| `outputs/v32/v32_shadow_rehearsal.json` | 47 simulated days, day-17 incident, 30 clean days, 0 bank days |
+| `dashboard/app/data/promotion-fixture.json` | The promotion readiness view's projection |
+| `infra/sql/002_promotion_schemas.sql` | Append-only promotion schema with the invariants restated as CHECK constraints |
+
+### Key fields that must never be conflated
+
+| Field | Meaning |
+|---|---|
+| `as_of` | The business date the evidence describes; the point-in-time boundary |
+| `generated_at` | Wall-clock time the artifact was computed; provenance only |
+| `published_at` | When it became visible to consumers; later than `generated_at` when review sits between |
+| `simulation_clock` | Virtual clock position. **Present only on synthetic evidence** |
+| `expires_at` | Freshness horizon; orthogonal to the four above |
+| `shadow_rehearsal_days` | Simulated days. Always published beside the next row |
+| `elapsed_bank_shadow_days` | Real elapsed bank days. **Zero, and structurally unable to be otherwise in a rehearsal** |

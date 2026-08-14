@@ -211,3 +211,31 @@ Stop publication immediately for a source reconciliation failure, future-data le
 - **Workbook check fails:** rebuild fixtures first, then rebuild/verify the workbook; do not edit computed cells manually.
 - **Provider evaluation fails:** disable the provider and retain deterministic fallback.
 - **Cross-client result appears:** treat as a security incident; disable the route and preserve access-decision evidence.
+
+## V3.2 promotion twin
+
+- **Promotion state looks wrong:** it is recomputed from gate evaluations on
+  every read and never stored. Inspect `/v3/promotion/transitions` for the first
+  transition whose blocking gates are unsatisfied; the walk stops there.
+- **A gate shows red with no action:** every gate carries
+  `what_would_make_real_pass`. If it is empty, that is a catalogue defect, not a
+  blocked gate.
+- **Fixture mode rejects a write (409):** expected. A demonstration fixture must
+  never be able to produce bank authorisation. Real-track writes require a
+  non-fixture deployment.
+- **`POLICY_DIVERGENCE_DENIED`:** OPA and the in-process policy disagreed, so the
+  request was denied and recorded. Run
+  `python scripts/check_policy_agreement.py` against the lab to see the full
+  matrix. Do not "fix" this by preferring one policy — one of them has drifted
+  and both need review.
+- **OPA unreachable:** the gateway raises rather than allowing. Restore OPA;
+  never fail open.
+- **MinIO object-lock bootstrap fails:** object lock cannot be enabled on an
+  existing bucket. Recreate them: `docker compose down -v && docker compose up -d`.
+- **Rehearsal reports 30 clean days:** that is simulated time. Check
+  `elapsed_bank_shadow_days` in the same payload; it is 0 and cannot be
+  otherwise. Thirty *elapsed* bank days is a separate, unmet gate.
+- **A signer reports `NOT_EXECUTED`:** Sigstore needs an ambient GitHub OIDC
+  token and KMS needs a live AWS account plus an `ECDSA_SHA_256` key — the
+  existing Terraform key is RSA-3072. Neither returns plausible bytes when
+  unavailable; both raise.

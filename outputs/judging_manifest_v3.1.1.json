@@ -2,14 +2,20 @@
   "version": "3.1.1",
   "status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-14T10:36:44.881876+00:00",
-  "source_commit": "ab443e34dbfa6470af6cae09784437ba066adad6",
+  "generated_at": "2026-08-14T10:55:52.714668+00:00",
+  "source_commit": "3d4de11b8bd270dfede4b159a3eb8f1ba9e41c08",
   "clean_worktree": false,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
   "dirty_paths": [
-    "outputs/v2_validation/live_provider_comparison.json",
-    "outputs/v2_validation/offline_validation_report.json",
-    "scripts/build_submission.py"
+    "README.md",
+    "docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md",
+    "docs/data_dictionary.md",
+    "docs/judging_map.md",
+    "docs/model_card.md",
+    "docs/runbook.md",
+    "public-mirror-manifest.json",
+    "scripts/export_public_mirror.py",
+    "tests/test_v32_documentation.py"
   ],
   "rebuilt_deliverables": [
     "notebooks/01_wallet_twin_demo.ipynb",
@@ -298,28 +304,28 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "29db6dfacafc68b17c64eeea36e3612d82dbfaa127033f2d29f84d718c22773a",
+      "sha256": "7b67fc95688cdb75a16e694a942d512fb1439cf403f013532667e1048f31ecc5",
       "size_bytes": 159274
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "193a7ca31be6f0aa5dc4b968d6f1ac02491bd4cbaec8b81b94f527b48f64024c",
+      "sha256": "04bbe3591fd76e9e563144b89664291d7df3a1480cb81eb5c60522d34e5024ca",
       "size_bytes": 460277
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "9762c3ee54e53e7ef645f99c4e4a8dfc18ea16eef9f78652db9312837d3c5ac5",
+      "sha256": "f516e4dde3045305841d8c6632327e670b0e840fe758173eae4b6d4d69a8f628",
       "size_bytes": 5522
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "9cbc79b0854224157b0cde4948775fa9c15331d9037bbcf5980791562e779e89",
-      "size_bytes": 1740247
+      "sha256": "7c6caf9dce10cba7027251443d6d16892228aecbc2e83ec3b6607075fdfdcc02",
+      "size_bytes": 1740241
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
-      "sha256": "919595b73ebd5bd220efdfaac0495bd85e2c86c2aca53b780f6d6bbd954aeeac",
-      "size_bytes": 70594
+      "sha256": "c915fc920d4bfd02ef07d94ee91ddf06bb63876a2ac162a71de07fad65f713d7",
+      "size_bytes": 70584
     },
     {
       "path": "contracts/openapi.json",
@@ -328,8 +334,8 @@
     },
     {
       "path": "outputs/v2_validation/offline_validation_report.json",
-      "sha256": "f973999d3b0569504d9dcf6b3fc9a33698c5851718b57622719ac20172dc3398",
-      "size_bytes": 48038
+      "sha256": "7e8c02ffe9e8e1400e522c9ef15fee07eb0ad6a0874e07d04124ed8654cfabaa",
+      "size_bytes": 48036
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
@@ -368,7 +374,7 @@
     },
     {
       "path": "public-mirror-manifest.json",
-      "sha256": "f57b28c9f27ebe55d3ae829bacb3fc1746a2924f66b54455998afa07cd49c426",
+      "sha256": "c9414c0fdd46d8e28262e3659b22b5d9bca1044b4ea3e0c190aebb67b49b078d",
       "size_bytes": 570
     }
   ],
