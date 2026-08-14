@@ -10,6 +10,7 @@ services:
     ports: ["127.0.0.1:5432:5432"]
     volumes:
       - ../sql/001_operational_schemas.sql:/docker-entrypoint-initdb.d/001_operational_schemas.sql:ro
+      - ../sql/002_promotion_schemas.sql:/docker-entrypoint-initdb.d/002_promotion_schemas.sql:ro
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U wallet_local -d wallet_twin"]
@@ -35,6 +36,78 @@ services:
       MINIO_ROOT_PASSWORD: local-only-change-me
     ports: ["127.0.0.1:9000:9000", "127.0.0.1:9001:9001"]
     volumes: ["minio-data:/data"]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # No bucket creation step existed before V3.2, so every "immutable evidence"
+  # claim rested on a bucket nobody had created with a retention mode nobody had
+  # set. Object lock must be enabled AT BUCKET CREATION — it cannot be turned on
+  # afterwards — which is exactly the kind of thing that is discovered far too
+  # late if the bootstrap is left as a manual step in a runbook.
+  minio-bootstrap:
+    image: minio/mc:RELEASE.2024-07-31T15-58-33Z
+    depends_on:
+      minio: { condition: service_healthy }
+    entrypoint: ["/bin/sh", "/bootstrap/minio_object_lock.sh"]
+    environment:
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ROOT_USER: local-minio
+      MINIO_ROOT_PASSWORD: local-only-change-me
+      EVIDENCE_RETENTION_DAYS: "2555"
+    volumes:
+      - ./minio_object_lock.sh:/bootstrap/minio_object_lock.sh:ro
+
+  # OIDCVerifier has existed since V2 as a client with no issuer to point at.
+  # Keycloak gives the bank-shaped lab a real one, so the token path is
+  # exercised rather than asserted.
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.4
+    command: ["start-dev", "--import-realm", "--http-port=8090"]
+    environment:
+      KEYCLOAK_ADMIN: local-admin
+      KEYCLOAK_ADMIN_PASSWORD: local-only-change-me
+      KC_HEALTH_ENABLED: "true"
+    ports: ["127.0.0.1:8090:8090"]
+    volumes:
+      - ./keycloak-realm.json:/opt/keycloak/data/import/wallet-twin-realm.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8090 && echo -e 'GET /health/ready HTTP/1.1\\nHost: localhost\\nConnection: close\\n\\n' >&3 && grep -q 'UP' <&3"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  # Postgres backend store and MinIO artifact store, matching the bank shape
+  # rather than MLflow's file-based default.
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.16.2
+    depends_on:
+      postgres: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        pip install --no-cache-dir psycopg2-binary boto3 >/dev/null &&
+        mlflow server --host 0.0.0.0 --port 5000
+        --backend-store-uri postgresql://wallet_local:local-only-change-me@postgres:5432/wallet_twin
+        --default-artifact-root s3://wallet-twin-mlflow/
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: local-minio
+      AWS_SECRET_ACCESS_KEY: local-only-change-me
+    ports: ["127.0.0.1:5000:5000"]
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=7d
+    ports: ["127.0.0.1:9090:9090"]
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./release_gate_rules.yml:/etc/prometheus/release_gate_rules.yml:ro
 
   opa:
     image: openpolicyagent/opa:0.68.0-static

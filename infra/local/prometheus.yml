@@ -1,0 +1,72 @@
+# Prometheus for the bank-shaped lab.
+#
+# Scrapes the twelve service boundaries plus the supporting infrastructure. The
+# point is not the dashboards — it is that the release gates about availability,
+# p95 read latency, event latency and refresh completion name metrics that some
+# system has to actually produce. A gate whose metric has no collector is a gate
+# nobody can evaluate.
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    deployment: wallet-twin-local-lab
+
+rule_files:
+  - /etc/prometheus/release_gate_rules.yml
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # The twelve service boundaries. In the local lab they share one process, so
+  # these resolve to the same endpoint; in the bank each is its own deployment.
+  # Listing them separately keeps the topology visible and means adding a
+  # thirteenth service is a change someone has to make deliberately.
+  - job_name: wallet-twin-services
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["integration-mocks:8088"]
+        labels: { service: ingestion }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: evidence }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: economics }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: wallet-model }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: business-twin }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: timing }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: recommendation }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: experiment }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: genai }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: entitlement }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: promotion }
+      - targets: ["integration-mocks:8088"]
+        labels: { service: workbench-bff }
+
+  - job_name: opa
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["opa:8181"]
+
+  - job_name: minio
+    metrics_path: /minio/v2/metrics/cluster
+    static_configs:
+      - targets: ["minio:9000"]
+
+  - job_name: keycloak
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["keycloak:8090"]
+
+  - job_name: mlflow
+    static_configs:
+      - targets: ["mlflow:5000"]

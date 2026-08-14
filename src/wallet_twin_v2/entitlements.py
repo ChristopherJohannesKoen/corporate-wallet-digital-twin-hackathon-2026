@@ -35,6 +35,7 @@ class EntitlementService:
         resource_id: str,
         client_id: Optional[str] = None,
         product: Optional[str] = None,
+        client_region: Optional[str] = None,
         sensitive_economics: bool = False,
         shadow_only: bool = True,
     ) -> AccessDecision:
@@ -47,6 +48,18 @@ class EntitlementService:
                 reasons.append("SHADOW_ROLE_REQUIRED")
             if client_id and "*" not in context.client_ids and client_id not in context.client_ids:
                 reasons.append("CLIENT_NOT_ENTITLED")
+            # Region was enforced by the OPA policy and not here. Nothing caught
+            # it while OPA sat unconsulted: a principal entitled to a client in
+            # one region could read that client's data from any other, because
+            # the only policy actually running never looked at region. Same
+            # wildcard and same empty-list semantics as the client rule, so the
+            # two policies agree rather than merely both being present.
+            if (
+                client_region
+                and "*" not in context.regions
+                and client_region not in context.regions
+            ):
+                reasons.append("REGION_NOT_ENTITLED")
             if product and context.products and "*" not in context.products and product not in context.products:
                 reasons.append("PRODUCT_NOT_ENTITLED")
             if sensitive_economics and not roles.intersection(SENSITIVE_ECONOMICS_ROLES):

@@ -1,0 +1,87 @@
+# Recording and alerting rules for the metrics the release gates name.
+#
+# Four gates in the V3.2 catalogue are thresholds on operational metrics:
+# service-availability, read-latency-p95, event-latency and refresh-by-0600-sast.
+# Each needs a metric that some system actually produces, or the gate is
+# unevaluable and would have to be waived on every promotion.
+#
+# These rules compute exactly those four quantities and nothing else. Every
+# expression here traces to a named gate; a rule with no gate would be a
+# dashboard, and dashboards belong elsewhere.
+
+groups:
+  - name: wallet-twin-release-gates
+    interval: 30s
+    rules:
+      # gate: service-availability (>= 0.999)
+      - record: wallet_twin:availability:ratio30d
+        expr: |
+          1 - (
+            sum(rate(http_requests_total{code=~"5.."}[30d]))
+            /
+            clamp_min(sum(rate(http_requests_total[30d])), 1)
+          )
+
+      # gate: read-latency-p95 (< 750 ms)
+      - record: wallet_twin:read_latency:p95_ms
+        expr: |
+          1000 * histogram_quantile(
+            0.95,
+            sum by (le, service) (rate(http_request_duration_seconds_bucket{method="GET"}[5m]))
+          )
+
+      # gate: event-latency (< 300 s)
+      - record: wallet_twin:event_latency:p95_seconds
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum by (le) (rate(domain_event_propagation_seconds_bucket[5m]))
+          )
+
+      # gate: refresh-by-0600-sast. SAST is UTC+2 with no daylight saving, so
+      # 06:00 SAST is 04:00 UTC year-round. Hardcoding the offset is correct
+      # here and would not be for a zone that observes DST.
+      - record: wallet_twin:refresh:completion_hour_sast
+        expr: |
+          (max(wallet_twin_refresh_completed_timestamp_seconds) % 86400) / 3600 + 2
+
+  - name: wallet-twin-release-gate-alerts
+    rules:
+      - alert: ShadowAvailabilityBelowGate
+        expr: wallet_twin:availability:ratio30d < 0.999
+        for: 15m
+        labels: { severity: high, gate: service-availability }
+        annotations:
+          summary: "Availability below the 99.9% shadow gate"
+          description: >-
+            The service-availability gate requires >= 0.999 over the shadow
+            window. Sustained breach resets the promotion evidence for this gate.
+
+      - alert: ReadLatencyBelowGate
+        expr: wallet_twin:read_latency:p95_ms >= 750
+        for: 10m
+        labels: { severity: standard, gate: read-latency-p95 }
+        annotations:
+          summary: "p95 read latency at or above 750 ms"
+          description: >-
+            Latency above roughly a second turns a decision aid into an
+            interruption, which is what this gate exists to prevent.
+
+      - alert: EventLatencyBelowGate
+        expr: wallet_twin:event_latency:p95_seconds >= 300
+        for: 10m
+        labels: { severity: standard, gate: event-latency }
+        annotations:
+          summary: "Domain event propagation at or above 300 s"
+          description: >-
+            Stale events mean two bankers see different answers to the same
+            question on the same morning.
+
+      - alert: DailyRefreshMissedGate
+        expr: wallet_twin:refresh:completion_hour_sast > 6
+        labels: { severity: standard, gate: refresh-by-0600-sast }
+        annotations:
+          summary: "Overnight refresh completed after 06:00 SAST"
+          description: >-
+            A refresh landing after the RM's first meeting is a day late for the
+            decision it was meant to inform.

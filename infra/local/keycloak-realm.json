@@ -1,0 +1,147 @@
+{
+  "realm": "wallet-twin",
+  "enabled": true,
+  "displayName": "Corporate Wallet Digital Twin (local lab)",
+  "sslRequired": "none",
+  "_comment_ssl": "Local lab only. RuntimeConfig.validate refuses a non-HTTPS issuer outside FIXTURE, so this realm cannot be pointed at a real deployment.",
+  "accessTokenLifespan": 900,
+  "ssoSessionIdleTimeout": 3600,
+  "_comment_lifespan": "The Rego policy refuses a workload identity older than 3600s; the access-token lifespan is set well inside that so a token cannot outlive the policy's own freshness rule.",
+  "roles": {
+    "realm": [
+      { "name": "SHADOW_OPERATOR", "description": "Operates the system in shadow. May read the promotion position and record rehearsal evaluations." },
+      { "name": "MODEL_VALIDATOR", "description": "Independent model validation. May write to the promotion register." },
+      { "name": "EVIDENCE_REVIEWER", "description": "Approves evidence facts. Required for evidence:approve." },
+      { "name": "PILOT_RM", "description": "Relationship manager in a supervised pilot. Reads only; explicitly cannot decide promotion." },
+      { "name": "PLATFORM_ADMIN", "description": "Platform administration." },
+      { "name": "PRODUCT_FINANCE", "description": "Owns rate cards. Sensitive economics only; deliberately NOT a shadow role." },
+      { "name": "TREASURY", "description": "Owns funding spreads and capital charges." },
+      { "name": "RISK", "description": "Owns expected credit cost." }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "wallet-twin-workbench",
+      "name": "Workbench BFF",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": ["http://127.0.0.1:3000/*"],
+      "webOrigins": ["http://127.0.0.1:3000"],
+      "attributes": { "pkce.code.challenge.method": "S256" },
+      "protocolMappers": [
+        {
+          "name": "client-ids",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "config": {
+            "user.attribute": "client_ids",
+            "claim.name": "client_ids",
+            "jsonType.label": "String",
+            "multivalued": "true",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "regions",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "config": {
+            "user.attribute": "regions",
+            "claim.name": "regions",
+            "jsonType.label": "String",
+            "multivalued": "true",
+            "access.token.claim": "true"
+          }
+        },
+        {
+          "name": "products",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "config": {
+            "user.attribute": "products",
+            "claim.name": "products",
+            "jsonType.label": "String",
+            "multivalued": "true",
+            "access.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
+      "clientId": "wallet-twin-services",
+      "name": "Service-to-service workload identity",
+      "enabled": true,
+      "publicClient": false,
+      "serviceAccountsEnabled": true,
+      "standardFlowEnabled": false,
+      "secret": "local-only-change-me"
+    }
+  ],
+  "users": [
+    {
+      "username": "shadow.operator",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
+      "realmRoles": ["SHADOW_OPERATOR"],
+      "attributes": {
+        "client_ids": ["E01", "E02", "E09"],
+        "regions": ["ZA"],
+        "products": ["*"]
+      }
+    },
+    {
+      "username": "pilot.rm",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
+      "realmRoles": ["PILOT_RM"],
+      "attributes": {
+        "client_ids": ["E01"],
+        "regions": ["ZA"],
+        "products": ["*"]
+      },
+      "_comment": "Entitled to exactly one client. The cross-client denial test uses this identity to request E02, which must be refused by both OPA and the in-process policy."
+    },
+    {
+      "username": "offshore.rm",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
+      "realmRoles": ["PILOT_RM"],
+      "attributes": {
+        "client_ids": ["E01"],
+        "regions": ["UK"],
+        "products": ["*"]
+      },
+      "_comment": "Same client entitlement, different region. Used to prove region is enforced independently of client, which a test using only cross-client identities could not show."
+    },
+    {
+      "username": "product.finance",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
+      "realmRoles": ["PRODUCT_FINANCE"],
+      "attributes": {
+        "client_ids": ["*"],
+        "regions": ["ZA"],
+        "products": ["*"]
+      },
+      "_comment": "Holds sensitive-economics authority but no shadow role, so it is denied on ordinary shadow reads. This is the negative the container smoke test already exercises."
+    },
+    {
+      "username": "model.validator",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
+      "realmRoles": ["MODEL_VALIDATOR"],
+      "attributes": {
+        "client_ids": ["*"],
+        "regions": ["ZA", "UK"],
+        "products": ["*"]
+      }
+    }
+  ]
+}

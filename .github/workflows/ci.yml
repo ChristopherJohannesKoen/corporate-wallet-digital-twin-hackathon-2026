@@ -67,6 +67,36 @@ jobs:
           exit-code: "1"
           ignore-unfixed: true
       # Bank CI must additionally sign and attest the promoted artifact.
+  # The bank-shaped lab. These assertions cannot be made against a stub: the
+  # OPA/Python divergence that V3.2 found existed precisely because the policy
+  # engine had never actually been consulted.
+  bank-lab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+        with: { version: "0.9.2", enable-cache: true }
+      - run: uv sync --frozen --extra dev
+      - run: docker compose -f infra/local/docker-compose.yml up -d opa minio minio-bootstrap
+      # The bootstrap verifies its own work — it writes an object to a locked
+      # bucket and confirms permanent deletion is refused. A non-zero exit means
+      # object lock did not take effect, which cannot be fixed after the fact
+      # because --with-lock is only honoured at bucket creation.
+      - run: |
+          docker compose -f infra/local/docker-compose.yml wait minio-bootstrap
+          test "$(docker inspect wallet-twin-v2-local-minio-bootstrap-1 --format '{{.State.ExitCode}}')" = "0"
+      - run: uv run pytest -m bank_lab -q
+      # The divergence log must be empty. A non-empty one means the Rego and the
+      # in-process policy have drifted and the system is deciding things nobody
+      # decided.
+      - run: uv run python scripts/check_policy_agreement.py
+      - if: failure()
+        run: docker compose -f infra/local/docker-compose.yml logs
+      - if: always()
+        run: docker compose -f infra/local/docker-compose.yml down -v
+
   secret-scan:
     runs-on: ubuntu-latest
     steps:
