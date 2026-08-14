@@ -75,6 +75,7 @@
     }
   },
   "compute": {
+    "canonical_parallelism": "across replications, seed-ordered; results are independent of worker count, so the resolved count is not published here",
     "canonical_tiers": [
       {
         "committed": true,
@@ -105,11 +106,7 @@
         "replications": 512
       }
     ],
-    "canonical_workers": 14,
     "compute_version": "v32-compute-policy-1.0.0",
-    "cpu_cores": 16,
-    "gpu_available": false,
-    "gpu_reason": "CUPY_NOT_INSTALLED",
     "if_gpu_absent": "Canonical tiers are unaffected. Nightly tiers are reported NOT_EXECUTED rather than silently run at canonical size, which would publish a precision that was never achieved.",
     "nightly_tiers": [
       {
@@ -117,24 +114,21 @@
         "device": "gpu",
         "name": "e3-sample-size",
         "note": "14 n-values x 2,000 replications",
-        "replications": 2000,
-        "status": "NOT_EXECUTED"
+        "replications": 2000
       },
       {
         "committed": false,
         "device": "gpu",
         "name": "causal-trial",
         "note": "10,000 trial realisations",
-        "replications": 10000,
-        "status": "NOT_EXECUTED"
+        "replications": 10000
       },
       {
         "committed": false,
         "device": "gpu",
         "name": "causal-permutation",
         "note": "1,500 cluster shuffles per realisation",
-        "replications": 1500,
-        "status": "NOT_EXECUTED"
+        "replications": 1500
       }
     ],
     "policy": "Canonical tiers run on CPU because their artifacts are byte-gated and must reproduce on a GPU-less CI runner. Nightly tiers may use the GPU because they publish a statistical summary rather than a fixture. No committed number depends on the GPU path."

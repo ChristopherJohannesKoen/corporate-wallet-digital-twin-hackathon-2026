@@ -218,21 +218,18 @@ class PromotionRepository:
         )
 
     def clock(self) -> VirtualClockState:
-        """The rehearsal clock as W6 will drive it.
+        """The rehearsal clock, driven by an actual run rather than asserted.
 
-        Published with ``elapsed_bank_shadow_days = 0`` beside every simulated
-        count. Forty-seven simulated days yield thirty clean ones because an
-        incident on day 17 resets the counter.
+        Forty-seven simulated days yield thirty consecutive clean ones because
+        a critical reconciliation failure on day 17 resets the counter. Those
+        numbers come from executing the rehearsal, not from a literal — a
+        hardcoded clock state would report the same figures whether or not the
+        rehearsal worked.
         """
-        return VirtualClockState(
-            clock_id="v32-shadow-rehearsal",
-            simulation_clock=FIXTURE_GENERATED_AT + timedelta(days=47),
-            rehearsal_days_elapsed=47,
-            consecutive_clean_rehearsal_days=30,
-            elapsed_bank_shadow_days=0,
-            incidents_injected=1,
-            last_reset_reason="CRITICAL_RECONCILIATION_FAILURE_ON_REHEARSAL_DAY_17",
-        )
+        from .rehearsal import canonical_rehearsal
+
+        clock, _ = canonical_rehearsal(as_of=FIXTURE_AS_OF)
+        return clock.state()
 
     def readiness(self) -> Dict[str, object]:
         """Everything the workbench needs, in one shape."""

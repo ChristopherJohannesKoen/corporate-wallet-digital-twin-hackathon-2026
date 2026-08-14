@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from wallet_twin_v2.canonical import ARTIFACT_AS_OF, write_canonical_json  # noqa: E402
 from wallet_twin_v32.laboratories import run_all  # noqa: E402
+from wallet_twin_v32.rehearsal import rehearsal_report  # noqa: E402
 from wallet_twin_v32 import (  # noqa: E402
     CATALOGUE_VERSION,
     CONTRACTS_VERSION,
@@ -241,6 +242,11 @@ def main() -> int:
     # gate covers them like any other committed artifact.
     laboratories = run_all(as_of=ARTIFACT_AS_OF, replications=200, seed=20260630)
     write_canonical_json(OUTPUTS / "v32_simulation_laboratories.json", laboratories)
+
+    # The accelerated shadow rehearsal. Every timestamp derives from as_of, so
+    # this is committable; the two day counts are published side by side.
+    rehearsal = rehearsal_report(as_of=ARTIFACT_AS_OF)
+    write_canonical_json(OUTPUTS / "v32_shadow_rehearsal.json", rehearsal)
 
     print(
         f"exported {len(MODELS)} V3.2 schemas, "

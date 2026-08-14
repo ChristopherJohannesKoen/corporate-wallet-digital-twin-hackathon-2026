@@ -1,0 +1,674 @@
+{
+  "all_scenarios_broke_their_own_gate": true,
+  "as_of": "2026-06-30",
+  "bank_gate_status": {
+    "gate_id": "elapsed-clean-shadow-days",
+    "reason": "The gate requires thirty *elapsed* bank days. Virtual time cannot advance it, and VirtualClockState refuses to represent a rehearsal that recorded one.",
+    "satisfied": false
+  },
+  "canonical_run": {
+    "consecutive_clean_days": 30,
+    "counter_was_reset": true,
+    "days": [
+      {
+        "clean": true,
+        "consecutive_clean_after": 1,
+        "day": 1,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-01T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 2,
+        "day": 2,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-02T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 3,
+        "day": 3,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-03T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 4,
+        "day": 4,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-04T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 5,
+        "day": 5,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-05T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 6,
+        "day": 6,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-06T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 7,
+        "day": 7,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-07T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 8,
+        "day": 8,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-08T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 9,
+        "day": 9,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-09T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 10,
+        "day": 10,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-10T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 11,
+        "day": 11,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-11T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 12,
+        "day": 12,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-12T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 13,
+        "day": 13,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-13T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 14,
+        "day": 14,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-14T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 15,
+        "day": 15,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-15T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 16,
+        "day": 16,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-16T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": false,
+        "consecutive_clean_after": 0,
+        "day": 17,
+        "failed_gate_id": "reconciliation-exact",
+        "failed_step_id": "reconciliation",
+        "severity": "CRITICAL",
+        "simulation_clock": "2026-07-17T00:00:00+00:00",
+        "steps_completed": 3
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 1,
+        "day": 18,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-18T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 2,
+        "day": 19,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-19T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 3,
+        "day": 20,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-20T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 4,
+        "day": 21,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-21T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 5,
+        "day": 22,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-22T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 6,
+        "day": 23,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-23T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 7,
+        "day": 24,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-24T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 8,
+        "day": 25,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-25T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 9,
+        "day": 26,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-26T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 10,
+        "day": 27,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-27T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 11,
+        "day": 28,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-28T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 12,
+        "day": 29,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-29T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 13,
+        "day": 30,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-30T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 14,
+        "day": 31,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-07-31T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 15,
+        "day": 32,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-01T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 16,
+        "day": 33,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-02T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 17,
+        "day": 34,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-03T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 18,
+        "day": 35,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-04T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 19,
+        "day": 36,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-05T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 20,
+        "day": 37,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-06T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 21,
+        "day": 38,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-07T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 22,
+        "day": 39,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-08T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 23,
+        "day": 40,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-09T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 24,
+        "day": 41,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-10T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 25,
+        "day": 42,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-11T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 26,
+        "day": 43,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-12T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 27,
+        "day": 44,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-13T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 28,
+        "day": 45,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-14T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 29,
+        "day": 46,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-15T00:00:00+00:00",
+        "steps_completed": 10
+      },
+      {
+        "clean": true,
+        "consecutive_clean_after": 30,
+        "day": 47,
+        "failed_gate_id": null,
+        "failed_step_id": null,
+        "severity": null,
+        "simulation_clock": "2026-08-16T00:00:00+00:00",
+        "steps_completed": 10
+      }
+    ],
+    "incident_day": 17,
+    "incident_gate": "reconciliation-exact",
+    "reached_required_clean_days": true,
+    "reset_reason": "CRITICAL_RECONCILIATION_BREAK",
+    "simulated_days": 47
+  },
+  "clock": {
+    "clock_id": "v32-shadow-rehearsal",
+    "consecutive_clean_rehearsal_days": 30,
+    "elapsed_bank_shadow_days": 0,
+    "incidents_injected": 1,
+    "last_reset_reason": "CRITICAL_RECONCILIATION_BREAK",
+    "rehearsal_days_elapsed": 47,
+    "simulation_clock": "2026-08-16T00:00:00Z",
+    "track": "REHEARSAL"
+  },
+  "daily_sequence": [
+    {
+      "gate_id": "point-in-time-zero-leakage",
+      "step": 1,
+      "step_id": "point-in-time-snapshot",
+      "title": "Take the point-in-time data snapshot"
+    },
+    {
+      "gate_id": null,
+      "step": 2,
+      "step_id": "feature-transformation",
+      "title": "Apply the registered feature transformations"
+    },
+    {
+      "gate_id": null,
+      "step": 3,
+      "step_id": "model-scoring",
+      "title": "Score the wallet model"
+    },
+    {
+      "gate_id": "reconciliation-exact",
+      "step": 4,
+      "step_id": "reconciliation",
+      "title": "Reconcile shadow wallet mass against bank balances"
+    },
+    {
+      "gate_id": null,
+      "step": 5,
+      "step_id": "evidence-tiering",
+      "title": "Assign evidence tiers and anchor activation"
+    },
+    {
+      "gate_id": "genai-schema-and-fidelity",
+      "step": 6,
+      "step_id": "narrative-generation",
+      "title": "Generate banker narratives from the closed fact pack"
+    },
+    {
+      "gate_id": "prompt-injection-resistance",
+      "step": 7,
+      "step_id": "injection-screen",
+      "title": "Screen narratives against the prompt-injection corpus"
+    },
+    {
+      "gate_id": "entitlement-negative-tests",
+      "step": 8,
+      "step_id": "entitlement-enforcement",
+      "title": "Enforce entitlements on every read path"
+    },
+    {
+      "gate_id": "event-latency",
+      "step": 9,
+      "step_id": "event-publication",
+      "title": "Publish domain events to the broker"
+    },
+    {
+      "gate_id": "refresh-by-0600-sast",
+      "step": 10,
+      "step_id": "daily-attestation",
+      "title": "Record the daily control attestation"
+    }
+  ],
+  "elapsed_bank_shadow_days": 0,
+  "evidence_mode": "SYNTHETIC_REHEARSAL",
+  "negative_scenarios": [
+    {
+      "broke_its_own_gate": true,
+      "clean_days_after": 0,
+      "clean_days_before": 3,
+      "counter_reset": true,
+      "elapsed_bank_shadow_days": 0,
+      "expected_outcome": "FAIL",
+      "failed_at_step": "reconciliation",
+      "observed_gate_failure": "reconciliation-exact",
+      "scenario_id": "reconciliation-break",
+      "severity": "CRITICAL",
+      "steps_completed": 3,
+      "targeted_gate_id": "reconciliation-exact",
+      "title": "Shadow wallet mass fails to reconcile"
+    },
+    {
+      "broke_its_own_gate": true,
+      "clean_days_after": 0,
+      "clean_days_before": 3,
+      "counter_reset": true,
+      "elapsed_bank_shadow_days": 0,
+      "expected_outcome": "FAIL",
+      "failed_at_step": "point-in-time-snapshot",
+      "observed_gate_failure": "point-in-time-zero-leakage",
+      "scenario_id": "point-in-time-leak",
+      "severity": "CRITICAL",
+      "steps_completed": 0,
+      "targeted_gate_id": "point-in-time-zero-leakage",
+      "title": "A future-dated input reaches a past-dated record"
+    },
+    {
+      "broke_its_own_gate": true,
+      "clean_days_after": 0,
+      "clean_days_before": 3,
+      "counter_reset": true,
+      "elapsed_bank_shadow_days": 0,
+      "expected_outcome": "FAIL",
+      "failed_at_step": "entitlement-enforcement",
+      "observed_gate_failure": "entitlement-negative-tests",
+      "scenario_id": "cross-client-read",
+      "severity": "CRITICAL",
+      "steps_completed": 7,
+      "targeted_gate_id": "entitlement-negative-tests",
+      "title": "A principal reads another client's wallet"
+    },
+    {
+      "broke_its_own_gate": true,
+      "clean_days_after": 0,
+      "clean_days_before": 3,
+      "counter_reset": true,
+      "elapsed_bank_shadow_days": 0,
+      "expected_outcome": "FAIL",
+      "failed_at_step": "narrative-generation",
+      "observed_gate_failure": "genai-schema-and-fidelity",
+      "scenario_id": "unsupported-critical-claim",
+      "severity": "HIGH",
+      "steps_completed": 5,
+      "targeted_gate_id": "genai-schema-and-fidelity",
+      "title": "A narrative states a number not in its fact pack"
+    },
+    {
+      "broke_its_own_gate": true,
+      "clean_days_after": 0,
+      "clean_days_before": 3,
+      "counter_reset": true,
+      "elapsed_bank_shadow_days": 0,
+      "expected_outcome": "FAIL",
+      "failed_at_step": "injection-screen",
+      "observed_gate_failure": "prompt-injection-resistance",
+      "scenario_id": "prompt-injection-success",
+      "severity": "CRITICAL",
+      "steps_completed": 6,
+      "targeted_gate_id": "prompt-injection-resistance",
+      "title": "Client-supplied text steers the narrative"
+    },
+    {
+      "broke_its_own_gate": true,
+      "clean_days_after": 0,
+      "clean_days_before": 3,
+      "counter_reset": true,
+      "elapsed_bank_shadow_days": 0,
+      "expected_outcome": "FAIL",
+      "failed_at_step": "daily-attestation",
+      "observed_gate_failure": "refresh-by-0600-sast",
+      "scenario_id": "late-refresh",
+      "severity": "STANDARD",
+      "steps_completed": 9,
+      "targeted_gate_id": "refresh-by-0600-sast",
+      "title": "The overnight refresh finishes after 06:00 SAST"
+    },
+    {
+      "broke_its_own_gate": true,
+      "clean_days_after": 0,
+      "clean_days_before": 3,
+      "counter_reset": true,
+      "elapsed_bank_shadow_days": 0,
+      "expected_outcome": "FAIL",
+      "failed_at_step": "daily-attestation",
+      "observed_gate_failure": "no-unresolved-sev1-sev2",
+      "scenario_id": "sev1-incident",
+      "severity": "CRITICAL",
+      "steps_completed": 9,
+      "targeted_gate_id": "no-unresolved-sev1-sev2",
+      "title": "An unresolved Sev-1 is open at the decision point"
+    }
+  ],
+  "rehearsal_version": "v32-accelerated-shadow-rehearsal-1.0.0",
+  "shadow_rehearsal_days": 30,
+  "why_the_incident_matters": "A run that counted straight to thirty would publish the same headline number while proving far less. The day-17 reset is what shows the clean-day counter is a control rather than a loop bound \u2014 which is precisely what the previous constant 30-iteration loop in operational_validation could not show."
+}

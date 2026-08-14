@@ -137,15 +137,41 @@ def map_replications(
         return [work(seed) for seed in seeds]
 
 
-def compute_report(tiers: Sequence[TierSpec] = CANONICAL_TIERS) -> Dict[str, object]:
-    """What ran, where, and at what size."""
-    available, reason = gpu_available()
-    return {
+#: Fields that describe *this machine* rather than the declared policy. They
+#: must never enter a byte-gated artifact — see :func:`compute_report`.
+HOST_OBSERVATION_FIELDS: Tuple[str, ...] = (
+    "cpu_cores",
+    "canonical_workers",
+    "gpu_available",
+    "gpu_reason",
+)
+
+
+def compute_report(
+    tiers: Sequence[TierSpec] = CANONICAL_TIERS,
+    *,
+    include_host_observations: bool = False,
+) -> Dict[str, object]:
+    """The declared compute policy, and optionally what this host observed.
+
+    **Host observations are excluded by default, and that default is
+    load-bearing.** An earlier version published ``cpu_cores`` and
+    ``canonical_workers`` unconditionally. Both are derived from
+    ``os.cpu_count()``, so the committed artifact recorded 16 and 14 from the
+    development machine and would have recorded 4 and 2 on a CI runner — failing
+    the very ``git diff --exit-code`` gate this module's own policy string
+    claims the artifact satisfies. The numbers were never wrong; the worker
+    *count* was published as data.
+
+    ``map_replications`` already guarantees the results themselves are
+    worker-count independent, by returning them in seed order. That guarantee is
+    about the floats. This is about the metadata sitting beside them.
+
+    Pass ``include_host_observations=True`` for a run log or nightly report,
+    where knowing the machine is useful and byte-stability is not required.
+    """
+    report: Dict[str, object] = {
         "compute_version": COMPUTE_VERSION,
-        "cpu_cores": os.cpu_count(),
-        "canonical_workers": worker_count(),
-        "gpu_available": available,
-        "gpu_reason": reason,
         "canonical_tiers": [
             {
                 "name": tier.name,
@@ -156,17 +182,23 @@ def compute_report(tiers: Sequence[TierSpec] = CANONICAL_TIERS) -> Dict[str, obj
             }
             for tier in tiers
         ],
+        # Declared specification only. Whether a nightly tier actually ran is a
+        # property of the machine that ran it, so it belongs with the host
+        # observations rather than in the committed policy.
         "nightly_tiers": [
             {
                 "name": tier.name,
                 "replications": tier.replications,
                 "device": tier.device,
                 "committed": tier.committed,
-                "status": "EXECUTED" if available else "NOT_EXECUTED",
                 "note": tier.note,
             }
             for tier in NIGHTLY_TIERS
         ],
+        "canonical_parallelism": (
+            "across replications, seed-ordered; results are independent of "
+            "worker count, so the resolved count is not published here"
+        ),
         "policy": (
             "Canonical tiers run on CPU because their artifacts are byte-gated "
             "and must reproduce on a GPU-less CI runner. Nightly tiers may use "
@@ -180,12 +212,32 @@ def compute_report(tiers: Sequence[TierSpec] = CANONICAL_TIERS) -> Dict[str, obj
         ),
     }
 
+    if include_host_observations:
+        available, reason = gpu_available()
+        report["host_observations"] = {
+            "cpu_cores": os.cpu_count(),
+            "canonical_workers": worker_count(),
+            "gpu_available": available,
+            "gpu_reason": reason,
+            "nightly_tier_status": {
+                tier.name: "EXECUTED" if available else "NOT_EXECUTED"
+                for tier in NIGHTLY_TIERS
+            },
+            "not_byte_stable": (
+                "These fields describe the machine that produced the run, not "
+                "the declared policy. They are excluded from committed "
+                "artifacts because they would differ on every host."
+            ),
+        }
+    return report
+
 
 __all__ = [
     "CANONICAL_TIERS",
     "COMPUTE_VERSION",
     "CPU",
     "GPU",
+    "HOST_OBSERVATION_FIELDS",
     "NIGHTLY_TIERS",
     "TierSpec",
     "compute_report",

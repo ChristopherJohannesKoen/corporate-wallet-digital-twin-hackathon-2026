@@ -467,9 +467,77 @@ def test_the_gpu_is_reported_absent_rather_than_worked_around() -> None:
     available, reason = gpu_available()
     assert available is False
     assert reason == "CUPY_NOT_INSTALLED"
+    observed = compute_report(include_host_observations=True)["host_observations"]
+    assert observed["gpu_available"] is False
+    assert observed["gpu_reason"] == "CUPY_NOT_INSTALLED"
+    assert all(
+        status == "NOT_EXECUTED"
+        for status in observed["nightly_tier_status"].values()
+    )
+
+
+def test_the_committed_compute_report_carries_no_host_state() -> None:
+    """The defect this test exists for shipped once.
+
+    compute_report() published cpu_cores and canonical_workers unconditionally,
+    both derived from os.cpu_count(). The committed artifact recorded 16 and 14
+    from the development machine and would have recorded 4 and 2 on a CI runner,
+    failing the very git diff gate the same payload's policy string claims it
+    satisfies. map_replications already made the *results* worker-count
+    independent; the worker count itself was being published as data beside them.
+    """
+    from wallet_twin_v32.laboratories.compute import HOST_OBSERVATION_FIELDS
+
     block = compute_report()
-    assert block["gpu_available"] is False
-    assert all(tier["status"] == "NOT_EXECUTED" for tier in block["nightly_tiers"])
+    for field in HOST_OBSERVATION_FIELDS:
+        assert field not in block, f"{field} is host state and cannot be committed"
+    assert "host_observations" not in block
+
+
+def test_host_observations_are_available_when_asked_for() -> None:
+    """Excluded from artifacts, not discarded — a run log still wants them."""
+    block = compute_report(include_host_observations=True)
+    observations = block["host_observations"]
+    for field in ("cpu_cores", "canonical_workers", "gpu_available", "gpu_reason"):
+        assert field in observations
+    assert "not_byte_stable" in observations
+
+
+def test_no_exported_laboratory_value_depends_on_this_host() -> None:
+    """A general sweep, not a check for the two fields already found.
+
+    Recursively compares the exported payload against the same payload built
+    with a forced single worker and a different reported core count. Any value
+    that moves is host-dependent and would fail the byte gate on a CI runner
+    with a different core count.
+    """
+    import os
+    from unittest.mock import patch
+
+    baseline = run_all(as_of=AS_OF, replications=60, seed=SEED)
+    with patch.object(os, "cpu_count", return_value=3):
+        constrained = run_all(as_of=AS_OF, replications=60, seed=SEED)
+
+    def differences(left, right, path=""):
+        if isinstance(left, dict) and isinstance(right, dict):
+            keys = set(left) | set(right)
+            return [
+                item
+                for key in sorted(keys)
+                for item in differences(left.get(key), right.get(key), f"{path}.{key}")
+            ]
+        if isinstance(left, list) and isinstance(right, list):
+            if len(left) != len(right):
+                return [f"{path}: length {len(left)} vs {len(right)}"]
+            return [
+                item
+                for index, (a, b) in enumerate(zip(left, right))
+                for item in differences(a, b, f"{path}[{index}]")
+            ]
+        return [] if left == right else [f"{path}: {left!r} vs {right!r}"]
+
+    drift = differences(baseline, constrained)
+    assert not drift, "host-dependent values in a byte-gated payload:\n  " + "\n  ".join(drift)
 
 
 def test_parallel_replication_preserves_seed_order() -> None:
