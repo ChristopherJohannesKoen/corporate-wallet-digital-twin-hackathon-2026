@@ -14325,6 +14325,7 @@
     "contracts/jsonschema/v32-signed-evidence-envelope.schema.json": "ef79aed265afd2407d4d155044694ba538f6dcd8ed6b9269ee7bb80e1b527ce1",
     "contracts/jsonschema/v32-virtual-clock-state.schema.json": "915e7a0157f1722b3cdda3601bbe39ed0df5e72236325dd9469fa7662afdee1c",
     "contracts/promotion-gate-catalogue.json": "11097bf7dc94ec35e009870fdeb45fae788c2aa84da541cfe7c36b1ba80f7aa8",
+    "dashboard/app/data/promotion-fixture.json": "0d350c3bbc12a7a03a410cfbe86a5c6c49ae50c716bab71dfded095edf2c40dc",
     "dashboard/app/data/shadow-fixture.json": "f089b55a59184d5128aa5ac2af9a439ba9d2184fccadfe0d0ac4aaf439a9868d",
     "dashboard/app/data/v3-fixture.json": "b07c93789a2ddd99f6dece266769ea20484dd4e8dedfd3c1bc9aad0e1c82adaf",
     "dashboard/app/data/v31-fixture.json": "5bf6fdc18a956edadda93dfc9f8c81368ce91d488fee8e11e80548b861655f2a",
@@ -14349,7 +14350,9 @@
     "outputs/v31/v31_solution_estimates.json": "4f1352d2c8f87a4c09bfce646d7c92feade0b73d11a4f9eaad3b3acf3fae0dc0",
     "outputs/v31/v31_validation_report.json": "5af1d16e8a1a4ec2f992da715fec834485e8478fc36bffc20dafc87366d39c58",
     "outputs/v32/v32_promotion_policy.json": "1ea3b4f7db4396a819d4fb1993ee498a83a6ffdec8eaa84155f020e3a95b3bc4",
+    "outputs/v32/v32_shadow_rehearsal.json": "d0f7613b4e60eaa508065dfb951a3cc92f04604e51ae0118a057b7af7bbd46c3",
     "outputs/v32/v32_signing_posture.json": "a2c2a0184247bd60ad70729839c86c135adca2c26d6f07949e2105e85f36cc07",
+    "outputs/v32/v32_simulation_laboratories.json": "42381e7670867e65cf1af167252f99746e43f03c3e28248d1a8fffcb9c85f6cd",
     "outputs/v3_validation/v3_validation_report.json": "8603e0b17ce4fa0c8d5b50f77e078e7632d8f5867b9e5b730756108c28bb5291",
     "tests/regression/v3_0/v3_0_frozen_surface.json": "1cc159729bb4dba070d426f4b4231bc07d580f89b7e8dc51e2d78a54e9efe161",
     "tests/regression/v3_0/v3_0_frozen_surface.restated.json": "7083780edb6ef978f740558ac46e6ed7fe3ef7b6175035965b9892e2ca0f8eea"
@@ -14393,6 +14396,6 @@
   "solution_version": "3.1.1",
   "source": {
     "branch": "feature/v3.2-promotion-twin",
-    "measured_at_commit": "765d2a56888efd8b11949a6ccb0fd72dec3c86bd"
+    "measured_at_commit": "ab443e34dbfa6470af6cae09784437ba066adad6"
   }
 }

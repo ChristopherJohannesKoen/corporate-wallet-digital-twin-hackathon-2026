@@ -2,31 +2,14 @@
   "version": "3.1.1",
   "status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-13T11:46:17.347161+00:00",
-  "source_commit": "765d2a56888efd8b11949a6ccb0fd72dec3c86bd",
+  "generated_at": "2026-08-14T10:36:44.881876+00:00",
+  "source_commit": "ab443e34dbfa6470af6cae09784437ba066adad6",
   "clean_worktree": false,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
   "dirty_paths": [
-    "contracts/jsonschema/v32-promotion-event-envelope.schema.json",
-    "contracts/openapi-v31.json",
-    "contracts/openapi.json",
-    "infra/helm/wallet-twin/values.yaml",
-    "infra/msk/topics.yaml",
-    "infra/sql/001_operational_schemas.sql",
-    "infra/sql/002_promotion_schemas.sql",
-    "outputs/v32/v32_promotion_policy.json",
-    "scripts/export_v31_contracts.py",
-    "scripts/export_v32_contracts.py",
-    "scripts/freeze_v311_boundary.py",
-    "src/wallet_twin_v2/api.py",
-    "src/wallet_twin_v2/entitlements.py",
-    "src/wallet_twin_v2/service_apps.py",
-    "src/wallet_twin_v32/api.py",
-    "src/wallet_twin_v32/events.py",
-    "src/wallet_twin_v32/repository.py",
-    "tests/regression/v3_1_1/test_v3_1_1_boundary.py",
-    "tests/regression/v3_1_1/v3_1_1_boundary.json",
-    "tests/test_v32_service.py"
+    "outputs/v2_validation/live_provider_comparison.json",
+    "outputs/v2_validation/offline_validation_report.json",
+    "scripts/build_submission.py"
   ],
   "rebuilt_deliverables": [
     "notebooks/01_wallet_twin_demo.ipynb",
@@ -80,7 +63,25 @@
       "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v311_wallet_surface.py",
       "status": "PASS",
       "stdout_tail": [
-        "wrote dashboard\\app\\data\\wallet-v311-fixture.json (100 cells, hackathon_status=HACKATHON_STATUS_PENDING_CANONICAL_BUILD)"
+        "wrote dashboard\\app\\data\\wallet-v311-fixture.json (100 cells, hackathon_status=HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v32_contracts",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v32_contracts.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "exported 12 V3.2 schemas, 24 gates across 4 transitions, 7 laboratories"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v32_workbench_fixture",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v32_workbench_fixture.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "wrote dashboard\\app\\data\\promotion-fixture.json (24 gates, real=OFFLINE_CANDIDATE, rehearsed=CAUSAL_CHAMPION, PMR=1.0, BER=0.0)"
       ],
       "stderr_tail": []
     },
@@ -297,28 +298,28 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "9baf94f850278cac5c5f2180d924b3a9211bdbc94d15a1261cc68fe92b169035",
+      "sha256": "29db6dfacafc68b17c64eeea36e3612d82dbfaa127033f2d29f84d718c22773a",
       "size_bytes": 159274
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "e8415623c019e9cdb79e582cb11885e5cc1f61e5fbb0e3d7917d2c72a0a04898",
+      "sha256": "193a7ca31be6f0aa5dc4b968d6f1ac02491bd4cbaec8b81b94f527b48f64024c",
       "size_bytes": 460277
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "80f5d6474da030269f88a26f1b943a0f520c5262d1603a50cb9f87d1290a4584",
+      "sha256": "9762c3ee54e53e7ef645f99c4e4a8dfc18ea16eef9f78652db9312837d3c5ac5",
       "size_bytes": 5522
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "4e6076c832d66a2b072f542951c5dcb2d5c6ea322caf8dbabbd5f347d62d731e",
-      "size_bytes": 1740237
+      "sha256": "9cbc79b0854224157b0cde4948775fa9c15331d9037bbcf5980791562e779e89",
+      "size_bytes": 1740247
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
-      "sha256": "974b8888873c1adcd37639841bdf526f459c159f8382a45f9d644358079cc314",
-      "size_bytes": 70564
+      "sha256": "919595b73ebd5bd220efdfaac0495bd85e2c86c2aca53b780f6d6bbd954aeeac",
+      "size_bytes": 70594
     },
     {
       "path": "contracts/openapi.json",
@@ -327,13 +328,43 @@
     },
     {
       "path": "outputs/v2_validation/offline_validation_report.json",
-      "sha256": "7e8c02ffe9e8e1400e522c9ef15fee07eb0ad6a0874e07d04124ed8654cfabaa",
-      "size_bytes": 48036
+      "sha256": "f973999d3b0569504d9dcf6b3fc9a33698c5851718b57622719ac20172dc3398",
+      "size_bytes": 48038
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
       "sha256": "ceb708c9a98509258c216a0901db101455e783e3dde368196a23c17df4ef4a9b",
       "size_bytes": 1067550
+    },
+    {
+      "path": "contracts/promotion-gate-catalogue.json",
+      "sha256": "11097bf7dc94ec35e009870fdeb45fae788c2aa84da541cfe7c36b1ba80f7aa8",
+      "size_bytes": 24937
+    },
+    {
+      "path": "outputs/v32/v32_promotion_policy.json",
+      "sha256": "1ea3b4f7db4396a819d4fb1993ee498a83a6ffdec8eaa84155f020e3a95b3bc4",
+      "size_bytes": 4343
+    },
+    {
+      "path": "outputs/v32/v32_signing_posture.json",
+      "sha256": "a2c2a0184247bd60ad70729839c86c135adca2c26d6f07949e2105e85f36cc07",
+      "size_bytes": 2538
+    },
+    {
+      "path": "outputs/v32/v32_simulation_laboratories.json",
+      "sha256": "42381e7670867e65cf1af167252f99746e43f03c3e28248d1a8fffcb9c85f6cd",
+      "size_bytes": 22968
+    },
+    {
+      "path": "outputs/v32/v32_shadow_rehearsal.json",
+      "sha256": "d0f7613b4e60eaa508065dfb951a3cc92f04604e51ae0118a057b7af7bbd46c3",
+      "size_bytes": 20495
+    },
+    {
+      "path": "dashboard/app/data/promotion-fixture.json",
+      "sha256": "0d350c3bbc12a7a03a410cfbe86a5c6c49ae50c716bab71dfded095edf2c40dc",
+      "size_bytes": 42008
     },
     {
       "path": "public-mirror-manifest.json",
@@ -347,7 +378,25 @@
     "prior_led_cells": 85,
     "approved_source_facts": 31,
     "pending_source_facts": 51,
-    "live_provider_briefs_accepted": 0
+    "live_provider_briefs_accepted": 0,
+    "promotion_gates": 24
+  },
+  "promotion": {
+    "real_state": "OFFLINE_CANDIDATE",
+    "rehearsed_state": "CAUSAL_CHAMPION",
+    "bank_shadow_authorized": false,
+    "promotion_machinery_readiness": 1.0,
+    "bank_evidence_readiness": 0.0,
+    "shadow_rehearsal_days": 30,
+    "elapsed_bank_shadow_days": 0,
+    "real_bank_signing_available": false,
+    "signers_executed": [
+      "LocalECDSASigner"
+    ],
+    "signers_not_executed": [
+      "SigstoreSigner",
+      "KMSSigner"
+    ]
   },
   "claim_boundary": "Share is posterior unless E3-observed; economics are representative scenarios; causal incremental value is null; pending facts are excluded.",
   "confidentiality_boundary": "No supplied or derived row-level Syn Bank data, credentials, full provider payloads or private caches may enter the public mirror.",
@@ -358,6 +407,8 @@
     "representative E3 multibank calibration panel",
     "approved bank pricing, FTP, capital, risk, cost and hurdle inputs",
     "bank AWS/Databricks/identity/catalogue/SIEM controls",
-    "supervised RM pilot and randomized outcome trial"
+    "supervised RM pilot and randomized outcome trial",
+    "thirty elapsed clean bank shadow days (rehearsed only; elapsed = 0)",
+    "a real bank signing key; no signer here can sign REAL_BANK evidence"
   ]
 }

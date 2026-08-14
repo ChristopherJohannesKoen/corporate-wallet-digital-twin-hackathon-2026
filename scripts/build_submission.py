@@ -145,7 +145,16 @@ def main() -> None:
 
     checks: list[dict] = []
     checks.append(run("locked environment", [sys.executable, "-c", "import fastapi,numpy,pandas,pydantic; print('environment-ok')"]))
-    for script in ("export_v3_contracts.py", "export_v31_contracts.py", "export_v311_wallet_surface.py"):
+    # Order matters: export_v31_contracts writes contracts/openapi.json from the
+    # composed app, which now includes the V3.2 promotion routes, and
+    # export_v311_wallet_surface owns the wallet fixture's stamped status.
+    for script in (
+        "export_v3_contracts.py",
+        "export_v31_contracts.py",
+        "export_v311_wallet_surface.py",
+        "export_v32_contracts.py",
+        "export_v32_workbench_fixture.py",
+    ):
         checks.append(run(script.removesuffix(".py"), [sys.executable, f"scripts/{script}"]))
     for script in (
         "run_evidence_qa.py",
@@ -178,30 +187,60 @@ def main() -> None:
     checks.append(run("one-page PDF", [sys.executable, "scripts/build_submission_pdf.py", str(ROOT)]))
     checks.append(run("PowerPoint", [NODE, "scripts/build_v31_presentation.mjs", str(ROOT)]))
 
+    # Named rather than index-addressed. This list was read positionally —
+    # artifacts[2] for the PDF page check and artifacts[-1] for the public
+    # mirror manifest that drives the readiness verdict — so appending a new
+    # artifact would silently have made the new file the readiness input and
+    # page-checked the wrong document. The V3.2 additions below are exactly the
+    # append that would have done it.
+    ONE_PAGER = ROOT / "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf"
+    PUBLIC_MIRROR_MANIFEST = ROOT / "public-mirror-manifest.json"
+
     artifacts = [
         ROOT / "notebooks/01_wallet_twin_demo.ipynb",
         ROOT / "output/notebook/01_wallet_twin_demo.html",
-        ROOT / "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+        ONE_PAGER,
         ROOT / "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
         ROOT / "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
         ROOT / "contracts/openapi.json",
         ROOT / "outputs/v2_validation/offline_validation_report.json",
         ROOT / "dashboard/app/data/wallet-v311-fixture.json",
-        ROOT / "public-mirror-manifest.json",
+        # V3.2 promotion surface.
+        ROOT / "contracts/promotion-gate-catalogue.json",
+        ROOT / "outputs/v32/v32_promotion_policy.json",
+        ROOT / "outputs/v32/v32_signing_posture.json",
+        ROOT / "outputs/v32/v32_simulation_laboratories.json",
+        ROOT / "outputs/v32/v32_shadow_rehearsal.json",
+        ROOT / "dashboard/app/data/promotion-fixture.json",
+        PUBLIC_MIRROR_MANIFEST,
     ]
-    require_files(artifacts[:-1])
-    pdf_pages = len(PdfReader(str(artifacts[2])).pages)
+    # The mirror manifest is produced by a later step, so it is the one artifact
+    # not required to exist yet. Named explicitly instead of sliced off the end.
+    require_files([path for path in artifacts if path != PUBLIC_MIRROR_MANIFEST])
+    pdf_pages = len(PdfReader(str(ONE_PAGER)).pages)
     if pdf_pages != 1:
         raise RuntimeError(f"One-pager contains {pdf_pages} pages")
 
     wallet = json.loads((ROOT / "dashboard/app/data/wallet-v311-fixture.json").read_text(encoding="utf-8"))["projection"]
+    promotion = json.loads(
+        (ROOT / "dashboard/app/data/promotion-fixture.json").read_text(encoding="utf-8")
+    )
+    # The prohibition travels with the data. If a composite ever reappears in the
+    # fixture, the build fails here rather than publishing it in the manifest.
+    from wallet_twin_v32 import assert_no_composite_score
+
+    assert_no_composite_score(promotion["summary"])
     providers = json.loads((ROOT / "outputs/v2_validation/live_provider_comparison.json").read_text(encoding="utf-8"))
     live_accepted = sum(
         1
         for item in providers.get("evaluations", [])
         if item.get("acceptance_status") == "ACCEPTED"
     )
-    public_manifest = json.loads(artifacts[-1].read_text(encoding="utf-8")) if artifacts[-1].exists() else None
+    public_manifest = (
+        json.loads(PUBLIC_MIRROR_MANIFEST.read_text(encoding="utf-8"))
+        if PUBLIC_MIRROR_MANIFEST.exists()
+        else None
+    )
     submission_ready = bool(public_manifest and public_manifest.get("status") == "PASS" and live_accepted >= 3)
     status = "HACKATHON_SUBMISSION_READY" if submission_ready else "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"
 
@@ -260,6 +299,31 @@ def main() -> None:
             "approved_source_facts": wallet["approved_source_facts"],
             "pending_source_facts": wallet["pending_source_facts"],
             "live_provider_briefs_accepted": live_accepted,
+            "promotion_gates": sum(
+                len(item["gates"]) for item in promotion["transitions"]
+            ),
+        },
+        # The V3.2 position, read from the exported fixture rather than restated.
+        # Two scores and no third: a blended figure would let a fully rehearsed
+        # system with no bank evidence read as nearly production-ready.
+        "promotion": {
+            "real_state": promotion["summary"]["real_state"],
+            "rehearsed_state": promotion["summary"]["rehearsed_state"],
+            "bank_shadow_authorized": promotion["summary"]["bank_shadow_authorized"],
+            "promotion_machinery_readiness": promotion["summary"][
+                "promotion_machinery_readiness"
+            ],
+            "bank_evidence_readiness": promotion["summary"]["bank_evidence_readiness"],
+            "shadow_rehearsal_days": promotion["clock"][
+                "consecutive_clean_rehearsal_days"
+            ],
+            # Published beside the rehearsal count everywhere it appears.
+            "elapsed_bank_shadow_days": promotion["clock"]["elapsed_bank_shadow_days"],
+            "real_bank_signing_available": promotion["signing"][
+                "real_bank_signing_available"
+            ],
+            "signers_executed": promotion["signing"]["executed"],
+            "signers_not_executed": promotion["signing"]["not_executed"],
         },
         "claim_boundary": "Share is posterior unless E3-observed; economics are representative scenarios; causal incremental value is null; pending facts are excluded.",
         "confidentiality_boundary": "No supplied or derived row-level Syn Bank data, credentials, full provider payloads or private caches may enter the public mirror.",
@@ -276,6 +340,12 @@ def main() -> None:
             "approved bank pricing, FTP, capital, risk, cost and hurdle inputs",
             "bank AWS/Databricks/identity/catalogue/SIEM controls",
             "supervised RM pilot and randomized outcome trial",
+            # V3.2 makes two of these measurable rather than merely asserted:
+            # the promotion twin now names the gate, its owner, and what would
+            # satisfy it, and reports zero elapsed bank shadow days beside the
+            # rehearsal count.
+            "thirty elapsed clean bank shadow days (rehearsed only; elapsed = 0)",
+            "a real bank signing key; no signer here can sign REAL_BANK evidence",
         ],
     }
     output = ROOT / "outputs/judging_manifest_v3.1.1.json"

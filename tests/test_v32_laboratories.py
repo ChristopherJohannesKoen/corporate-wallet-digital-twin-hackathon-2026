@@ -259,6 +259,46 @@ def test_the_interval_helper_still_defaults_to_ninety_percent() -> None:
     assert _interval(values, AS_OF, "v", ClaimClass.POSTERIOR).nominal_coverage == 0.90
 
 
+def test_the_default_quantiles_are_bit_identical_to_the_original_literals() -> None:
+    """A regression that shipped and was not caught by any gate.
+
+    Parameterising _interval replaced the literals [0.05, 0.50, 0.95] with a
+    computed tail, and (1.0 - 0.90) / 2.0 is 0.04999999999999999 rather than
+    0.05. np.quantile at that probability returns a slightly different value,
+    which moved committed pack hashes and interval widths. Comparing against the
+    literals directly is what makes this test able to fail.
+    """
+    import numpy as np
+
+    from wallet_twin_v2.contracts import ClaimClass
+    from wallet_twin_v2.wallet_model import _interval
+
+    rng = np.random.default_rng(SEED)
+    values = rng.beta(2.0, 5.0, size=5000)
+    expected = np.quantile(values, [0.05, 0.50, 0.95])
+    result = _interval(values, AS_OF, "v", ClaimClass.POSTERIOR)
+    assert result.lower == float(expected[0])
+    assert result.median == float(expected[1])
+    assert result.upper == float(expected[2])
+
+
+def test_other_coverage_levels_also_avoid_representation_noise() -> None:
+    import numpy as np
+
+    from wallet_twin_v2.contracts import ClaimClass
+    from wallet_twin_v2.wallet_model import _interval
+
+    rng = np.random.default_rng(SEED)
+    values = rng.beta(2.0, 5.0, size=5000)
+    for nominal, low, high in ((0.50, 0.25, 0.75), (0.80, 0.10, 0.90), (0.95, 0.025, 0.975)):
+        expected = np.quantile(values, [low, high])
+        result = _interval(
+            values, AS_OF, "v", ClaimClass.POSTERIOR, nominal_coverage=nominal
+        )
+        assert result.lower == float(expected[0]), nominal
+        assert result.upper == float(expected[1]), nominal
+
+
 def test_an_impossible_nominal_coverage_is_refused() -> None:
     import numpy as np
 

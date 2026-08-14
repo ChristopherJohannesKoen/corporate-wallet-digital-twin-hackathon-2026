@@ -69,8 +69,15 @@ def _interval(
     """
     if not 0.0 < nominal_coverage < 1.0:
         raise ValueError(f"nominal_coverage must lie in (0, 1); got {nominal_coverage}")
-    tail = (1.0 - nominal_coverage) / 2.0
-    lower, median, upper = np.quantile(values, [tail, 0.50, 1.0 - tail])
+    # Rounded to remove binary-representation noise. (1.0 - 0.90) / 2.0 is
+    # 0.04999999999999999, not 0.05, and np.quantile at that probability returns
+    # a very slightly different value than at the literal 0.05 this function used
+    # before it was parameterised. That epsilon propagated into committed pack
+    # hashes and interval widths — a silent numeric drift in artifacts nothing
+    # was byte-gating. Quantile probabilities are specified to a few decimals, so
+    # rounding to twelve removes the noise without altering any intended value.
+    tail = round((1.0 - nominal_coverage) / 2.0, 12)
+    lower, median, upper = np.quantile(values, [tail, 0.50, round(1.0 - tail, 12)])
     return IntervalEstimate(
         lower=float(lower),
         median=float(median),

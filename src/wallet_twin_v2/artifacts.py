@@ -38,6 +38,31 @@ UNSTABLE_BY_DESIGN: dict[str, str] = {
     "outputs/v2_validation/production_candidate_scorecard.json": "embeds a measured host p95 latency",
 }
 
+#: Deterministic artifacts that are nonetheless **not** byte-gated, with the
+#: reason and what covers them instead. Recorded because an ungated artifact is
+#: a detection gap, and a gap nobody has written down is one nobody will close.
+#:
+#: This list exists because of a real miss. Parameterising
+#: ``wallet_model._interval`` in V3.2 changed ``(1.0 - 0.90) / 2.0`` from the
+#: literal ``0.05`` to ``0.04999999999999999``, moving every quantile by a float
+#: epsilon and altering the pack hashes and interval widths in both files below.
+#: Nothing caught it, because neither file is in the gate. Adding them was tried
+#: and rejected for the reasons given; the regression is covered by an explicit
+#: quantile test instead, which is the narrower and more durable control.
+NOT_BYTE_GATED: dict[str, str] = {
+    "outputs/v2_validation/live_provider_comparison.json": (
+        "embeds a measured provider latency, so it cannot be byte-stable; "
+        "covered by the accepted-run floor in the V3.1.1 boundary test"
+    ),
+    "outputs/v2_validation/offline_validation_report.json": (
+        "holds 324 full-precision floats and is not written through "
+        "write_canonical_json; gating it would require rounding published "
+        "V3.1.1 numbers, which is a deliberate restatement rather than a gate "
+        "change; covered by test_the_default_quantiles_are_bit_identical_to_"
+        "the_original_literals"
+    ),
+}
+
 #: Deliverables that are rebuilt by the canonical build and are **not** expected
 #: to be byte-identical: document formats stamp their own creation time, and an
 #: executed notebook records per-cell execution metadata. They are outside the
