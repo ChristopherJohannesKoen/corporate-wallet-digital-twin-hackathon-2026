@@ -36,7 +36,7 @@ evaluated twice — once on a REAL track that governs bank authorisation, once o
 a REHEARSAL track that proves the machinery works.
 
 ```
-Real state      OFFLINE_CANDIDATE        Rehearsed to   CAUSAL_CHAMPION
+Real state      OFFLINE_CANDIDATE        Rehearsed to   SHADOW_READY
 PMR  100%  (machinery works)             BER  0%  (bank has no evidence)
 shadow_rehearsal_days 30                 elapsed_bank_shadow_days 0
 BANK_SHADOW_AUTHORIZED  FALSE            BANK_PRODUCTION_STATUS  NOT_PROMOTABLE
@@ -65,10 +65,11 @@ disagreeing is the finding. See
 - The 16-solution layer performs 320 governed evaluations. Available and
   fail-closed counts are machine-generated; no unavailable model is presented as
   an approved product recommendation.
-- Provider adapters and validation controls exist for OpenAI, Anthropic and
-  Google. Live execution requires fresh rotated environment credentials and an
-  explicit public-only evaluation acknowledgement; access failure is never
-  presented as success.
+- The comparative external-provider artifact contains 8 accepted outputs from
+  9 target runs across OpenAI, Anthropic and Google and covers BHP, Glencore and
+  Shoprite. One output was rejected by the claim compiler before publication;
+  its deterministic fallback was retained. This closes the hackathon GenAI
+  proof, not the separate bank-authorized `LIVE_GENAI` gate.
 
 `HACKATHON_SUBMISSION_READY` and bank-production promotion are separate states.
 Bank status remains `NOT_PROMOTABLE` until external calibration, approved bank
@@ -84,6 +85,13 @@ uv sync --frozen --extra dev --extra genai --extra production
 uv run python scripts/build_submission.py
 ```
 
+The PowerPoint authoring package is supplied by the Codex workspace and is not
+an ordinary public npm dependency. A clean clone without that package verifies
+the exact committed PPTX plus every authoring-input hash in
+`assets/presentation/v3.2-committed-artifact-manifest.json`; any source or deck
+drift fails closed. In the authoring workspace the same command regenerates,
+renders and overflow-checks all ten slides from the committed starter.
+
 Private evaluators can supply the confidential archive without copying it into
 the repository:
 
@@ -97,7 +105,8 @@ anonymized public-mirror fixture. Cached aggregates show their source hash and
 transformation version. No raw confidential row is committed or embedded in
 notebook output.
 
-Live provider evaluation is opt-in. Never reuse credentials pasted into chat:
+Rerunning the external-provider evaluation is opt-in. Never reuse credentials
+pasted into chat:
 
 ```powershell
 $env:LIVE_PROVIDER_EVAL_ACK_PUBLIC_ONLY = "true"
@@ -109,9 +118,10 @@ uv run python scripts/build_submission.py
 ```
 
 A provider is called only when its key, approval flag and exact model snapshot
-are all present; otherwise the run records `NOT_EXECUTED` against that provider
-and the deterministic brief stands. The manifest reports what actually ran — it
-never labels a run live that made no call.
+are all present. The committed canonical artifact already records 8 accepted
+outputs; a weaker credential-free rerun is refused rather than overwriting that
+evidence. The manifest reports what actually ran and never relabels fallback as
+provider output.
 
 ## Submission artifacts
 

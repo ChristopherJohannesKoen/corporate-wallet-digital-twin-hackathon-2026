@@ -1,0 +1,33 @@
+{
+  "artifact": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+  "deck_sha256": "1cdd88b9c4ef25ec8f4e391ee3109b213429f36b4bbf9ba77a79bb21931f3753",
+  "fallback_policy": "VERIFY_EXACT_COMMITTED_PPTX_WHEN_CODEX_ARTIFACT_RUNTIME_IS_UNAVAILABLE",
+  "sources": [
+    {
+      "hash_mode": "LF_NORMALIZED_TEXT",
+      "path": "scripts/build_v31_presentation.mjs",
+      "sha256": "d9147d38d9b20a4d748a504d578aaf31f0c84ae71405ebcaf6b5e800e3970f85"
+    },
+    {
+      "hash_mode": "LF_NORMALIZED_TEXT",
+      "path": "scripts/capture_wallet_heatmap.mjs",
+      "sha256": "0956398a7992d7d2b00a2fa16d729037861455925d26a8471bf90c6f30716274"
+    },
+    {
+      "hash_mode": "BYTE_EXACT",
+      "path": "assets/presentation/Corporate-Wallet-Digital-Twin-V3.2-Starter.pptx",
+      "sha256": "9afe1789593fd5e52743124c3d72f8f09a911bc79c0d49eb7c698bfb5a1d75ac"
+    },
+    {
+      "hash_mode": "LF_NORMALIZED_TEXT",
+      "path": "data/v2/submission_truth_v3.2.0.json",
+      "sha256": "7a5ed5381365a4b63750f68b1158baeb9649c532c3452b70fefa7b8785454120"
+    },
+    {
+      "hash_mode": "LF_NORMALIZED_TEXT",
+      "path": "dashboard/app/data/wallet-v311-fixture.json",
+      "sha256": "189013c45e83bb90ebd3f06e930060e114fcbcc34326ffd0f7700fd8da70d52b"
+    }
+  ],
+  "version": "3.2.0"
+}

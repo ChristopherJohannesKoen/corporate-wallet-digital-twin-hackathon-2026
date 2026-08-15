@@ -311,9 +311,10 @@ BANK_PRODUCTION_STATUS = NOT_PROMOTABLE
   `MEASURED_SHARE_REPORTING` is refused.
 - No bank-approved economics beyond the five legacy rate cards. No money value
   may be attached to an opportunity.
-- No accepted live-provider brief in the committed evidence. A six-brief
-  evaluation was overwritten before it was committed and is unrecoverable; the
-  re-run is blocked on fresh rotated credentials.
+- Eight of nine external-provider outputs are accepted in the committed
+  hackathon evidence, with all three providers and showcase clients covered.
+  This does not establish the bank live-provider gate: provider approval, contracting, residency,
+  bank-controlled credentials or independent finance-SME adjudication.
 - No elapsed bank shadow day. Thirty *simulated* days are not one bank day.
 - No real RM session. Adoption is zero and the fixture cannot change that.
 - No trial. Causal value is null.

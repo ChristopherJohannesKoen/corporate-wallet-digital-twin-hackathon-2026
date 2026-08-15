@@ -13,8 +13,8 @@ ROOT = Path(sys.argv[1]).resolve() if len(sys.argv) > 1 else Path.cwd().resolve(
 WALLET = json.loads((ROOT / "dashboard/app/data/wallet-v311-fixture.json").read_text(encoding="utf-8"))
 V31 = json.loads((ROOT / "dashboard/app/data/v31-fixture.json").read_text(encoding="utf-8"))
 SENS = json.loads((ROOT / "outputs/v2_validation/measurement_policy_sensitivity.json").read_text(encoding="utf-8"))
-GENAI = json.loads((ROOT / "outputs/v2_validation/live_provider_comparison.json").read_text(encoding="utf-8"))
 PROMOTION = json.loads((ROOT / "dashboard/app/data/promotion-fixture.json").read_text(encoding="utf-8"))
+TRUTH = json.loads((ROOT / "data/v2/submission_truth_v3.2.0.json").read_text(encoding="utf-8"))
 SUBMISSION = json.loads((ROOT / "config/submission.json").read_text(encoding="utf-8"))
 OUTPUT = ROOT / "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf"
 OUTPUT.parent.mkdir(parents=True, exist_ok=True)
@@ -211,8 +211,8 @@ c.drawString(rx + 13, py + 94, "Closed pack → Why / How / What")
 draw_wrap(c, "Numbers, signs, currencies, citations, rank and graph path stay deterministic. Provider failure always returns the deterministic brief.", rx + 13, py + 77, pw - 26, size=6.6, max_lines=3)
 c.setFont("Helvetica-Bold", 7)
 c.setFillColor(VIOLET)
-c.drawString(rx + 13, py + 43, "9 COMPARATIVE TARGET RUNS · 0 EXECUTED")
-draw_wrap(c, "Fresh rotated credentials and explicit acknowledgement are required; access failure is not presented as success.", rx + 13, py + 28, pw - 26, size=5.8, max_lines=3)
+c.drawString(rx + 13, py + 43, f"{TRUTH['genai']['accepted_runs']} / {TRUTH['genai']['target_runs']} PROVIDER OUTPUTS ACCEPTED")
+draw_wrap(c, "OpenAI, Anthropic and Google cover all three showcase clients. One unsafe output was blocked before publication; deterministic fallback was retained. Hackathon evaluation—not bank approval.", rx + 13, py + 28, pw - 26, size=5.8, max_lines=3)
 
 # Evidence and limitation box.
 ly = 78

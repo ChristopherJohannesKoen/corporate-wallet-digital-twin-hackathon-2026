@@ -53,7 +53,7 @@ V3 must not be used for automated customer contact, credit approval, eligibility
 | Timing | Seasonal baseline with explicit 30/60/90-day probabilities | `POSTERIOR`/baseline | Surrogate intervals only; Cox promotion gate remains closed |
 | Action portfolio | Seeded scenarios with CVaR-aware constrained selection | `SCENARIO` | Constraints and deterministic replay validated; economics simulated |
 | Evidence acquisition | Expected decision value minus acquisition and latency cost | `SCENARIO` | Eight positive-net-VOI requests; approval required |
-| Decision brief | Closed claim-pack compiler plus governed LLM gateway or deterministic fallback | Approved claim classes only | Fixture/golden-set controls; no bank-approved live-provider evaluation |
+| Decision brief | Closed claim-pack compiler plus governed LLM gateway or deterministic fallback | Approved claim classes only | 8/9 accepted hackathon external-provider outputs; no bank-authorized live-provider approval |
 
 ## Evidence and label semantics
 

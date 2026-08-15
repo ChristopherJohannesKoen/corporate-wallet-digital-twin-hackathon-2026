@@ -235,16 +235,35 @@ answer = workflow.submit(answer_id='notebook-answer', question=question, answer_
 print('Answer state:', answer.approval_status, '| changes approved snapshot:', answer.resulting_claim_id is not None)
 assert len(plan) == 8 and answer.approval_status.value == 'PENDING_REVIEW'
 """),
-        markdown("## 10. Grounded deterministic briefs and comparative provider evaluation"),
+        markdown("## 10. Grounded briefs and comparative external-provider evaluation"),
         code("""
 brief = v31.brief(conversation.conversation_id, v31.as_of)
 brief_markdown = '### {}\\n\\n**WHY** {}\\n\\n**HOW** {}\\n\\n**WHAT** {}'.format(brief.headline, brief.why, brief.how, brief.what)
 display(Markdown(brief_markdown))
-comparison = json.loads((ROOT / 'outputs/v2_validation/live_provider_comparison.json').read_text())
-provider_rows = pd.DataFrame(comparison['evaluations'])[['entity_name','provider','canonical_model_id','execution_status','acceptance_status','latency_ms']]
+truth = json.loads((ROOT / 'data/v2/submission_truth_v3.2.0.json').read_text())
+comparison = truth['genai']
+provider_rows = pd.DataFrame([
+    {
+        'client': item['entity_name'], 'provider': item['provider'],
+        'model': item['canonical_model_id'], 'status': item['acceptance_status'],
+        'schema': item['validation_metrics']['schema_compliance'],
+        'numbers': item['validation_metrics']['numeric_preservation'],
+        'citations': item['validation_metrics']['citation_precision'],
+        'unsupported_critical': item['validation_metrics']['unsupported_critical_claims'],
+    }
+    for item in comparison['showcase_briefs'].values()
+])
 display(provider_rows)
-print('Accepted live runs:', comparison['accepted_runs'], '| gate:', comparison['submission_gate_passed'])
-print('Fresh credentials are required; provider failures are not presented as success.')
+for item in comparison['showcase_briefs'].values():
+    narrative = item['accepted_narrative']
+    display(Markdown('### {} / {}\\n\\n{}\\n\\n**Next action:** {}'.format(
+        item['provider'].title(), item['canonical_model_id'], narrative['headline'], narrative['next_action']
+    )))
+print('Accepted provider outputs:', comparison['accepted_runs'], 'of', comparison['target_runs'], '| gate:', comparison['submission_gate_passed'])
+print('One output was blocked by the claim compiler and retained its deterministic fallback.')
+print('This is hackathon external-provider evaluation, not bank-authorized LIVE_GENAI. Fresh credentials are required only to rerun it.')
+assert comparison['accepted_runs'] == 8 and comparison['blocked_runs'] == 1
+assert comparison['submission_gate_passed'] is True
 """),
         markdown("## 11. Promotion Readiness Twin: real evidence and rehearsal evidence never mix"),
         code("""

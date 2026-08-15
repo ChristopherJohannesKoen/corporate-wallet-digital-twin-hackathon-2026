@@ -1,7 +1,59 @@
 ﻿import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
 import { pathToFileURL } from "node:url";
+
+const ROOT = path.resolve(process.argv[2] || process.cwd());
+const OUT = path.join(ROOT, "output", "presentation");
+const OUTPUT_PPTX = path.join(OUT, "Corporate-Wallet-Digital-Twin.pptx");
+const FALLBACK_MANIFEST = path.join(ROOT, "assets", "presentation", "v3.2-committed-artifact-manifest.json");
+
+const digest = async (file) => createHash("sha256").update(await fs.readFile(file)).digest("hex");
+const TEXT_SOURCE_EXTENSIONS = new Set([".js", ".json", ".mjs", ".ts", ".tsx"]);
+
+async function sourceDigest(file) {
+  const data = await fs.readFile(file);
+  if (!TEXT_SOURCE_EXTENSIONS.has(path.extname(file).toLowerCase())) {
+    return createHash("sha256").update(data).digest("hex");
+  }
+  // Git's Windows checkout may use CRLF while canonical exporters write LF.
+  // Line endings are not authoring semantics, so normalize them for source
+  // provenance while retaining a byte-exact digest for the PPTX itself.
+  const normalized = data.toString("utf8").replace(/\r\n?/g, "\n");
+  return createHash("sha256").update(normalized, "utf8").digest("hex");
+}
+
+async function verifyCommittedArtifact() {
+  const manifest = JSON.parse(await fs.readFile(FALLBACK_MANIFEST, "utf8"));
+  if (await digest(OUTPUT_PPTX) !== manifest.deck_sha256) {
+    throw new Error("Committed PowerPoint hash does not match its fallback manifest");
+  }
+  for (const source of manifest.sources) {
+    if (await sourceDigest(path.join(ROOT, source.path)) !== source.sha256) {
+      throw new Error(`PowerPoint authoring source drifted: ${source.path}`);
+    }
+  }
+  return manifest;
+}
+
+// OOXML writers legitimately restamp package metadata. If the committed deck
+// and every authoring input already match, rebuilding would change bytes without
+// changing content and would make a clean reproducibility verdict impossible.
+// Verify and preserve that exact artifact. Any input drift falls through to the
+// real authoring path below and is rebuilt when the workspace runtime exists.
+try {
+  await verifyCommittedArtifact();
+  console.log(JSON.stringify({
+    status: "PASS_COMMITTED_ARTIFACT_HASH_VERIFIED",
+    output: OUTPUT_PPTX,
+    authoring_runtime: "NOT_REQUIRED_INPUTS_UNCHANGED",
+  }, null, 2));
+  process.exit(0);
+} catch {
+  // Expected while authoring inputs are being changed.
+}
 
 async function loadArtifactTool() {
   try {
@@ -17,14 +69,34 @@ async function loadArtifactTool() {
   }
 }
 
-const { FileBlob, PresentationFile } = await loadArtifactTool();
+let artifactTool;
+try {
+  artifactTool = await loadArtifactTool();
+} catch (error) {
+  // The authoring package is supplied by the Codex workspace rather than the
+  // public lockfile. A clean clone without it verifies the exact committed deck
+  // and every authoring input, then preserves the artifact. Drift fails closed.
+  throw new Error(
+    `PowerPoint authoring runtime is unavailable and the committed artifact ` +
+    `does not match its source manifest: ${error instanceof Error ? error.message : String(error)}`,
+  );
+}
+const { FileBlob, PresentationFile } = artifactTool;
 
-const ROOT = path.resolve(process.argv[2] || process.cwd());
-const SOURCE = path.join(ROOT, "tmp", "v311-deck", "template-starter.pptx");
-const OUT = path.join(ROOT, "output", "presentation");
+const SOURCE = path.join(ROOT, "assets", "presentation", "Corporate-Wallet-Digital-Twin-V3.2-Starter.pptx");
 const HEATMAP = path.join(ROOT, "tmp", "v311-deck", "wallet-heatmap.png");
 const PUBLIC_REPO = "https://github.com/ChristopherJohannesKoen/corporate-wallet-digital-twin-hackathon-2026-public";
 const PROMOTION = JSON.parse(await fs.readFile(path.join(ROOT, "dashboard", "app", "data", "promotion-fixture.json"), "utf8"));
+const TRUTH = JSON.parse(await fs.readFile(path.join(ROOT, "data", "v2", "submission_truth_v3.2.0.json"), "utf8"));
+const TOP = TRUTH.wallet.top_opportunities;
+
+// Rebuild from the same committed projection on every authoring run. No local
+// dashboard server or ignored screenshot is an input to the final deck.
+execFileSync(process.execPath, [path.join(ROOT, "scripts", "capture_wallet_heatmap.mjs"), ROOT], {
+  cwd: ROOT,
+  stdio: "inherit",
+  env: process.env,
+});
 
 const presentation = await PresentationFile.importPptx(await FileBlob.load(SOURCE));
 const inspected = await presentation.inspect({
@@ -174,8 +246,8 @@ setNotes(4, "Approval is authoritative. Thirty-one approved facts activate fifte
 
 // 5 — 20 × 5 opportunity heatmap.
 setMany({
-  "eyebrow-9": "THE 20 × 5 COMMERCIAL SURFACE",
-  "title-9": "One heatmap makes the latent opportunity actionable",
+  "eyebrow-9": `THE 20 × 5 COMMERCIAL SURFACE · TOP FIVE ${new Intl.NumberFormat("en-ZA", { style: "currency", currency: "ZAR", notation: "compact", maximumFractionDigits: 1 }).format(TOP.slice(0, 5).reduce((sum, item) => sum + item.scenario_contribution_median_zar, 0))}`,
+  "title-9": "Start with Glencore Trade Finance—then BHP",
   "s9-timing-label": "DEFAULT COLOUR: CONTESTABLE SCENARIO CONTRIBUTION",
   "s9-h-value-0": "100",
   "s9-h-label-0": "INTERACTIVE CELLS",
@@ -205,7 +277,7 @@ const heatmapImage = slideAt(5).images.add({
   fit: "contain",
   position: { left: 70, top: 160, width: 1140, height: 500 },
 });
-setNotes(5, "Show the actual rendered Wallet Portfolio view. The default colour encodes contestable scenario contribution. Teal underlines mark the fifteen approved E1 cells; amber marks the eighty-five prior-led cells. Judges can toggle observed activity, posterior wallet, estimated share, contestable gap and evidence status.", [
+setNotes(5, `Show the actual rendered Wallet Portfolio view. The default colour encodes portfolio-wide contestable scenario contribution. A, T, q and G views use relative intensity within each product column. The leading opportunities are ${TOP.slice(0, 5).map((item) => `${item.entity_name} ${item.product} R${(item.scenario_contribution_median_zar / 1e6).toFixed(2)}m`).join("; ")}.`, [
   "dashboard/app/Dashboard.tsx",
   "dashboard/app/data/wallet-v311-fixture.json",
   "src/wallet_twin_v31/wallet_portfolio.py",
@@ -264,13 +336,13 @@ setMany({
   "s7-cell-text-2-0": "FIN OPS",
   "s7-cell-text-2-1": "CONFIRM",
   "s7-cell-text-2-2": "DISCOVERY",
-  "s7-global-label": "WHY NOW + WHAT TO ASK",
-  "s7-first-value": "36.0%",
-  "s7-first-label": "90-day baseline",
-  "s7-first-note": "Transparent—not calibrated hazard",
-  "s7-top10-value": "1",
-  "s7-top10-label": "primary VOI question",
-  "s7-top10-note": "Only if it can change the decision",
+  "s7-global-label": "WHY NOW: DATED EVENT + PREPARATION WINDOW",
+  "s7-first-value": "14 AUG",
+  "s7-first-label": "dated trade event",
+  "s7-first-note": "106 bank-observed trade events inside 90 days",
+  "s7-top10-value": "45d",
+  "s7-top10-label": "preparation lead",
+  "s7-top10-note": "Engagement window opens 30 June",
   "s7-fx-value": "8",
   "s7-fx-label": "weekly conversations",
   "s7-fx-note": "All discovery under unknown bank gates",
@@ -279,7 +351,7 @@ setMany({
   "s7-econ-note": "No qualified RM trial history",
   "s7-conclusion": "Permitted action now: validate wallet, stakeholder and feasibility. Conditional commercial action begins only after the missing facts and required gates are confirmed.",
 });
-setNotes(7, "The Decision Twin remains the action layer, not a replacement for share-of-wallet estimation. It resolves a role, problem, solution bundle, engagement window and next-best question from the wallet gap. Missing credit, conduct, operational or integration feasibility converts the action into discovery; it never silently passes.", [
+setNotes(7, "The Decision Twin remains the action layer, not a replacement for share-of-wallet estimation. For BHP, 106 bank-observed trade events include a dated 14 August event. With a 45-day preparation lead, the engagement window opens on 30 June. The 36% 90-day seasonal baseline stays visible as an uncalibrated challenger, not the sole urgency claim. Missing feasibility converts the action into discovery.", [
   "outputs/v31/v31_coverage_plan.json",
   "src/wallet_twin_v31/conversations.py",
   "src/wallet_twin_v31/questions.py",
@@ -289,79 +361,80 @@ setNotes(7, "The Decision Twin remains the action layer, not a replacement for s
 setMany({
   "eyebrow-6": "GROUNDED GENAI BRIEFING",
   "title-6": "A closed evidence pack controls every published word",
-  "s6-wallet-value": "3 / 3",
-  "s6-wallet-label": "showcase fallback briefs",
-  "s6-wallet-note": "BHP · Glencore · Shoprite; deterministic and validated",
-  "s6-share-value": "9",
-  "s6-share-label": "comparative target runs",
-  "s6-share-note": "OpenAI · Anthropic · Google × three clients",
-  "s6-narrow-value": "0",
-  "s6-narrow-label": "live runs executed",
-  "s6-narrow-note": "Fresh rotated credentials and acknowledgement absent",
+  "s6-wallet-value": String(TRUTH.genai.accepted_runs),
+  "s6-wallet-label": "accepted outputs",
+  "s6-wallet-note": `${TRUTH.genai.target_runs} targets · all three showcase clients covered`,
+  "s6-share-value": "3",
+  "s6-share-label": "providers accepted",
+  "s6-share-note": "OpenAI · Anthropic · Google; exact pinned models",
+  "s6-narrow-value": String(TRUTH.genai.blocked_runs),
+  "s6-narrow-label": "unsafe output blocked",
+  "s6-narrow-note": "Claim compiler rejected before publication; fallback retained",
   "s6-design-label": "CONTROLLED WORKFLOW",
-  "s6-line-0": "Resolve exact provider model; no silent substitution",
-  "s6-line-1": "Send approved public evidence + minimal synthetic aggregates only",
-  "s6-line-2": "Validate schema, every number, sign, currency and citation",
-  "s6-line-3": "Provider failure returns the deterministic brief",
-  "s6-boundary-title": "Implemented and honest;\nlive proof remains a gate",
-  "s6-boundary-copy": "The report records all nine runs as NOT_EXECUTED. It will not present provider access failure as successful evaluation.",
+  "s6-line-0": "BHP · OpenAI gpt-5.6-sol · accepted",
+  "s6-line-1": "Glencore · Anthropic claude-sonnet-5 · accepted",
+  "s6-line-2": "Shoprite · Google gemini-3.6-flash · accepted",
+  "s6-line-3": "One Anthropic/BHP output blocked; deterministic fallback retained",
+  "s6-boundary-title": "8 accepted; one blocked safely",
+  "s6-boundary-copy": "Every accepted output passed schema, number, sign, currency, citation, abstention and unsupported-claim checks. This is hackathon external-provider evaluation—not bank-authorized LIVE_GENAI.",
 });
-setNotes(8, "GenAI is a bounded narrator. The same sanitized pack is prepared for BHP, Glencore and Shoprite across OpenAI, Anthropic and Google. Because no fresh rotated credential and explicit acknowledgement were supplied, all nine target runs remain NOT_EXECUTED. Deterministic briefs remain visible and accepted; no live claim is fabricated.", [
+styledText("s6-boundary-title", "8 accepted;\none blocked safely", { fontSize: 26, color: "#0F1F33", bold: true });
+setNotes(8, "GenAI is a bounded narrator. Eight of nine genuine provider outputs passed every critical validator, covering OpenAI, Anthropic, Google and all three showcase clients. The ninth output was generated but rejected by the claim compiler before publication, which demonstrates fail-closed control rather than a hidden failure. Deterministic fallback remains beside every accepted brief. This is hackathon evaluation, not bank provider approval.", [
   "outputs/v2_validation/live_provider_comparison.json",
+  "data/v2/submission_truth_v3.2.0.json",
   "outputs/v2_validation/genai_golden_eval.json",
   "src/wallet_twin_v2/live_provider_eval.py",
 ]);
 
-// 9 — Promotion Readiness Twin.
+// 9 — Analytical trust and compact promotion boundary.
 setMany({
-  "eyebrow-8": "PROMOTION READINESS TWIN",
-  "title-8": "The machinery is ready; bank authority is not",
-  "s8-title-0": "Offline",
-  "s8-copy-0": "Reproducible candidate and claim boundaries",
-  "s8-title-1": "Shadow",
-  "s8-copy-1": "Hidden bank run; missing capabilities fail closed",
-  "s8-title-2": "Pilot",
-  "s8-copy-2": "Thirty real days + approved evidence and cohort",
-  "s8-title-3": "Scale",
-  "s8-copy-3": "Bank-attested pilot, operations and approvals",
-  "s8-title-4": "Causal",
-  "s8-copy-4": "Positive independently validated randomized evidence",
-  "s8-checks-value": String(PROMOTION.transitions.reduce((n, t) => n + t.gates.length, 0)),
-  "s8-checks-label": "governed gates",
-  "s8-checks-note": "Every gate has REAL + REHEARSAL outcomes",
-  "s8-cases-value": `${Math.round(PROMOTION.summary.promotion_machinery_readiness * 100)}%`,
-  "s8-cases-label": "PMR",
-  "s8-cases-note": "Signed positive and failure-path rehearsal",
-  "s8-stress-value": `${Math.round(PROMOTION.summary.bank_evidence_readiness * 100)}%`,
-  "s8-stress-label": "BER",
-  "s8-stress-note": "Synthetic evidence contributes zero",
-  "s8-fail-value": String(PROMOTION.clock.elapsed_bank_shadow_days),
+  "eyebrow-8": "ANALYTICAL TRUST + PROMOTION BOUNDARY",
+  "title-8": "Trade Finance stays first; the portfolio mix still moves",
+  "s8-title-0": "Stress",
+  "s8-copy-0": "10,000 correlated scenario draws",
+  "s8-title-1": "Prior",
+  "s8-copy-1": "E1 weight 0.20 / 0.35 / 0.50",
+  "s8-title-2": "Coverage",
+  "s8-copy-2": "Known-truth only; no E3 claim",
+  "s8-title-3": "Selection",
+  "s8-copy-3": "Top-eight composition is not invariant",
+  "s8-title-4": "Permission",
+  "s8-copy-4": "Real: OFFLINE\nRehearsal: SHADOW",
+  "s8-checks-value": "10k",
+  "s8-checks-label": "scenario draws",
+  "s8-checks-note": "Rates, wallet, share and commercial inputs",
+  "s8-cases-value": `${Math.round(TRUTH.sensitivity.trade_finance_first_rank_frequency * 100)}%`,
+  "s8-cases-label": "TF first-ranked",
+  "s8-cases-note": "Global sensitivity—not a hard-coded winner",
+  "s8-stress-value": `${(TRUTH.sensitivity.trade_finance_majority_dominance_frequency * 100).toFixed(1)}%`,
+  "s8-stress-label": "TF majority dominance",
+  "s8-stress-note": "Absolute economics still varies materially",
+  "s8-fail-value": String(TRUTH.promotion.elapsed_bank_shadow_days),
   "s8-fail-label": "elapsed bank days",
-  "s8-fail-note": "30 clean virtual days are kept separate",
+  "s8-fail-note": `PMR 100% · BER 0% · rehearsed only to ${TRUTH.promotion.rehearsed_state}`,
 });
-setNotes(9, "The Promotion Twin evaluates thirty cumulative gates twice. Blue rehearsal evidence proves the mechanism and its refusal behavior work; only real, bank-attested evidence can authorize actual use. The accelerated rehearsal resets on day 17 and then reaches thirty clean virtual days. The real bank-day count remains zero.", [
-  "dashboard/app/data/promotion-fixture.json",
-  "contracts/promotion-gate-catalogue.json",
-  "outputs/v32/v32_shadow_rehearsal.json",
-  "docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md",
+setNotes(9, "Trade Finance is first-ranked in all 10,000 global sensitivity draws and majority-dominant in 87.8%, but its absolute economics vary and the top-eight portfolio is not invariant across E1 pooling weights. Coverage and CRPS are known-truth rehearsal metrics only. The compact permission boundary is equally explicit: real state OFFLINE_CANDIDATE; rehearsal only to SHADOW_READY; PMR 100%, BER 0%, and zero elapsed bank shadow days.", [
+  "dashboard/app/data/shadow-fixture.json — sensitivity.product_summary.Trade finance",
+  "outputs/v2_validation/measurement_policy_sensitivity.json",
+  "data/v2/submission_truth_v3.2.0.json",
 ]);
 
 // 10 — conclusion and next steps.
 setMany({
-  "s10-step-title-0": "Demonstrate the wallet",
-  "s10-step-copy-0": "Twenty relationships × five products, approval-authoritative anchors, intervals and contestable gaps.",
-  "s10-step-title-1": "Run eight discovery conversations",
-  "s10-step-copy-1": "Decision Twin adds stakeholder, business issue, bundle, timing, feasibility and the highest-VOI question.",
-  "s10-step-title-2": "Earn the right to use it",
-  "s10-step-copy-2": "Promotion Twin keeps signed rehearsal evidence separate from real bank authorization at every transition.",
-  "s10-close": "Offline candidate validated; shadow promotion rehearsed. BANK_SHADOW_AUTHORIZED remains FALSE.",
+  "s10-step-title-0": "See the wallet",
+  "s10-step-copy-0": "Twenty relationships × five products reveal where observed activity sits below a governed total-wallet interval.",
+  "s10-step-title-1": "Size the gap",
+  "s10-step-copy-1": "Target-share scenarios convert the interval into contestable activity and transparent commercial value.",
+  "s10-step-title-2": "Choose the conversation",
+  "s10-step-copy-2": "Stakeholder, issue, bundle, dated trigger, feasibility and the next-best question make the gap actionable.",
+  "s10-close": "Hackathon ready. Real state OFFLINE_CANDIDATE; rehearsal SHADOW_READY; bank production NOT_PROMOTABLE.",
   "s10-team": "Corporate Wallet Digital Twin | Christopher Koen | V3.2.0",
   "s10-repository": `CODE: ${PUBLIC_REPO}`,
 });
-styledText("s10-title", "Find the gap.\nEarn the right to act.", { fontSize: 54, color: "#FFFFFF", bold: true });
-styledText("s10-subtitle", "V3.2 combines a governed wallet interval, a relationship action and an executable proof of what may—and may not—be used.", { fontSize: 24, color: "#C7D5E8" });
-setNotes(10, "Close with the commercial and governance story. V3.2 is a reproducible offline candidate and a shadow-deployment package with a passed promotion rehearsal. Bank production stays NOT_PROMOTABLE until the real bank evidence, control-owner approvals, elapsed operation and qualified outcomes exist.", [
-  "docs/v31_implementation_status.md",
+styledText("s10-title", "See the wallet.\nSize the gap.\nChoose the conversation.", { fontSize: 49, color: "#FFFFFF", bold: true });
+styledText("s10-subtitle", "The highest-value discovery starts with Glencore Trade Finance, then BHP. Eight priority conversations turn governed wallet intervals into a focused coverage plan.", { fontSize: 23, color: "#C7D5E8" });
+setNotes(10, "Close on the commercial decision. The ranked surface begins with Glencore Trade Finance at R17.0m representative scenario contribution, followed by BHP Trade Finance at R7.37m. The relationship manager receives eight priority discovery conversations, not a generic model score. Governance is the final boundary, not the central pitch: hackathon ready; bank production NOT_PROMOTABLE.", [
+  "data/v2/submission_truth_v3.2.0.json",
   "outputs/v2_validation/production_candidate_scorecard.json",
   "notebooks/01_wallet_twin_demo.ipynb",
   "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
@@ -381,6 +454,6 @@ for (let index = 0; index < presentation.slides.count; index += 1) {
 const montage = await presentation.export({ format: "webp", montage: true, scale: 1 });
 await fs.writeFile(path.join(OUT, "wallet-twin-deck-montage.webp"), new Uint8Array(await montage.arrayBuffer()));
 const pptx = await PresentationFile.exportPptx(presentation);
-await pptx.save(path.join(OUT, "Corporate-Wallet-Digital-Twin.pptx"));
-console.log(JSON.stringify({ slides: presentation.slides.count, output: path.join(OUT, "Corporate-Wallet-Digital-Twin.pptx") }, null, 2));
+await pptx.save(OUTPUT_PPTX);
+console.log(JSON.stringify({ slides: presentation.slides.count, output: OUTPUT_PPTX }, null, 2));
 

@@ -62,9 +62,16 @@ def verify_published_fixture(payload: dict[str, Any]) -> None:
             "published wallet status disagrees with the judging manifest: "
             f"{published_release.get('hackathon_status')!r} != {manifest.get('status')!r}"
         )
+    authority = MANIFEST.relative_to(ROOT).as_posix()
+    if published_release.get("hackathon_status_source") != authority:
+        raise RuntimeError(
+            "published wallet status authority is not the V3.2 judging manifest: "
+            f"{published_release.get('hackathon_status_source')!r} != {authority!r}"
+        )
 
     expected = canonical_value(payload)
     expected["projection"]["release"]["hackathon_status"] = manifest["status"]
+    expected["projection"]["release"]["hackathon_status_source"] = authority
     if expected != published:
         raise RuntimeError(
             "wallet fixture drifted from the regenerated analytical projection; "

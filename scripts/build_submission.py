@@ -137,6 +137,7 @@ def stamp_wallet_release(status: str, *, expected_previous: str | None = None) -
             "pending placeholder so the canonical build owns the verdict"
         )
     release["hackathon_status"] = status
+    release["hackathon_status_source"] = "outputs/judging_manifest_v3.2.0.json"
     write_canonical_json(path, payload)
 
 
@@ -144,7 +145,7 @@ def main() -> None:
     enter_locked_runtime()
     from pypdf import PdfReader
 
-    from wallet_twin_v2.artifacts import reproducibility_relevant
+    from wallet_twin_v2.artifacts import git_content_changes, reproducibility_relevant
 
     checks: list[dict] = []
     checks.append(run("locked environment", [sys.executable, "-c", "import fastapi,numpy,pandas,pydantic; print('environment-ok')"]))
@@ -183,12 +184,54 @@ def main() -> None:
         tolerated_codes={2: "PASS_EXISTING_EVIDENCE_PRESERVED"},
     )
     checks.append(provider_check)
+    checks.append(run(
+        "canonical submission truth",
+        [sys.executable, "scripts/export_submission_truth.py"],
+    ))
+
+    # Resolve the externally dependent hackathon gate before any judging
+    # artifact consumes the wallet fixture. Previously the exporter wrote a
+    # pending sentinel, the deck hashed that intermediate file, and the final
+    # status stamp changed it afterward. That made the committed fallback deck
+    # disagree with its own declared source on every canonical build.
+    providers = json.loads(
+        (ROOT / "outputs/v2_validation/live_provider_comparison.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    live_accepted = sum(
+        1
+        for item in providers.get("evaluations", [])
+        if item.get("acceptance_status") == "ACCEPTED"
+    )
+    public_manifest_path = ROOT / "public-mirror-manifest.json"
+    public_manifest = (
+        json.loads(public_manifest_path.read_text(encoding="utf-8"))
+        if public_manifest_path.exists()
+        else None
+    )
+    submission_ready = bool(
+        public_manifest
+        and public_manifest.get("status") == "PASS"
+        and providers.get("submission_gate_passed") is True
+        and live_accepted >= 6
+    )
+    status = (
+        "HACKATHON_SUBMISSION_READY"
+        if submission_ready
+        else "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"
+    )
+    stamp_wallet_release(status)
 
     checks.append(run("executed judging notebook", [sys.executable, "scripts/build_v31_notebook.py"]))
     checks.append(run("evidence workbook", [NODE, "scripts/build_public_facts_workbook.mjs", str(ROOT)]))
     checks.append(run("workbook verification", [NODE, "scripts/verify_public_facts_workbook.mjs", str(ROOT)]))
     checks.append(run("one-page PDF", [sys.executable, "scripts/build_submission_pdf.py", str(ROOT)]))
     checks.append(run("PowerPoint", [NODE, "scripts/build_v31_presentation.mjs", str(ROOT)]))
+    checks.append(run(
+        "PowerPoint fallback manifest",
+        [sys.executable, "scripts/write_presentation_fallback_manifest.py"],
+    ))
 
     # Named rather than index-addressed. This list was read positionally —
     # artifacts[2] for the PDF page check and artifacts[-1] for the public
@@ -204,6 +247,7 @@ def main() -> None:
         ROOT / "output/notebook/01_wallet_twin_demo.html",
         ONE_PAGER,
         ROOT / "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+        ROOT / "assets/presentation/v3.2-committed-artifact-manifest.json",
         ROOT / "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
         ROOT / "contracts/openapi.json",
         ROOT / "outputs/v2_validation/offline_validation_report.json",
@@ -215,6 +259,8 @@ def main() -> None:
         ROOT / "outputs/v32/v32_simulation_laboratories.json",
         ROOT / "outputs/v32/v32_shadow_rehearsal.json",
         ROOT / "dashboard/app/data/promotion-fixture.json",
+        ROOT / "data/v2/submission_truth_v3.2.0.json",
+        ROOT / "dashboard/app/data/submission-truth-v3.2.0.json",
         PUBLIC_MIRROR_MANIFEST,
     ]
     # The mirror manifest is produced by a later step, so it is the one artifact
@@ -233,34 +279,10 @@ def main() -> None:
     from wallet_twin_v32 import assert_no_composite_score
 
     assert_no_composite_score(promotion["summary"])
-    providers = json.loads((ROOT / "outputs/v2_validation/live_provider_comparison.json").read_text(encoding="utf-8"))
-    live_accepted = sum(
-        1
-        for item in providers.get("evaluations", [])
-        if item.get("acceptance_status") == "ACCEPTED"
-    )
-    public_manifest = (
-        json.loads(PUBLIC_MIRROR_MANIFEST.read_text(encoding="utf-8"))
-        if PUBLIC_MIRROR_MANIFEST.exists()
-        else None
-    )
-    submission_ready = bool(public_manifest and public_manifest.get("status") == "PASS" and live_accepted >= 3)
-    status = "HACKATHON_SUBMISSION_READY" if submission_ready else "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"
+    # The wallet surface was stamped before artifact authoring, so the deck,
+    # notebook and manifest all consume the same final hackathon verdict.
 
-    # One computation, two artifacts. The wallet surface is exported before the
-    # provider comparison resolves, so it publishes a pending placeholder that is
-    # replaced here rather than guessing a verdict of its own.
-    #
-    # This must happen *before* the worktree is inspected. Between the exporter
-    # and this call the fixture holds the pending sentinel, and sampling there
-    # would report a reproducibility-gated artifact as drifted on every build —
-    # a mid-build snapshot, not a fact about the commit.
-    stamp_wallet_release(status)
-
-    # `git status --porcelain` emits "XY path"; slice past the two status
-    # characters and strip, rather than assuming a fixed-width prefix.
-    porcelain = git_value("status", "--porcelain", default="UNKNOWN")
-    changed = [line[2:].strip() for line in porcelain.splitlines() if line.strip()]
+    changed = git_content_changes()
     # Document deliverables restamp their own creation time on every build, so a
     # whole-tree dirty check would make an honest READY verdict unreachable. What
     # matters is whether source or a gated artifact drifted from the named commit.
@@ -339,8 +361,8 @@ def main() -> None:
         "claim_boundary": "Share is posterior unless E3-observed; economics are representative scenarios; causal incremental value is null; pending facts are excluded.",
         "confidentiality_boundary": "No supplied or derived row-level Syn Bank data, credentials, full provider payloads or private caches may enter the public mirror.",
         "open_external_gates": (
-            ([] if live_accepted >= 3 else [
-                "at least three accepted live-provider briefs using fresh rotated credentials"
+            ([] if providers.get("submission_gate_passed") is True and live_accepted >= 6 else [
+                "at least six accepted provider outputs covering all three providers and showcase clients"
             ])
             + ([] if public_manifest and public_manifest.get("status") == "PASS" else [
                 "anonymous clean-history public mirror publication and verification"

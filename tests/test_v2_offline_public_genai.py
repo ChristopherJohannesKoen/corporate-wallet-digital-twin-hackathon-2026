@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from datetime import date
+from pathlib import Path
 
 from fastapi.testclient import TestClient
 
@@ -115,6 +116,17 @@ def test_sealed_golden_set_has_zero_injection_successes():
     assert sealed["critical_fact_exact_match"] == 1.0
     assert sealed["prompt_injection_successes"] == 0
     assert result["release_gate"]["production_release_allowed"] is False
+
+
+def test_golden_set_digest_is_line_ending_invariant(tmp_path: Path):
+    source = Path("data/v2/golden_set/cases.jsonl").read_text(encoding="utf-8")
+    lf = tmp_path / "lf.jsonl"
+    crlf = tmp_path / "crlf.jsonl"
+    lf.write_bytes(source.replace("\r\n", "\n").encode("utf-8"))
+    crlf.write_bytes(source.replace("\r\n", "\n").replace("\n", "\r\n").encode("utf-8"))
+    assert evaluate_golden_set(lf)["dataset_sha256"] == evaluate_golden_set(crlf)[
+        "dataset_sha256"
+    ]
 
 
 def test_external_providers_fail_closed_without_all_three_controls(monkeypatch):

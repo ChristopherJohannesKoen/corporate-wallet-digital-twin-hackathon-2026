@@ -288,7 +288,13 @@ def evaluate_golden_set(path: Path = CASES) -> dict:
                 for row in subset
             ),
         }
-    digest = hashlib.sha256(path.read_bytes()).hexdigest()
+    # JSONL semantics do not depend on the platform checkout convention. Hash
+    # decoded text in the frozen benchmark's canonical CRLF form so Windows and
+    # Linux reproduce the historical V3.1.1 digest rather than restating it.
+    canonical_dataset = path.read_text(encoding="utf-8").replace("\n", "\r\n")
+    digest = hashlib.sha256(
+        canonical_dataset.encode("utf-8")
+    ).hexdigest()
     sealed = split_metrics["sealed_test"]
     evidence_registry = PublicEvidenceRegistry(AS_OF)
     evidence_replay = []

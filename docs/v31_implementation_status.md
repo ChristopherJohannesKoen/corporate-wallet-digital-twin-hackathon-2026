@@ -1,4 +1,9 @@
-# Corporate Wallet Digital Twin V3.1.1 — implementation status
+# Corporate Wallet Digital Twin V3.1.1 — superseded historical status
+
+> **Superseded by V3.2.0.** This file preserves the V3.1.1 correction boundary
+> for regression history. It is not a current release-status source. Current
+> judging facts are generated in `data/v2/submission_truth_v3.2.0.json` and the
+> V3.2 judging manifest.
 
 **API major:** `/v3` · **as of:** 2026-06-30 · **team:** Corporate Wallet Digital Twin · **member:** Christopher Koen
 
@@ -26,7 +31,7 @@ or outcome gates.
 | Decision layer | eight weekly conversations | Discovery actions under unknown bank feasibility |
 | Business Twin | 20 × 12 components | “12-domain schema; unsupported domains remain explicit” |
 | Solution layer | 320 governed evaluations | Available or fail-closed; no missing input silently defaults |
-| GenAI adapters | OpenAI, Anthropic and Google | Nine target runs currently `NOT_EXECUTED` without fresh credentials |
+| GenAI adapters | OpenAI, Anthropic and Google | Historical V3.1.1 state; V3.2 records 8 accepted outputs from 9 target runs |
 | Measured competitor share | 0 | E3 multibank observations absent |
 | Causal incremental value | 0 / null | Qualified randomized RM outcomes absent |
 
@@ -82,7 +87,8 @@ with approved bank inputs and E3 evidence.
 The provider gateway, exact-model resolution, sanitized closed packs, structured
 schema, deterministic validators, citation/number checks, prompt-injection tests
 and fallback are implemented. BHP, Glencore and Shoprite each have a
-deterministic brief.
+deterministic brief. The later V3.2 artifact records 8 accepted genuine provider
+outputs from 9 targets and retains fallback for the one rejected output.
 
 The comparative report contains nine target rows:
 
@@ -90,10 +96,10 @@ The comparative report contains nine target rows:
 - Anthropic `claude-sonnet-5` × three clients;
 - Google `gemini-3.6-flash` × three clients.
 
-No live provider execution is claimed without fresh rotated environment
-credentials, exact model availability, provider approval flags and explicit
-public-only evaluation acknowledgement. Previously pasted credentials are
-treated as compromised and must not be reused.
+Fresh rotated credentials, exact model availability, provider approval flags
+and explicit public-only acknowledgement are required to rerun the comparison.
+The accepted V3.2 result is hackathon evidence, not bank-authorized LIVE_GENAI.
+Previously pasted credentials are treated as compromised and must not be reused.
 
 ## Submission artifacts
 
