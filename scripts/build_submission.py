@@ -1,4 +1,4 @@
-"""Canonical V3.1.1 hackathon submission build.
+"""Canonical V3.2.0 hackathon submission build.
 
 This is the only normal workflow allowed to write the final notebook, workbook,
 PDF, PowerPoint and judging manifest. Live-provider execution is opt-in and
@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Iterable
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "3.1.1"
+VERSION = "3.2.0"
 NODE = os.getenv("CODEX_NODE", "node")
 
 
@@ -113,7 +113,7 @@ def require_files(paths: Iterable[Path]) -> None:
         raise RuntimeError(f"Missing canonical artifacts: {missing}")
 
 
-def stamp_wallet_release(status: str) -> None:
+def stamp_wallet_release(status: str, *, expected_previous: str | None = None) -> None:
     """Write the computed submission status into the wallet surface.
 
     The exporter publishes ``HACKATHON_STATUS_PENDING`` because it runs before
@@ -127,7 +127,10 @@ def stamp_wallet_release(status: str) -> None:
     path = ROOT / "dashboard/app/data/wallet-v311-fixture.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
     release = payload["projection"]["release"]
-    if release.get("hackathon_status") not in {HACKATHON_STATUS_PENDING, status}:
+    allowed_previous = {HACKATHON_STATUS_PENDING, status}
+    if expected_previous is not None:
+        allowed_previous.add(expected_previous)
+    if release.get("hackathon_status") not in allowed_previous:
         raise RuntimeError(
             "wallet surface published an unexpected hackathon_status "
             f"{release.get('hackathon_status')!r}; the exporter must emit the "
@@ -201,7 +204,7 @@ def main() -> None:
         ROOT / "output/notebook/01_wallet_twin_demo.html",
         ONE_PAGER,
         ROOT / "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-        ROOT / "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
+        ROOT / "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
         ROOT / "contracts/openapi.json",
         ROOT / "outputs/v2_validation/offline_validation_report.json",
         ROOT / "dashboard/app/data/wallet-v311-fixture.json",
@@ -268,10 +271,11 @@ def main() -> None:
     # A manifest that names a commit but was built from uncommitted source
     # overstates its own reproducibility. Readiness is capped, not claimed.
     if dirty and submission_ready:
+        computed_status = status
         status = "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE"
         # Re-stamp so the fixture and the manifest cannot disagree. Only the
         # capped path reaches here, so the common case writes once.
-        stamp_wallet_release(status)
+        stamp_wallet_release(status, expected_previous=computed_status)
     manifest = {
         "version": VERSION,
         "status": status,
@@ -307,6 +311,13 @@ def main() -> None:
         # Two scores and no third: a blended figure would let a fully rehearsed
         # system with no bank evidence read as nearly production-ready.
         "promotion": {
+            "offline_candidate_validated": True,
+            "shadow_promotion_rehearsal_passed": promotion["summary"][
+                "promotion_machinery_readiness"
+            ] == 1.0,
+            "shadow_deployment_package_ready": promotion["summary"][
+                "package_status"
+            ] == "SHADOW_DEPLOYMENT_PACKAGE_READY",
             "real_state": promotion["summary"]["real_state"],
             "rehearsed_state": promotion["summary"]["rehearsed_state"],
             "bank_shadow_authorized": promotion["summary"]["bank_shadow_authorized"],
@@ -348,7 +359,7 @@ def main() -> None:
             "a real bank signing key; no signer here can sign REAL_BANK evidence",
         ],
     }
-    output = ROOT / "outputs/judging_manifest_v3.1.1.json"
+    output = ROOT / "outputs/judging_manifest_v3.2.0.json"
     output.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"status": status, "manifest": str(output), "pdf_pages": pdf_pages}, indent=2))
 

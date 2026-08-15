@@ -35,7 +35,7 @@ from typing import Dict, FrozenSet, List, Optional, Sequence, Tuple
 
 from wallet_twin_v2.contracts import DeploymentEnvironment
 
-from .modes import DecisionTrack, PromotionEvidenceMode, admits_track
+from .modes import REAL_TRACK_MODES, DecisionTrack, PromotionEvidenceMode, admits_track
 
 TRUST_REGISTRY_VERSION = "v32-trust-registry-1.0.0"
 
@@ -76,11 +76,7 @@ class TrustedKey:
         # A key trusted for real bank evidence must not live in the rehearsal
         # trust domain. This is the misconfiguration the registry most needs to
         # refuse, because it would silently make every other control ineffective.
-        real_modes = {
-            mode
-            for mode in self.allowed_modes
-            if mode is not PromotionEvidenceMode.SYNTHETIC_REHEARSAL
-        }
+        real_modes = set(self.allowed_modes) & set(REAL_TRACK_MODES)
         if real_modes and self.trust_domain == REHEARSAL_DOMAIN:
             raise TrustError(
                 f"key {self.key_id}: authorised for {sorted(m.value for m in real_modes)} "
@@ -230,7 +226,12 @@ def rehearsal_key(
         key_id=key_id,
         algorithm=algorithm,
         trust_domain=REHEARSAL_DOMAIN,
-        allowed_modes=frozenset({PromotionEvidenceMode.SYNTHETIC_REHEARSAL}),
+        allowed_modes=frozenset(
+            {
+                PromotionEvidenceMode.SYNTHETIC_REHEARSAL,
+                PromotionEvidenceMode.SIMULATED_POLICY,
+            }
+        ),
         allowed_environments=frozenset(
             {
                 DeploymentEnvironment.FIXTURE,

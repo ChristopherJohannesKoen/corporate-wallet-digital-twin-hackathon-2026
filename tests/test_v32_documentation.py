@@ -61,7 +61,7 @@ def test_the_gate_count_in_the_docs_matches_the_catalogue(
     from wallet_twin_v32 import GATE_CATALOGUE
 
     count = len(GATE_CATALOGUE)
-    assert count == 24
+    assert count == 30
     assert f"{count} gates" in texts[V32_DOC]
 
 

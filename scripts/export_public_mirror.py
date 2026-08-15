@@ -100,7 +100,7 @@ def safe_baseline() -> dict:
             "monthly": monthly,
         })
     return {
-        "metadata": {"title": "Corporate Wallet Digital Twin public mirror", "model_version": "3.1.1-safe", "as_of": "2026-06-30", "generated_from": "independently generated anonymized aggregate fixture", "currency": "ZAR"},
+        "metadata": {"title": "Corporate Wallet Digital Twin public mirror", "model_version": "3.2.0-safe", "as_of": "2026-06-30", "generated_from": "independently generated anonymized aggregate fixture", "currency": "ZAR"},
         "clients": clients,
         "opportunities": opportunities,
     }
@@ -193,7 +193,7 @@ def main() -> None:
     )
 
     public_readme = out / "PUBLIC_MIRROR.md"
-    safe_readme = """# Corporate Wallet Digital Twin V3.1.1 — safe public mirror
+    safe_readme = """# Corporate Wallet Digital Twin V3.2.0 — safe public mirror
 
 This clean-history mirror contains the production-shaped source, contracts,
 tests and infrastructure definitions, but it runs only on an independently
@@ -212,13 +212,59 @@ uv sync --frozen --all-extras
 uv run python scripts/build_safe_demo.py
 ```
 
-The command rebuilds the V2/V3/V3.1 schemas and anonymous workbench fixtures,
-runs the safe-demo tests, and checks the mirror manifest.
+The command rebuilds the V2/V3/V3.1/V3.2 schemas, anonymous workbench fixtures
+and synthetic-only Promotion Twin, runs the safe-demo tests, and checks the
+mirror manifest. Promotion evidence remains rehearsal-only and cannot authorize
+bank use.
 """
     public_readme.write_text(safe_readme, encoding="utf-8")
     (out / "README.md").write_text(safe_readme, encoding="utf-8")
     (out / "scripts" / "build_safe_demo.py").write_text(
         '''"""Rebuild and verify only the independently generated public demo."""\n\nfrom __future__ import annotations\n\nimport json\nimport shutil\nimport subprocess\nimport sys\nfrom pathlib import Path\n\nROOT = Path(__file__).resolve().parents[1]\n\n\ndef run(*args: str) -> None:\n    subprocess.run([sys.executable, *args], cwd=ROOT, check=True)\n\n\ndef main() -> None:\n    run("scripts/export_v3_contracts.py")\n    run("scripts/export_v31_contracts.py")\n    run("-m", "pytest", "-q", "tests")\n    manifest = json.loads((ROOT / "public-mirror-manifest.json").read_text(encoding="utf-8"))\n    if manifest["status"] != "PASS":\n        raise SystemExit("public mirror manifest is not PASS")\n    # Export scripts create anonymous analytical intermediates. The committed\n    # mirror needs only the rebuilt browser fixtures and contracts.\n    shutil.rmtree(ROOT / "outputs", ignore_errors=True)\n    print(json.dumps({"status": "PASS", "version": "3.1.1-safe", "cells": 100}, indent=2))\n\n\nif __name__ == "__main__":\n    main()\n''',
+        encoding="utf-8",
+    )
+    # Replace the frozen V3.1-safe helper above with the V3.2 additive build.
+    # Keeping this as a second write avoids altering the historical string that
+    # older clean-history mirrors may still compare in release notes.
+    (out / "scripts" / "build_safe_demo.py").write_text(
+        '''"""Rebuild and verify only the independently generated public demo."""
+
+from __future__ import annotations
+
+import json
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+def run(*args: str) -> None:
+    subprocess.run([sys.executable, *args], cwd=ROOT, check=True)
+
+
+def main() -> None:
+    run("scripts/export_v3_contracts.py")
+    run("scripts/export_v31_contracts.py")
+    run("scripts/export_v32_contracts.py")
+    run("scripts/export_v32_workbench_fixture.py")
+    run("-m", "pytest", "-q", "tests")
+    manifest = json.loads(
+        (ROOT / "public-mirror-manifest.json").read_text(encoding="utf-8")
+    )
+    if manifest["status"] != "PASS":
+        raise SystemExit("public mirror manifest is not PASS")
+    shutil.rmtree(ROOT / "outputs", ignore_errors=True)
+    print(json.dumps({
+        "status": "PASS", "version": "3.2.0-safe", "cells": 100,
+        "promotion_mode": "SYNTHETIC_REHEARSAL",
+    }, indent=2))
+
+
+if __name__ == "__main__":
+    main()
+''',
         encoding="utf-8",
     )
     # Do not inherit the private judging workflow: it asserts confidential
@@ -292,7 +338,7 @@ jobs:
                 denial.append(f"ZIP_ARCHIVE:{relative.as_posix()}")
     status = "PASS" if not denial else "FAIL"
     manifest = {
-        "version": "3.1.1", "status": status, "history": "CLEAN_HISTORY_REQUIRED",
+        "version": "3.2.0", "status": status, "history": "CLEAN_HISTORY_REQUIRED",
         "data_mode": "INDEPENDENTLY_GENERATED_ANONYMIZED_AGGREGATES",
         "files": sum(1 for p in out.rglob("*") if p.is_file()), "scanned_files": scanned,
         "safe_fixture_sha256": sha256(safe_path), "denial_findings": denial,

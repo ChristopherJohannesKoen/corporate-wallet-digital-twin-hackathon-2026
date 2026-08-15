@@ -567,11 +567,13 @@ def test_kms_reports_why_it_is_unavailable(monkeypatch: pytest.MonkeyPatch) -> N
 def test_the_local_signer_reports_it_cannot_satisfy_a_real_gate() -> None:
     report = LocalECDSASigner().capability_report()
     assert report["status"] == EXECUTED
-    assert report["modes"] == ["SYNTHETIC_REHEARSAL"]
+    assert report["modes"] == ["SIMULATED_POLICY", "SYNTHETIC_REHEARSAL"]
 
 
 def test_signer_allowed_modes_match_the_trust_model() -> None:
     """A signer's declared modes and the registry must not disagree."""
-    assert LocalECDSASigner.allowed_modes == frozenset({SYNTHETIC})
+    assert LocalECDSASigner.allowed_modes == frozenset(
+        {SYNTHETIC, PromotionEvidenceMode.SIMULATED_POLICY}
+    )
     assert REAL_BANK not in SigstoreSigner.allowed_modes
     assert ATTESTED in KMSSigner.allowed_modes

@@ -84,6 +84,9 @@ def test_the_promotion_schema_exists_and_is_append_only() -> None:
     assert "CREATE SCHEMA IF NOT EXISTS promotion" in sql
     assert "BEFORE UPDATE OR DELETE" in sql
     assert "refuse_mutation" in sql
+    assert "decision_payload_sha256" in sql
+    assert "signed_envelope" in sql
+    assert "signature_verified" in sql
 
 
 def test_the_database_restates_the_separation_invariant() -> None:
@@ -113,8 +116,23 @@ def test_the_decision_table_stores_no_composite_score() -> None:
 # --------------------------------------------------------------------------
 
 
-def test_there_are_twelve_promotion_event_types() -> None:
-    assert len(PROMOTION_EVENT_TYPES) == 12
+def test_the_twelve_canonical_events_and_frozen_aliases_are_routable() -> None:
+    canonical = {
+        "PromotionEvidenceSubmitted",
+        "PromotionEvidenceVerified",
+        "GateEvaluationCompleted",
+        "PromotionDecisionIssued",
+        "PromotionApprovalRecorded",
+        "PromotionTransitionRecorded",
+        "RehearsalStarted",
+        "RehearsalDayCompleted",
+        "RehearsalIncidentInjected",
+        "RehearsalClockReset",
+        "PromotionEvidenceExpired",
+        "PromotionArtifactRevoked",
+    }
+    assert canonical.issubset({item.value for item in PROMOTION_EVENT_TYPES})
+    assert len(PROMOTION_EVENT_TYPES) == 23
 
 
 def test_a_rehearsal_only_event_cannot_be_emitted_on_the_real_track() -> None:
@@ -194,7 +212,7 @@ def test_the_fixture_status_is_computed_not_written_down() -> None:
     defect found in wallet_portfolio.py during V3.1.1."""
     status = repository.honest_status()
     assert status["real_state"] == "OFFLINE_CANDIDATE"
-    assert status["rehearsed_state"] == "CAUSAL_CHAMPION"
+    assert status["rehearsed_state"] == "SHADOW_READY"
     assert status["bank_shadow_authorized"] is False
     assert status["promotion_machinery_readiness"] == 1.0
     assert status["bank_evidence_readiness"] == 0.0
@@ -216,9 +234,9 @@ def test_every_rehearsal_evidence_item_is_signed() -> None:
         assert envelope.mode is SYNTHETIC
 
 
-def test_gates_without_failure_injection_are_reported_rather_than_hidden() -> None:
+def test_every_fixture_gate_has_positive_and_negative_coverage() -> None:
     outstanding = repository.readiness()["gates_without_failure_injection"]
-    assert outstanding, "a fixture claiming full injection coverage would be false"
+    assert outstanding == []
 
 
 # --------------------------------------------------------------------------
@@ -231,7 +249,7 @@ def test_the_promotion_service_is_the_twelfth() -> None:
     assert "promotion" in SERVICE_ROUTES
 
 
-def test_the_promotion_deployment_registers_exactly_its_twelve_routes() -> None:
+def test_the_promotion_deployment_registers_the_complete_additive_surface() -> None:
     from fastapi.routing import APIRoute
 
     paths = {
@@ -239,7 +257,16 @@ def test_the_promotion_deployment_registers_exactly_its_twelve_routes() -> None:
         for route in promotion_app.routes
         if isinstance(route, APIRoute) and route.path.startswith("/v3/promotion")
     }
-    assert len(paths) == 12
+    assert len(paths) == 20
+    for required in (
+        "/v3/promotion/decisions/evaluate",
+        "/v3/promotion/decisions/{decision_id}",
+        "/v3/promotion/rehearsals/{run_id}",
+        "/v3/promotion/e3-sample-size-plan",
+        "/v3/promotion/evidence",
+        "/v3/promotion/transitions/{target_state}/requests",
+    ):
+        assert required in paths
 
 
 @pytest.mark.parametrize(
@@ -290,9 +317,47 @@ def test_the_state_route_publishes_both_tracks(client: TestClient) -> None:
         "/v3/promotion/state", params={"as_of": AS_OF}, headers=READER
     ).json()
     assert body["real_state"] == "OFFLINE_CANDIDATE"
-    assert body["rehearsed_state"] == "CAUSAL_CHAMPION"
+    assert body["rehearsed_state"] == "SHADOW_READY"
     assert body["bank_shadow_authorized"] is False
     assert body["score"]["bank_evidence_readiness"] == 0.0
+
+
+def test_decision_detail_is_dsse_signed_and_verified(client: TestClient) -> None:
+    body = client.get(
+        "/v3/promotion/decisions/v32-fixture-promotion-decision",
+        params={"as_of": AS_OF},
+        headers=READER,
+    ).json()
+    assert body["decision"]["rehearsed_state"] == "SHADOW_READY"
+    assert body["signature_verified"] is True
+    assert body["envelope"]["payloadType"].endswith("promotion-decision+json")
+    assert body["bank_authority_conferred"] is False
+
+
+def test_approval_of_a_different_decision_hash_is_rejected(client: TestClient) -> None:
+    response = client.post(
+        "/v3/promotion/decisions/v32-fixture-promotion-decision/approvals",
+        json={
+            "approval": {
+                "approval_id": "ap-wrong-hash",
+                "decision_id": "v32-fixture-promotion-decision",
+                "decision_payload_sha256": "b" * 64,
+                "transition_id": "SHADOW_READY__TO__PILOT_READY",
+                "track": "REHEARSAL",
+                "submitted_by": "maker@wallet-twin",
+                "submitted_role": "ENGINEERING",
+                "reviewed_by": "checker@wallet-twin",
+                "reviewed_role": "MODEL_RISK",
+                "decision": "APPROVED",
+                "rationale": "Deliberately binds a stale decision digest.",
+                "submitted_at": FIXTURE_GENERATED_AT.isoformat(),
+                "reviewed_at": (FIXTURE_GENERATED_AT + timedelta(hours=1)).isoformat(),
+            }
+        },
+        headers={**READER, "Idempotency-Key": "wrong-decision-hash"},
+    )
+    assert response.status_code == 409
+    assert "APPROVAL_DECISION_PAYLOAD_HASH_MISMATCH" in response.text
 
 
 def test_the_readiness_route_returns_no_composite_score(client: TestClient) -> None:
@@ -465,6 +530,8 @@ def test_a_self_approval_is_refused_before_it_reaches_the_service(
         json={
             "approval": {
                 "approval_id": "ap-self",
+                "decision_id": "v32-fixture-promotion-decision",
+                "decision_payload_sha256": "a" * 64,
                 "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
                 "track": "REHEARSAL",
                 "submitted_by": "same@bank",
@@ -485,7 +552,7 @@ def test_a_self_approval_is_refused_before_it_reaches_the_service(
 def test_the_composed_api_exposes_the_promotion_surface(client: TestClient) -> None:
     schema = client.get("/openapi.json").json()
     promotion_paths = [path for path in schema["paths"] if path.startswith("/v3/promotion")]
-    assert len(promotion_paths) == 12
+    assert len(promotion_paths) == 20
 
 
 def test_as_of_in_the_future_still_returns_the_recorded_position(

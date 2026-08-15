@@ -12,6 +12,7 @@ Nothing caught it, because no test compared artifacts to each other. These do.
 from __future__ import annotations
 
 import json
+import importlib.util
 from pathlib import Path
 from typing import Any, Iterator
 
@@ -20,7 +21,7 @@ import pytest
 from wallet_twin_v2.artifacts import ROOT, committed_artifacts
 from wallet_twin_v31.wallet_portfolio import HACKATHON_STATUS_PENDING
 
-MANIFEST = ROOT / "outputs" / "judging_manifest_v3.1.1.json"
+MANIFEST = ROOT / "outputs" / "judging_manifest_v3.2.0.json"
 WALLET_FIXTURE = ROOT / "dashboard" / "app" / "data" / "wallet-v311-fixture.json"
 
 #: Every value the submission verdict is allowed to take.
@@ -78,6 +79,77 @@ def test_every_published_submission_status_is_a_declared_state():
             if value not in SUBMISSION_STATES:
                 offenders.append(f"{path.relative_to(ROOT)}{pointer} = {value!r}")
     assert not offenders, "undeclared submission status:\n  " + "\n  ".join(offenders)
+
+
+def test_wallet_exporter_always_returns_status_ownership_to_canonical_build(
+    monkeypatch, tmp_path
+):
+    script = ROOT / "scripts" / "export_v311_wallet_surface.py"
+    spec = importlib.util.spec_from_file_location("export_v311_wallet_surface", script)
+    assert spec is not None and spec.loader is not None
+    exporter = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(exporter)
+
+    target = tmp_path / "wallet.json"
+    target.write_text(
+        json.dumps(
+            {
+                "projection": {
+                    "release": {"hackathon_status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"}
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(exporter, "ROOT", tmp_path)
+    monkeypatch.setattr(exporter, "OUT", target)
+
+    exporter.main()
+
+    assert _load(target)["projection"]["release"]["hackathon_status"] == HACKATHON_STATUS_PENDING
+
+
+def test_canonical_builder_can_cap_its_own_ready_status_but_not_an_unexpected_one(
+    monkeypatch, tmp_path
+):
+    script = ROOT / "scripts" / "build_submission.py"
+    spec = importlib.util.spec_from_file_location("build_submission", script)
+    assert spec is not None and spec.loader is not None
+    builder = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(builder)
+
+    target = tmp_path / "dashboard" / "app" / "data" / "wallet-v311-fixture.json"
+    target.parent.mkdir(parents=True)
+    target.write_text(
+        json.dumps(
+            {
+                "projection": {
+                    "release": {"hackathon_status": "HACKATHON_SUBMISSION_READY"}
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(builder, "ROOT", tmp_path)
+
+    builder.stamp_wallet_release(
+        "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
+        expected_previous="HACKATHON_SUBMISSION_READY",
+    )
+    assert _load(target)["projection"]["release"]["hackathon_status"] == (
+        "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE"
+    )
+
+    target_payload = _load(target)
+    target_payload["projection"]["release"]["hackathon_status"] = (
+        "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"
+    )
+    target.write_text(json.dumps(target_payload), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="unexpected hackathon_status"):
+        builder.stamp_wallet_release(
+            "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
+            expected_previous="HACKATHON_SUBMISSION_READY",
+        )
 
 
 def test_bank_production_status_is_never_promotable_anywhere():

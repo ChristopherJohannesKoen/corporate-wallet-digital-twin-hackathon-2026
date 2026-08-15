@@ -29,6 +29,7 @@ from dataclasses import dataclass
 from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
+from scipy.stats import norm
 
 from .compute import CPU, map_replications
 from .sample_size import wilson_interval
@@ -236,6 +237,100 @@ def causal_report(
     }
 
 
+def trial_design_report(
+    *,
+    replications: int = 2_000,
+    seed: int = 20260630,
+    baseline_rate: float = 0.22,
+    minimum_detectable_effect: float = 0.05,
+) -> Dict[str, object]:
+    """Analytic cluster search followed by Monte Carlo verification.
+
+    Controlled scale does not depend on this result. The report only plans the
+    later randomized validation needed for causal claims.
+    """
+    iccs = (0.01, 0.03, 0.05, 0.10)
+    compliances = (0.5, 0.7, 0.9)
+    cluster_counts = (24, 36, 48, 64, 80, 100, 120)
+    mean_cluster_size = 25
+    contamination = 0.05
+    censoring = 0.10
+    z_alpha = norm.ppf(0.975)
+    rows: List[Dict[str, object]] = []
+    rng = np.random.default_rng(seed)
+
+    for icc in iccs:
+        for compliance in compliances:
+            analytic: List[Dict[str, object]] = []
+            selected_clusters = None
+            selected_se = None
+            effective_effect = minimum_detectable_effect * compliance * (1 - contamination)
+            for clusters in cluster_counts:
+                per_arm = clusters * mean_cluster_size / 2
+                design_effect = 1 + (mean_cluster_size - 1) * icc
+                effective_per_arm = per_arm * (1 - censoring) / design_effect
+                variance = 2 * baseline_rate * (1 - baseline_rate) / effective_per_arm
+                se = float(np.sqrt(variance))
+                noncentral = effective_effect / se
+                power = float(norm.cdf(-z_alpha - noncentral) + 1 - norm.cdf(z_alpha - noncentral))
+                analytic.append({"clusters": clusters, "power": round(power, 6)})
+                if selected_clusters is None and power >= 0.80:
+                    selected_clusters = clusters
+                    selected_se = se
+            if selected_clusters is None:
+                selected_clusters = cluster_counts[-1]
+                selected_se = float(
+                    np.sqrt(
+                        2
+                        * baseline_rate
+                        * (1 - baseline_rate)
+                        / (
+                            selected_clusters
+                            * mean_cluster_size
+                            / 2
+                            * (1 - censoring)
+                            / (1 + (mean_cluster_size - 1) * icc)
+                        )
+                    )
+                )
+            estimates = rng.normal(effective_effect, selected_se, size=replications)
+            null_estimates = rng.normal(0.0, selected_se, size=replications)
+            reject = np.abs(estimates / selected_se) > z_alpha
+            null_reject = np.abs(null_estimates / selected_se) > z_alpha
+            lower = estimates - z_alpha * selected_se
+            upper = estimates + z_alpha * selected_se
+            first_stage = np.clip(rng.normal(compliance, 0.04, size=replications), 0, 1)
+            rows.append(
+                {
+                    "icc": icc,
+                    "compliance": compliance,
+                    "contamination": contamination,
+                    "censoring": censoring,
+                    "selected_clusters": selected_clusters,
+                    "opportunities": selected_clusters * mean_cluster_size,
+                    "analytic_search": analytic,
+                    "monte_carlo_power": round(float(np.mean(reject)), 6),
+                    "type_i_error": round(float(np.mean(null_reject)), 6),
+                    "itt_bias": round(float(np.mean(estimates) - effective_effect), 6),
+                    "ci_coverage": round(float(np.mean((lower <= effective_effect) & (upper >= effective_effect))), 6),
+                    "first_stage_mean": round(float(np.mean(first_stage)), 6),
+                    "probability_weak_instrument": round(float(np.mean(first_stage < WEAK_FIRST_STAGE)), 6),
+                }
+            )
+    return {
+        "lab_version": "v32-causal-trial-design-2.0.0",
+        "evidence_mode": "SYNTHETIC_REHEARSAL",
+        "replications": replications,
+        "baseline_action_rate": baseline_rate,
+        "minimum_detectable_effect": minimum_detectable_effect,
+        "nominal_alpha": NOMINAL_ALPHA,
+        "target_power": ADEQUATE_POWER,
+        "rows": rows,
+        "causal_claim": None,
+        "bank_meaning": "The engine characterises future trial designs. No treatment was delivered and no real effect was estimated.",
+    }
+
+
 __all__ = [
     "ADEQUATE_POWER",
     "CAUSAL_OC_LAB_VERSION",
@@ -245,5 +340,6 @@ __all__ = [
     "TrialRealisation",
     "causal_report",
     "operating_characteristics",
+    "trial_design_report",
     "weak_instrument_behaviour",
 ]

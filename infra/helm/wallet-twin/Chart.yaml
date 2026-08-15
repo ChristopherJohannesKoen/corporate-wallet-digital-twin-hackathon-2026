@@ -1,6 +1,6 @@
 apiVersion: v2
 name: corporate-wallet-digital-twin
-description: Private EKS deployment for the Corporate Wallet Digital Twin V3.1 Decision Twin
+description: Private EKS deployment for the Corporate Wallet Digital Twin V3.2 Promotion Readiness Twin
 type: application
-version: 3.1.1
-appVersion: "3.1.1"
+version: 3.2.0
+appVersion: "3.2.0"

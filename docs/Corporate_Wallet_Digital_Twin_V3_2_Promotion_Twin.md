@@ -38,10 +38,12 @@ OFFLINE_CANDIDATE → SHADOW_READY → PILOT_READY → SCALE_READY → CAUSAL_CH
 | `SCALE_READY` | Output shown to RMs as part of ordinary work |
 | `CAUSAL_CHAMPION` | Claiming the system *caused* incremental revenue |
 
-The state is **recomputed from evidence on every read**, never stored. The walk
-stops at the first transition whose blocking gates are not all satisfied, so
-passing a later transition while an earlier one fails advances nothing, and a
-state cannot survive the expiry or withdrawal of the evidence behind it.
+The state is **recomputed from verified evidence and exact decision-bound
+approvals on every read**, never treated as an authorization merely because a
+score is high. The walk stops at the first transition whose blocking gates are
+not all satisfied or whose four-eyes approval is absent. Passing a later
+transition while an earlier one fails advances nothing, and a state cannot
+survive the expiry or withdrawal of the evidence behind it.
 
 ---
 
@@ -103,9 +105,9 @@ an analytical claim no operational gate examines.
 
 | Missing | Disables | Leaves intact |
 |---|---|---|
-| E3 multibank observation | `MEASURED_SHARE_REPORTING` | hidden shadow scoring |
-| Bank-approved economics | `COMMERCIAL_VALUE_CLAIM` | production decision support |
-| Randomised trial / weak first stage | `CAUSAL_VALUE_CLAIM` | `SCALE_READY` status |
+| E3 multibank observation | `MEASURED_SHARE` | hidden shadow scoring and posterior wallet |
+| Bank-approved economics | real `SCENARIO_ECONOMICS` and `PRODUCT_PROPOSAL` | discovery conversations |
+| Randomised trial / weak first stage | `CAUSAL_VALUE` | `SCALE_READY` non-causal decision support |
 
 `AUTONOMOUS_CLIENT_ACTION` is **permanently withheld** at every state and any
 evidence. It is not "not yet reached"; it is outside what this system is for.
@@ -117,7 +119,7 @@ trial that found nothing is a null result, not a demotion and not a champion.
 
 ## 6. The gate catalogue
 
-**24 gates across 4 transitions**, as governed data generated from the same
+**30 gates across 4 transitions**, as governed data generated from the same
 catalogue the engine evaluates — so the published policy and the enforced policy
 cannot drift apart.
 
@@ -126,8 +128,10 @@ This replaced three broken things:
 - `ShadowReleaseGate` hardcoded twenty checks in one method with string
   thresholds, no evidence binding, no owner and no statement of what failure
   costs. It could compute a verdict; it could not explain one.
-- `config/mlflow_promotion_policy.json` declared gate ids for two transitions and
-  **no code ever parsed it**. A policy nothing reads is a document, not a control.
+- `config/mlflow_promotion_policy.json` formerly declared gate ids for two
+  transitions and **no code parsed it**. V3.2 now generates the enforced
+  five-state policy from the catalogue; MLflow records its artifacts but never
+  authorises a transition.
 - The two vocabularies named identical requirements differently
   (`interval-coverage-90` vs `90pct_coverage_between_85pct_and_95pct`). 38 legacy
   aliases are preserved so earlier artifacts remain traceable.
@@ -199,6 +203,14 @@ Both unavailable signers **raise rather than returning plausible bytes**, and
 `NO_REAL_BANK_SIGNING_CAPABILITY_ON_THIS_BUILD` so three listed signers cannot be
 read as three exercised ones.
 
+Promotion decisions use the same canonicalization and DSSE-style envelope as
+gate evidence. An approval records both `decision_id` and the SHA-256 digest of
+the exact RFC 8785 decision payload. The repository rejects a stale decision id
+or a mismatched digest, and approval events repeat both fields for audit. A
+later recalculation therefore cannot inherit approval granted to an earlier
+decision. The fixture decision is signed only by the local rehearsal trust
+domain and explicitly records `bank_authority_conferred=false`.
+
 The existing Terraform KMS key is **RSA-3072**, not the `ECDSA_SHA_256` this
 signer needs; a second key resource is required.
 `production_adapters.KMSManifestSigner` also has `sign()` but no `verify()`, and
@@ -207,7 +219,7 @@ call succeeded.
 
 ---
 
-## 9. Seven simulation laboratories
+## 9. Nine simulation laboratories
 
 Each states in its own report what it does **not** establish. Two produced
 findings worth recording rather than tuning away:

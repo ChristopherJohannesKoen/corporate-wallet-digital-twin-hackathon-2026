@@ -1,4 +1,4 @@
-# Corporate Wallet Digital Twin V3.1.1 — data dictionary
+# Corporate Wallet Digital Twin V3.2.0 — data dictionary
 
 ## V3.1.1 primary wallet products
 
@@ -222,7 +222,7 @@ A decision brief contains the opportunity ID, title, summary, observed facts, id
 | `dashboard/app/data/v3-fixture.json` | V3 Decision Lab fixture |
 | `outputs/v3/` | Canonical V3 machine outputs and selected briefs |
 | `outputs/v3_validation/` | V3 validation report |
-| `outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx` | Human-auditable evidence/approval/impact workbook |
+| `outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx` | Human-auditable evidence, approval, wallet-impact and promotion-readiness workbook |
 | `contracts/` | Composed OpenAPI and JSON Schemas |
 | `legacy/v1/` | Frozen V1 assumptions and outputs; regression only |
 
@@ -230,14 +230,29 @@ A decision brief contains the opportunity ID, title, summary, observed facts, id
 
 | Path | Contents |
 |---|---|
-| `contracts/promotion-gate-catalogue.json` | 24 gates as governed data, generated from the enforced catalogue |
+| `contracts/promotion-gate-catalogue.json` | 30 gates as governed data, generated from the enforced catalogue |
 | `contracts/jsonschema/v32-*.schema.json` | The 12 V3.2 contract schemas |
 | `outputs/v32/v32_promotion_policy.json` | States, tracks, evidence modes, capability prerequisites, scoring policy |
 | `outputs/v32/v32_signing_posture.json` | Which signers ran; `NO_REAL_BANK_SIGNING_CAPABILITY_ON_THIS_BUILD` |
-| `outputs/v32/v32_simulation_laboratories.json` | Canonical-tier results for all seven laboratories |
+| `outputs/v32/v32_simulation_laboratories.json` | Canonical-tier results for all nine laboratories |
 | `outputs/v32/v32_shadow_rehearsal.json` | 47 simulated days, day-17 incident, 30 clean days, 0 bank days |
 | `dashboard/app/data/promotion-fixture.json` | The promotion readiness view's projection |
 | `infra/sql/002_promotion_schemas.sql` | Append-only promotion schema with the invariants restated as CHECK constraints |
+
+### Promotion decision and approval binding
+
+`PromotionDecision` contains the REAL and REHEARSAL states, per-target PMR and
+BER scores, permitted and prohibited capabilities, transition results, artifact
+versions and reason codes. Its published package contains an RFC 8785 payload
+digest and a DSSE-style signed envelope. `PromotionApproval` must repeat the
+exact `decision_id` and `decision_payload_sha256`; a stale or mismatched approval
+is rejected. Rehearsal trust roots may establish provenance and integrity but
+set `bank_authority_conferred=false` and cannot sign `REAL_BANK` or
+`BANK_ATTESTED` evidence.
+
+The V3.2 fixture release position is `PMR = 100%` and `BER = 0%`: all gate
+evaluators have signed positive and negative rehearsal coverage, while no bank
+evidence or bank authority is claimed.
 
 ### Key fields that must never be conflated
 

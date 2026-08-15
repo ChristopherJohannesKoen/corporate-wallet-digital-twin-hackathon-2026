@@ -1,9 +1,10 @@
 """Assemble a promotion position from gate evaluations.
 
-Everything here is a pure function of the evaluations supplied. The engine never
-reads a stored state and never trusts one: ``real_state`` is recomputed
-cumulatively from which transitions actually passed, so a state cannot persist
-after the evidence behind it expires or is withdrawn.
+Everything here is a pure function of the evaluations and accountable approvals
+supplied. The engine never reads a stored state and never trusts one:
+``real_state`` is recomputed cumulatively from transitions whose gates still
+pass *and* whose latest four-eyes decision is APPROVED. Passing metrics alone
+can therefore issue a recommendation but can never promote the system.
 """
 
 from __future__ import annotations
@@ -15,6 +16,7 @@ from .catalogue import CATALOGUE_VERSION, GATE_CATALOGUE
 from .contracts import (
     CONTRACTS_VERSION,
     GateEvaluation,
+    PromotionApproval,
     PromotionDecision,
 )
 from .modes import DecisionTrack
@@ -35,7 +37,7 @@ from .states import (
     rank,
 )
 
-ENGINE_VERSION = "v32-promotion-engine-1.0.0"
+ENGINE_VERSION = "v32-promotion-engine-1.1.0"
 
 
 def passed_transitions(
@@ -56,17 +58,47 @@ def passed_transitions(
     ]
 
 
+def approved_transitions(
+    approvals: Iterable[PromotionApproval], track: DecisionTrack, decision_id: str
+) -> List[str]:
+    """Transitions with a current, explicit four-eyes approval on one track."""
+    latest: Dict[str, PromotionApproval] = {}
+    for approval in approvals:
+        if approval.track is not track or approval.decision_id != decision_id:
+            continue
+        existing = latest.get(approval.transition_id)
+        if existing is None or approval.reviewed_at >= existing.reviewed_at:
+            latest[approval.transition_id] = approval
+    return [
+        transition
+        for transition in TRANSITION_IDS
+        if transition in latest and latest[transition].decision == "APPROVED"
+    ]
+
+
 def evaluate_promotion(
     evaluations: Sequence[GateEvaluation],
     *,
+    approvals: Sequence[PromotionApproval] = (),
     decision_id: str,
     as_of: date,
     generated_at: Optional[datetime] = None,
     published_at: Optional[datetime] = None,
 ) -> PromotionDecision:
     """The published promotion position, both tracks side by side."""
-    real_transitions = passed_transitions(evaluations, DecisionTrack.REAL)
-    rehearsal_transitions = passed_transitions(evaluations, DecisionTrack.REHEARSAL)
+    real_gate_ready = passed_transitions(evaluations, DecisionTrack.REAL)
+    rehearsal_gate_ready = passed_transitions(evaluations, DecisionTrack.REHEARSAL)
+    real_approved = set(
+        approved_transitions(approvals, DecisionTrack.REAL, decision_id)
+    )
+    rehearsal_approved = set(
+        approved_transitions(approvals, DecisionTrack.REHEARSAL, decision_id)
+    )
+
+    real_transitions = [item for item in real_gate_ready if item in real_approved]
+    rehearsal_transitions = [
+        item for item in rehearsal_gate_ready if item in rehearsal_approved
+    ]
 
     real_state = attained_state(real_transitions)
     rehearsed_state = attained_state(rehearsal_transitions)
@@ -92,6 +124,17 @@ def evaluate_promotion(
     outstanding = unevaluated_gates(evaluations, DecisionTrack.REAL)
     if outstanding:
         reason_codes.append(f"REAL_GATES_NOT_EVALUATED_{len(outstanding)}")
+    real_waiting_approval = set(real_gate_ready) - real_approved
+    rehearsal_waiting_approval = set(rehearsal_gate_ready) - rehearsal_approved
+    if real_waiting_approval:
+        reason_codes.append(
+            f"REAL_TRANSITIONS_AWAITING_APPROVAL_{len(real_waiting_approval)}"
+        )
+    if rehearsal_waiting_approval:
+        reason_codes.append(
+            "REHEARSAL_TRANSITIONS_AWAITING_APPROVAL_"
+            f"{len(rehearsal_waiting_approval)}"
+        )
     if rank(rehearsed_state) > rank(real_state):
         # Worth stating explicitly rather than leaving to the reader: the
         # rehearsal is ahead of the bank, which is the expected and honest

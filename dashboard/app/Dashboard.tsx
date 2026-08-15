@@ -464,7 +464,11 @@ export default function Dashboard({ viewer, asOf, weekStart }: { viewer: string;
                 {promotion.signing.not_executed.map((item) => <li key={item}>— {item} — not executed here</li>)}
               </ul>
               <Status tone="blocked">{promotion.signing.real_bank_signing_available ? "REAL_BANK_SIGNING_AVAILABLE" : "NO_REAL_BANK_SIGNING_CAPABILITY"}</Status>
-              <p className="dt-promo-note">{promotion.gates_without_failure_injection.length} of {promotion.transitions.reduce((sum, item) => sum + item.gate_count, 0)} gates have not yet been observed failing under an injected fault.</p>
+              <p className="dt-promo-note">
+                {promotion.gates_without_failure_injection.length === 0
+                  ? `All ${promotion.transitions.reduce((sum, item) => sum + item.gate_count, 0)} gates have a positive case and a fail-closed negative case.`
+                  : `${promotion.gates_without_failure_injection.length} of ${promotion.transitions.reduce((sum, item) => sum + item.gate_count, 0)} gates still lack an injected-failure observation.`}
+              </p>
             </article>
           </section>
         </main>

@@ -3,10 +3,8 @@
   "enabled": true,
   "displayName": "Corporate Wallet Digital Twin (local lab)",
   "sslRequired": "none",
-  "_comment_ssl": "Local lab only. RuntimeConfig.validate refuses a non-HTTPS issuer outside FIXTURE, so this realm cannot be pointed at a real deployment.",
   "accessTokenLifespan": 900,
   "ssoSessionIdleTimeout": 3600,
-  "_comment_lifespan": "The Rego policy refuses a workload identity older than 3600s; the access-token lifespan is set well inside that so a token cannot outlive the policy's own freshness rule.",
   "roles": {
     "realm": [
       { "name": "SHADOW_OPERATOR", "description": "Operates the system in shadow. May read the promotion position and record rehearsal evaluations." },
@@ -82,6 +80,9 @@
   "users": [
     {
       "username": "shadow.operator",
+      "firstName": "Shadow",
+      "lastName": "Operator",
+      "email": "shadow.operator@wallet-twin.invalid",
       "enabled": true,
       "emailVerified": true,
       "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
@@ -94,6 +95,9 @@
     },
     {
       "username": "pilot.rm",
+      "firstName": "Pilot",
+      "lastName": "RM",
+      "email": "pilot.rm@wallet-twin.invalid",
       "enabled": true,
       "emailVerified": true,
       "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
@@ -102,11 +106,13 @@
         "client_ids": ["E01"],
         "regions": ["ZA"],
         "products": ["*"]
-      },
-      "_comment": "Entitled to exactly one client. The cross-client denial test uses this identity to request E02, which must be refused by both OPA and the in-process policy."
+      }
     },
     {
       "username": "offshore.rm",
+      "firstName": "Offshore",
+      "lastName": "RM",
+      "email": "offshore.rm@wallet-twin.invalid",
       "enabled": true,
       "emailVerified": true,
       "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
@@ -115,11 +121,13 @@
         "client_ids": ["E01"],
         "regions": ["UK"],
         "products": ["*"]
-      },
-      "_comment": "Same client entitlement, different region. Used to prove region is enforced independently of client, which a test using only cross-client identities could not show."
+      }
     },
     {
       "username": "product.finance",
+      "firstName": "Product",
+      "lastName": "Finance",
+      "email": "product.finance@wallet-twin.invalid",
       "enabled": true,
       "emailVerified": true,
       "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],
@@ -128,11 +136,13 @@
         "client_ids": ["*"],
         "regions": ["ZA"],
         "products": ["*"]
-      },
-      "_comment": "Holds sensitive-economics authority but no shadow role, so it is denied on ordinary shadow reads. This is the negative the container smoke test already exercises."
+      }
     },
     {
       "username": "model.validator",
+      "firstName": "Model",
+      "lastName": "Validator",
+      "email": "model.validator@wallet-twin.invalid",
       "enabled": true,
       "emailVerified": true,
       "credentials": [{ "type": "password", "value": "local-only-change-me", "temporary": false }],

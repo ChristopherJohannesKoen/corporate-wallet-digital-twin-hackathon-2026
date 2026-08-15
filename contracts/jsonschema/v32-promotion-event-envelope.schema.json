@@ -83,8 +83,20 @@
       "type": "object"
     },
     "PromotionEventType": {
-      "description": "The twelve promotion events.",
+      "description": "Canonical V3.2 events followed by frozen pre-release aliases.",
       "enum": [
+        "PromotionEvidenceSubmitted",
+        "PromotionEvidenceVerified",
+        "GateEvaluationCompleted",
+        "PromotionDecisionIssued",
+        "PromotionApprovalRecorded",
+        "PromotionTransitionRecorded",
+        "RehearsalStarted",
+        "RehearsalDayCompleted",
+        "RehearsalIncidentInjected",
+        "RehearsalClockReset",
+        "PromotionEvidenceExpired",
+        "PromotionArtifactRevoked",
         "PromotionGateEvaluated",
         "PromotionEvidenceRegistered",
         "PromotionEvidenceSigned",
@@ -95,8 +107,7 @@
         "PromotionStateAdvanced",
         "PromotionCapabilityGranted",
         "PromotionCapabilityRefused",
-        "RehearsalScenarioExecuted",
-        "RehearsalIncidentInjected"
+        "RehearsalScenarioExecuted"
       ],
       "title": "PromotionEventType",
       "type": "string"
@@ -104,7 +115,10 @@
     "PromotionEvidenceMode": {
       "description": "Where a piece of evidence came from, ordered by authority.",
       "enum": [
+        "NOT_AVAILABLE",
         "SYNTHETIC_REHEARSAL",
+        "SIMULATED_POLICY",
+        "PUBLIC_APPROVED",
         "PUBLIC_PACKAGE",
         "REAL_BANK",
         "BANK_ATTESTED"
@@ -121,7 +135,7 @@
     }
   },
   "additionalProperties": false,
-  "description": "Envelope for the twelve V3.2 promotion events.",
+  "description": "Envelope for canonical and backward-compatible V3.2 events.",
   "properties": {
     "as_of": {
       "anyOf": [

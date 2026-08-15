@@ -139,6 +139,59 @@ def test_provider_status_never_returns_secret_values(monkeypatch):
     assert gateway.status()["providers"]["openai"]["credential_configured"] is True
 
 
+def test_openai_uses_the_same_closed_output_contract_as_other_providers(monkeypatch):
+    fixture = build_fixture()
+    opportunity = next(
+        item
+        for item in fixture["opportunities"]
+        if item.entity_id == "E01" and item.evidence_fact_ids
+    )
+    evidence = {
+        "BANK-ACTIVITY": "Approved aggregate simulation activity.",
+        **{
+            fact_id: "Approved public evidence."
+            for fact_id in opportunity.evidence_fact_ids
+        },
+    }
+    captured = {}
+
+    class FakeResponses:
+        def parse(self, **kwargs):
+            captured.update(kwargs)
+            return type(
+                "FakeResponse",
+                (),
+                {
+                    "output_parsed": DeterministicProvider().generate(
+                        opportunity, evidence, "test-user"
+                    ),
+                    "usage": None,
+                },
+            )()
+
+    class FakeClient:
+        responses = FakeResponses()
+
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL_SNAPSHOT", "gpt-5.6-sol")
+    monkeypatch.setenv("OPENAI_PROVIDER_APPROVED", "true")
+
+    provider = OpenAIResponsesProvider(client_factory=lambda **_: FakeClient())
+    provider.generate(opportunity, evidence, "test-user")
+
+    payload = json.loads(captured["input"])
+    assert payload["output_contract"]["required_claim_ids"] == [
+        "observed-activity",
+        "posterior-wallet",
+    ]
+    assert payload["output_contract"]["abstention_required"] is True
+    assert "Return exactly two claims" in captured["instructions"]
+    assert "Do not repeat dates" in captured["instructions"]
+    assert captured["model"] == "gpt-5.6-sol"
+    assert captured["store"] is False
+    assert captured["tools"] == []
+
+
 def test_claim_compiler_normalizes_display_format_but_rejects_invented_numbers():
     narrative = BankerNarrative(
         headline="Validate the opportunity",

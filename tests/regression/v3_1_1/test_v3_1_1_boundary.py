@@ -35,7 +35,7 @@ def current() -> dict:
 
 
 def test_boundary_declares_its_version(frozen: dict) -> None:
-    assert frozen["boundary_version"] == "v3.1.1-regression-boundary-1.1.0"
+    assert frozen["boundary_version"] == "v3.1.1-regression-boundary-1.2.0"
     assert frozen["solution_version"] == "3.1.1"
 
 
@@ -72,8 +72,8 @@ def test_v32_extended_the_api_rather_than_replacing_it(current: dict) -> None:
 
     live = api_surface("contracts/openapi.json")
     promotion = [path for path in live["paths"] if path.startswith("/v3/promotion")]
-    assert len(promotion) == 12
-    assert len(live["paths"]) == 48 + 12
+    assert len(promotion) == 20
+    assert len(live["paths"]) == 48 + 20
 
 
 def test_evidence_surface_is_unchanged(frozen: dict, current: dict) -> None:

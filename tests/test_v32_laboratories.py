@@ -1,4 +1,4 @@
-"""The seven simulation laboratories.
+"""The V3.2 simulation laboratories.
 
 The tests that matter here are the ones about what a laboratory *cannot*
 establish: that a simulated RM session can never satisfy the adoption gate,
@@ -49,20 +49,20 @@ def report() -> dict:
 
 
 # --------------------------------------------------------------------------
-# There are seven, and each says what it does not establish
+# Every governed laboratory says what it does not establish
 # --------------------------------------------------------------------------
 
 
-def test_there_are_seven_laboratories(report: dict) -> None:
-    assert len(LABORATORY_VERSIONS) == 7
+def test_the_governed_laboratory_register_is_complete(report: dict) -> None:
+    assert len(LABORATORY_VERSIONS) == 9
     for name in LABORATORY_VERSIONS:
         assert name in report, name
 
 
 def test_every_laboratory_states_what_it_does_not_establish(report: dict) -> None:
     """A number without its limits is how a rehearsal becomes evidence."""
-    for name in ("calibration", "sample_size", "economics", "timing",
-                 "causal_operating_characteristics"):
+    for name in ("calibration", "sample_size", "synthetic_e3_panel", "economics", "timing",
+                 "causal_operating_characteristics", "causal_trial_design", "genai_readiness"):
         assert "bank_meaning" in report[name], name
         assert len(report[name]["bank_meaning"]) > 60, name
 
@@ -74,8 +74,8 @@ def test_the_run_declares_the_four_open_gaps(report: dict) -> None:
 
 
 def test_all_laboratory_evidence_is_synthetic(report: dict) -> None:
-    for name in ("calibration", "sample_size", "economics", "timing",
-                 "causal_operating_characteristics"):
+    for name in ("calibration", "sample_size", "synthetic_e3_panel", "economics", "timing",
+                 "causal_operating_characteristics", "causal_trial_design"):
         block = report[name]
         mode = block.get("evidence_mode") or block["plan"]["mode"]
         assert mode == "SYNTHETIC_REHEARSAL", name

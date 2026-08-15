@@ -122,7 +122,10 @@ class GateDefinition(StrictModel):
 
     @model_validator(mode="after")
     def _real_minimum_is_real(self) -> "GateDefinition":
-        if is_synthetic(self.minimum_real_evidence_mode):
+        if (
+            is_synthetic(self.minimum_real_evidence_mode)
+            or self.minimum_real_evidence_mode is PromotionEvidenceMode.NOT_AVAILABLE
+        ):
             raise ValueError(
                 f"gate {self.gate_id}: minimum_real_evidence_mode cannot be "
                 "SYNTHETIC_REHEARSAL; a real gate is not satisfiable by simulation"
@@ -294,6 +297,11 @@ class PromotionApproval(StrictModel):
     """
 
     approval_id: str
+    #: The exact decision version the maker/checker reviewed. A transition
+    #: approval without this binding could be replayed after the evidence or
+    #: policy behind the decision changed.
+    decision_id: str
+    decision_payload_sha256: str = Field(pattern="^[0-9a-f]{64}$")
     transition_id: str
     track: DecisionTrack
     submitted_by: str

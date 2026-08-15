@@ -50,6 +50,38 @@ COMPONENTS: Tuple[EconomicComponent, ...] = (
     EconomicComponent("capital-charge", "Capital charge", "TREASURY", 0.0040, 0.0120),
 )
 
+SOLUTION_CATALOGUE: Tuple[str, ...] = (
+    "COLLECTIONS",
+    "PAYMENTS",
+    "LIQUIDITY_CASH_MANAGEMENT",
+    "CROSS_BORDER_FX",
+    "TRADE_FINANCE",
+    "SUPPLY_CHAIN_FINANCE",
+    "GUARANTEES_LETTERS_OF_CREDIT",
+    "WORKING_CAPITAL_REVOLVING_CREDIT",
+    "TERM_SYNDICATED_LENDING",
+    "DEBT_CAPITAL_MARKETS",
+    "PROJECT_FINANCE",
+    "INTEREST_RATE_RISK_MANAGEMENT",
+    "COMMODITY_RISK_MANAGEMENT",
+    "ESCROW_AGENCY_SERVICES",
+    "SUSTAINABLE_FINANCE",
+    "M_AND_A_STRATEGIC_ADVISORY",
+)
+
+LEDGER_COMPONENTS: Tuple[str, ...] = (
+    "revenue",
+    "ftp",
+    "expected_loss",
+    "capital",
+    "liquidity",
+    "hedging",
+    "execution",
+    "operating",
+    "implementation",
+    "cost_to_win",
+)
+
 
 def latin_hypercube(
     components: Sequence[EconomicComponent], samples: int, seed: int
@@ -162,11 +194,116 @@ def reconcile(
     }
 
 
+def _correlated_lhs(samples: int, dimensions: int, seed: int) -> np.ndarray:
+    """Gaussian-copula Latin hypercube with a governed, positive-definite matrix."""
+    from scipy.stats import norm
+
+    base_components = tuple(
+        EconomicComponent(f"d{index}", f"Dimension {index}", "POLICY", 0.0, 1.0)
+        for index in range(dimensions)
+    )
+    uniforms = np.clip(latin_hypercube(base_components, samples, seed), 1e-9, 1 - 1e-9)
+    normals = norm.ppf(uniforms)
+    correlation = np.eye(dimensions)
+    # Revenue and funding costs move together; loss/capital/liquidity form a
+    # second block. The small coefficients keep the matrix safely positive.
+    correlation[0, 1] = correlation[1, 0] = 0.25
+    for left, right in ((2, 3), (2, 4), (3, 4), (5, 6), (7, 8), (8, 9)):
+        correlation[left, right] = correlation[right, left] = 0.18
+    transformed = normals @ np.linalg.cholesky(correlation).T
+    return norm.cdf(transformed)
+
+
+def portfolio_economics_report(
+    *, samples: int = 10_000, seed: int = 20260630
+) -> Dict[str, object]:
+    """Full 16-solution simulated policy ledger and downside sensitivity.
+
+    This is deliberately a rehearsal policy: every component is effective-dated
+    and owner-labelled, but none is a bank-approved rate. The result therefore
+    exercises the economics and fail-closed gates without enabling a real money
+    value on any client opportunity.
+    """
+    if samples < 10_000:
+        raise ValueError("the canonical economics rehearsal requires at least 10,000 draws")
+    uniforms = _correlated_lhs(samples, len(LEDGER_COMPONENTS), seed)
+    solution_rows: List[Dict[str, object]] = []
+    all_totals: List[np.ndarray] = []
+
+    for index, solution in enumerate(SOLUTION_CATALOGUE):
+        notional = 8_000_000.0 + index * 1_750_000.0
+        revenue = notional * (0.004 + 0.006 * uniforms[:, 0])
+        rates = {
+            "ftp": 0.0005 + 0.0025 * uniforms[:, 1],
+            "expected_loss": 0.0001 + (0.0035 if "LENDING" in solution or "FINANCE" in solution else 0.0010) * uniforms[:, 2],
+            "capital": 0.0002 + 0.0028 * uniforms[:, 3],
+            "liquidity": 0.0001 + 0.0018 * uniforms[:, 4],
+            "hedging": 0.0001 + 0.0014 * uniforms[:, 5],
+            "execution": 0.0002 + 0.0012 * uniforms[:, 6],
+            "operating": 0.0003 + 0.0015 * uniforms[:, 7],
+        }
+        parts: Dict[str, np.ndarray] = {"revenue": revenue}
+        for component, rate in rates.items():
+            parts[component] = -notional * rate
+        parts["implementation"] = -(25_000 + 125_000 * uniforms[:, 8])
+        parts["cost_to_win"] = -(15_000 + 100_000 * uniforms[:, 9])
+        total = np.sum(np.column_stack([parts[name] for name in LEDGER_COMPONENTS]), axis=1)
+        all_totals.append(total)
+        component_sum = np.sum(np.column_stack(list(parts.values())), axis=1)
+        max_difference = float(np.max(np.abs(total - component_sum)))
+        hurdle = notional * 0.0025
+        gross_revenue = np.maximum(revenue, 1.0)
+        fixed_cost = -(parts["implementation"] + parts["cost_to_win"])
+        solution_rows.append(
+            {
+                "solution": solution,
+                "draws": samples,
+                "notional": notional,
+                "expected_contribution": round(float(np.mean(total)), 2),
+                "p05": round(float(np.quantile(total, 0.05)), 2),
+                "p50": round(float(np.quantile(total, 0.50)), 2),
+                "p95": round(float(np.quantile(total, 0.95)), 2),
+                "probability_positive": round(float(np.mean(total > 0)), 6),
+                "probability_hurdle_met": round(float(np.mean(total >= hurdle)), 6),
+                "downside_cvar_10": round(float(np.mean(total[total <= np.quantile(total, 0.10)])), 2),
+                "break_even_target_share": round(float(np.median(np.clip(fixed_cost / gross_revenue, 0, 1))), 6),
+                "max_reconciliation_difference": round(max_difference, 8),
+                "reconciles": max_difference <= RECONCILIATION_TOLERANCE,
+            }
+        )
+
+    portfolio = np.sum(np.column_stack(all_totals), axis=1)
+    base = reconcile(samples=samples, seed=seed)
+    return {
+        **base,
+        "lab_version": "v32-economics-policy-simulator-2.0.0",
+        "source_mode": "SIMULATED_POLICY",
+        "policy_version": "v32-representative-economics-policy-1.0.0",
+        "effective_from": "2026-01-01",
+        "effective_to": "2026-12-31",
+        "solution_count": len(SOLUTION_CATALOGUE),
+        "ledger_components": list(LEDGER_COMPONENTS),
+        "solutions": solution_rows,
+        "portfolio": {
+            "expected_contribution": round(float(np.mean(portfolio)), 2),
+            "p05": round(float(np.quantile(portfolio, 0.05)), 2),
+            "p95": round(float(np.quantile(portfolio, 0.95)), 2),
+            "probability_positive": round(float(np.mean(portfolio > 0)), 6),
+            "downside_cvar_10": round(float(np.mean(portfolio[portfolio <= np.quantile(portfolio, 0.10)])), 2),
+        },
+        "owner_roles": ["PRODUCT_FINANCE", "TREASURY", "RISK", "OPERATIONS"],
+        "real_mode_behavior": "FAIL_CLOSED_UNTIL_BANK_ATTESTED_RATE_CARDS",
+    }
+
+
 __all__ = [
     "COMPONENTS",
     "ECONOMICS_LAB_VERSION",
     "RECONCILIATION_TOLERANCE",
     "EconomicComponent",
     "latin_hypercube",
+    "portfolio_economics_report",
     "reconcile",
+    "LEDGER_COMPONENTS",
+    "SOLUTION_CATALOGUE",
 ]

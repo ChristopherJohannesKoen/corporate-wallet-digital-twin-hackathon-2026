@@ -1,4 +1,4 @@
-# V3.1.1 judging map
+# V3.2.0 judging map
 
 | Criterion | What to show | Canonical evidence |
 |---|---|---|
@@ -35,9 +35,9 @@
 
 | Question | Answer |
 |---|---|
-| What does V3.2 add? | The question V3.1.1 could not express: *is this system allowed to be used, and for what?* Five ordered states, 24 gates, and a capability register. |
+| What does V3.2 add? | The question V3.1.1 could not express: *is this system allowed to be used, and for what?* Five ordered states, 30 gates, two evidence tracks and a capability register. |
 | Is the system promoted? | No. Real state is `OFFLINE_CANDIDATE`. `BANK_SHADOW_AUTHORIZED = FALSE`. |
-| Then what does "rehearsed to CAUSAL_CHAMPION" mean? | Only that the promotion machinery works end to end. It says nothing about bank authorisation, which is why the two tracks are reported separately and never merged. |
+| Why does the rehearsal stop at SHADOW_READY while PMR is 100%? | Every gate evaluator has positive and negative machinery tests, but only the first transition received a four-eyes rehearsal approval. Passing metrics alone never advances state. |
 | PMR is 100% — is that good? | It means the apparatus works. **BER is 0%**: the bank has no admissible evidence. The two disagreeing is the finding, which is why there is no combined score. |
 | Why no single promotability percentage? | It would let a fully rehearsed system with no bank evidence read as nearly production-ready. `assert_no_composite_score` enforces the prohibition in four places. |
 | You report 30 shadow days — is that a month of operation? | No. Those are *simulated* days on a virtual clock. `elapsed_bank_shadow_days = 0` is published beside them everywhere, and the clock has no field, method or parameter that could advance it. |

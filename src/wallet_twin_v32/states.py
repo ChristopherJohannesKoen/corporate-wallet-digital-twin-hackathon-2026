@@ -116,6 +116,16 @@ class PromotionCapability(str, Enum):
     CAUSAL_VALUE_CLAIM = "CAUSAL_VALUE_CLAIM"
     #: Take a client-affecting action without a human deciding.
     AUTONOMOUS_CLIENT_ACTION = "AUTONOMOUS_CLIENT_ACTION"
+    # V3.2 consequence-level capabilities. These are the banker-facing
+    # permissions required by the Promotion Twin plan; the older operational
+    # capabilities above remain as compatibility projections.
+    DISCOVERY_CONVERSATION = "DISCOVERY_CONVERSATION"
+    POSTERIOR_WALLET = "POSTERIOR_WALLET"
+    MEASURED_SHARE = "MEASURED_SHARE"
+    SCENARIO_ECONOMICS = "SCENARIO_ECONOMICS"
+    PRODUCT_PROPOSAL = "PRODUCT_PROPOSAL"
+    LIVE_GENAI = "LIVE_GENAI"
+    CAUSAL_VALUE = "CAUSAL_VALUE"
 
 
 #: The lowest state at which a capability *could* be granted. Necessary, never
@@ -130,6 +140,13 @@ CAPABILITY_STATE_THRESHOLD: Mapping[PromotionCapability, PromotionState] = {
     PromotionCapability.COMMERCIAL_VALUE_CLAIM: PromotionState.SHADOW_READY,
     PromotionCapability.CAUSAL_VALUE_CLAIM: PromotionState.CAUSAL_CHAMPION,
     PromotionCapability.AUTONOMOUS_CLIENT_ACTION: PromotionState.CAUSAL_CHAMPION,
+    PromotionCapability.DISCOVERY_CONVERSATION: PromotionState.PILOT_READY,
+    PromotionCapability.POSTERIOR_WALLET: PromotionState.PILOT_READY,
+    PromotionCapability.MEASURED_SHARE: PromotionState.SHADOW_READY,
+    PromotionCapability.SCENARIO_ECONOMICS: PromotionState.OFFLINE_CANDIDATE,
+    PromotionCapability.PRODUCT_PROPOSAL: PromotionState.PILOT_READY,
+    PromotionCapability.LIVE_GENAI: PromotionState.SHADOW_READY,
+    PromotionCapability.CAUSAL_VALUE: PromotionState.CAUSAL_CHAMPION,
 }
 
 #: Gate ids that must additionally hold on the REAL track before a capability is
@@ -147,6 +164,20 @@ EVIDENCE_PREREQUISITES: Mapping[PromotionCapability, FrozenSet[str]] = {
         {"bank-approved-economics-registered"}
     ),
     PromotionCapability.CAUSAL_VALUE_CLAIM: frozenset(
+        {"randomised-trial-validated", "trial-first-stage-strength-adequate"}
+    ),
+    PromotionCapability.MEASURED_SHARE: frozenset(
+        {"e3-multibank-observation-approved"}
+    ),
+    PromotionCapability.PRODUCT_PROPOSAL: frozenset(
+        {
+            "bank-approved-economics-registered",
+            "feasibility-gates-block-selection",
+            "selected-critical-path-evidence-complete",
+        }
+    ),
+    PromotionCapability.LIVE_GENAI: frozenset({"genai-bank-approved"}),
+    PromotionCapability.CAUSAL_VALUE: frozenset(
         {"randomised-trial-validated", "trial-first-stage-strength-adequate"}
     ),
 }

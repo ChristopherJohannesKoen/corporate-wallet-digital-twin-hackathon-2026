@@ -1,88 +1,236 @@
 {
-  "policy_version": "mlflow-promotion-policy-3.1.1",
-  "registry_uri": "databricks-uc",
-  "registered_model_prefix": "wallet_twin.models",
-  "aliases": ["candidate", "shadow", "champion", "rollback"],
-  "required_artifacts": [
-    "model",
-    "environment-lock",
-    "point-in-time-dataset-manifest",
-    "feature-transformation-manifest",
-    "prior-manifest",
-    "posterior-diagnostics",
-    "validation-report",
-    "model-card",
-    "shadow-wallet-transport-manifest",
-    "pu-selection-mechanism-manifest",
-    "change-point-hazard-manifest",
-    "public-sensor-snapshot",
-    "cvar-scenario-policy",
-    "voi-policy",
-    "composed-v3-validation-report",
-    "business-domain-taxonomy",
-    "problem-detection-policy-and-validation",
-    "stakeholder-responsibility-matrix",
-    "problem-solution-compatibility-matrix",
-    "solution-family-estimator-manifests",
-    "funding-route-scorecard-and-challenger-report",
-    "client-value-formula-registry",
-    "feasibility-and-lead-time-policy",
-    "graph-ontology-and-extraction-policy",
-    "pareto-dominance-policy",
-    "v31-cvar-coverage-policy",
-    "v31-voi-question-answer-model",
-    "v31-genai-schema-and-golden-set-report",
-    "composed-v31-validation-report",
-    "sbom",
-    "container-signature"
-  ],
-  "promotion_gates": {
-    "candidate_to_shadow": [
-      "independent_reproduction",
-      "zero_point_in_time_leakage",
-      "shadow_wallet_mass_balance_exact",
-      "transport_marginals_costs_and_regularization_registered",
-      "provider_nodes_anonymous_and_nonattributable",
-      "pu_selection_mechanism_and_class_prior_registered",
-      "bocpd_hazard_and_baseline_registered",
-      "public_sensor_snapshot_point_in_time_eligible",
-      "cvar_scenarios_seeded_and_constraints_satisfied",
-      "voi_policy_positive_net_value_and_human_approval_required",
-      "no_measured_competitor_share_without_e3",
-      "no_causal_incremental_value_without_trial_validation",
-      "90pct_coverage_between_85pct_and_95pct",
-      "crps_improvement_at_least_10pct",
-      "no_material_segment_severe_undercoverage"
-      ,"all_16_solution_estimators_registered"
-      ,"business_graph_point_in_time_validation_passed"
-      ,"pending_or_rejected_claims_excluded_from_eligible_paths"
-      ,"client_and_bank_value_separated"
-      ,"failed_feasibility_gates_block_selection"
-      ,"unknown_material_gates_create_discovery_only"
-      ,"pareto_and_coverage_plan_reproducible"
-      ,"positive_net_voi_and_decision_effect_required"
-    ],
-    "shadow_to_champion": [
-      "all_candidate_to_shadow_gates",
-      "approved_e3_calibration_panel",
-      "approved_economics",
-      "v3_transport_and_pu_independent_validation",
-      "v3_change_point_false_alarm_validation",
-      "v3_portfolio_policy_stress_validation",
-      "v3_voi_policy_validation",
-      "business_domain_ontology_approved",
-      "stakeholder_responsibility_policy_approved",
-      "solution_family_models_independently_validated",
-      "client_value_methodology_approved",
-      "solution_specific_economics_approved",
-      "feasibility_and_conduct_policy_approved",
-      "funding_route_and_problem_detection_empirically_validated",
-      "security_and_entitlement_approval",
-      "30_elapsed_clean_shadow_days",
-      "model_risk_approval"
-    ]
-  },
+  "accountable_approval_required": true,
   "automatic_promotion": false,
   "automatic_rollback": false,
-  "rollback_alias_required": true
+  "capabilities": {
+    "AUTONOMOUS_CLIENT_ACTION": {
+      "minimum_state": "CAUSAL_CHAMPION",
+      "permanently_withheld": true,
+      "required_real_gates": []
+    },
+    "CAUSAL_VALUE": {
+      "minimum_state": "CAUSAL_CHAMPION",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "randomised-trial-validated",
+        "trial-first-stage-strength-adequate"
+      ]
+    },
+    "CAUSAL_VALUE_CLAIM": {
+      "minimum_state": "CAUSAL_CHAMPION",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "randomised-trial-validated",
+        "trial-first-stage-strength-adequate"
+      ]
+    },
+    "COMMERCIAL_VALUE_CLAIM": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "bank-approved-economics-registered"
+      ]
+    },
+    "DISCOVERY_CONVERSATION": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "HIDDEN_SHADOW_SCORING": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "LIVE_GENAI": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "genai-bank-approved"
+      ]
+    },
+    "MEASURED_SHARE": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "e3-multibank-observation-approved"
+      ]
+    },
+    "MEASURED_SHARE_REPORTING": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "e3-multibank-observation-approved"
+      ]
+    },
+    "OFFLINE_ANALYSIS": {
+      "minimum_state": "OFFLINE_CANDIDATE",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "POSTERIOR_WALLET": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "PRODUCTION_RM_DECISION_SUPPORT": {
+      "minimum_state": "SCALE_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "PRODUCT_PROPOSAL": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "bank-approved-economics-registered",
+        "feasibility-gates-block-selection",
+        "selected-critical-path-evidence-complete"
+      ]
+    },
+    "SCENARIO_ECONOMICS": {
+      "minimum_state": "OFFLINE_CANDIDATE",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "SUPERVISED_RM_PILOT": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "SYNTHETIC_DEMONSTRATION": {
+      "minimum_state": "OFFLINE_CANDIDATE",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    }
+  },
+  "engine_version": "v32-promotion-engine-1.1.0",
+  "events": {
+    "event_types": [
+      "PromotionEvidenceSubmitted",
+      "PromotionEvidenceVerified",
+      "GateEvaluationCompleted",
+      "PromotionDecisionIssued",
+      "PromotionApprovalRecorded",
+      "PromotionTransitionRecorded",
+      "RehearsalStarted",
+      "RehearsalDayCompleted",
+      "RehearsalIncidentInjected",
+      "RehearsalClockReset",
+      "PromotionEvidenceExpired",
+      "PromotionArtifactRevoked",
+      "PromotionGateEvaluated",
+      "PromotionEvidenceRegistered",
+      "PromotionEvidenceSigned",
+      "PromotionEvidenceVerificationFailed",
+      "PromotionDecisionPublished",
+      "PromotionApprovalSubmitted",
+      "PromotionApprovalReviewed",
+      "PromotionStateAdvanced",
+      "PromotionCapabilityGranted",
+      "PromotionCapabilityRefused",
+      "RehearsalScenarioExecuted"
+    ],
+    "events_version": "v32-promotion-events-1.1.0",
+    "note": "Every promotion event carries its track, so an audit reader can tell a rehearsal event from a real one without resolving anything else. Adding this topic required widening a hardcoded CHECK constraint in the Postgres outbox, which would otherwise have failed at insert time in production.",
+    "topics": [
+      "wallet-twin.promotion.v1"
+    ]
+  },
+  "evidence_mode_policy_version": "v32-evidence-mode-policy-1.0.0",
+  "evidence_modes": {
+    "BANK_ATTESTED": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 1.0
+    },
+    "NOT_AVAILABLE": {
+      "admissible_on_real_track": false,
+      "bank_evidence_weight": 0.0
+    },
+    "PUBLIC_APPROVED": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 1.0
+    },
+    "PUBLIC_PACKAGE": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 1.0
+    },
+    "REAL_BANK": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 1.0
+    },
+    "SIMULATED_POLICY": {
+      "admissible_on_real_track": false,
+      "bank_evidence_weight": 0.0
+    },
+    "SYNTHETIC_REHEARSAL": {
+      "admissible_on_real_track": false,
+      "bank_evidence_weight": 0.0
+    }
+  },
+  "legacy_vocabulary_unified": {
+    "aliases_mapped": 38,
+    "note": "The MLflow policy declared two transitions and was never parsed by any code. Its gate ids are preserved here as aliases so earlier artifacts remain traceable.",
+    "superseded_sources": [
+      "src/wallet_twin_v2/release_gates.py",
+      "config/mlflow_promotion_policy.json@3.1.1"
+    ]
+  },
+  "policy_version": "v32-promotion-policy-1.0.0",
+  "scoring": {
+    "bank_evidence_readiness": "real track; synthetic evidence contributes zero, because the question is whether the bank has the evidence",
+    "composite_prohibited": "No single promotability figure is published. A composite would let a working rehearsal read as progress toward production.",
+    "promotion_machinery_readiness": "rehearsal track; synthetic evidence counts, because the question is whether the machinery works"
+  },
+  "scoring_version": "v32-promotion-scoring-1.0.0",
+  "state_machine_version": "v32-promotion-state-machine-1.0.0",
+  "states": [
+    "OFFLINE_CANDIDATE",
+    "SHADOW_READY",
+    "PILOT_READY",
+    "SCALE_READY",
+    "CAUSAL_CHAMPION"
+  ],
+  "tracks": {
+    "REAL": "governs actual bank authorisation",
+    "REHEARSAL": "proves the promotion machinery works"
+  },
+  "transitions": {
+    "OFFLINE_CANDIDATE__TO__SHADOW_READY": [
+      "independent-reproduction",
+      "point-in-time-zero-leakage",
+      "reconciliation-exact",
+      "interval-coverage-90",
+      "crps-improvement",
+      "genai-schema-and-fidelity",
+      "prompt-injection-resistance",
+      "entitlement-negative-tests",
+      "supply-chain-clean",
+      "feasibility-gates-block-selection"
+    ],
+    "PILOT_READY__TO__SCALE_READY": [
+      "supervised-pilot-completed",
+      "bank-approved-economics-registered",
+      "rollback-restores-prior-state",
+      "e3-multibank-observation-approved",
+      "pilot-findings-remediated",
+      "scale-operating-model-approved"
+    ],
+    "SCALE_READY__TO__CAUSAL_CHAMPION": [
+      "randomised-trial-validated",
+      "trial-first-stage-strength-adequate",
+      "sustained-adoption"
+    ],
+    "SHADOW_READY__TO__PILOT_READY": [
+      "elapsed-clean-shadow-days",
+      "service-availability",
+      "read-latency-p95",
+      "event-latency",
+      "refresh-by-0600-sast",
+      "no-unresolved-sev1-sev2",
+      "model-risk-approval",
+      "selected-critical-path-evidence-complete",
+      "selected-value-e2-coverage",
+      "genai-bank-approved",
+      "rm-pilot-protocol-approved"
+    ]
+  }
 }

@@ -19,6 +19,7 @@ from wallet_twin_v32 import (
     DecisionTrack,
     GateEvaluation,
     GateOutcome,
+    PromotionApproval,
     PromotionCapability,
     PromotionEvidenceMode,
     PromotionState,
@@ -78,6 +79,26 @@ def fails(gate_id: str, track: DecisionTrack) -> GateEvaluation:
     )
 
 
+def approves(
+    transition: str, track: DecisionTrack, decision_id: str = "d-release"
+) -> PromotionApproval:
+    return PromotionApproval(
+        approval_id=f"ap-{track.value}-{transition}",
+        decision_id=decision_id,
+        decision_payload_sha256="a" * 64,
+        transition_id=transition,
+        track=track,
+        submitted_by="maker@wallet-twin",
+        submitted_role="ENGINEERING",
+        reviewed_by="checker@wallet-twin",
+        reviewed_role="MODEL_RISK",
+        decision="APPROVED",
+        rationale="Explicit test approval after all blocking gates passed.",
+        submitted_at=NOW,
+        reviewed_at=NOW,
+    )
+
+
 def pass_transition(
     transition: str, track: DecisionTrack, mode: PromotionEvidenceMode
 ) -> List[GateEvaluation]:
@@ -92,7 +113,14 @@ def pass_transition(
 
             if not satisfies_minimum(mode, gate.minimum_real_evidence_mode):
                 effective = gate.minimum_real_evidence_mode
-        results.append(passes(gate.gate_id, track, effective))
+        results.append(
+            passes(
+                gate.gate_id,
+                track,
+                effective,
+                injected=track is DecisionTrack.REHEARSAL,
+            )
+        )
     return results
 
 
@@ -235,7 +263,15 @@ def test_a_null_trial_leaves_the_system_scale_ready() -> None:
         evaluations.extend(pass_transition(transition, DecisionTrack.REAL, ATTESTED))
     evaluations.append(fails("randomised-trial-validated", DecisionTrack.REAL))
 
-    decision = evaluate_promotion(evaluations, decision_id="d-null", as_of=AS_OF)
+    decision = evaluate_promotion(
+        evaluations,
+        approvals=[
+            approves(transition, DecisionTrack.REAL, "d-null")
+            for transition in (OFFLINE_TO_SHADOW, SHADOW_TO_PILOT, PILOT_TO_SCALE)
+        ],
+        decision_id="d-null",
+        as_of=AS_OF,
+    )
     assert decision.real_state is PromotionState.SCALE_READY
     assert PromotionCapability.CAUSAL_VALUE_CLAIM not in decision.granted_capabilities
     assert PromotionCapability.PRODUCTION_RM_DECISION_SUPPORT in decision.granted_capabilities
@@ -292,12 +328,12 @@ def test_no_evaluations_scores_zero_on_both() -> None:
     assert score.bank_evidence_readiness == 0.0
 
 
-def test_public_evidence_earns_partial_bank_readiness() -> None:
-    """A signed image is real evidence about the supply chain and should not
-    score as a bank attestation."""
+def test_public_evidence_pass_counts_only_where_the_gate_permits_it() -> None:
+    """BER counts a real-track PASS; admissibility and the gate minimum are
+    enforced before scoring rather than encoded as a fractional pass."""
     score = compute_score([passes("supply-chain-clean", DecisionTrack.REAL, PUBLIC)])
     weight = 3  # supply-chain-clean is HIGH
-    assert score.ber_weight_earned == pytest.approx(weight * 0.5)
+    assert score.ber_weight_earned == pytest.approx(weight)
 
 
 def test_attested_evidence_earns_full_weight() -> None:
@@ -362,13 +398,17 @@ def test_severity_weighting_means_critical_outweighs_standard() -> None:
 def test_the_honest_hackathon_position_is_representable_and_correct() -> None:
     """A perfect rehearsal, no bank evidence at all — the V3.2 release state."""
     decision = evaluate_promotion(
-        rehearse_everything(), decision_id="d-release", as_of=AS_OF
+        rehearse_everything(),
+        approvals=[approves(OFFLINE_TO_SHADOW, DecisionTrack.REHEARSAL)],
+        decision_id="d-release",
+        as_of=AS_OF,
     )
     assert decision.real_state is PromotionState.OFFLINE_CANDIDATE
-    assert decision.rehearsed_state is PromotionState.CAUSAL_CHAMPION
+    assert decision.rehearsed_state is PromotionState.SHADOW_READY
     assert decision.bank_shadow_authorized is False
     assert decision.passed_real_transitions == []
-    assert len(decision.passed_rehearsal_transitions) == 4
+    assert decision.passed_rehearsal_transitions == [OFFLINE_TO_SHADOW]
+    assert "REHEARSAL_TRANSITIONS_AWAITING_APPROVAL_3" in decision.reason_codes
     assert "REHEARSAL_AHEAD_OF_REAL_AS_EXPECTED" in decision.reason_codes
     assert decision.score.bank_evidence_readiness == 0.0
 
@@ -376,7 +416,12 @@ def test_the_honest_hackathon_position_is_representable_and_correct() -> None:
 def test_bank_shadow_authorized_tracks_the_real_state_only() -> None:
     evaluations = rehearse_everything()
     evaluations.extend(pass_transition(OFFLINE_TO_SHADOW, DecisionTrack.REAL, ATTESTED))
-    decision = evaluate_promotion(evaluations, decision_id="d-2", as_of=AS_OF)
+    decision = evaluate_promotion(
+        evaluations,
+        approvals=[approves(OFFLINE_TO_SHADOW, DecisionTrack.REAL, "d-2")],
+        decision_id="d-2",
+        as_of=AS_OF,
+    )
     assert decision.real_state is PromotionState.SHADOW_READY
     assert decision.bank_shadow_authorized is True
     assert decision.score.bank_evidence_readiness > 0.0
@@ -391,6 +436,15 @@ def test_refused_capabilities_always_carry_a_reason() -> None:
         assert reason, capability
     granted = {item.value for item in decision.granted_capabilities}
     assert not granted & set(decision.refused_capabilities)
+
+
+def test_passing_gates_without_human_approval_never_promotes() -> None:
+    decision = evaluate_promotion(
+        rehearse_everything(), decision_id="d-no-approval", as_of=AS_OF
+    )
+    assert decision.rehearsed_state is PromotionState.OFFLINE_CANDIDATE
+    assert decision.passed_rehearsal_transitions == []
+    assert "REHEARSAL_TRANSITIONS_AWAITING_APPROVAL_4" in decision.reason_codes
 
 
 def test_the_transition_report_shows_both_tracks_for_every_transition() -> None:
@@ -418,11 +472,35 @@ def test_the_breakdown_names_what_would_make_each_real_gate_pass() -> None:
 
 
 def test_gates_never_seen_failing_are_reported_not_silently_counted() -> None:
-    unverified = gates_without_failure_injection(rehearse_everything())
+    unverified = gates_without_failure_injection(
+        [passes(gate.gate_id, DecisionTrack.REHEARSAL, SYNTHETIC) for gate in GATE_CATALOGUE]
+    )
     assert len(unverified) == len(GATE_CATALOGUE)
 
     injected = [passes("reconciliation-exact", DecisionTrack.REHEARSAL, SYNTHETIC, injected=True)]
     assert "reconciliation-exact" not in gates_without_failure_injection(injected)
+
+
+@pytest.mark.parametrize("gate_id", [gate.gate_id for gate in GATE_CATALOGUE])
+def test_every_catalogue_gate_has_a_negative_fail_closed_case(gate_id: str) -> None:
+    """The generic negative matrix behind each PMR credit.
+
+    Domain laboratories exercise richer incidents; this test proves that every
+    blocking catalogue entry can independently veto its own transition.
+    """
+    gate = GATES_BY_ID[gate_id]
+    if not gate.blocking:
+        # Non-blocking gates constrain capabilities rather than state.
+        assert gate.capability_effects, gate_id
+        return
+    evaluations = pass_transition(gate.transition_id, DecisionTrack.REHEARSAL, SYNTHETIC)
+    evaluations = [item for item in evaluations if item.gate_id != gate_id]
+    evaluations.append(fails(gate_id, DecisionTrack.REHEARSAL))
+    satisfied, reasons = transition_satisfied(
+        gate.transition_id, evaluations, DecisionTrack.REHEARSAL
+    )
+    assert satisfied is False
+    assert f"FAIL:{gate_id}" in reasons
 
 
 def test_legacy_gate_vocabularies_both_resolve_to_one_catalogue() -> None:

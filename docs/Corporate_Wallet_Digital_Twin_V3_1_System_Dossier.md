@@ -1,10 +1,10 @@
-# Corporate Wallet Digital Twin V3.1.1
+# Corporate Wallet Digital Twin V3.2.0
 
 ## Complete System Dossier
 
 **Prepared for:** Christopher Koen
 
-**Document purpose:** Authoritative description of the V3 system, analytical theory, operating model, controls, implementation state and production handoff
+**Document purpose:** Authoritative description of the V3 system, analytical theory, operating model, promotion controls, implementation state and production handoff
 
 **As-of date:** 12 August 2026
 
@@ -13,6 +13,62 @@
 **Classification:** Project working document â€” public, representative, and simulated data only
 
 **Deployed demonstration:** https://corporate-wallet-digital-twin.christopherkoen.chatgpt.site/
+
+---
+
+## V3.2 authoritative promotion-readiness layer
+
+V3.2 adds a Promotion Readiness Twin beside the Wallet and Decision Twins. The
+Wallet Twin estimates opportunity and the Decision Twin converts that estimate
+into an evidence-linked conversation. The Promotion Twin determines whether a
+capability may be used at progressively higher consequence. It is additive: no
+wallet, evidence, economics, timing, feasibility, Decision Twin or GenAI
+interpretation boundary is weakened.
+
+The state machine is
+`OFFLINE_CANDIDATE → SHADOW_READY → PILOT_READY → SCALE_READY → CAUSAL_CHAMPION`.
+Thirty cumulative gates across four transitions are generated from the same
+catalogue the engine evaluates. Each gate is evaluated simultaneously on a
+`REAL` track and a `REHEARSAL` track. The former governs bank authorization;
+the latter proves that the mechanism and its fail-closed behavior work.
+
+`PromotionEvidenceMode` is independent of both `EvidenceTier` and `ClaimClass`:
+`REAL_BANK`, `BANK_ATTESTED`, `PUBLIC_APPROVED`, `PUBLIC_PACKAGE`,
+`SYNTHETIC_REHEARSAL`, `SIMULATED_POLICY`, and `NOT_AVAILABLE`. The server
+derives effective mode from the signed envelope and trust policy. A local
+rehearsal ECDSA key cannot sign real-bank or bank-attested evidence; a claimed
+real mode signed by a rehearsal key is rejected. RFC 8785 canonical JSON is
+wrapped in a DSSE-style envelope. Expiry, revocation, payload alteration,
+environment mismatch and maker/checker identity equality all fail closed.
+
+State and consequence-level capability are deliberately separate. Discovery
+conversation, posterior wallet, measured share, scenario economics, product
+proposal, live GenAI and causal value are each granted or refused from explicit
+prerequisite gates. Hidden shadow can therefore operate while E3 and economics
+are unavailable, but measured share and commercial value remain disabled. A
+failed legal or conduct gate blocks a proposal at any commercial value. Causal
+value is always null before independently validated positive randomized
+evidence; a null trial leaves non-causal decision support at `SCALE_READY`.
+
+Two informational scores are published and never blended. Promotion Machinery
+Readiness counts implemented evaluators only when signed rehearsal evidence,
+positive tests and failure-injection tests exist. Bank Evidence Readiness counts
+only real-track passes; synthetic and simulated evidence contribute zero. At
+this release PMR is 100%, BER is 0%, the real state is `OFFLINE_CANDIDATE`, the
+highest approved rehearsal state is `SHADOW_READY`; later-state evaluators pass
+their positive and negative machinery tests but no accountable rehearsal
+approval was issued for those transitions. Bank production remains
+`NOT_PROMOTABLE`. The accelerated rehearsal reaches 30 consecutive clean days
+only after a day-17 reconciliation incident resets the counter; the separately
+published `elapsed_bank_shadow_days` remains zero.
+
+The authoritative implementation comprises the twelfth `promotion` service,
+20 additive `/v3/promotion` paths, 12 strict contract schemas, the promotion
+event topic, service-owned append-only PostgreSQL workflow tables, seven
+append-only Delta governance products, a generated five-state MLflow artifact
+policy, the fifth workbench governance view and nine deterministic simulation
+laboratories. Full theory, gate definitions and open external requirements are
+in `docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md`.
 
 ---
 
@@ -830,7 +886,7 @@ Governed tags identify entitled objects, client ID and `sensitive_economics`. Un
 
 MLflow aliases are `candidate`, `shadow`, `champion` and `rollback`. A candidate must include the model, environment lock, point-in-time dataset manifest, feature transformation, prior, diagnostics, validation report, model card, SBOM and signature. V3 additionally requires the Shadow Wallet transport manifest, PU selection-mechanism manifest, change-point hazard manifest, public-sensor snapshot, CVaR scenario policy, VOI policy and composed V3 validation report.
 
-Candidate-to-shadow gates include independent reproduction, zero future leakage, exact Shadow Wallet mass balance, registered transport marginals/costs/regularization, anonymous providers, registered PU selection/class prior, registered BOCPD hazard/baseline, a point-in-time public-sensor snapshot, seeded constraint-satisfying CVaR scenarios, positive-net-VOI with human approval, zero measured/causal mislabelling, overall 90% interval coverage between 85% and 95%, at least 10% CRPS improvement and no severe material-segment undercoverage. Shadow-to-champion additionally requires independent V3 transport/PU/change/portfolio/VOI validation, a representative E3 panel, approved economics, security and entitlement approval, 30 clean production-shadow days and model-risk approval. Promotion and rollback are human-authorized; no automatic model promotion is permitted.
+V3.2 replaces the former candidate-to-shadow/shadow-to-champion policy with four cumulative transitions across five states: `OFFLINE_CANDIDATE`, `SHADOW_READY`, `PILOT_READY`, `SCALE_READY` and `CAUSAL_CHAMPION`. Thirty governed gates are evaluated separately on REAL and REHEARSAL tracks. A transition advances only when every blocking gate passes and an accountable four-eyes approval is bound to the exact signed decision id and RFC 8785 payload hash. Synthetic evidence may prove the machinery but contributes zero to Bank Evidence Readiness and cannot authorize a bank transition. Missing E3, economics, feasibility or causal evidence disables only the dependent capability where the state policy permits that separation. Promotion and rollback remain human-authorized; no automatic model promotion is permitted.
 
 # 16. Workbench and user experience
 

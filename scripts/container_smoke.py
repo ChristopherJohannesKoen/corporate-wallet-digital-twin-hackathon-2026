@@ -28,7 +28,9 @@ import urllib.request
 BASE = "http://127.0.0.1:8080"
 DECISION = f"{BASE}/v3/decision-twin?as_of=2026-06-30&week_start=2026-07-06"
 WALLET = f"{BASE}/v3/wallet-portfolio?as_of=2026-06-30"
-VERSION = "3.1.1"
+VERSION = "3.2.0"
+FROZEN_DECISION_VERSION = "3.1.1"
+PROMOTION = f"{BASE}/v3/promotion/readiness?as_of=2026-06-30&target_state=SHADOW_READY"
 
 ENTITLED = {
     "x-user-id": "ci-smoke",
@@ -83,10 +85,23 @@ def main() -> int:
     expect_status(DECISION, WRONG_ROLE, 403, "authenticated wrong-role read is refused")
 
     payload = get(DECISION, ENTITLED)
-    assert payload["metadata"]["version"] == VERSION, payload["metadata"]["version"]
+    # The Decision Twin body is the frozen V3.1.1 compatibility contract; the
+    # ASGI service and additive Promotion surface carry the V3.2 release.
+    assert payload["metadata"]["version"] == FROZEN_DECISION_VERSION, payload["metadata"]["version"]
     entries = len(payload["coverage_plan"]["entries"])
     assert entries == 8, f"coverage plan has {entries} entries, expected 8"
-    print(f"PASS entitled read: version {VERSION}, {entries} coverage-plan entries")
+    print(
+        f"PASS entitled read: frozen decision contract {FROZEN_DECISION_VERSION}, "
+        f"{entries} coverage-plan entries"
+    )
+
+    promotion = get(PROMOTION, ENTITLED)
+    assert promotion["repository_version"] == "v32-promotion-repository-1.0.0"
+    assert len(promotion["gate_breakdown"]) == 30
+    assert promotion["decision"]["score"]["promotion_machinery_readiness"] == 1.0
+    assert promotion["decision"]["score"]["bank_evidence_readiness"] == 0.0
+    assert promotion["decision"]["bank_shadow_authorized"] is False
+    print("PASS promotion surface: V3.2, 30 gates, PMR 100%, BER 0%, bank shadow false")
 
     wallet = get(WALLET, ENTITLED)
     assert len(wallet["cells"]) == 100, len(wallet["cells"])

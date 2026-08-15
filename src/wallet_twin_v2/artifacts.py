@@ -81,10 +81,13 @@ NON_REPRODUCIBLE_DELIVERABLES: dict[str, str] = {
     "output/presentation/Corporate-Wallet-Digital-Twin.pptx": "OOXML stamps a creation date",
     "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx": "OOXML stamps a creation date",
     "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx.inspect.ndjson": "derived from the workbook",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx": "OOXML stamps a creation date",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx.inspect.ndjson": "derived from the workbook",
     "outputs/audit/Public-Facts-Anchor-Register.inspect.json": "derived from the workbook",
     # The manifest records a real build time, so it necessarily differs from the
     # committed copy. It also cannot be an input to its own verdict.
     "outputs/judging_manifest_v3.1.1.json": "records the actual build time; self-referential",
+    "outputs/judging_manifest_v3.2.0.json": "records the actual build time; self-referential",
 }
 
 

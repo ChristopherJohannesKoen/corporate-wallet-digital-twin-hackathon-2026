@@ -345,6 +345,83 @@
       "what_would_make_real_pass": "Model risk reviews the V3.2 model card and records an approval with a named accountable owner."
     },
     {
+      "approver_role": "FINANCE_CONTROLLER",
+      "blocking": true,
+      "capability_effects": [
+        "DISCOVERY_CONVERSATION",
+        "POSTERIOR_WALLET",
+        "PRODUCT_PROPOSAL"
+      ],
+      "consequence_if_failed": "A pilot conversation with a broken evidence path asks an RM to trust a conclusion the system cannot reproduce.",
+      "freshness_days": 30,
+      "gate_id": "selected-critical-path-evidence-complete",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "EVIDENCE_GOVERNANCE",
+      "requirement": "Every selected opportunity has approved support for every fact on the path from signal to proposed action.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Selected opportunities have complete critical-path evidence",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "The selected plan reports 100% critical-path coverage after independent review; fact counts alone do not satisfy this gate."
+    },
+    {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "A high fact count can hide that the most valuable recommendations remain prior-led.",
+      "freshness_days": 30,
+      "gate_id": "selected-value-e2-coverage",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "EVIDENCE_GOVERNANCE",
+      "requirement": "The value-weighted evidence coverage of the selected portfolio is at least 0.80 using approved E2, E3 or E4 evidence.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "At least 80% of selected value has E2-or-better support",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "The point-in-time selected portfolio is recomputed and its E2-or-better supported value share is independently attested at or above 80%."
+    },
+    {
+      "approver_role": "CHIEF_RISK_OFFICER",
+      "blocking": false,
+      "capability_effects": [
+        "LIVE_GENAI"
+      ],
+      "consequence_if_failed": "Hackathon factual validation does not confer third-party or privacy approval inside a bank.",
+      "freshness_days": 180,
+      "gate_id": "genai-bank-approved",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "THIRD_PARTY_RISK",
+      "requirement": "Provider, model, endpoint, residency, retention, contract, credential boundary and sealed evaluation are approved.",
+      "severity": "HIGH",
+      "severity_weight": 3,
+      "title": "Live GenAI provider and control boundary are bank-approved",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "The bank records provider, privacy, residency, retention and model-version approval. If absent, deterministic narration remains the only permitted path."
+    },
+    {
+      "approver_role": "HEAD_OF_COVERAGE",
+      "blocking": true,
+      "capability_effects": [
+        "DISCOVERY_CONVERSATION",
+        "POSTERIOR_WALLET"
+      ],
+      "consequence_if_failed": "An ungoverned pilot is production exposure under a different name.",
+      "freshness_days": 90,
+      "gate_id": "rm-pilot-protocol-approved",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "COMMERCIAL_BANKING",
+      "requirement": "A named cohort, consent basis, training, support, exclusions and incident protocol are approved before exposure.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Supervised RM pilot protocol and cohort are approved",
+      "transition_id": "SHADOW_READY__TO__PILOT_READY",
+      "what_would_make_real_pass": "Business, Risk and Operations approve the cohort and protocol, with no automated client contact, pricing, credit or booking."
+    },
+    {
       "approver_role": "HEAD_OF_COVERAGE",
       "blocking": true,
       "capability_effects": [
@@ -407,7 +484,8 @@
       "approver_role": "CHIEF_DATA_OFFICER",
       "blocking": false,
       "capability_effects": [
-        "MEASURED_SHARE_REPORTING"
+        "MEASURED_SHARE_REPORTING",
+        "MEASURED_SHARE"
       ],
       "consequence_if_failed": "Without E3 the twin can bound a competitor's share but cannot measure it. Reporting an estimate as measured would misstate what is known.",
       "freshness_days": 365,
@@ -426,10 +504,45 @@
       "what_would_make_real_pass": "A multibank data source is contracted, approved and calibrated. Until then MEASURED_SHARE_REPORTING stays refused \u2014 this gate does not block hidden shadow scoring, which needs no share measurement."
     },
     {
+      "approver_role": "MODEL_RISK",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "Scaling unresolved pilot defects widens their client and operational blast radius.",
+      "freshness_days": 30,
+      "gate_id": "pilot-findings-remediated",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "PRODUCT_OWNER",
+      "requirement": "Every critical or high pilot finding is closed or carries an accountable, time-bound accepted risk decision.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Material supervised-pilot findings are remediated",
+      "transition_id": "PILOT_READY__TO__SCALE_READY",
+      "what_would_make_real_pass": "The pilot issue register is reconciled to zero unresolved critical/high findings and the closure is independently checked."
+    },
+    {
+      "approver_role": "HEAD_OF_OPERATIONS",
+      "blocking": true,
+      "capability_effects": [],
+      "consequence_if_failed": "A sound model without an owned operating process is not a scalable banking service.",
+      "freshness_days": 90,
+      "gate_id": "scale-operating-model-approved",
+      "legacy_aliases": [],
+      "minimum_real_evidence_mode": "BANK_ATTESTED",
+      "owner_role": "PRODUCTION_OPERATIONS",
+      "requirement": "On-call ownership, change controls, incident response, capacity, disaster recovery and rollback are approved for controlled scale.",
+      "severity": "CRITICAL",
+      "severity_weight": 5,
+      "title": "Support, change, incident, capacity and DR operating model is approved",
+      "transition_id": "PILOT_READY__TO__SCALE_READY",
+      "what_would_make_real_pass": "Operations, Security and Business approve the runbook and independently observe a production-shaped restore, failover and rollback test."
+    },
+    {
       "approver_role": "CHIEF_RISK_OFFICER",
       "blocking": true,
       "capability_effects": [
-        "CAUSAL_VALUE_CLAIM"
+        "CAUSAL_VALUE_CLAIM",
+        "CAUSAL_VALUE"
       ],
       "consequence_if_failed": "Every observational uplift figure is confounded by which clients the RMs chose to visit. Only randomisation separates the tool's effect from the selection.",
       "freshness_days": 365,
@@ -450,7 +563,8 @@
       "approver_role": "MODEL_RISK",
       "blocking": true,
       "capability_effects": [
-        "CAUSAL_VALUE_CLAIM"
+        "CAUSAL_VALUE_CLAIM",
+        "CAUSAL_VALUE"
       ],
       "consequence_if_failed": "A weak first stage makes the instrument uninformative: the confidence interval is wide and badly behaved, and a point estimate drawn from it would be presented with precision it does not have.",
       "freshness_days": 365,
@@ -499,10 +613,10 @@
         "weight": 38
       },
       "PILOT_READY__TO__SCALE_READY": {
-        "blocking": 3,
-        "critical": 2,
-        "gates": 4,
-        "weight": 16
+        "blocking": 5,
+        "critical": 4,
+        "gates": 6,
+        "weight": 26
       },
       "SCALE_READY__TO__CAUSAL_CHAMPION": {
         "blocking": 3,
@@ -511,10 +625,10 @@
         "weight": 13
       },
       "SHADOW_READY__TO__PILOT_READY": {
-        "blocking": 7,
-        "critical": 3,
-        "gates": 7,
-        "weight": 21
+        "blocking": 10,
+        "critical": 5,
+        "gates": 11,
+        "weight": 37
       }
     },
     "catalogue_version": "v32-promotion-gate-catalogue-1.0.0",
@@ -524,7 +638,7 @@
       "HIGH": 3,
       "STANDARD": 1
     },
-    "total_gates": 24
+    "total_gates": 30
   },
   "transitions": [
     "OFFLINE_CANDIDATE__TO__SHADOW_READY",

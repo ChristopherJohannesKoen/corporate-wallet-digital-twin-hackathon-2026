@@ -24,6 +24,7 @@ const SOURCE = path.join(ROOT, "tmp", "v311-deck", "template-starter.pptx");
 const OUT = path.join(ROOT, "output", "presentation");
 const HEATMAP = path.join(ROOT, "tmp", "v311-deck", "wallet-heatmap.png");
 const PUBLIC_REPO = "https://github.com/ChristopherJohannesKoen/corporate-wallet-digital-twin-hackathon-2026-public";
+const PROMOTION = JSON.parse(await fs.readFile(path.join(ROOT, "dashboard", "app", "data", "promotion-fixture.json"), "utf8"));
 
 const presentation = await PresentationFile.importPptx(await FileBlob.load(SOURCE));
 const inspected = await presentation.inspect({
@@ -79,7 +80,7 @@ function setNotes(oneBased, presenter, sources) {
 
 for (const n of [2, 3, 4, 5, 6, 7, 8, 9]) {
   const sourceNo = { 2: 2, 3: 4, 4: 3, 5: 9, 6: 5, 7: 7, 8: 6, 9: 8 }[n];
-  setText(`footer-team-${sourceNo}`, "TEAM: Corporate Wallet Digital Twin | Christopher Koen | V3.1.1");
+  setText(`footer-team-${sourceNo}`, "TEAM: Corporate Wallet Digital Twin | Christopher Koen | V3.2.0");
   setText(`footer-data-${sourceNo}`, "CONFIDENTIAL SYN BANK ACTIVITY + APPROVED PUBLIC E1 + GOVERNED PRIORS");
   setText(`footer-page-${sourceNo}`, String(n).padStart(2, "0"));
 }
@@ -87,7 +88,7 @@ for (const n of [2, 3, 4, 5, 6, 7, 8, 9]) {
 // 1 â€” opening thesis.
 setMany({
   "cover-proof": "Find the latent wallet. Quantify the gap. Plan the governed conversation.",
-  "cover-version": "V3.1.1 | AS OF 30 JUNE 2026 | HACKATHON SUBMISSION",
+  "cover-version": "V3.2.0 | AS OF 30 JUNE 2026 | HACKATHON SUBMISSION",
 });
 styledText("cover-subtitle", "See the wallet. Size the gap.\nChoose the conversation.", { fontSize: 29, color: "#C7D5E8" });
 setNotes(1, "Lead with the commercial answer: Syn Bank observes only its own activity. The solution estimates an interval for total client wallet and bank share, sizes the contestable gap, then turns it into an evidence-backed relationship-manager conversation.", [
@@ -100,7 +101,7 @@ setNotes(1, "Lead with the commercial answer: Syn Bank observes only its own act
 setMany({
   "eyebrow-2": "THE LATENT-WALLET PROBLEM",
   "title-2": "One observed number cannot identify the full wallet",
-  "s2-thesis": "Syn Bank observes A—its own client–product activity. Total wallet T and bank share q remain latent. The identity A=qT admits many answers, so V3.1.1 reports bounds and posterior intervals rather than false precision.",
+  "s2-thesis": "Syn Bank observes A—its own client–product activity. Total wallet T and bank share q remain latent. The identity A=qT admits many answers, so V3.2 reports bounds and posterior intervals rather than false precision.",
   "s2-answer": "The claim ladder keeps evidence, inference and economics distinct",
   "s2-claim-copy-1": "Identification interval",
   "s2-claim-copy-2": "Wallet + share distribution",
@@ -241,7 +242,7 @@ setMany({
 setNotes(6, "Walk the BHP Trade Finance cell. Syn Bank observes A=R1.445bn. Approved issuer accounting anchors constrain the total-wallet measurement; the posterior T spans R5.15bn–R22.08bn, implying q=6.5%–28.0%. A 40% target-share scenario creates a median contestable activity gap of R2.126bn and R7.367m representative scenario contribution.", [
   "dashboard/app/data/wallet-v311-fixture.json — E01-trade-finance",
   "BHP Annual Report 2025 — approved facts BHP-2025-COST, INV and AP",
-  "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
+  "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
 ]);
 
 // 7 — wallet gap to governed conversation.
@@ -311,37 +312,38 @@ setNotes(8, "GenAI is a bounded narrator. The same sanitized pack is prepared fo
   "src/wallet_twin_v2/live_provider_eval.py",
 ]);
 
-// 9 — validation hierarchy.
+// 9 — Promotion Readiness Twin.
 setMany({
-  "eyebrow-8": "VALIDATION HIERARCHY",
-  "title-8": "Each claim earns the strongest label its evidence permits",
-  "s8-title-0": "Mechanical",
-  "s8-copy-0": "Contracts, identities, arithmetic, PIT lineage",
-  "s8-title-1": "Known truth",
-  "s8-copy-1": "Synthetic panel coverage, width and CRPS",
-  "s8-title-2": "Predictive",
-  "s8-copy-2": "Posterior intervals and ranking stability",
-  "s8-title-3": "External",
-  "s8-copy-3": "E3 calibration, approved rates and live eval",
+  "eyebrow-8": "PROMOTION READINESS TWIN",
+  "title-8": "The machinery is ready; bank authority is not",
+  "s8-title-0": "Offline",
+  "s8-copy-0": "Reproducible candidate and claim boundaries",
+  "s8-title-1": "Shadow",
+  "s8-copy-1": "Hidden bank run; missing capabilities fail closed",
+  "s8-title-2": "Pilot",
+  "s8-copy-2": "Thirty real days + approved evidence and cohort",
+  "s8-title-3": "Scale",
+  "s8-copy-3": "Bank-attested pilot, operations and approvals",
   "s8-title-4": "Causal",
-  "s8-copy-4": "Qualified randomized RM outcome history",
-  "s8-checks-value": "100",
-  "s8-checks-label": "wallet identities",
-  "s8-checks-note": "T ≥ A; q=A/T; G=max(q*T−A,0)",
-  "s8-cases-value": "88.0%",
-  "s8-cases-label": "base 90% coverage",
-  "s8-cases-note": "Known-truth E1 weight 0.35 arm",
-  "s8-stress-value": "100%",
-  "s8-stress-label": "TF first-rank frequency",
-  "s8-stress-note": "10,000-draw global benchmark",
-  "s8-fail-value": "0",
-  "s8-fail-label": "measured-share claims",
-  "s8-fail-note": "No E3 multibank observation exists",
+  "s8-copy-4": "Positive independently validated randomized evidence",
+  "s8-checks-value": String(PROMOTION.transitions.reduce((n, t) => n + t.gates.length, 0)),
+  "s8-checks-label": "governed gates",
+  "s8-checks-note": "Every gate has REAL + REHEARSAL outcomes",
+  "s8-cases-value": `${Math.round(PROMOTION.summary.promotion_machinery_readiness * 100)}%`,
+  "s8-cases-label": "PMR",
+  "s8-cases-note": "Signed positive and failure-path rehearsal",
+  "s8-stress-value": `${Math.round(PROMOTION.summary.bank_evidence_readiness * 100)}%`,
+  "s8-stress-label": "BER",
+  "s8-stress-note": "Synthetic evidence contributes zero",
+  "s8-fail-value": String(PROMOTION.clock.elapsed_bank_shadow_days),
+  "s8-fail-label": "elapsed bank days",
+  "s8-fail-note": "30 clean virtual days are kept separate",
 });
-setNotes(9, "Separate what the implementation proves. Mechanical checks validate data and equations. A known-truth synthetic panel assesses interval behavior. Posterior and ranking diagnostics are predictive model evidence. E3 observations, approved economics, live-provider adjudication and causal RM outcomes remain external gates.", [
-  "outputs/v2_validation/measurement_policy_sensitivity.json",
-  "outputs/v2_validation/offline_validation_report.json",
-  "docs/methodology.md",
+setNotes(9, "The Promotion Twin evaluates thirty cumulative gates twice. Blue rehearsal evidence proves the mechanism and its refusal behavior work; only real, bank-attested evidence can authorize actual use. The accelerated rehearsal resets on day 17 and then reaches thirty clean virtual days. The real bank-day count remains zero.", [
+  "dashboard/app/data/promotion-fixture.json",
+  "contracts/promotion-gate-catalogue.json",
+  "outputs/v32/v32_shadow_rehearsal.json",
+  "docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md",
 ]);
 
 // 10 — conclusion and next steps.
@@ -350,19 +352,20 @@ setMany({
   "s10-step-copy-0": "Twenty relationships × five products, approval-authoritative anchors, intervals and contestable gaps.",
   "s10-step-title-1": "Run eight discovery conversations",
   "s10-step-copy-1": "Decision Twin adds stakeholder, business issue, bundle, timing, feasibility and the highest-VOI question.",
-  "s10-step-title-2": "Earn production",
-  "s10-step-copy-2": "E3 panel, bank rates and controls, live provider adjudication, RM pilot and randomized outcomes.",
-  "s10-close": "Submission mechanics validated; live-provider proof remains an explicit gate. Bank-production claims stay fail-closed.",
-  "s10-team": "Corporate Wallet Digital Twin | Christopher Koen | V3.1.1",
+  "s10-step-title-2": "Earn the right to use it",
+  "s10-step-copy-2": "Promotion Twin keeps signed rehearsal evidence separate from real bank authorization at every transition.",
+  "s10-close": "Offline candidate validated; shadow promotion rehearsed. BANK_SHADOW_AUTHORIZED remains FALSE.",
+  "s10-team": "Corporate Wallet Digital Twin | Christopher Koen | V3.2.0",
   "s10-repository": `CODE: ${PUBLIC_REPO}`,
 });
-styledText("s10-title", "Find the gap.\nPlan the conversation.", { fontSize: 54, color: "#FFFFFF", bold: true });
-styledText("s10-subtitle", "V3.1.1 converts partial bank observation into a governed wallet interval, a commercial scenario and a relationship action—while preserving every evidence boundary.", { fontSize: 24, color: "#C7D5E8" });
-setNotes(10, "Close with the commercial story and honest boundary. V3.1.1 is a reproducible hackathon submission once the artifact and public-access gates pass. Bank production stays NOT_PROMOTABLE until representative external calibration, approved bank economics and controls, live provider adjudication and qualified RM outcomes exist.", [
+styledText("s10-title", "Find the gap.\nEarn the right to act.", { fontSize: 54, color: "#FFFFFF", bold: true });
+styledText("s10-subtitle", "V3.2 combines a governed wallet interval, a relationship action and an executable proof of what may—and may not—be used.", { fontSize: 24, color: "#C7D5E8" });
+setNotes(10, "Close with the commercial and governance story. V3.2 is a reproducible offline candidate and a shadow-deployment package with a passed promotion rehearsal. Bank production stays NOT_PROMOTABLE until the real bank evidence, control-owner approvals, elapsed operation and qualified outcomes exist.", [
   "docs/v31_implementation_status.md",
   "outputs/v2_validation/production_candidate_scorecard.json",
   "notebooks/01_wallet_twin_demo.ipynb",
   "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+  "outputs/judging_manifest_v3.2.0.json",
   PUBLIC_REPO,
 ]);
 

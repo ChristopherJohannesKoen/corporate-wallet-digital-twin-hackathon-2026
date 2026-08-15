@@ -1,6 +1,7 @@
 """V3.2 governed event registry.
 
-Twelve promotion event types on one new domain topic,
+The canonical Promotion Twin lifecycle events and the frozen compatibility
+events share one new domain topic,
 ``wallet-twin.promotion.v1``. Existing topics are untouched: promotion is a
 separate concern from business-twin, decision, client-learning and audit, and
 routing it onto an existing topic would force every current consumer to filter
@@ -29,12 +30,27 @@ from wallet_twin_v2.contracts import EntitlementContext, StrictModel
 
 from .modes import DecisionTrack, PromotionEvidenceMode
 
-EVENTS_VERSION = "v32-promotion-events-1.0.0"
+EVENTS_VERSION = "v32-promotion-events-1.1.0"
 
 
 class PromotionEventType(str, Enum):
-    """The twelve promotion events."""
+    """Canonical V3.2 events followed by frozen pre-release aliases."""
 
+    EVIDENCE_SUBMITTED = "PromotionEvidenceSubmitted"
+    EVIDENCE_VERIFIED = "PromotionEvidenceVerified"
+    GATE_EVALUATION_COMPLETED = "GateEvaluationCompleted"
+    DECISION_ISSUED = "PromotionDecisionIssued"
+    APPROVAL_RECORDED = "PromotionApprovalRecorded"
+    TRANSITION_RECORDED = "PromotionTransitionRecorded"
+    REHEARSAL_STARTED = "RehearsalStarted"
+    REHEARSAL_DAY_COMPLETED = "RehearsalDayCompleted"
+    REHEARSAL_INCIDENT_INJECTED = "RehearsalIncidentInjected"
+    REHEARSAL_CLOCK_RESET = "RehearsalClockReset"
+    EVIDENCE_EXPIRED = "PromotionEvidenceExpired"
+    ARTIFACT_REVOKED = "PromotionArtifactRevoked"
+
+    # Frozen implementation-preview values. New producers use the lifecycle
+    # events above; these aliases keep early consumers backward compatible.
     GATE_EVALUATED = "PromotionGateEvaluated"
     EVIDENCE_REGISTERED = "PromotionEvidenceRegistered"
     EVIDENCE_SIGNED = "PromotionEvidenceSigned"
@@ -46,7 +62,6 @@ class PromotionEventType(str, Enum):
     CAPABILITY_GRANTED = "PromotionCapabilityGranted"
     CAPABILITY_REFUSED = "PromotionCapabilityRefused"
     REHEARSAL_SCENARIO_EXECUTED = "RehearsalScenarioExecuted"
-    REHEARSAL_INCIDENT_INJECTED = "RehearsalIncidentInjected"
 
 
 class PromotionTopic(str, Enum):
@@ -63,6 +78,9 @@ PROMOTION_EVENT_TYPES: Tuple[PromotionEventType, ...] = tuple(PromotionEventType
 #: ``track=REAL`` would assert that a simulated incident happened at the bank.
 REHEARSAL_ONLY_EVENTS: frozenset = frozenset(
     {
+        PromotionEventType.REHEARSAL_STARTED,
+        PromotionEventType.REHEARSAL_DAY_COMPLETED,
+        PromotionEventType.REHEARSAL_CLOCK_RESET,
         PromotionEventType.REHEARSAL_SCENARIO_EXECUTED,
         PromotionEventType.REHEARSAL_INCIDENT_INJECTED,
     }
@@ -79,7 +97,7 @@ def declared_topics() -> Tuple[str, ...]:
 
 
 class PromotionEventEnvelope(StrictModel):
-    """Envelope for the twelve V3.2 promotion events."""
+    """Envelope for canonical and backward-compatible V3.2 events."""
 
     event_id: str
     event_type: PromotionEventType

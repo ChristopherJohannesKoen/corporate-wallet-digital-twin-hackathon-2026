@@ -1,4 +1,4 @@
-# Corporate Wallet Digital Twin V3.1.1 — operational runbook
+# Corporate Wallet Digital Twin V3.2.0 — operational runbook
 
 ## V3.1.1 canonical rebuild and smoke test
 
@@ -151,7 +151,7 @@ npm run dev
 7. Rebuild the audit workbook and ensure all formula checks pass.
 
 The active register is
-`outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx`: 82 E1 source facts,
+`outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx`: 82 E1 source facts,
 20 clients, 31 approved and 51 pending. Pending facts remain candidate evidence
 and cannot activate anchors. The expected wallet surface is exactly 15 E1
 anchored and 85 E0 prior-led client-product opportunities.
@@ -183,7 +183,14 @@ If the provider is unavailable or any validation fails, return the deterministic
 
 Apply `infra/databricks/curated_tables.sql` and `infra/databricks/data_products.sql` through a migration identity with governed-tag `ASSIGN` permission. V3 data products include Shadow Wallet draws/edges, PU estimates, change-point state, leakage alarms, Treasury graphs, scenarios/selections and evidence-acquisition plans.
 
-Register all artifacts listed by `config/mlflow_promotion_policy.json`. Automatic promotion and rollback are disabled. Promotion requires signed human approval and the candidate/shadow/champion gates documented in the model card.
+Register all artifacts listed by `config/mlflow_promotion_policy.json`. Automatic promotion and rollback are disabled. Promotion requires signed human approval and the cumulative `OFFLINE_CANDIDATE → SHADOW_READY → PILOT_READY → SCALE_READY → CAUSAL_CHAMPION` gates documented in the model card.
+
+Before approving a transition, retrieve the signed decision package and verify
+its DSSE envelope. Submit the four-eyes approval with the same `decision_id` and
+`decision_payload_sha256`. A 409 response with
+`APPROVAL_DECISION_ID_MISMATCH` or
+`APPROVAL_DECISION_PAYLOAD_HASH_MISMATCH` means the decision changed; retrieve,
+review and approve the new package rather than reusing the stale approval.
 
 ## AWS/EKS release
 

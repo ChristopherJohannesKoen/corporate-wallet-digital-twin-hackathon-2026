@@ -153,9 +153,144 @@ def timing_report(results: Sequence[SplitResult], as_of: date) -> Dict[str, obje
     }
 
 
+def hazard_recovery_report(
+    *, as_of: date, clients: int = 2_000, months: int = 36, seed: int = 20260630
+) -> Dict[str, object]:
+    """Recover a planted discrete-time hazard on held-out clients and future time.
+
+    The generator includes drift, delayed/missing outcomes, censoring and label
+    noise. It is a method test only; every output is SYNTHETIC_REHEARSAL.
+    """
+    from scipy.optimize import minimize
+    from scipy.special import expit
+
+    if clients < 2_000 or months < 36:
+        raise ValueError("canonical timing rehearsal requires 2,000 clients and 36 months")
+    rng = np.random.default_rng(seed)
+    client_ids = np.repeat(np.arange(clients), months)
+    month = np.tile(np.arange(months), clients)
+    sector = np.repeat(rng.integers(0, 6, size=clients), months)
+    relationship = np.repeat(rng.beta(2.5, 2.0, size=clients), months)
+    magnitude = rng.lognormal(mean=0.0, sigma=0.7, size=clients * months)
+    maturity = np.clip((month - 20) / 12 + rng.normal(0, 0.25, size=len(month)), 0, 1)
+    seasonal = np.sin(2 * np.pi * month / 12)
+    cash_peak = np.cos(2 * np.pi * (month + sector) / 12)
+    recommendation_error = rng.random(len(month)) < 0.08
+    features = np.column_stack(
+        [np.log1p(magnitude), maturity, seasonal, relationship, cash_peak, recommendation_error]
+    )
+    planted = np.array([0.42, 0.85, 0.28, 0.36, 0.22, -0.55])
+    drift = np.where(month >= 24, -0.32 * features[:, 0] + 0.18 * features[:, 2], 0.0)
+    linear = -3.15 + features @ planted + drift + 0.08 * sector
+    hazard = expit(linear)
+    truth = rng.binomial(1, hazard).astype(float)
+
+    # Operational defects are explicit: delayed events move one month, missing
+    # labels become NaN, censoring removes the tail and label noise flips a few.
+    delayed = rng.random(len(truth)) < 0.07
+    observed = truth.copy()
+    for client in range(clients):
+        start = client * months
+        for offset in range(months - 2, -1, -1):
+            idx = start + offset
+            if delayed[idx] and observed[idx] == 1:
+                observed[idx] = 0
+                observed[idx + 1] = 1
+    label_noise = rng.random(len(observed)) < 0.03
+    observed[label_noise] = 1 - observed[label_noise]
+    missing = rng.random(len(observed)) < 0.05
+    censored = month >= np.repeat(rng.integers(30, 36, size=clients), months)
+    observed[missing | censored] = np.nan
+
+    held_out_clients = set(rng.choice(clients, size=clients // 4, replace=False).tolist())
+    held_out = np.array([int(client) in held_out_clients for client in client_ids])
+    train = (~held_out) & (month < 24) & ~np.isnan(observed)
+    test = held_out & (month >= 24) & (month <= 32) & ~np.isnan(observed)
+    means = np.nanmean(features[train], axis=0)
+    scales = np.nanstd(features[train], axis=0)
+    scales[scales == 0] = 1.0
+    x = (features - means) / scales
+    x_design = np.column_stack([np.ones(len(x)), x])
+
+    def objective(beta: np.ndarray) -> float:
+        probability = np.clip(expit(x_design[train] @ beta), 1e-9, 1 - 1e-9)
+        target = observed[train]
+        return float(-np.sum(target * np.log(probability) + (1 - target) * np.log(1 - probability)))
+
+    fitted = minimize(objective, np.zeros(x_design.shape[1]), method="L-BFGS-B")
+    monthly = np.clip(expit(x_design @ fitted.x), 1e-9, 1 - 1e-9)
+
+    horizon_metrics: Dict[str, object] = {}
+    for horizon_months, label in ((1, "30d"), (2, "60d"), (3, "90d")):
+        future = np.full(len(observed), np.nan)
+        for client in held_out_clients:
+            start = client * months
+            values = observed[start : start + months]
+            for offset in range(months - horizon_months + 1):
+                window = values[offset : offset + horizon_months]
+                if not np.isnan(window).any():
+                    future[start + offset] = float(np.max(window))
+        mask = test & ~np.isnan(future)
+        probability = 1 - np.power(1 - monthly[mask], horizon_months)
+        target = future[mask]
+        brier = float(np.mean((probability - target) ** 2))
+        log_loss = float(-np.mean(target * np.log(probability) + (1 - target) * np.log(1 - probability)))
+        bins: List[Dict[str, object]] = []
+        for lower in np.linspace(0, 0.8, 5):
+            upper = lower + 0.2
+            in_bin = (probability >= lower) & (probability < upper if upper < 1 else probability <= upper)
+            if in_bin.any():
+                bins.append(
+                    {
+                        "predicted": round(float(np.mean(probability[in_bin])), 6),
+                        "observed": round(float(np.mean(target[in_bin])), 6),
+                        "count": int(in_bin.sum()),
+                    }
+                )
+        horizon_metrics[label] = {
+            "rows": int(mask.sum()),
+            "brier": round(brier, 6),
+            "log_loss": round(log_loss, 6),
+            "calibration": bins,
+        }
+
+    fitted_signs = np.sign(fitted.x[1:]).astype(int)
+    planted_signs = np.sign(planted).astype(int)
+    return {
+        "lab_version": "v32-timing-hazard-recovery-2.0.0",
+        "as_of": as_of.isoformat(),
+        "evidence_mode": "SYNTHETIC_REHEARSAL",
+        "clients": clients,
+        "months": months,
+        "rows": int(len(observed)),
+        "train_rows": int(train.sum()),
+        "test_rows": int(test.sum()),
+        "client_held_out": True,
+        "temporal_split": True,
+        "injections": {
+            "concept_drift": True,
+            "sector_heterogeneity": True,
+            "delayed_outcomes": int(delayed.sum()),
+            "missing_outcomes": int(missing.sum()),
+            "censored_rows": int(censored.sum()),
+            "label_noise": int(label_noise.sum()),
+            "incorrect_recommendations": int(recommendation_error.sum()),
+        },
+        "optimizer_converged": bool(fitted.success),
+        "coefficient_direction_recovery": {
+            "recovered": int(np.sum(fitted_signs == planted_signs)),
+            "total": int(len(planted)),
+            "all_recovered": bool(np.all(fitted_signs == planted_signs)),
+        },
+        "horizons": horizon_metrics,
+        "bank_meaning": "The planted relationship was tested in a synthetic laboratory. It is not evidence about banker response behavior.",
+    }
+
+
 __all__ = [
     "TIMING_LAB_VERSION",
     "SplitResult",
     "evaluate_splits",
+    "hazard_recovery_report",
     "timing_report",
 ]

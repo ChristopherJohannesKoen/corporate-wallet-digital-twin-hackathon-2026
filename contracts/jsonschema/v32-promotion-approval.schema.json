@@ -22,6 +22,15 @@
       "title": "Decision",
       "type": "string"
     },
+    "decision_id": {
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "decision_payload_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Decision Payload Sha256",
+      "type": "string"
+    },
     "rationale": {
       "title": "Rationale",
       "type": "string"
@@ -69,6 +78,8 @@
   },
   "required": [
     "approval_id",
+    "decision_id",
+    "decision_payload_sha256",
     "transition_id",
     "track",
     "submitted_by",

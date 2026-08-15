@@ -91,7 +91,7 @@ def test_every_catalogue_gate_appears_exactly_once(fixture: dict) -> None:
         gate["gate_id"] for transition in fixture["transitions"] for gate in transition["gates"]
     ]
     assert sorted(rendered) == sorted(gate.gate_id for gate in GATE_CATALOGUE)
-    assert len(rendered) == len(set(rendered)) == 24
+    assert len(rendered) == len(set(rendered)) == 30
 
 
 def test_every_gate_row_says_what_would_make_the_real_gate_pass(fixture: dict) -> None:
@@ -159,7 +159,13 @@ def test_five_state_columns_each_showing_both_tracks(fixture: dict) -> None:
         "CAUSAL_CHAMPION",
     ]
     assert [item["real_attained"] for item in states] == [True, False, False, False, False]
-    assert all(item["rehearsed_attained"] for item in states)
+    assert [item["rehearsed_attained"] for item in states] == [
+        True,
+        True,
+        False,
+        False,
+        False,
+    ]
 
 
 def test_refused_capabilities_are_rendered_with_reasons(fixture: dict) -> None:
@@ -190,8 +196,8 @@ def test_the_signing_block_says_no_real_bank_capability(fixture: dict) -> None:
     assert set(signing["not_executed"]) == {"SigstoreSigner", "KMSSigner"}
 
 
-def test_uninjected_gates_are_published_rather_than_hidden(fixture: dict) -> None:
-    assert fixture["gates_without_failure_injection"]
+def test_every_gate_has_a_published_negative_case(fixture: dict) -> None:
+    assert fixture["gates_without_failure_injection"] == []
 
 
 # --------------------------------------------------------------------------

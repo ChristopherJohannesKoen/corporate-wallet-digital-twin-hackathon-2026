@@ -222,6 +222,8 @@ def test_a_present_signature_cannot_report_unsigned() -> None:
 def approval(**overrides) -> PromotionApproval:
     payload = {
         "approval_id": "ap-1",
+        "decision_id": "d-1",
+        "decision_payload_sha256": "a" * 64,
         "transition_id": "OFFLINE_CANDIDATE__TO__SHADOW_READY",
         "track": DecisionTrack.REHEARSAL,
         "submitted_by": "maker@bank",
@@ -254,6 +256,11 @@ def test_review_cannot_precede_submission() -> None:
 
 def test_a_valid_four_eyes_approval_constructs() -> None:
     assert approval().decision == "APPROVED"
+
+
+def test_an_approval_requires_a_canonical_decision_digest() -> None:
+    with pytest.raises(ValidationError, match="decision_payload_sha256"):
+        approval(decision_payload_sha256="not-a-sha256")
 
 
 # --------------------------------------------------------------------------

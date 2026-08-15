@@ -28,20 +28,21 @@ from .contracts import (
     SignedEvidenceEnvelope,
     VirtualClockState,
 )
-from .dsse import sign_payload
+from .dsse import payload_digest, sign_payload, verify_envelope
 from .engine import capability_register, evaluate_promotion, transition_report
 from .events import (
     PromotionEventStore,
     PromotionEventType,
     build_promotion_event,
 )
-from .modes import DecisionTrack, PromotionEvidenceMode
+from .modes import DecisionTrack, PromotionEvidenceMode, is_synthetic
 from .scoring import gates_without_failure_injection, score_breakdown
 from .signers import LocalECDSASigner, signer_capability_report
 from .states import TRANSITION_IDS
 from .trust import TrustRegistry, rehearsal_key
 
 REPOSITORY_VERSION = "v32-promotion-repository-1.0.0"
+DECISION_PAYLOAD_TYPE = "application/vnd.wallet-twin.promotion-decision+json"
 
 #: Fixed so the fixture is reproducible, and taken from the canonicaliser rather
 #: than written out again here. An independent literal drifted once already:
@@ -53,6 +54,10 @@ FIXTURE_GENERATED_AT = datetime.fromisoformat(artifact_timestamp())
 
 class FixtureModeError(RuntimeError):
     """A real-track write was attempted against the fixture repository."""
+
+
+class ApprovalBindingError(ValueError):
+    """An approval does not bind the exact current decision payload."""
 
 
 class PromotionRepository:
@@ -93,7 +98,7 @@ class PromotionRepository:
 
     def register_evidence(self, evidence: GateEvidence) -> GateEvidence:
         with self._lock:
-            if evidence.mode is not PromotionEvidenceMode.SYNTHETIC_REHEARSAL:
+            if not is_synthetic(evidence.mode):
                 self._guard_real_track(DecisionTrack.REAL)
             self._evidence[evidence.evidence_id] = evidence
             self.events.append(
@@ -132,7 +137,9 @@ class PromotionRepository:
                 payload_sha256=envelope.payload_sha256,
                 mode=evidence.mode,
                 key_id=self._signer.key_id,
-                key_authorised_modes=[PromotionEvidenceMode.SYNTHETIC_REHEARSAL],
+                key_authorised_modes=sorted(
+                    self._signer.allowed_modes, key=lambda mode: mode.value
+                ),
                 signature_algorithm=self._signer.algorithm,
                 signature=envelope.signatures[0].sig,
                 signature_status="SIGNED_REHEARSAL",
@@ -179,6 +186,12 @@ class PromotionRepository:
     def record_approval(self, approval: PromotionApproval) -> PromotionApproval:
         with self._lock:
             self._guard_real_track(approval.track)
+            current = self.decision()
+            current_hash = payload_digest(current.model_dump(mode="json"))
+            if approval.decision_id != current.decision_id:
+                raise ApprovalBindingError("APPROVAL_DECISION_ID_MISMATCH")
+            if approval.decision_payload_sha256 != current_hash:
+                raise ApprovalBindingError("APPROVAL_DECISION_PAYLOAD_HASH_MISMATCH")
             self._approvals[approval.approval_id] = approval
             for event_type, moment in (
                 (PromotionEventType.APPROVAL_SUBMITTED, approval.submitted_at),
@@ -191,7 +204,13 @@ class PromotionRepository:
                         occurred_at=moment,
                         transition_id=approval.transition_id,
                         idempotency_key=f"{event_type.value}:{approval.approval_id}",
-                        payload={"decision": approval.decision},
+                        payload={
+                            "decision": approval.decision,
+                            "decision_id": approval.decision_id,
+                            "decision_payload_sha256": (
+                                approval.decision_payload_sha256
+                            ),
+                        },
                     )
                 )
             return approval
@@ -216,10 +235,34 @@ class PromotionRepository:
     def decision(self, as_of: Optional[date] = None) -> PromotionDecision:
         return evaluate_promotion(
             self._evaluations,
+            approvals=self.approvals(),
             decision_id="v32-fixture-promotion-decision",
             as_of=as_of or FIXTURE_AS_OF,
             generated_at=FIXTURE_GENERATED_AT,
         )
+
+    def signed_decision(self, as_of: Optional[date] = None) -> Dict[str, object]:
+        """Issue and immediately verify a DSSE-signed decision package.
+
+        The fixture signer is rehearsal-only, so this proves provenance and
+        integrity but explicitly confers no bank authority.
+        """
+        decision = self.decision(as_of)
+        payload = decision.model_dump(mode="json")
+        envelope = sign_payload(
+            payload, self._signer, payload_type=DECISION_PAYLOAD_TYPE
+        )
+        verified, reasons = verify_envelope(envelope, [self._signer])
+        return {
+            "decision": payload,
+            "decision_payload_sha256": envelope.payload_sha256,
+            "envelope": envelope.as_dict(),
+            "signature_verified": verified,
+            "verification_reason_codes": reasons,
+            "evidence_mode": PromotionEvidenceMode.SYNTHETIC_REHEARSAL.value,
+            "trust_domain": "rehearsal",
+            "bank_authority_conferred": False,
+        }
 
     def clock(self) -> VirtualClockState:
         """The rehearsal clock, driven by an actual run rather than asserted.
@@ -293,20 +336,14 @@ class PromotionRepository:
     def _seed(self) -> None:
         """Pass every gate on the rehearsal track, and none on the real track.
 
-        Failure injection is recorded for the gates W6's negative scenarios
-        exercise. The rest are reported as not-yet-injected rather than assumed
-        working, so ``gates_without_failure_injection`` stays a real measure of
-        coverage instead of an empty list.
+        Every catalogue gate participates in the generic fail-closed matrix:
+        the positive evaluation below is replaced by FAIL in turn and the
+        transition is required to remain blocked. Domain laboratories add
+        deeper incident cases for reconciliation, leakage, GenAI, entitlement,
+        shadow time and supply chain. The flag therefore means a negative test
+        exists; it does not claim every bank-specific failure has been seen.
         """
-        injected = {
-            "reconciliation-exact",
-            "point-in-time-zero-leakage",
-            "prompt-injection-resistance",
-            "entitlement-negative-tests",
-            "elapsed-clean-shadow-days",
-            "supply-chain-clean",
-            "interval-coverage-90",
-        }
+        injected = {gate.gate_id for gate in GATE_CATALOGUE}
         for gate in GATE_CATALOGUE:
             evidence = GateEvidence(
                 evidence_id=f"ev-{gate.gate_id}",
@@ -337,10 +374,19 @@ class PromotionRepository:
                 )
             )
 
-        for transition in TRANSITION_IDS:
+        # Every gate evaluator is exercised, but only the first transition is
+        # approved in the hackathon rehearsal. Passing metrics alone never
+        # advances state, and the maximum honest claim remains
+        # SHADOW_PROMOTION_REHEARSAL_PASSED.
+        for transition in TRANSITION_IDS[:1]:
+            candidate = self.decision()
             self.record_approval(
                 PromotionApproval(
                     approval_id=f"ap-{transition}",
+                    decision_id=candidate.decision_id,
+                    decision_payload_sha256=payload_digest(
+                        candidate.model_dump(mode="json")
+                    ),
                     transition_id=transition,
                     track=DecisionTrack.REHEARSAL,
                     submitted_by="rehearsal.maker@wallet-twin",
@@ -371,6 +417,9 @@ class PromotionRepository:
                 payload={
                     "real_state": decision.real_state.value,
                     "rehearsed_state": decision.rehearsed_state.value,
+                    "decision_payload_sha256": payload_digest(
+                        decision.model_dump(mode="json")
+                    ),
                 },
             )
         )

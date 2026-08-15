@@ -55,17 +55,17 @@
     "nominal_alpha": 0.05,
     "power_at_target_effect": {
       "adequate": false,
-      "rate": 0.2,
-      "wilson_lower": 0.150452,
-      "wilson_upper": 0.260855
+      "rate": 0.244,
+      "wilson_lower": 0.225679,
+      "wilson_upper": 0.263302
     },
-    "replications": 200,
+    "replications": 2000,
     "target_effect": 0.35,
     "type_i_error": {
       "controlled": true,
-      "rate": 0.03,
-      "wilson_lower": 0.01382,
-      "wilson_upper": 0.063894
+      "rate": 0.051,
+      "wilson_lower": 0.04219,
+      "wilson_upper": 0.061532
     },
     "weak_instrument": {
       "consequence": "A flagged first stage blocks the causal claim entirely. The alternative \u2014 reporting a very wide interval \u2014 would be read as a finding with uncertainty rather than as no finding at all.",
@@ -74,6 +74,547 @@
       "weak_flagged": true
     }
   },
+  "causal_trial_design": {
+    "bank_meaning": "The engine characterises future trial designs. No treatment was delivered and no real effect was estimated.",
+    "baseline_action_rate": 0.22,
+    "causal_claim": null,
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "lab_version": "v32-causal-trial-design-2.0.0",
+    "minimum_detectable_effect": 0.05,
+    "nominal_alpha": 0.05,
+    "replications": 2000,
+    "rows": [
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.0919
+          },
+          {
+            "clusters": 36,
+            "power": 0.1134
+          },
+          {
+            "clusters": 48,
+            "power": 0.135158
+          },
+          {
+            "clusters": 64,
+            "power": 0.164443
+          },
+          {
+            "clusters": 80,
+            "power": 0.193897
+          },
+          {
+            "clusters": 100,
+            "power": 0.230732
+          },
+          {
+            "clusters": 120,
+            "power": 0.267359
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.943,
+        "compliance": 0.5,
+        "contamination": 0.05,
+        "first_stage_mean": 0.499535,
+        "icc": 0.01,
+        "itt_bias": 0.000259,
+        "monte_carlo_power": 0.2825,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.0485
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.13341
+          },
+          {
+            "clusters": 36,
+            "power": 0.176507
+          },
+          {
+            "clusters": 48,
+            "power": 0.21984
+          },
+          {
+            "clusters": 64,
+            "power": 0.277257
+          },
+          {
+            "clusters": 80,
+            "power": 0.333516
+          },
+          {
+            "clusters": 100,
+            "power": 0.401258
+          },
+          {
+            "clusters": 120,
+            "power": 0.465304
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.951,
+        "compliance": 0.7,
+        "contamination": 0.05,
+        "first_stage_mean": 0.699989,
+        "icc": 0.01,
+        "itt_bias": -3.7e-05,
+        "monte_carlo_power": 0.4685,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.0455
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.189768
+          },
+          {
+            "clusters": 36,
+            "power": 0.26123
+          },
+          {
+            "clusters": 48,
+            "power": 0.331252
+          },
+          {
+            "clusters": 64,
+            "power": 0.420229
+          },
+          {
+            "clusters": 80,
+            "power": 0.502432
+          },
+          {
+            "clusters": 100,
+            "power": 0.59409
+          },
+          {
+            "clusters": 120,
+            "power": 0.672867
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9525,
+        "compliance": 0.9,
+        "contamination": 0.05,
+        "first_stage_mean": 0.899751,
+        "icc": 0.01,
+        "itt_bias": -0.000545,
+        "monte_carlo_power": 0.651,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.0405
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.080042
+          },
+          {
+            "clusters": 36,
+            "power": 0.095379
+          },
+          {
+            "clusters": 48,
+            "power": 0.110885
+          },
+          {
+            "clusters": 64,
+            "power": 0.131771
+          },
+          {
+            "clusters": 80,
+            "power": 0.152837
+          },
+          {
+            "clusters": 100,
+            "power": 0.179329
+          },
+          {
+            "clusters": 120,
+            "power": 0.205898
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9445,
+        "compliance": 0.5,
+        "contamination": 0.05,
+        "first_stage_mean": 0.498851,
+        "icc": 0.03,
+        "itt_bias": 3.1e-05,
+        "monte_carlo_power": 0.1995,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.0545
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.109639
+          },
+          {
+            "clusters": 36,
+            "power": 0.14039
+          },
+          {
+            "clusters": 48,
+            "power": 0.171475
+          },
+          {
+            "clusters": 64,
+            "power": 0.213124
+          },
+          {
+            "clusters": 80,
+            "power": 0.254654
+          },
+          {
+            "clusters": 100,
+            "power": 0.305902
+          },
+          {
+            "clusters": 120,
+            "power": 0.355929
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9525,
+        "compliance": 0.7,
+        "contamination": 0.05,
+        "first_stage_mean": 0.70078,
+        "icc": 0.03,
+        "itt_bias": 0.000685,
+        "monte_carlo_power": 0.388,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.043
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.149879
+          },
+          {
+            "clusters": 36,
+            "power": 0.201434
+          },
+          {
+            "clusters": 48,
+            "power": 0.252965
+          },
+          {
+            "clusters": 64,
+            "power": 0.320546
+          },
+          {
+            "clusters": 80,
+            "power": 0.385774
+          },
+          {
+            "clusters": 100,
+            "power": 0.462741
+          },
+          {
+            "clusters": 120,
+            "power": 0.533675
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9565,
+        "compliance": 0.9,
+        "contamination": 0.05,
+        "first_stage_mean": 0.899615,
+        "icc": 0.03,
+        "itt_bias": -0.000356,
+        "monte_carlo_power": 0.537,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.0515
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.07341
+          },
+          {
+            "clusters": 36,
+            "power": 0.08532
+          },
+          {
+            "clusters": 48,
+            "power": 0.097344
+          },
+          {
+            "clusters": 64,
+            "power": 0.113531
+          },
+          {
+            "clusters": 80,
+            "power": 0.129864
+          },
+          {
+            "clusters": 100,
+            "power": 0.150436
+          },
+          {
+            "clusters": 120,
+            "power": 0.171128
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9535,
+        "compliance": 0.5,
+        "contamination": 0.05,
+        "first_stage_mean": 0.501512,
+        "icc": 0.05,
+        "itt_bias": 0.000385,
+        "monte_carlo_power": 0.182,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.047
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.096378
+          },
+          {
+            "clusters": 36,
+            "power": 0.120212
+          },
+          {
+            "clusters": 48,
+            "power": 0.144331
+          },
+          {
+            "clusters": 64,
+            "power": 0.17677
+          },
+          {
+            "clusters": 80,
+            "power": 0.209338
+          },
+          {
+            "clusters": 100,
+            "power": 0.249951
+          },
+          {
+            "clusters": 120,
+            "power": 0.29017
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9465,
+        "compliance": 0.7,
+        "contamination": 0.05,
+        "first_stage_mean": 0.699299,
+        "icc": 0.05,
+        "itt_bias": 0.000198,
+        "monte_carlo_power": 0.294,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.052
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.12757
+          },
+          {
+            "clusters": 36,
+            "power": 0.167645
+          },
+          {
+            "clusters": 48,
+            "power": 0.208008
+          },
+          {
+            "clusters": 64,
+            "power": 0.26166
+          },
+          {
+            "clusters": 80,
+            "power": 0.314484
+          },
+          {
+            "clusters": 100,
+            "power": 0.37851
+          },
+          {
+            "clusters": 120,
+            "power": 0.439558
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9525,
+        "compliance": 0.9,
+        "contamination": 0.05,
+        "first_stage_mean": 0.900276,
+        "icc": 0.05,
+        "itt_bias": 0.000107,
+        "monte_carlo_power": 0.442,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.0525
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.065081
+          },
+          {
+            "clusters": 36,
+            "power": 0.072714
+          },
+          {
+            "clusters": 48,
+            "power": 0.080401
+          },
+          {
+            "clusters": 64,
+            "power": 0.090729
+          },
+          {
+            "clusters": 80,
+            "power": 0.101138
+          },
+          {
+            "clusters": 100,
+            "power": 0.114249
+          },
+          {
+            "clusters": 120,
+            "power": 0.127454
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.9585,
+        "compliance": 0.5,
+        "contamination": 0.05,
+        "first_stage_mean": 0.500093,
+        "icc": 0.1,
+        "itt_bias": 0.000689,
+        "monte_carlo_power": 0.1245,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.051
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.079784
+          },
+          {
+            "clusters": 36,
+            "power": 0.094988
+          },
+          {
+            "clusters": 48,
+            "power": 0.110358
+          },
+          {
+            "clusters": 64,
+            "power": 0.13106
+          },
+          {
+            "clusters": 80,
+            "power": 0.151942
+          },
+          {
+            "clusters": 100,
+            "power": 0.178205
+          },
+          {
+            "clusters": 120,
+            "power": 0.204547
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.954,
+        "compliance": 0.7,
+        "contamination": 0.05,
+        "first_stage_mean": 0.698588,
+        "icc": 0.1,
+        "itt_bias": -0.000632,
+        "monte_carlo_power": 0.203,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.048
+      },
+      {
+        "analytic_search": [
+          {
+            "clusters": 24,
+            "power": 0.099676
+          },
+          {
+            "clusters": 36,
+            "power": 0.12523
+          },
+          {
+            "clusters": 48,
+            "power": 0.151087
+          },
+          {
+            "clusters": 64,
+            "power": 0.185835
+          },
+          {
+            "clusters": 80,
+            "power": 0.220672
+          },
+          {
+            "clusters": 100,
+            "power": 0.264012
+          },
+          {
+            "clusters": 120,
+            "power": 0.306791
+          }
+        ],
+        "censoring": 0.1,
+        "ci_coverage": 0.947,
+        "compliance": 0.9,
+        "contamination": 0.05,
+        "first_stage_mean": 0.900001,
+        "icc": 0.1,
+        "itt_bias": -0.000877,
+        "monte_carlo_power": 0.2975,
+        "opportunities": 3000,
+        "probability_weak_instrument": 0.0,
+        "selected_clusters": 120,
+        "type_i_error": 0.068
+      }
+    ],
+    "target_power": 0.8
+  },
   "compute": {
     "canonical_parallelism": "across replications, seed-ordered; results are independent of worker count, so the resolved count is not published here",
     "canonical_tiers": [
@@ -81,29 +622,43 @@
         "committed": true,
         "device": "cpu",
         "name": "e3-sample-size",
-        "note": "14 n-values x 500 replications",
+        "note": "7 n-values x 500 complete panel replications",
         "replications": 500
       },
       {
         "committed": true,
         "device": "cpu",
-        "name": "calibration",
-        "note": "240 synthetic entities",
+        "name": "synthetic-e3-panel",
+        "note": "240 relationships x 5 products x 24 periods",
         "replications": 240
       },
       {
         "committed": true,
         "device": "cpu",
+        "name": "timing-hazard",
+        "note": "2,000 clients x 36 monthly intervals",
+        "replications": 2000
+      },
+      {
+        "committed": true,
+        "device": "cpu",
         "name": "causal-trial",
-        "note": "200 trial realisations",
-        "replications": 200
+        "note": "2,000 trial realisations plus analytic grid",
+        "replications": 2000
       },
       {
         "committed": true,
         "device": "cpu",
         "name": "economics",
-        "note": "512 Latin-hypercube samples",
-        "replications": 512
+        "note": "10,000 correlated Latin-hypercube draws x 16 solutions",
+        "replications": 10000
+      },
+      {
+        "committed": true,
+        "device": "cpu",
+        "name": "genai-mutations",
+        "note": "120 fixed cases plus 1,000 deterministic mutations",
+        "replications": 1000
       }
     ],
     "compute_version": "v32-compute-policy-1.0.0",
@@ -133,79 +688,459 @@
     ],
     "policy": "Canonical tiers run on CPU because their artifacts are byte-gated and must reproduce on a GPU-less CI runner. Nightly tiers may use the GPU because they publish a statistical summary rather than a fixture. No committed number depends on the GPU path."
   },
+  "e3_sample_size_readiness": {
+    "as_of": "2026-06-30",
+    "bank_meaning": "This estimates data-acquisition requirements under planted synthetic truth; it does not provide E3 evidence.",
+    "criteria": {
+      "coverage": "P(0.85 <= coverage_90 <= 0.95) >= 0.90",
+      "crps": "P(CRPS improvement >= 10%) >= 0.90",
+      "splits": [
+        "client-held-out",
+        "temporal"
+      ],
+      "subgroup": "no material subgroup coverage below 0.80"
+    },
+    "determination": "NOT_DETERMINED_UP_TO_150",
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "lab_version": "v32-e3-readiness-sample-size-1.0.0",
+    "profile": "CANONICAL_RELEASE",
+    "recommended_n": null,
+    "replications_per_n": 500,
+    "sweep": [
+      {
+        "all_criteria_success_rate": 0.078,
+        "all_criteria_wilson_lower": 0.057581,
+        "all_criteria_wilson_upper": 0.104854,
+        "coverage_success_rate": 0.226,
+        "crps_success_rate": 0.388,
+        "n": 20,
+        "qualifies": false,
+        "replications": 500,
+        "subgroup_success_rate": 0.182
+      },
+      {
+        "all_criteria_success_rate": 0.094,
+        "all_criteria_wilson_lower": 0.071426,
+        "all_criteria_wilson_upper": 0.122765,
+        "coverage_success_rate": 0.312,
+        "crps_success_rate": 0.556,
+        "n": 30,
+        "qualifies": false,
+        "replications": 500,
+        "subgroup_success_rate": 0.212
+      },
+      {
+        "all_criteria_success_rate": 0.118,
+        "all_criteria_wilson_lower": 0.092593,
+        "all_criteria_wilson_upper": 0.149232,
+        "coverage_success_rate": 0.38,
+        "crps_success_rate": 0.612,
+        "n": 40,
+        "qualifies": false,
+        "replications": 500,
+        "subgroup_success_rate": 0.302
+      },
+      {
+        "all_criteria_success_rate": 0.204,
+        "all_criteria_wilson_lower": 0.170998,
+        "all_criteria_wilson_upper": 0.241515,
+        "coverage_success_rate": 0.502,
+        "crps_success_rate": 0.738,
+        "n": 60,
+        "qualifies": false,
+        "replications": 500,
+        "subgroup_success_rate": 0.38
+      },
+      {
+        "all_criteria_success_rate": 0.304,
+        "all_criteria_wilson_lower": 0.265302,
+        "all_criteria_wilson_upper": 0.345687,
+        "coverage_success_rate": 0.592,
+        "crps_success_rate": 0.836,
+        "n": 80,
+        "qualifies": false,
+        "replications": 500,
+        "subgroup_success_rate": 0.446
+      },
+      {
+        "all_criteria_success_rate": 0.392,
+        "all_criteria_wilson_lower": 0.350187,
+        "all_criteria_wilson_upper": 0.435459,
+        "coverage_success_rate": 0.626,
+        "crps_success_rate": 0.878,
+        "n": 100,
+        "qualifies": false,
+        "replications": 500,
+        "subgroup_success_rate": 0.548
+      },
+      {
+        "all_criteria_success_rate": 0.502,
+        "all_criteria_wilson_lower": 0.458326,
+        "all_criteria_wilson_upper": 0.545643,
+        "coverage_success_rate": 0.74,
+        "crps_success_rate": 0.884,
+        "n": 150,
+        "qualifies": false,
+        "replications": 500,
+        "subgroup_success_rate": 0.674
+      }
+    ],
+    "tested_sample_sizes": [
+      20,
+      30,
+      40,
+      60,
+      80,
+      100,
+      150
+    ]
+  },
   "economics": {
     "aggregate": {
-      "mean": 183767.75,
-      "p05": -52328.52,
-      "p95": 414141.49
+      "mean": 183749.97,
+      "p05": -59184.63,
+      "p95": 427156.67
     },
     "bank_meaning": "Parameter ranges are illustrative, not bank-approved. No value here may be attached to an opportunity, and this cannot satisfy the bank-approved-economics-registered gate.",
     "components": {
       "capital-charge": {
-        "max": -100088.0,
-        "mean": -199991.68,
-        "min": -299892.06,
+        "max": -100001.67,
+        "mean": -199999.94,
+        "min": -299993.39,
         "owner_role": "TREASURY",
         "reconciles": true
       },
       "credit-cost": {
-        "max": -37790.35,
-        "mean": -131256.51,
-        "min": -224759.62,
+        "max": -37516.15,
+        "mean": -131250.03,
+        "min": -224996.86,
         "owner_role": "RISK",
         "reconciles": true
       },
       "fee-rate": {
-        "max": 187369.43,
-        "mean": 118747.95,
-        "min": 50090.97,
+        "max": 187490.9,
+        "mean": 118749.96,
+        "min": 50006.51,
         "owner_role": "PRODUCT_FINANCE",
         "reconciles": true
       },
       "funding-spread": {
-        "max": 649421.17,
-        "mean": 450017.05,
-        "min": 250745.78,
+        "max": 649998.11,
+        "mean": 449999.97,
+        "min": 250039.27,
         "owner_role": "TREASURY",
         "reconciles": true
       },
       "operating-cost": {
-        "max": -20014.15,
-        "mean": -53749.07,
-        "min": -87481.97,
+        "max": -20003.1,
+        "mean": -53749.99,
+        "min": -87496.3,
         "owner_role": "OPERATIONS",
         "reconciles": true
       }
     },
     "device": "cpu",
+    "effective_from": "2026-01-01",
+    "effective_to": "2026-12-31",
     "evidence_mode": "SYNTHETIC_REHEARSAL",
-    "lab_version": "v32-economics-reconciliation-1.0.0",
+    "lab_version": "v32-economics-policy-simulator-2.0.0",
+    "ledger_components": [
+      "revenue",
+      "ftp",
+      "expected_loss",
+      "capital",
+      "liquidity",
+      "hedging",
+      "execution",
+      "operating",
+      "implementation",
+      "cost_to_win"
+    ],
     "max_component_discrepancy": 0.0,
     "notional": 25000000.0,
+    "owner_roles": [
+      "PRODUCT_FINANCE",
+      "TREASURY",
+      "RISK",
+      "OPERATIONS"
+    ],
+    "policy_version": "v32-representative-economics-policy-1.0.0",
+    "portfolio": {
+      "downside_cvar_10": -4734868.81,
+      "expected_contribution": -2781526.31,
+      "p05": -4630859.11,
+      "p95": -909986.32,
+      "probability_positive": 0.0042
+    },
+    "real_mode_behavior": "FAIL_CLOSED_UNTIL_BANK_ATTESTED_RATE_CARDS",
     "reconciles_exactly": true,
-    "samples": 512,
+    "samples": 10000,
     "sensitivity_rank": [
       {
         "component_id": "funding-spread",
-        "swing": 398675.39
+        "swing": 399958.84
       },
       {
         "component_id": "capital-charge",
-        "swing": 199804.06
+        "swing": 199991.72
       },
       {
         "component_id": "credit-cost",
-        "swing": 186969.27
+        "swing": 187480.71
       },
       {
         "component_id": "fee-rate",
-        "swing": 137278.45
+        "swing": 137484.39
       },
       {
         "component_id": "operating-cost",
-        "swing": 67467.82
+        "swing": 67493.19
       }
     ],
+    "solution_count": 16,
+    "solutions": [
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -248594.48,
+        "draws": 10000,
+        "expected_contribution": -157245.74,
+        "max_reconciliation_difference": 0.0,
+        "notional": 8000000.0,
+        "p05": -244631.15,
+        "p50": -156560.19,
+        "p95": -68668.83,
+        "probability_hurdle_met": 0.0,
+        "probability_positive": 0.0,
+        "reconciles": true,
+        "solution": "COLLECTIONS"
+      },
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -252449.13,
+        "draws": 10000,
+        "expected_contribution": -158294.96,
+        "max_reconciliation_difference": 0.0,
+        "notional": 9750000.0,
+        "p05": -248599.52,
+        "p50": -157808.39,
+        "p95": -67834.23,
+        "probability_hurdle_met": 0.0,
+        "probability_positive": 0.0,
+        "reconciles": true,
+        "solution": "PAYMENTS"
+      },
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -256720.09,
+        "draws": 10000,
+        "expected_contribution": -159344.19,
+        "max_reconciliation_difference": 0.0,
+        "notional": 11500000.0,
+        "p05": -252286.33,
+        "p50": -159148.45,
+        "p95": -65474.3,
+        "probability_hurdle_met": 0.0,
+        "probability_positive": 0.0003,
+        "reconciles": true,
+        "solution": "LIQUIDITY_CASH_MANAGEMENT"
+      },
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -261322.8,
+        "draws": 10000,
+        "expected_contribution": -160393.41,
+        "max_reconciliation_difference": 0.0,
+        "notional": 13250000.0,
+        "p05": -256661.34,
+        "p50": -160438.09,
+        "p95": -63216.09,
+        "probability_hurdle_met": 0.0,
+        "probability_positive": 0.0008,
+        "reconciles": true,
+        "solution": "CROSS_BORDER_FX"
+      },
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -289443.75,
+        "draws": 10000,
+        "expected_contribution": -180192.64,
+        "max_reconciliation_difference": 0.0,
+        "notional": 15000000.0,
+        "p05": -284236.04,
+        "p50": -179806.23,
+        "p95": -74756.38,
+        "probability_hurdle_met": 0.0,
+        "probability_positive": 0.0008,
+        "reconciles": true,
+        "solution": "TRADE_FINANCE"
+      },
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -297612.12,
+        "draws": 10000,
+        "expected_contribution": -183429.37,
+        "max_reconciliation_difference": 0.0,
+        "notional": 16750000.0,
+        "p05": -291647.53,
+        "p50": -183386.09,
+        "p95": -74258.17,
+        "probability_hurdle_met": 0.0,
+        "probability_positive": 0.0012,
+        "reconciles": true,
+        "solution": "SUPPLY_CHAIN_FINANCE"
+      },
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -276882.56,
+        "draws": 10000,
+        "expected_contribution": -163541.09,
+        "max_reconciliation_difference": 0.0,
+        "notional": 18500000.0,
+        "p05": -271233.2,
+        "p50": -163327.2,
+        "p95": -55425.41,
+        "probability_hurdle_met": 0.0,
+        "probability_positive": 0.0034,
+        "reconciles": true,
+        "solution": "GUARANTEES_LETTERS_OF_CREDIT"
+      },
+      {
+        "break_even_target_share": 1.0,
+        "downside_cvar_10": -282492.62,
+        "draws": 10000,
+        "expected_contribution": -164590.31,
+        "max_reconciliation_difference": 0.0,
+        "notional": 20250000.0,
+        "p05": -276197.71,
+        "p50": -164133.35,
+        "p95": -52698.81,
+        "probability_hurdle_met": 0.0001,
+        "probability_positive": 0.0048,
+        "reconciles": true,
+        "solution": "WORKING_CAPITAL_REVOLVING_CREDIT"
+      },
+      {
+        "break_even_target_share": 0.991466,
+        "downside_cvar_10": -323516.38,
+        "draws": 10000,
+        "expected_contribution": -193139.54,
+        "max_reconciliation_difference": 0.0,
+        "notional": 22000000.0,
+        "p05": -316509.01,
+        "p50": -192431.55,
+        "p95": -69280.91,
+        "probability_hurdle_met": 0.0001,
+        "probability_positive": 0.0027,
+        "reconciles": true,
+        "solution": "TERM_SYNDICATED_LENDING"
+      },
+      {
+        "break_even_target_share": 0.918411,
+        "downside_cvar_10": -294201.52,
+        "draws": 10000,
+        "expected_contribution": -166688.76,
+        "max_reconciliation_difference": 0.0,
+        "notional": 23750000.0,
+        "p05": -287180.41,
+        "p50": -166367.21,
+        "p95": -46046.27,
+        "probability_hurdle_met": 0.0002,
+        "probability_positive": 0.0084,
+        "reconciles": true,
+        "solution": "DEBT_CAPITAL_MARKETS"
+      },
+      {
+        "break_even_target_share": 0.855382,
+        "downside_cvar_10": -341689.38,
+        "draws": 10000,
+        "expected_contribution": -199612.99,
+        "max_reconciliation_difference": 0.0,
+        "notional": 25500000.0,
+        "p05": -332942.35,
+        "p50": -198893.92,
+        "p95": -64184.88,
+        "probability_hurdle_met": 0.0002,
+        "probability_positive": 0.0054,
+        "reconciles": true,
+        "solution": "PROJECT_FINANCE"
+      },
+      {
+        "break_even_target_share": 0.80045,
+        "downside_cvar_10": -306400.13,
+        "draws": 10000,
+        "expected_contribution": -168787.21,
+        "max_reconciliation_difference": 0.0,
+        "notional": 27250000.0,
+        "p05": -298797.71,
+        "p50": -168335.93,
+        "p95": -37793.3,
+        "probability_hurdle_met": 0.0006,
+        "probability_positive": 0.0142,
+        "reconciles": true,
+        "solution": "INTEREST_RATE_RISK_MANAGEMENT"
+      },
+      {
+        "break_even_target_share": 0.752147,
+        "downside_cvar_10": -312626.62,
+        "draws": 10000,
+        "expected_contribution": -169836.43,
+        "max_reconciliation_difference": 0.0,
+        "notional": 29000000.0,
+        "p05": -304232.9,
+        "p50": -169225.31,
+        "p95": -33818.34,
+        "probability_hurdle_met": 0.0007,
+        "probability_positive": 0.0178,
+        "reconciles": true,
+        "solution": "COMMODITY_RISK_MANAGEMENT"
+      },
+      {
+        "break_even_target_share": 0.709341,
+        "downside_cvar_10": -318938.73,
+        "draws": 10000,
+        "expected_contribution": -170885.66,
+        "max_reconciliation_difference": 0.0,
+        "notional": 30750000.0,
+        "p05": -310624.64,
+        "p50": -170657.19,
+        "p95": -29987.7,
+        "probability_hurdle_met": 0.0012,
+        "probability_positive": 0.0212,
+        "reconciles": true,
+        "solution": "ESCROW_AGENCY_SERVICES"
+      },
+      {
+        "break_even_target_share": 0.671146,
+        "downside_cvar_10": -379473.68,
+        "draws": 10000,
+        "expected_contribution": -212559.89,
+        "max_reconciliation_difference": 0.0,
+        "notional": 32500000.0,
+        "p05": -370436.12,
+        "p50": -212170.0,
+        "p95": -53649.91,
+        "probability_hurdle_met": 0.0005,
+        "probability_positive": 0.0111,
+        "reconciles": true,
+        "solution": "SUSTAINABLE_FINANCE"
+      },
+      {
+        "break_even_target_share": 0.636854,
+        "downside_cvar_10": -331854.74,
+        "draws": 10000,
+        "expected_contribution": -172984.11,
+        "max_reconciliation_difference": 0.0,
+        "notional": 34250000.0,
+        "p05": -323102.82,
+        "p50": -172692.12,
+        "p95": -21208.52,
+        "probability_hurdle_met": 0.0016,
+        "probability_positive": 0.0285,
+        "reconciles": true,
+        "solution": "M_AND_A_STRATEGIC_ADVISORY"
+      }
+    ],
+    "source_mode": "SIMULATED_POLICY",
     "why_component_level": "A matching total is weak evidence: two errors of opposite sign reconcile perfectly and are both still wrong. Components also map to accountable functions, so an aggregate check cannot say whose number moved."
   },
   "feasibility_sweep": {
@@ -326,14 +1261,48 @@
       }
     ]
   },
+  "genai_readiness": {
+    "bank_approval_requirements": [
+      "approved provider and contract",
+      "residency, privacy and retention approval",
+      "bank-controlled credential and pinned model",
+      "restricted sealed dataset and independent SME adjudication",
+      "token, cost and latency telemetry"
+    ],
+    "bank_approved": false,
+    "bank_meaning": "The suite validates deterministic grounding and abstention mechanics. It does not approve a provider, contract, data boundary or live model for bank use.",
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "fixed_cases": 120,
+    "fixed_category_counts": {
+      "contradiction": 12,
+      "currency_change": 12,
+      "exact": 12,
+      "future_fact": 12,
+      "missing_unit": 12,
+      "ocr_corruption": 12,
+      "prompt_injection": 12,
+      "restatement": 12,
+      "table_input": 12,
+      "unit_change": 12
+    },
+    "fixed_failure_examples": [],
+    "fixed_failures": 0,
+    "hackathon_validated": true,
+    "mutation_cases": 1000,
+    "mutation_failures": 0,
+    "prompt_injection_successes": 0,
+    "suite_version": "v32-genai-bank-readiness-1.0.0"
+  },
   "laboratories_version": "v32-simulation-laboratories-1.0.0",
   "laboratory_versions": {
     "calibration": "v32-multi-level-calibration-1.0.0",
     "causal_operating_characteristics": "v32-causal-operating-characteristics-1.0.0",
     "economics": "v32-economics-reconciliation-1.0.0",
     "feasibility_sweep": "v32-feasibility-sweep-1.0.0",
+    "genai_readiness": "v32-genai-bank-readiness-1.0.0",
     "rm_personas": "v32-rm-persona-simulator-1.0.0",
     "sample_size": "v32-e3-sample-size-planner-1.0.0",
+    "synthetic_e3_panel": "v32-synthetic-e3-panel-1.0.0",
     "timing": "v32-timing-temporal-split-1.0.0"
   },
   "rm_personas": {
@@ -482,7 +1451,7 @@
       "mode": "SYNTHETIC_REHEARSAL",
       "plan_id": "e3-sample-size-2026-06-30",
       "recommended_n": null,
-      "replications_per_n": 400,
+      "replications_per_n": 500,
       "target_coverage": 0.9,
       "target_half_width": 0.05,
       "tested_sample_sizes": [
@@ -504,190 +1473,446 @@
       "wilson_intervals": [
         [
           20.0,
-          0.88924542,
-          0.94276425
+          0.86615573,
+          0.91980579
         ],
         [
           30.0,
-          0.86389658,
-          0.92354115
+          0.83767864,
+          0.89667935
         ],
         [
           40.0,
-          0.88356782,
-          0.93853698
+          0.9019316,
+          0.94754197
         ],
         [
           50.0,
-          0.84448605,
-          0.90828461
+          0.87279395,
+          0.92507608
         ],
         [
           60.0,
-          0.84448605,
-          0.90828461
+          0.86394907,
+          0.91804295
         ],
         [
           70.0,
-          0.87510141,
-          0.93214607
+          0.86836538,
+          0.92156565
         ],
         [
           80.0,
-          0.85832657,
-          0.91920628
+          0.86394907,
+          0.91804295
         ],
         [
           90.0,
-          0.87229165,
-          0.93000339
+          0.85734631,
+          0.9127372
         ],
         [
           100.0,
-          0.85832657,
-          0.91920628
+          0.88392353,
+          0.93379402
         ],
         [
           110.0,
-          0.8389809,
-          0.90388488
+          0.86836538,
+          0.92156565
         ],
         [
           120.0,
-          0.84448605,
-          0.90828461
+          0.8485804,
+          0.9056251
         ],
         [
           130.0,
-          0.83349215,
-          0.89946875
+          0.88169059,
+          0.93205745
         ],
         [
           140.0,
-          0.85277643,
-          0.91485154
+          0.89966525,
+          0.94583882
         ],
         [
           150.0,
-          0.86389658,
-          0.92354115
+          0.86615573,
+          0.91980579
         ]
       ]
     },
     "sweep": [
       {
-        "coverage": 0.92,
-        "mean_half_width": 0.131283,
+        "coverage": 0.896,
+        "mean_half_width": 0.131409,
         "meets_target": false,
         "n": 20,
-        "wilson_lower": 0.889245,
-        "wilson_upper": 0.942764
-      },
-      {
-        "coverage": 0.8975,
-        "mean_half_width": 0.11135,
-        "meets_target": false,
-        "n": 30,
-        "wilson_lower": 0.863897,
-        "wilson_upper": 0.923541
-      },
-      {
-        "coverage": 0.915,
-        "mean_half_width": 0.099098,
-        "meets_target": false,
-        "n": 40,
-        "wilson_lower": 0.883568,
-        "wilson_upper": 0.938537
-      },
-      {
-        "coverage": 0.88,
-        "mean_half_width": 0.090104,
-        "meets_target": false,
-        "n": 50,
-        "wilson_lower": 0.844486,
-        "wilson_upper": 0.908285
-      },
-      {
-        "coverage": 0.88,
-        "mean_half_width": 0.08169,
-        "meets_target": false,
-        "n": 60,
-        "wilson_lower": 0.844486,
-        "wilson_upper": 0.908285
-      },
-      {
-        "coverage": 0.9075,
-        "mean_half_width": 0.078318,
-        "meets_target": false,
-        "n": 70,
-        "wilson_lower": 0.875101,
-        "wilson_upper": 0.932146
-      },
-      {
-        "coverage": 0.8925,
-        "mean_half_width": 0.072599,
-        "meets_target": false,
-        "n": 80,
-        "wilson_lower": 0.858327,
-        "wilson_upper": 0.919206
-      },
-      {
-        "coverage": 0.905,
-        "mean_half_width": 0.068795,
-        "meets_target": false,
-        "n": 90,
-        "wilson_lower": 0.872292,
-        "wilson_upper": 0.930003
-      },
-      {
-        "coverage": 0.8925,
-        "mean_half_width": 0.065178,
-        "meets_target": false,
-        "n": 100,
-        "wilson_lower": 0.858327,
-        "wilson_upper": 0.919206
-      },
-      {
-        "coverage": 0.875,
-        "mean_half_width": 0.063817,
-        "meets_target": false,
-        "n": 110,
-        "wilson_lower": 0.838981,
-        "wilson_upper": 0.903885
-      },
-      {
-        "coverage": 0.88,
-        "mean_half_width": 0.059815,
-        "meets_target": false,
-        "n": 120,
-        "wilson_lower": 0.844486,
-        "wilson_upper": 0.908285
+        "wilson_lower": 0.866156,
+        "wilson_upper": 0.919806
       },
       {
         "coverage": 0.87,
-        "mean_half_width": 0.057868,
+        "mean_half_width": 0.111678,
+        "meets_target": false,
+        "n": 30,
+        "wilson_lower": 0.837679,
+        "wilson_upper": 0.896679
+      },
+      {
+        "coverage": 0.928,
+        "mean_half_width": 0.099451,
+        "meets_target": false,
+        "n": 40,
+        "wilson_lower": 0.901932,
+        "wilson_upper": 0.947542
+      },
+      {
+        "coverage": 0.902,
+        "mean_half_width": 0.090161,
+        "meets_target": false,
+        "n": 50,
+        "wilson_lower": 0.872794,
+        "wilson_upper": 0.925076
+      },
+      {
+        "coverage": 0.894,
+        "mean_half_width": 0.08255,
+        "meets_target": false,
+        "n": 60,
+        "wilson_lower": 0.863949,
+        "wilson_upper": 0.918043
+      },
+      {
+        "coverage": 0.898,
+        "mean_half_width": 0.078213,
+        "meets_target": false,
+        "n": 70,
+        "wilson_lower": 0.868365,
+        "wilson_upper": 0.921566
+      },
+      {
+        "coverage": 0.894,
+        "mean_half_width": 0.073284,
+        "meets_target": false,
+        "n": 80,
+        "wilson_lower": 0.863949,
+        "wilson_upper": 0.918043
+      },
+      {
+        "coverage": 0.888,
+        "mean_half_width": 0.068854,
+        "meets_target": false,
+        "n": 90,
+        "wilson_lower": 0.857346,
+        "wilson_upper": 0.912737
+      },
+      {
+        "coverage": 0.912,
+        "mean_half_width": 0.065624,
+        "meets_target": false,
+        "n": 100,
+        "wilson_lower": 0.883924,
+        "wilson_upper": 0.933794
+      },
+      {
+        "coverage": 0.898,
+        "mean_half_width": 0.063468,
+        "meets_target": false,
+        "n": 110,
+        "wilson_lower": 0.868365,
+        "wilson_upper": 0.921566
+      },
+      {
+        "coverage": 0.88,
+        "mean_half_width": 0.060069,
+        "meets_target": false,
+        "n": 120,
+        "wilson_lower": 0.84858,
+        "wilson_upper": 0.905625
+      },
+      {
+        "coverage": 0.91,
+        "mean_half_width": 0.057933,
         "meets_target": false,
         "n": 130,
-        "wilson_lower": 0.833492,
-        "wilson_upper": 0.899469
+        "wilson_lower": 0.881691,
+        "wilson_upper": 0.932057
       },
       {
-        "coverage": 0.8875,
-        "mean_half_width": 0.055994,
+        "coverage": 0.926,
+        "mean_half_width": 0.056156,
         "meets_target": false,
         "n": 140,
-        "wilson_lower": 0.852776,
-        "wilson_upper": 0.914852
+        "wilson_lower": 0.899665,
+        "wilson_upper": 0.945839
       },
       {
-        "coverage": 0.8975,
-        "mean_half_width": 0.055061,
+        "coverage": 0.896,
+        "mean_half_width": 0.055,
         "meets_target": false,
         "n": 150,
-        "wilson_lower": 0.863897,
-        "wilson_upper": 0.923541
+        "wilson_lower": 0.866156,
+        "wilson_upper": 0.919806
       }
     ]
+  },
+  "synthetic_e3_panel": {
+    "as_of": "2026-06-30",
+    "bank_meaning": "This laboratory reveals how panel bias and measurement error affect recovery. It cannot activate measured-share reporting.",
+    "clients": 240,
+    "evidence_mode": "SYNTHETIC_REHEARSAL",
+    "lab_version": "v32-synthetic-e3-panel-1.0.0",
+    "measurement_defects": {
+      "censored_rows": 622,
+      "fx_translation_policy_present": true,
+      "noisy_e2_available_rows": 10126,
+      "stale_rows": 794
+    },
+    "models": [
+      {
+        "coverage_90": 0.996528,
+        "crps_proxy": 0.067708,
+        "mean_wallet_interval_width": 21099872471.71,
+        "model": "FROZEN_PRIOR",
+        "rank_recovery_spearman": 0.974935,
+        "severe_subgroup_undercoverage": false,
+        "share_bias": -0.03104,
+        "share_mae": 0.067708,
+        "subgroup_calibration": [
+          {
+            "coverage_90": 1.0,
+            "rows": 270,
+            "sector": "MINING"
+          },
+          {
+            "coverage_90": 0.995833,
+            "rows": 240,
+            "sector": "RETAIL"
+          },
+          {
+            "coverage_90": 1.0,
+            "rows": 330,
+            "sector": "MANUFACTURING"
+          },
+          {
+            "coverage_90": 1.0,
+            "rows": 240,
+            "sector": "ENERGY"
+          },
+          {
+            "coverage_90": 0.994444,
+            "rows": 180,
+            "sector": "LOGISTICS"
+          },
+          {
+            "coverage_90": 0.983333,
+            "rows": 180,
+            "sector": "SERVICES"
+          }
+        ],
+        "wallet_mae": 102604760.4
+      },
+      {
+        "coverage_90": 0.997917,
+        "crps_proxy": 0.065602,
+        "mean_wallet_interval_width": 915478384.75,
+        "model": "NAIVE_PANEL",
+        "rank_recovery_spearman": 0.974507,
+        "severe_subgroup_undercoverage": false,
+        "share_bias": 0.024,
+        "share_mae": 0.065602,
+        "subgroup_calibration": [
+          {
+            "coverage_90": 1.0,
+            "rows": 270,
+            "sector": "MINING"
+          },
+          {
+            "coverage_90": 0.995833,
+            "rows": 240,
+            "sector": "RETAIL"
+          },
+          {
+            "coverage_90": 1.0,
+            "rows": 330,
+            "sector": "MANUFACTURING"
+          },
+          {
+            "coverage_90": 0.995833,
+            "rows": 240,
+            "sector": "ENERGY"
+          },
+          {
+            "coverage_90": 1.0,
+            "rows": 180,
+            "sector": "LOGISTICS"
+          },
+          {
+            "coverage_90": 0.994444,
+            "rows": 180,
+            "sector": "SERVICES"
+          }
+        ],
+        "wallet_mae": 75040663.0
+      },
+      {
+        "coverage_90": 0.985417,
+        "crps_proxy": 0.062894,
+        "mean_wallet_interval_width": 636426623.29,
+        "model": "SELECTION_WEIGHTED",
+        "rank_recovery_spearman": 0.974427,
+        "severe_subgroup_undercoverage": false,
+        "share_bias": 0.011942,
+        "share_mae": 0.062894,
+        "subgroup_calibration": [
+          {
+            "coverage_90": 0.985185,
+            "rows": 270,
+            "sector": "MINING"
+          },
+          {
+            "coverage_90": 0.9875,
+            "rows": 240,
+            "sector": "RETAIL"
+          },
+          {
+            "coverage_90": 0.987879,
+            "rows": 330,
+            "sector": "MANUFACTURING"
+          },
+          {
+            "coverage_90": 0.9875,
+            "rows": 240,
+            "sector": "ENERGY"
+          },
+          {
+            "coverage_90": 0.994444,
+            "rows": 180,
+            "sector": "LOGISTICS"
+          },
+          {
+            "coverage_90": 0.966667,
+            "rows": 180,
+            "sector": "SERVICES"
+          }
+        ],
+        "wallet_mae": 75421550.82
+      },
+      {
+        "coverage_90": 0.96875,
+        "crps_proxy": 0.065749,
+        "mean_wallet_interval_width": 462262017.76,
+        "model": "HIERARCHICAL",
+        "rank_recovery_spearman": 0.9743,
+        "severe_subgroup_undercoverage": false,
+        "share_bias": 0.022542,
+        "share_mae": 0.065749,
+        "subgroup_calibration": [
+          {
+            "coverage_90": 0.977778,
+            "rows": 270,
+            "sector": "MINING"
+          },
+          {
+            "coverage_90": 0.975,
+            "rows": 240,
+            "sector": "RETAIL"
+          },
+          {
+            "coverage_90": 0.957576,
+            "rows": 330,
+            "sector": "MANUFACTURING"
+          },
+          {
+            "coverage_90": 0.970833,
+            "rows": 240,
+            "sector": "ENERGY"
+          },
+          {
+            "coverage_90": 0.983333,
+            "rows": 180,
+            "sector": "LOGISTICS"
+          },
+          {
+            "coverage_90": 0.95,
+            "rows": 180,
+            "sector": "SERVICES"
+          }
+        ],
+        "wallet_mae": 76089615.77
+      },
+      {
+        "coverage_90": 0.30625,
+        "crps_proxy": 0.065749,
+        "mean_wallet_interval_width": 78738555.76,
+        "model": "CONFORMALIZED",
+        "rank_recovery_spearman": 0.9743,
+        "severe_subgroup_undercoverage": true,
+        "share_bias": 0.022542,
+        "share_mae": 0.065749,
+        "subgroup_calibration": [
+          {
+            "coverage_90": 0.362963,
+            "rows": 270,
+            "sector": "MINING"
+          },
+          {
+            "coverage_90": 0.3,
+            "rows": 240,
+            "sector": "RETAIL"
+          },
+          {
+            "coverage_90": 0.275758,
+            "rows": 330,
+            "sector": "MANUFACTURING"
+          },
+          {
+            "coverage_90": 0.2875,
+            "rows": 240,
+            "sector": "ENERGY"
+          },
+          {
+            "coverage_90": 0.333333,
+            "rows": 180,
+            "sector": "LOGISTICS"
+          },
+          {
+            "coverage_90": 0.283333,
+            "rows": 180,
+            "sector": "SERVICES"
+          }
+        ],
+        "wallet_mae": 76089615.77
+      }
+    ],
+    "multiple_legal_entities": true,
+    "periods": 24,
+    "point_in_time_and_restatements": true,
+    "products": [
+      "COLLECTIONS",
+      "PAYMENTS",
+      "LIQUIDITY",
+      "CROSS_BORDER_FX",
+      "TRADE_FINANCE"
+    ],
+    "rows": 28800,
+    "selection": {
+      "biased": true,
+      "mechanism": "logit(size + relationship_depth + willingness)",
+      "selected_client_fraction": 0.358333
+    },
+    "split": {
+      "client_held_out": true,
+      "temporal_cutoff_period": 18,
+      "test_rows": 1440,
+      "train_rows": 5554
+    },
+    "truth_reconciliation": {
+      "share_identity_max_error": 0.0,
+      "syn_plus_other_equals_total_max_error": 9.5e-07
+    }
   },
   "timing": {
     "as_of": "2026-06-30",
@@ -696,6 +1921,92 @@
     "evidence_mode": "SYNTHETIC_REHEARSAL",
     "governed_mae_months": 1.895664,
     "governed_split": "client-held-out-temporal",
+    "hazard_recovery": {
+      "as_of": "2026-06-30",
+      "bank_meaning": "The planted relationship was tested in a synthetic laboratory. It is not evidence about banker response behavior.",
+      "client_held_out": true,
+      "clients": 2000,
+      "coefficient_direction_recovery": {
+        "all_recovered": true,
+        "recovered": 6,
+        "total": 6
+      },
+      "evidence_mode": "SYNTHETIC_REHEARSAL",
+      "horizons": {
+        "30d": {
+          "brier": 0.117757,
+          "calibration": [
+            {
+              "count": 3855,
+              "observed": 0.137224,
+              "predicted": 0.132646
+            },
+            {
+              "count": 6,
+              "observed": 0.0,
+              "predicted": 0.208704
+            }
+          ],
+          "log_loss": 0.397506,
+          "rows": 3861
+        },
+        "60d": {
+          "brier": 0.192548,
+          "calibration": [
+            {
+              "count": 353,
+              "observed": 0.184136,
+              "predicted": 0.179404
+            },
+            {
+              "count": 3041,
+              "observed": 0.271621,
+              "predicted": 0.254788
+            }
+          ],
+          "log_loss": 0.573138,
+          "rows": 3394
+        },
+        "90d": {
+          "brier": 0.232011,
+          "calibration": [
+            {
+              "count": 6,
+              "observed": 0.333333,
+              "predicted": 0.191363
+            },
+            {
+              "count": 2491,
+              "observed": 0.358089,
+              "predicted": 0.333388
+            },
+            {
+              "count": 387,
+              "observed": 0.408269,
+              "predicted": 0.42338
+            }
+          ],
+          "log_loss": 0.657174,
+          "rows": 2884
+        }
+      },
+      "injections": {
+        "censored_rows": 7040,
+        "concept_drift": true,
+        "delayed_outcomes": 5091,
+        "incorrect_recommendations": 5912,
+        "label_noise": 2163,
+        "missing_outcomes": 3632,
+        "sector_heterogeneity": true
+      },
+      "lab_version": "v32-timing-hazard-recovery-2.0.0",
+      "months": 36,
+      "optimizer_converged": true,
+      "rows": 72000,
+      "temporal_split": true,
+      "test_rows": 3861,
+      "train_rows": 34166
+    },
     "lab_version": "v32-timing-temporal-split-1.0.0",
     "optimism_of_a_random_split_months": 1.037439,
     "splits": [

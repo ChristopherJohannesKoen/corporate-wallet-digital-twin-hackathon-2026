@@ -5,6 +5,7 @@ CREATE SCHEMA IF NOT EXISTS wallet_twin.registry;
 CREATE SCHEMA IF NOT EXISTS wallet_twin.features;
 CREATE SCHEMA IF NOT EXISTS wallet_twin.curated;
 CREATE SCHEMA IF NOT EXISTS wallet_twin.monitoring;
+CREATE SCHEMA IF NOT EXISTS wallet_twin.governance;
 
 -- V3 decision-intelligence products are point-in-time and append-only. Draws
 -- remain reproducible from their seed, policy, source snapshot and model refs.
@@ -532,6 +533,90 @@ CREATE TABLE IF NOT EXISTS wallet_twin.curated.conversation_outcome (
   ingestion_time TIMESTAMP NOT NULL, available_date DATE NOT NULL,
   owner STRING NOT NULL, quality_status STRING NOT NULL, entitlement_domain STRING NOT NULL
 ) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true','wallet_entitled'='true');
+
+-- V3.2 Promotion Readiness Twin analytical history.  The V3.1
+-- registry.promotion_decision table above is retained as a compatibility
+-- projection; these products are the authoritative append-only governance
+-- surface.
+CREATE TABLE IF NOT EXISTS wallet_twin.governance.promotion_gate_definition (
+  gate_id STRING NOT NULL, catalogue_version STRING NOT NULL,
+  transition_id STRING NOT NULL, target_state STRING NOT NULL,
+  severity STRING NOT NULL, blocking BOOLEAN NOT NULL,
+  definition VARIANT NOT NULL, source_hash STRING NOT NULL,
+  generated_at TIMESTAMP NOT NULL, published_at TIMESTAMP NOT NULL
+) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true');
+
+CREATE TABLE IF NOT EXISTS wallet_twin.governance.promotion_verified_evidence (
+  evidence_id STRING NOT NULL, gate_id STRING NOT NULL, track STRING NOT NULL,
+  claimed_mode STRING NOT NULL, verified_mode STRING NOT NULL,
+  artifact_uri STRING NOT NULL, content_hash STRING NOT NULL,
+  envelope_hash STRING NOT NULL, signer_key_id STRING NOT NULL,
+  trust_domain STRING NOT NULL, signature_status STRING NOT NULL,
+  as_of DATE NOT NULL, generated_at TIMESTAMP NOT NULL,
+  published_at TIMESTAMP NOT NULL, expires_at TIMESTAMP,
+  simulation_clock TIMESTAMP, source_snapshot STRING NOT NULL,
+  artifact_versions VARIANT NOT NULL, owner STRING NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true','wallet_entitled'='true');
+
+CREATE TABLE IF NOT EXISTS wallet_twin.governance.promotion_gate_evaluation (
+  evaluation_id STRING NOT NULL, gate_id STRING NOT NULL,
+  transition_id STRING NOT NULL, target_state STRING NOT NULL,
+  track STRING NOT NULL, outcome STRING NOT NULL,
+  evidence_ids ARRAY<STRING> NOT NULL, evidence_mode STRING,
+  reason_codes ARRAY<STRING> NOT NULL,
+  failure_injection_verified BOOLEAN NOT NULL,
+  policy_version STRING NOT NULL, evaluated_at TIMESTAMP NOT NULL,
+  as_of DATE NOT NULL, source_hash STRING NOT NULL,
+  entitlement_domain STRING NOT NULL
+) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true','wallet_entitled'='true');
+
+CREATE TABLE IF NOT EXISTS wallet_twin.governance.promotion_decision_v32 (
+  decision_id STRING NOT NULL, as_of DATE NOT NULL,
+  generated_at TIMESTAMP NOT NULL, published_at TIMESTAMP,
+  real_state STRING NOT NULL, rehearsed_state STRING NOT NULL,
+  bank_shadow_authorized BOOLEAN NOT NULL,
+  promotion_machinery_readiness DOUBLE NOT NULL,
+  bank_evidence_readiness DOUBLE NOT NULL,
+  granted_capabilities ARRAY<STRING> NOT NULL,
+  prohibited_capabilities VARIANT NOT NULL,
+  gate_evaluations VARIANT NOT NULL, approval_ids ARRAY<STRING> NOT NULL,
+  state_machine_version STRING NOT NULL, policy_version STRING NOT NULL,
+  decision_hash STRING NOT NULL, signed_envelope VARIANT NOT NULL,
+  signature_verified BOOLEAN NOT NULL, signer_key_id STRING NOT NULL,
+  trust_domain STRING NOT NULL, entitlement_domain STRING NOT NULL
+) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true','wallet_entitled'='true');
+
+CREATE TABLE IF NOT EXISTS wallet_twin.governance.promotion_score_snapshot (
+  score_id STRING NOT NULL, decision_id STRING NOT NULL,
+  target_state STRING NOT NULL, as_of DATE NOT NULL,
+  promotion_machinery_readiness DOUBLE NOT NULL,
+  bank_evidence_readiness DOUBLE NOT NULL,
+  rehearsal_weight_passed DOUBLE NOT NULL, real_weight_passed DOUBLE NOT NULL,
+  total_weight DOUBLE NOT NULL, synthetic_weight_excluded DOUBLE NOT NULL,
+  scoring_version STRING NOT NULL, source_hash STRING NOT NULL,
+  generated_at TIMESTAMP NOT NULL
+) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true');
+
+CREATE TABLE IF NOT EXISTS wallet_twin.governance.promotion_rehearsal_result (
+  run_id STRING NOT NULL, scenario_id STRING NOT NULL,
+  as_of DATE NOT NULL, simulation_clock TIMESTAMP NOT NULL,
+  virtual_days_elapsed INT NOT NULL, consecutive_clean_days INT NOT NULL,
+  elapsed_bank_shadow_days INT NOT NULL, incident_count INT NOT NULL,
+  daily_results VARIANT NOT NULL, terminal_status STRING NOT NULL,
+  signer_key_id STRING NOT NULL, envelope_hash STRING NOT NULL,
+  source_hash STRING NOT NULL, generated_at TIMESTAMP NOT NULL
+) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true');
+
+CREATE TABLE IF NOT EXISTS wallet_twin.governance.e3_sample_size_plan (
+  plan_id STRING NOT NULL, as_of DATE NOT NULL,
+  sample_sizes ARRAY<INT> NOT NULL, replications_per_size INT NOT NULL,
+  criteria VARIANT NOT NULL, results VARIANT NOT NULL,
+  recommended_n STRING NOT NULL, recommendation_status STRING NOT NULL,
+  monte_carlo_method STRING NOT NULL, evidence_mode STRING NOT NULL,
+  source_hash STRING NOT NULL, transformation_version STRING NOT NULL,
+  generated_at TIMESTAMP NOT NULL
+) USING DELTA TBLPROPERTIES ('delta.enableChangeDataFeed'='true','delta.appendOnly'='true');
 
 -- Governed tags must already exist with ASSIGN permission granted to the
 -- deployment principal. These assignments are intentionally explicit so a

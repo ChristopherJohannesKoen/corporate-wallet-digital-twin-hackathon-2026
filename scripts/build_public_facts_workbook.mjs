@@ -20,6 +20,7 @@ const walletBundle = JSON.parse(await fs.readFile(path.join(root, "dashboard/app
 const wallet = walletBundle.projection;
 const reviewPack = JSON.parse(await fs.readFile(path.join(root, "outputs/audit/V3.1.1-Finance-SME-Review-Pack.json"), "utf8"));
 const measurementSensitivity = JSON.parse(await fs.readFile(path.join(root, "outputs/v2_validation/measurement_policy_sensitivity.json"), "utf8"));
+const promotion = JSON.parse(await fs.readFile(path.join(root, "dashboard/app/data/promotion-fixture.json"), "utf8"));
 const legacy = JSON.parse(await fs.readFile(path.join(root, "legacy/v1/fixtures/portfolio.json"), "utf8"));
 const facts = Object.values(v2.facts).sort((a, b) => a.entity_id.localeCompare(b.entity_id) || a.fact_id.localeCompare(b.fact_id));
 const opportunities = [...wallet.cells].sort((a, b) => a.rank - b.rank || a.opportunity_id.localeCompare(b.opportunity_id));
@@ -30,7 +31,7 @@ await fs.mkdir(outputDir, { recursive: true });
 await fs.mkdir(previewDir, { recursive: true });
 
 const wb = Workbook.create();
-await wb.comments.setSelf({ displayName: "Corporate Wallet Digital Twin V3.1.1" });
+await wb.comments.setSelf({ displayName: "Corporate Wallet Digital Twin V3.2.0" });
 const cover = wb.worksheets.add("Cover");
 const publicFacts = wb.worksheets.add("Public Facts");
 const coverage = wb.worksheets.add("Client Coverage");
@@ -38,6 +39,7 @@ const anchors = wb.worksheets.add("Approved Anchors");
 const impact = wb.worksheets.add("Wallet Decision Impact");
 const queue = wb.worksheets.add("Evidence Queue");
 const sensitivity = wb.worksheets.add("Sensitivity");
+const promotionReadiness = wb.worksheets.add("Promotion Readiness");
 const checks = wb.worksheets.add("Checks");
 const sources = wb.worksheets.add("Sources");
 
@@ -99,7 +101,7 @@ function body(sheet, address) {
 }
 
 // Cover and decision boundary.
-title(cover, "Corporate Wallet Digital Twin V3.1.1", "Public Facts, Approval, Anchor & Wallet-Impact Register | as of 2026-06-30", "J");
+title(cover, "Corporate Wallet Digital Twin V3.2.0", "Evidence, wallet impact and Promotion Readiness register | as of 2026-06-30", "J");
 cover.getRange("A4:J4").merge();
 cover.getRange("A4").values = [["Governed evidence and decision snapshot"]];
 cover.getRange("A4:J4").format = { fill: blue, font: { bold: true, color: "#FFFFFF", size: 12 }, rowHeight: 26 };
@@ -150,7 +152,7 @@ cover.freezePanes.freezeRows(2);
 
 // Public facts: one row per canonical point-in-time fact.
 title(publicFacts, "Canonical Public Facts", "82 point-in-time E1 facts across 20 clients; approval and source lineage are explicit.", "R");
-const factHeaders = ["Fact ID", "Entity ID", "Entity name", "Concept", "Value", "Unit", "Currency", "Period start", "Period end", "Available date", "Evidence tier", "Confidence", "Approval status", "Source title", "Page", "Source URL", "Document SHA-256", "V3.1.1 use boundary"];
+const factHeaders = ["Fact ID", "Entity ID", "Entity name", "Concept", "Value", "Unit", "Currency", "Period start", "Period end", "Available date", "Evidence tier", "Confidence", "Approval status", "Source title", "Page", "Source URL", "Document SHA-256", "V3.2.0 use boundary"];
 publicFacts.getRange("A4:R4").values = [factHeaders];
 header(publicFacts, "A4:R4");
 const factRows = facts.map((fact) => [fact.fact_id, fact.entity_id, fact.entity_name, fact.concept, fact.value, fact.unit, fact.currency, fact.period_start, fact.period_end, fact.available_date, fact.tier, fact.confidence, fact.approval_status, fact.source_title, fact.page, fact.source_url, fact.document_hash, fact.approval_status === "APPROVED" ? "APPROVED: may activate a governed E1 anchor" : "DEVELOPER_VERIFIED / PENDING_REVIEW: excluded from all active anchors and eligible claim paths"]);
@@ -228,7 +230,7 @@ for (const entityId of showcase) {
   const client = legacy.clients.find((item) => item.entity_id === entityId);
   for (const product of productOrder) {
     const anchor = client.public_anchors[product];
-    anchorRows.push([entityId, client.entity_name, product, anchor.name, zar(anchor.low_zar), zar(anchor.base_zar), zar(anchor.high_zar), null, null, 0.35, anchor.formula, anchor.transformation_assumption, anchor.fact_ids.join(", "), anchor.source_pages.join("; "), anchor.available_date, "V1 formula frozen; V3.1.1 approval-authoritative activation; measurement policy 1.1.0"]);
+    anchorRows.push([entityId, client.entity_name, product, anchor.name, zar(anchor.low_zar), zar(anchor.base_zar), zar(anchor.high_zar), null, null, 0.35, anchor.formula, anchor.transformation_assumption, anchor.fact_ids.join(", "), anchor.source_pages.join("; "), anchor.available_date, "V1 formula frozen; V3.2.0 preserves V3.1.1 approval-authoritative activation; measurement policy 1.1.0"]);
   }
 }
 anchors.getRange(`A5:P${4 + anchorRows.length}`).values = anchorRows;
@@ -249,7 +251,7 @@ anchors.getRange("M:N").format.columnWidth = 40;
 anchors.getRange("P:P").format.columnWidth = 42;
 
 // V3 decision impact across all 100 opportunities.
-title(impact, "V3.1.1 Wallet Decision Impact", "The complete 20 x 5 surface: A, T, q, q*, contestable gap, economics and approval boundary.", "T");
+title(impact, "V3.2.0 Wallet Decision Impact", "The complete 20 x 5 surface: A, T, q, q*, contestable gap, economics and approval boundary.", "T");
 impact.getRange("A4:T4").values = [["Rank", "Opportunity ID", "Entity ID", "Client", "Sector", "Product", "Approval state", "Evidence tier", "Observed A", "T P10", "T P50", "T P90", "q P10", "q P50", "q P90", "q*", "G P50", "Contribution P50 ZAR", "Action now", "Claim boundary"]];
 header(impact, "A4:T4");
 const impactRows = opportunities.map((item) => [item.rank, item.opportunity_id, item.entity_id, item.entity_name, item.sector, item.product, item.approval_state, item.evidence_tier, zar(item.observed_activity.normalized_amount), zar(item.posterior_wallet.lower), zar(item.posterior_wallet.median), zar(item.posterior_wallet.upper), item.share_interval.lower, item.share_interval.median, item.share_interval.upper, item.target_share_scenario, zar(item.contestable_activity?.median ?? 0), zar(item.scenario_contribution?.median ?? 0), item.permitted_action_now, `${item.share_claim_class}/${item.commercial_claim_class}; ${item.anchor_activation}`]);
@@ -312,8 +314,52 @@ sensitivity.getRange(`A26:A${25 + weightRows.length}`).format.numberFormat = "0%
 sensitivity.getRange(`C26:D${25 + weightRows.length}`).format.numberFormat = "0.0000";
 sensitivity.getRange(`F26:H${25 + weightRows.length}`).format.numberFormat = "0.0%";
 
+// Promotion Readiness Twin: real and rehearsal tracks remain side by side.
+title(promotionReadiness, "Promotion Readiness Twin", "Blue is rehearsal evidence; green would require real bank evidence. Simulation can never authorize bank use.", "L");
+promotionReadiness.getRange("A4:K4").values = [["Real state", "Rehearsed state", "Bank shadow authorized", "PMR", "BER", "Rehearsal clean days", "Elapsed bank days", "Package status", "Bank status", "Real signer available", "Gate count"]];
+header(promotionReadiness, "A4:K4", navy);
+promotionReadiness.getRange("A5:K5").values = [[
+  promotion.summary.real_state,
+  promotion.summary.rehearsed_state,
+  promotion.summary.bank_shadow_authorized ? "TRUE" : "FALSE",
+  promotion.summary.promotion_machinery_readiness,
+  promotion.summary.bank_evidence_readiness,
+  promotion.clock.consecutive_clean_rehearsal_days,
+  promotion.clock.elapsed_bank_shadow_days,
+  promotion.summary.package_status,
+  promotion.summary.bank_production_status,
+  promotion.signing.real_bank_signing_available ? "TRUE" : "FALSE",
+  promotion.transitions.reduce((total, item) => total + item.gates.length, 0),
+]];
+body(promotionReadiness, "A5:K5");
+promotionReadiness.getRange("D5:E5").format.numberFormat = "0.0%";
+promotionReadiness.getRange("A8:L8").values = [["Transition", "Gate ID", "Requirement", "Severity", "Blocking", "Real status", "Rehearsal status", "Evidence mode", "Signature", "Owner", "Approver", "What makes real pass"]];
+header(promotionReadiness, "A8:L8", violet);
+const promotionGateRows = promotion.transitions.flatMap((transition) => transition.gates.map((gate) => [
+  transition.transition_id,
+  gate.gate_id,
+  gate.requirement,
+  gate.severity,
+  gate.blocking ? "YES" : "NO",
+  gate.real_outcome,
+  gate.rehearsal_outcome,
+  gate.evidence_mode,
+  gate.signature_status,
+  gate.owner_role,
+  gate.approver_role,
+  gate.what_would_make_real_pass,
+]));
+promotionReadiness.getRange(`A9:L${8 + promotionGateRows.length}`).values = promotionGateRows;
+body(promotionReadiness, `A9:L${8 + promotionGateRows.length}`);
+promotionReadiness.getRange(`F9:F${8 + promotionGateRows.length}`).conditionalFormats.add("containsText", { text: "PASS", format: { fill: paleTeal, font: { color: teal, bold: true } } });
+promotionReadiness.getRange(`G9:G${8 + promotionGateRows.length}`).conditionalFormats.add("containsText", { text: "PASS", format: { fill: paleBlue, font: { color: blue, bold: true } } });
+promotionReadiness.getRange("A:L").format.columnWidth = 18;
+promotionReadiness.getRange("C:C").format.columnWidth = 42;
+promotionReadiness.getRange("L:L").format.columnWidth = 58;
+promotionReadiness.freezePanes.freezeRows(8);
+
 // Formula checks.
-title(checks, "V3 Register Control Checks", "All checks must evaluate PASS before the workbook is accepted as a submission artifact.", "F");
+title(checks, "V3.2 Register Control Checks", "Workbook checks validate artifact integrity; they do not authorize bank promotion.", "F");
 checks.getRange("A4:F4").values = [["Check", "Expected", "Actual", "Status", "Control meaning", "Owner"]];
 header(checks, "A4:F4", teal);
 const checkRows = [
@@ -332,6 +378,9 @@ const checkRows = [
   ["Measured competitor shares", 0, "=COUNTIF('Wallet Decision Impact'!T5:T104,\"*MEASURED*\")", "No inferred share is measured", "Model risk"],
   ["Trade Finance first-ranked frequency", 1, `='Sensitivity'!B${5 + productSummary.findIndex(([product]) => product === "Trade finance")}`, "Dominance is read from sensitivity output", "Model risk"],
   ["Trade Finance majority frequency", v2.sensitivity.product_summary["Trade finance"].majority_dominance_frequency, `='Sensitivity'!D${5 + productSummary.findIndex(([product]) => product === "Trade finance")}`, "Reported, never hard-coded as a release gate", "Model risk"],
+  ["Promotion gate count", promotionGateRows.length, "=COUNTA('Promotion Readiness'!B9:B200)", "Every governed promotion gate is visible", "Model risk"],
+  ["Elapsed bank shadow days", 0, "='Promotion Readiness'!G5", "Virtual time never becomes bank time", "Operations"],
+  ["Bank evidence readiness", 0, "='Promotion Readiness'!E5", "Synthetic evidence contributes zero to BER", "Model risk"],
 ];
 checks.getRange(`A5:F${4 + checkRows.length}`).values = checkRows.map(([name, expected, , meaning, owner]) => [name, expected, null, null, meaning, owner]);
 for (let index = 0; index < checkRows.length; index += 1) {
@@ -376,7 +425,7 @@ sources.getRange("C:C").format.columnWidth = 24;
 sources.getRange("G:G").format.columnWidth = 26;
 sources.getRange("J:J").format.columnWidth = 52;
 
-const sheetNames = ["Cover", "Public Facts", "Client Coverage", "Approved Anchors", "Wallet Decision Impact", "Evidence Queue", "Sensitivity", "Checks", "Sources"];
+const sheetNames = ["Cover", "Public Facts", "Client Coverage", "Approved Anchors", "Wallet Decision Impact", "Evidence Queue", "Sensitivity", "Promotion Readiness", "Checks", "Sources"];
 for (const sheetName of sheetNames) {
   const preview = await wb.render({ sheetName, autoCrop: "all", scale: 1, format: "png" });
   await fs.writeFile(path.join(previewDir, `${sheetName.toLowerCase().replaceAll(" ", "-")}.png`), new Uint8Array(await preview.arrayBuffer()));
@@ -388,6 +437,7 @@ const selectedInspection = {
   facts: (await wb.inspect({ kind: "region", sheetId: "Public Facts", range: "A4:R10", maxChars: 12000 })).ndjson,
   coverage: (await wb.inspect({ kind: "region", sheetId: "Client Coverage", range: "A4:J24", maxChars: 20000 })).ndjson,
   checks: (await wb.inspect({ kind: "region", sheetId: "Checks", range: `A4:F${4 + checkRows.length}`, maxChars: 16000 })).ndjson,
+  promotion: (await wb.inspect({ kind: "region", sheetId: "Promotion Readiness", range: `A1:L${8 + promotionGateRows.length}`, maxChars: 30000 })).ndjson,
 };
 await fs.writeFile(path.join(outputDir, "Public-Facts-Anchor-Register.inspect.json"), JSON.stringify(selectedInspection, null, 2));
 
@@ -401,6 +451,6 @@ for (const sheetName of sheetNames) {
 if (errors.length) throw new Error(`Formula errors: ${JSON.stringify(errors)}`);
 
 const output = await SpreadsheetFile.exportXlsx(wb);
-const outputPath = path.join(outputDir, "Public-Facts-Anchor-Register-V3.1.1.xlsx");
+const outputPath = path.join(outputDir, "Public-Facts-Anchor-Register-V3.2.0.xlsx");
 await output.save(outputPath);
 console.log(JSON.stringify({ outputPath, previewDir, sheets: sheetNames, factCount: facts.length, clientCount: clients.length, anchorCount: anchorRows.length, opportunityCount: opportunities.length, errors }, null, 2));

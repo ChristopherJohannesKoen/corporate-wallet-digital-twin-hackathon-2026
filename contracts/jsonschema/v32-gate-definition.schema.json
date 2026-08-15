@@ -21,7 +21,14 @@
         "MEASURED_SHARE_REPORTING",
         "COMMERCIAL_VALUE_CLAIM",
         "CAUSAL_VALUE_CLAIM",
-        "AUTONOMOUS_CLIENT_ACTION"
+        "AUTONOMOUS_CLIENT_ACTION",
+        "DISCOVERY_CONVERSATION",
+        "POSTERIOR_WALLET",
+        "MEASURED_SHARE",
+        "SCENARIO_ECONOMICS",
+        "PRODUCT_PROPOSAL",
+        "LIVE_GENAI",
+        "CAUSAL_VALUE"
       ],
       "title": "PromotionCapability",
       "type": "string"
@@ -29,7 +36,10 @@
     "PromotionEvidenceMode": {
       "description": "Where a piece of evidence came from, ordered by authority.",
       "enum": [
+        "NOT_AVAILABLE",
         "SYNTHETIC_REHEARSAL",
+        "SIMULATED_POLICY",
+        "PUBLIC_APPROVED",
         "PUBLIC_PACKAGE",
         "REAL_BANK",
         "BANK_ATTESTED"

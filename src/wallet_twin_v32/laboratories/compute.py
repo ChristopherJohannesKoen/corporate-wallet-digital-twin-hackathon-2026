@@ -60,10 +60,12 @@ class TierSpec:
 #: Canonical tiers. Small enough that the build stays fast and every artifact
 #: reproduces byte-identically on a CI runner.
 CANONICAL_TIERS: Tuple[TierSpec, ...] = (
-    TierSpec("e3-sample-size", 500, CPU, True, "14 n-values x 500 replications"),
-    TierSpec("calibration", 240, CPU, True, "240 synthetic entities"),
-    TierSpec("causal-trial", 200, CPU, True, "200 trial realisations"),
-    TierSpec("economics", 512, CPU, True, "512 Latin-hypercube samples"),
+    TierSpec("e3-sample-size", 500, CPU, True, "7 n-values x 500 complete panel replications"),
+    TierSpec("synthetic-e3-panel", 240, CPU, True, "240 relationships x 5 products x 24 periods"),
+    TierSpec("timing-hazard", 2_000, CPU, True, "2,000 clients x 36 monthly intervals"),
+    TierSpec("causal-trial", 2_000, CPU, True, "2,000 trial realisations plus analytic grid"),
+    TierSpec("economics", 10_000, CPU, True, "10,000 correlated Latin-hypercube draws x 16 solutions"),
+    TierSpec("genai-mutations", 1_000, CPU, True, "120 fixed cases plus 1,000 deterministic mutations"),
 )
 
 #: Nightly tiers. Reported with Monte Carlo error bars; never committed.

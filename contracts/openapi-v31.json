@@ -151,6 +151,31 @@
         "title": "BusinessProblem",
         "type": "string"
       },
+      "DecisionEvaluationRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "as_of": {
+            "format": "date",
+            "title": "As Of",
+            "type": "string"
+          },
+          "target_state": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PromotionState"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "required": [
+          "as_of"
+        ],
+        "title": "DecisionEvaluationRequest",
+        "type": "object"
+      },
       "DecisionTrack": {
         "description": "Which question a gate evaluation answers.",
         "enum": [
@@ -202,6 +227,19 @@
         ],
         "title": "EventType",
         "type": "string"
+      },
+      "EvidenceRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "$ref": "#/components/schemas/GateEvidence"
+          }
+        },
+        "required": [
+          "evidence"
+        ],
+        "title": "EvidenceRequest",
+        "type": "object"
       },
       "ExtractionCandidate": {
         "additionalProperties": false,
@@ -490,6 +528,99 @@
         "title": "GateEvaluation",
         "type": "object"
       },
+      "GateEvidence": {
+        "additionalProperties": false,
+        "description": "A specific artifact offered in support of a gate, with its provenance.",
+        "properties": {
+          "artifact_uri": {
+            "title": "Artifact Uri",
+            "type": "string"
+          },
+          "as_of": {
+            "format": "date",
+            "title": "As Of",
+            "type": "string"
+          },
+          "content_sha256": {
+            "maxLength": 64,
+            "minLength": 64,
+            "title": "Content Sha256",
+            "type": "string"
+          },
+          "evidence_id": {
+            "title": "Evidence Id",
+            "type": "string"
+          },
+          "expires_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires At"
+          },
+          "gate_id": {
+            "title": "Gate Id",
+            "type": "string"
+          },
+          "generated_at": {
+            "format": "date-time",
+            "title": "Generated At",
+            "type": "string"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/PromotionEvidenceMode"
+          },
+          "produced_by": {
+            "title": "Produced By",
+            "type": "string"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "simulation_clock": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Simulation Clock"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          }
+        },
+        "required": [
+          "evidence_id",
+          "gate_id",
+          "mode",
+          "artifact_uri",
+          "content_sha256",
+          "summary",
+          "as_of",
+          "produced_by"
+        ],
+        "title": "GateEvidence",
+        "type": "object"
+      },
       "GateOutcome": {
         "description": "Outcome of evaluating one gate on one track.\n\n``UNKNOWN`` is distinct from ``FAIL``: a gate nobody has evidence for has\nnot been failed, it has not been attempted, and reporting the two the same\nway would either overstate progress or manufacture a failure. ``WAIVED``\ncarries a named approver and is always visible in the register.",
         "enum": [
@@ -500,6 +631,16 @@
           "WAIVED"
         ],
         "title": "GateOutcome",
+        "type": "string"
+      },
+      "GateSeverity": {
+        "description": "How much a gate's outcome matters. Weights in ``SEVERITY_WEIGHTS``.",
+        "enum": [
+          "CRITICAL",
+          "HIGH",
+          "STANDARD"
+        ],
+        "title": "GateSeverity",
         "type": "string"
       },
       "GateStatus": {
@@ -523,6 +664,75 @@
           }
         },
         "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "IncidentInjection": {
+        "additionalProperties": false,
+        "description": "A deliberately injected failure and what it reset.\n\nIncidents reset the rehearsal counter only. An injected incident that\nchanged a real number would mean the rehearsal was not isolated.",
+        "properties": {
+          "affects_real_track": {
+            "default": false,
+            "title": "Affects Real Track",
+            "type": "boolean"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "expected_failing_gate_id": {
+            "title": "Expected Failing Gate Id",
+            "type": "string"
+          },
+          "incident_id": {
+            "title": "Incident Id",
+            "type": "string"
+          },
+          "injected_on_rehearsal_day": {
+            "minimum": 1.0,
+            "title": "Injected On Rehearsal Day",
+            "type": "integer"
+          },
+          "resets_rehearsal_counter": {
+            "default": true,
+            "title": "Resets Rehearsal Counter",
+            "type": "boolean"
+          },
+          "scenario_id": {
+            "title": "Scenario Id",
+            "type": "string"
+          },
+          "severity": {
+            "$ref": "#/components/schemas/GateSeverity"
+          },
+          "simulation_clock": {
+            "format": "date-time",
+            "title": "Simulation Clock",
+            "type": "string"
+          }
+        },
+        "required": [
+          "incident_id",
+          "scenario_id",
+          "injected_on_rehearsal_day",
+          "severity",
+          "description",
+          "expected_failing_gate_id",
+          "simulation_clock"
+        ],
+        "title": "IncidentInjection",
+        "type": "object"
+      },
+      "IncidentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "incident": {
+            "$ref": "#/components/schemas/IncidentInjection"
+          }
+        },
+        "required": [
+          "incident"
+        ],
+        "title": "IncidentRequest",
         "type": "object"
       },
       "IngestionRecordRequest": {
@@ -864,6 +1074,15 @@
             "title": "Decision",
             "type": "string"
           },
+          "decision_id": {
+            "title": "Decision Id",
+            "type": "string"
+          },
+          "decision_payload_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "title": "Decision Payload Sha256",
+            "type": "string"
+          },
           "rationale": {
             "title": "Rationale",
             "type": "string"
@@ -911,6 +1130,8 @@
         },
         "required": [
           "approval_id",
+          "decision_id",
+          "decision_payload_sha256",
           "transition_id",
           "track",
           "submitted_by",
@@ -924,8 +1145,20 @@
         "type": "object"
       },
       "PromotionEventType": {
-        "description": "The twelve promotion events.",
+        "description": "Canonical V3.2 events followed by frozen pre-release aliases.",
         "enum": [
+          "PromotionEvidenceSubmitted",
+          "PromotionEvidenceVerified",
+          "GateEvaluationCompleted",
+          "PromotionDecisionIssued",
+          "PromotionApprovalRecorded",
+          "PromotionTransitionRecorded",
+          "RehearsalStarted",
+          "RehearsalDayCompleted",
+          "RehearsalIncidentInjected",
+          "RehearsalClockReset",
+          "PromotionEvidenceExpired",
+          "PromotionArtifactRevoked",
           "PromotionGateEvaluated",
           "PromotionEvidenceRegistered",
           "PromotionEvidenceSigned",
@@ -936,8 +1169,7 @@
           "PromotionStateAdvanced",
           "PromotionCapabilityGranted",
           "PromotionCapabilityRefused",
-          "RehearsalScenarioExecuted",
-          "RehearsalIncidentInjected"
+          "RehearsalScenarioExecuted"
         ],
         "title": "PromotionEventType",
         "type": "string"
@@ -945,12 +1177,27 @@
       "PromotionEvidenceMode": {
         "description": "Where a piece of evidence came from, ordered by authority.",
         "enum": [
+          "NOT_AVAILABLE",
           "SYNTHETIC_REHEARSAL",
+          "SIMULATED_POLICY",
+          "PUBLIC_APPROVED",
           "PUBLIC_PACKAGE",
           "REAL_BANK",
           "BANK_ATTESTED"
         ],
         "title": "PromotionEvidenceMode",
+        "type": "string"
+      },
+      "PromotionState": {
+        "description": "What the system is authorised to be, not how good its numbers are.",
+        "enum": [
+          "OFFLINE_CANDIDATE",
+          "SHADOW_READY",
+          "PILOT_READY",
+          "SCALE_READY",
+          "CAUSAL_CHAMPION"
+        ],
+        "title": "PromotionState",
         "type": "string"
       },
       "QuestionResponseRequest": {
@@ -1010,6 +1257,70 @@
           "source"
         ],
         "title": "QuestionResponseRequest",
+        "type": "object"
+      },
+      "RehearsalRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "scenario": {
+            "$ref": "#/components/schemas/RehearsalScenario"
+          }
+        },
+        "required": [
+          "scenario"
+        ],
+        "title": "RehearsalRequest",
+        "type": "object"
+      },
+      "RehearsalScenario": {
+        "additionalProperties": false,
+        "description": "A named rehearsal, including the negative ones.\n\n``expected_outcome`` is declared before the run. A scenario that only\nrecords what happened cannot distinguish a gate that correctly failed from\none that broke.",
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "expected_outcome": {
+            "$ref": "#/components/schemas/GateOutcome"
+          },
+          "is_negative_scenario": {
+            "default": false,
+            "title": "Is Negative Scenario",
+            "type": "boolean"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/PromotionEvidenceMode",
+            "default": "SYNTHETIC_REHEARSAL"
+          },
+          "scenario_id": {
+            "title": "Scenario Id",
+            "type": "string"
+          },
+          "targeted_gate_ids": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Targeted Gate Ids",
+            "type": "array"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "transition_id": {
+            "title": "Transition Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "scenario_id",
+          "title",
+          "description",
+          "transition_id",
+          "targeted_gate_ids",
+          "expected_outcome"
+        ],
+        "title": "RehearsalScenario",
         "type": "object"
       },
       "ScenarioConversationRequest": {
@@ -1178,6 +1489,28 @@
           "seasonal_ratio"
         ],
         "title": "TimingRequest",
+        "type": "object"
+      },
+      "TransitionRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "rationale": {
+            "title": "Rationale",
+            "type": "string"
+          },
+          "source_state": {
+            "$ref": "#/components/schemas/PromotionState"
+          },
+          "track": {
+            "$ref": "#/components/schemas/DecisionTrack"
+          }
+        },
+        "required": [
+          "source_state",
+          "track",
+          "rationale"
+        ],
+        "title": "TransitionRequest",
         "type": "object"
       },
       "ValidationError": {
@@ -7235,6 +7568,558 @@
         ]
       }
     },
+    "/v3/promotion/decisions/evaluate": {
+      "post": {
+        "operationId": "evaluate_promotion_decision_v3_promotion_decisions_evaluate_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DecisionEvaluationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Evaluate Promotion Decision V3 Promotion Decisions Evaluate Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Evaluate Promotion Decision",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
+    "/v3/promotion/decisions/{decision_id}": {
+      "get": {
+        "description": "Resolve a DSSE-signed promotion decision by its stable identifier.",
+        "operationId": "promotion_decision_detail_v3_promotion_decisions__decision_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "decision_id",
+            "required": true,
+            "schema": {
+              "title": "Decision Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "as_of",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "As Of",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Promotion Decision Detail V3 Promotion Decisions  Decision Id  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Promotion Decision Detail",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
+    "/v3/promotion/decisions/{decision_id}/approvals": {
+      "post": {
+        "operationId": "approve_promotion_decision_v3_promotion_decisions__decision_id__approvals_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "decision_id",
+            "required": true,
+            "schema": {
+              "title": "Decision Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovalRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Approve Promotion Decision V3 Promotion Decisions  Decision Id  Approvals Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Approve Promotion Decision",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
+    "/v3/promotion/e3-sample-size-plan": {
+      "get": {
+        "description": "The reproducible synthetic planning result, never an E3 observation.",
+        "operationId": "promotion_e3_sample_size_plan_v3_promotion_e3_sample_size_plan_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "as_of",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "As Of",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Promotion E3 Sample Size Plan V3 Promotion E3 Sample Size Plan Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Promotion E3 Sample Size Plan",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
     "/v3/promotion/evaluations": {
       "post": {
         "description": "Record a gate evaluation.\n\nThe contract already refuses a synthetic real-track verdict; this adds the\nfixture-mode refusal, which is about *where* the write is happening rather\nthan what it says.",
@@ -7675,6 +8560,145 @@
         "tags": [
           "V3.2 promotion readiness"
         ]
+      },
+      "post": {
+        "operationId": "submit_promotion_evidence_v3_promotion_evidence_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Submit Promotion Evidence V3 Promotion Evidence Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Submit Promotion Evidence",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
       }
     },
     "/v3/promotion/gates": {
@@ -7706,6 +8730,54 @@
                 }
               ],
               "title": "Transition Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "target_state",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PromotionState"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Target State"
+            }
+          },
+          {
+            "in": "query",
+            "name": "real_status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Real Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "rehearsal_status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Rehearsal Status"
             }
           },
           {
@@ -7970,6 +9042,22 @@
             }
           },
           {
+            "in": "query",
+            "name": "target_state",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/PromotionState"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Target State"
+            }
+          },
+          {
             "in": "header",
             "name": "x-user-id",
             "required": false,
@@ -8201,6 +9289,431 @@
           }
         },
         "summary": "Promotion Rehearsal Clock",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
+    "/v3/promotion/rehearsals": {
+      "post": {
+        "operationId": "start_promotion_rehearsal_v3_promotion_rehearsals_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RehearsalRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Start Promotion Rehearsal V3 Promotion Rehearsals Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Start Promotion Rehearsal",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
+    "/v3/promotion/rehearsals/{run_id}": {
+      "get": {
+        "operationId": "promotion_rehearsal_detail_v3_promotion_rehearsals__run_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "as_of",
+            "required": true,
+            "schema": {
+              "format": "date",
+              "title": "As Of",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Promotion Rehearsal Detail V3 Promotion Rehearsals  Run Id  Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Promotion Rehearsal Detail",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
+    "/v3/promotion/rehearsals/{run_id}/incidents": {
+      "post": {
+        "operationId": "inject_rehearsal_incident_v3_promotion_rehearsals__run_id__incidents_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "run_id",
+            "required": true,
+            "schema": {
+              "title": "Run Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Inject Rehearsal Incident V3 Promotion Rehearsals  Run Id  Incidents Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Inject Rehearsal Incident",
         "tags": [
           "V3.2 promotion readiness"
         ]
@@ -8579,6 +10092,155 @@
           }
         },
         "summary": "Promotion Transitions",
+        "tags": [
+          "V3.2 promotion readiness"
+        ]
+      }
+    },
+    "/v3/promotion/transitions/{target_state}/requests": {
+      "post": {
+        "operationId": "request_promotion_transition_v3_promotion_transitions__target_state__requests_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "target_state",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PromotionState"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Idempotency-Key"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Id"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-roles",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Roles"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-team",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Team"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-clients",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Clients"
+            }
+          },
+          {
+            "in": "header",
+            "name": "x-user-products",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-User-Products"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransitionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "title": "Response Request Promotion Transition V3 Promotion Transitions  Target State  Requests Post",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Request Promotion Transition",
         "tags": [
           "V3.2 promotion readiness"
         ]

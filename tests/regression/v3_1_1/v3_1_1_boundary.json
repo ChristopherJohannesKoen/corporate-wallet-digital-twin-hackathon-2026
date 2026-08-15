@@ -14255,7 +14255,7 @@
       }
     }
   },
-  "boundary_version": "v3.1.1-regression-boundary-1.1.0",
+  "boundary_version": "v3.1.1-regression-boundary-1.2.0",
   "evidence": {
     "approved_anchor_cells": 15,
     "approved_anchor_clients": 3,
@@ -14312,20 +14312,6 @@
     "contracts/jsonschema/v311-wallet-opportunity-detail.schema.json": "3b359cdf277d3ea90dcfa175951066f5d291ae33900cd3e34a267a84c7b36292",
     "contracts/jsonschema/v311-wallet-portfolio-cell.schema.json": "3e5a13525d1db6d380c737b552662c877d4c452f84f1982dfca54be3c1891cb6",
     "contracts/jsonschema/v311-wallet-portfolio-projection.schema.json": "ba3b24ae05ffc496a995d0679119849dadab76d96e31fdc96aeceafde41b79a4",
-    "contracts/jsonschema/v32-e3-sample-size-plan.schema.json": "fee0bd8fac0caba878c897c20b6c4dab67a1473201fba0fe36a960eae7c5dacb",
-    "contracts/jsonschema/v32-gate-definition.schema.json": "f5303b4279c6d2b57c593ab117ab69a4cb417283755e8e8a49d5749d98ef2ffc",
-    "contracts/jsonschema/v32-gate-evaluation.schema.json": "e76a66598f551aef19e334d51ca2267b741d2033cf8bc6253db7617a149353fb",
-    "contracts/jsonschema/v32-gate-evidence.schema.json": "786440930a59779b2f2daea9b4a0f4109d78598415cab5929106663888aa9243",
-    "contracts/jsonschema/v32-incident-injection.schema.json": "76ac822d6d291476a33a007cd374276352aebe070525502557da2641a0a28b9c",
-    "contracts/jsonschema/v32-promotion-approval.schema.json": "dfb5087ae6a8aadd590c3fa4501e2064273e2bd7927e9a893527345ea7bc9993",
-    "contracts/jsonschema/v32-promotion-decision.schema.json": "4394d3166e0f8afb95bc42a2074e6e5e94a800001bb0d5fa5cff2860213ffaaf",
-    "contracts/jsonschema/v32-promotion-event-envelope.schema.json": "d2c1c34060a812a17c866dfeb4b3ef09f05ef68b975505b5065d8d475c6fcea2",
-    "contracts/jsonschema/v32-promotion-score.schema.json": "1dbe84bb6c7bfc93645e63be7977b512afe2dda01070d361327e290380fb654e",
-    "contracts/jsonschema/v32-rehearsal-scenario.schema.json": "0adff1cbc2c738c77af41c2013d3aac945097d56631e27e3637642e1dc0abda6",
-    "contracts/jsonschema/v32-signed-evidence-envelope.schema.json": "ef79aed265afd2407d4d155044694ba538f6dcd8ed6b9269ee7bb80e1b527ce1",
-    "contracts/jsonschema/v32-virtual-clock-state.schema.json": "915e7a0157f1722b3cdda3601bbe39ed0df5e72236325dd9469fa7662afdee1c",
-    "contracts/promotion-gate-catalogue.json": "11097bf7dc94ec35e009870fdeb45fae788c2aa84da541cfe7c36b1ba80f7aa8",
-    "dashboard/app/data/promotion-fixture.json": "0d350c3bbc12a7a03a410cfbe86a5c6c49ae50c716bab71dfded095edf2c40dc",
     "dashboard/app/data/shadow-fixture.json": "f089b55a59184d5128aa5ac2af9a439ba9d2184fccadfe0d0ac4aaf439a9868d",
     "dashboard/app/data/v3-fixture.json": "b07c93789a2ddd99f6dece266769ea20484dd4e8dedfd3c1bc9aad0e1c82adaf",
     "dashboard/app/data/v31-fixture.json": "5bf6fdc18a956edadda93dfc9f8c81368ce91d488fee8e11e80548b861655f2a",
@@ -14349,10 +14335,6 @@
     "outputs/v31/v31_coverage_plan.json": "4e88ee6f4438b26454798f44af2d6adf2354b8e01392f07045a66b0755732a9a",
     "outputs/v31/v31_solution_estimates.json": "4f1352d2c8f87a4c09bfce646d7c92feade0b73d11a4f9eaad3b3acf3fae0dc0",
     "outputs/v31/v31_validation_report.json": "5af1d16e8a1a4ec2f992da715fec834485e8478fc36bffc20dafc87366d39c58",
-    "outputs/v32/v32_promotion_policy.json": "1ea3b4f7db4396a819d4fb1993ee498a83a6ffdec8eaa84155f020e3a95b3bc4",
-    "outputs/v32/v32_shadow_rehearsal.json": "d0f7613b4e60eaa508065dfb951a3cc92f04604e51ae0118a057b7af7bbd46c3",
-    "outputs/v32/v32_signing_posture.json": "a2c2a0184247bd60ad70729839c86c135adca2c26d6f07949e2105e85f36cc07",
-    "outputs/v32/v32_simulation_laboratories.json": "42381e7670867e65cf1af167252f99746e43f03c3e28248d1a8fffcb9c85f6cd",
     "outputs/v3_validation/v3_validation_report.json": "8603e0b17ce4fa0c8d5b50f77e078e7632d8f5867b9e5b730756108c28bb5291",
     "tests/regression/v3_0/v3_0_frozen_surface.json": "1cc159729bb4dba070d426f4b4231bc07d580f89b7e8dc51e2d78a54e9efe161",
     "tests/regression/v3_0/v3_0_frozen_surface.restated.json": "7083780edb6ef978f740558ac46e6ed7fe3ef7b6175035965b9892e2ca0f8eea"
@@ -14371,8 +14353,11 @@
     "output/presentation/Corporate-Wallet-Digital-Twin.pptx": "OOXML stamps a creation date",
     "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx": "OOXML stamps a creation date",
     "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx.inspect.ndjson": "derived from the workbook",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx": "OOXML stamps a creation date",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx.inspect.ndjson": "derived from the workbook",
     "outputs/audit/Public-Facts-Anchor-Register.inspect.json": "derived from the workbook",
-    "outputs/judging_manifest_v3.1.1.json": "records the actual build time; self-referential"
+    "outputs/judging_manifest_v3.1.1.json": "records the actual build time; self-referential",
+    "outputs/judging_manifest_v3.2.0.json": "records the actual build time; self-referential"
   },
   "not_established_at_this_boundary": [
     "No E3 multibank observation; measured competitor share remains impossible.",
@@ -14395,7 +14380,7 @@
   },
   "solution_version": "3.1.1",
   "source": {
-    "branch": "feature/v3.2-promotion-twin",
-    "measured_at_commit": "ab443e34dbfa6470af6cae09784437ba066adad6"
+    "branch": "main",
+    "measured_at_commit": "771664dbad3c81c7ce900ffe46c981f1517d57bf"
   }
 }

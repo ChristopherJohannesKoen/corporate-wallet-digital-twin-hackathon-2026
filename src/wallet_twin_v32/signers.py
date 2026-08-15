@@ -53,7 +53,12 @@ class LocalECDSASigner:
     """
 
     algorithm = "ecdsa-p256-sha256"
-    allowed_modes = frozenset({PromotionEvidenceMode.SYNTHETIC_REHEARSAL})
+    allowed_modes = frozenset(
+        {
+            PromotionEvidenceMode.SYNTHETIC_REHEARSAL,
+            PromotionEvidenceMode.SIMULATED_POLICY,
+        }
+    )
 
     def __init__(self, key_id: str = "local-rehearsal-p256", *, private_key: Any = None):
         from cryptography.hazmat.primitives.asymmetric import ec
@@ -164,6 +169,7 @@ class SigstoreSigner:
     allowed_modes = frozenset(
         {
             PromotionEvidenceMode.SYNTHETIC_REHEARSAL,
+            PromotionEvidenceMode.SIMULATED_POLICY,
             PromotionEvidenceMode.PUBLIC_PACKAGE,
         }
     )
@@ -238,6 +244,7 @@ class KMSSigner:
     allowed_modes = frozenset(
         {
             PromotionEvidenceMode.PUBLIC_PACKAGE,
+            PromotionEvidenceMode.PUBLIC_APPROVED,
             PromotionEvidenceMode.REAL_BANK,
             PromotionEvidenceMode.BANK_ATTESTED,
         }

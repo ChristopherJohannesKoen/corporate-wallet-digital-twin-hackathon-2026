@@ -27,7 +27,7 @@ CONTROL_EXPECTATIONS: Dict[str, tuple[str, tuple[str, ...]]] = {
     "otel_redaction_and_export": ("infra/otel/collector.yaml", ("attributes/redact", "otlphttp/approved_observability")),
     "unity_catalog_data_products": ("infra/databricks/data_products.sql", ("multibank_calibration_observation", "recommendation_event", "promotion_decision")),
     "unity_catalog_abac": ("infra/databricks/unity_catalog_controls.sql", ("CREATE OR REPLACE POLICY wallet_client_rows", "MATCH COLUMNS has_tag('wallet_client_id')")),
-    "mlflow_promotion_policy": ("config/mlflow_promotion_policy.json", ("candidate_to_shadow", "shadow_to_champion", '"automatic_promotion": false')),
+    "mlflow_promotion_policy": ("config/mlflow_promotion_policy.json", ("OFFLINE_CANDIDATE__TO__SHADOW_READY", "SCALE_READY__TO__CAUSAL_CHAMPION", '"automatic_promotion": false', '"accountable_approval_required": true')),
     "asymmetric_manifest_signing": ("infra/terraform/security_observability.tf", ("aws_kms_key\" \"manifest_signing", 'key_usage                = "SIGN_VERIFY"')),
     "event_topic_contract": ("infra/msk/topics.yaml", ("wallet.eligibility-recorded.v1", "wallet.outcome-recorded.v1", "wallet.access-decision-logged.v1")),
     "supply_chain_ci": (".github/workflows/ci.yml", ("anchore/sbom-action", "aquasecurity/trivy-action", "gitleaks/gitleaks-action")),

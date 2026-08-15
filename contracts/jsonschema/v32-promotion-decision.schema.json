@@ -11,7 +11,14 @@
         "MEASURED_SHARE_REPORTING",
         "COMMERCIAL_VALUE_CLAIM",
         "CAUSAL_VALUE_CLAIM",
-        "AUTONOMOUS_CLIENT_ACTION"
+        "AUTONOMOUS_CLIENT_ACTION",
+        "DISCOVERY_CONVERSATION",
+        "POSTERIOR_WALLET",
+        "MEASURED_SHARE",
+        "SCENARIO_ECONOMICS",
+        "PRODUCT_PROPOSAL",
+        "LIVE_GENAI",
+        "CAUSAL_VALUE"
       ],
       "title": "PromotionCapability",
       "type": "string"

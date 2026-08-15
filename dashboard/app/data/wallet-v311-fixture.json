@@ -27029,7 +27029,7 @@
     "release": {
       "bank_production_status": "NOT_PROMOTABLE",
       "data_mode": "CLIENT_DEMO",
-      "hackathon_status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
+      "hackathon_status": "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
       "hackathon_status_source": "outputs/judging_manifest_v3.1.1.json"
     },
     "top_opportunity_ids": [

@@ -59,6 +59,7 @@ from wallet_twin_v32.modes import (  # noqa: E402
     EVIDENCE_MODES,
     TRACKS,
     bank_evidence_weight,
+    admits_track,
 )
 from wallet_twin_v32.states import (  # noqa: E402
     CAPABILITY_STATE_THRESHOLD,
@@ -120,6 +121,17 @@ def promotion_policy_document() -> Dict[str, Any]:
         "scoring_version": SCORING_VERSION,
         "engine_version": ENGINE_VERSION,
         "states": [state.value for state in PROMOTION_ORDER],
+        "transitions": {
+            transition: [
+                gate.gate_id
+                for gate in GATE_CATALOGUE
+                if gate.transition_id == transition
+            ]
+            for transition in TRANSITION_IDS
+        },
+        "automatic_promotion": False,
+        "automatic_rollback": False,
+        "accountable_approval_required": True,
         "tracks": {
             track.value: (
                 "governs actual bank authorisation"
@@ -131,7 +143,7 @@ def promotion_policy_document() -> Dict[str, Any]:
         "evidence_modes": {
             mode.value: {
                 "bank_evidence_weight": bank_evidence_weight(mode),
-                "admissible_on_real_track": mode.value != "SYNTHETIC_REHEARSAL",
+                "admissible_on_real_track": admits_track(mode, TRACKS[0]),
             }
             for mode in EVIDENCE_MODES
         },
@@ -172,9 +184,9 @@ def promotion_policy_document() -> Dict[str, Any]:
             ),
         },
         "legacy_vocabulary_unified": {
-            "sources": [
+            "superseded_sources": [
                 "src/wallet_twin_v2/release_gates.py",
-                "config/mlflow_promotion_policy.json",
+                "config/mlflow_promotion_policy.json@3.1.1",
             ],
             "aliases_mapped": sum(
                 len(aliases) for aliases in LEGACY_GATE_ALIASES.values()
@@ -234,7 +246,11 @@ def main() -> int:
         )
 
     write_canonical_json(CONTRACTS / "promotion-gate-catalogue.json", gate_catalogue_document())
-    write_canonical_json(OUTPUTS / "v32_promotion_policy.json", promotion_policy_document())
+    policy = promotion_policy_document()
+    write_canonical_json(OUTPUTS / "v32_promotion_policy.json", policy)
+    # This is now a generated five-state governance policy.  MLflow remains an
+    # artifact registry; it does not decide or execute promotion.
+    write_canonical_json(ROOT / "config" / "mlflow_promotion_policy.json", policy)
     write_canonical_json(OUTPUTS / "v32_signing_posture.json", signing_posture_document())
 
     # Canonical-tier laboratory results. Deterministic by construction: fixed

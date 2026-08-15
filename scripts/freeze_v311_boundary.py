@@ -39,7 +39,7 @@ from wallet_twin_v2.measurement_policy import MEASUREMENT_POLICY_VERSION  # noqa
 from wallet_twin_v2.public_evidence import ANCHOR_ACTIVATION_POLICY_VERSION  # noqa: E402
 
 BOUNDARY = ROOT / "tests" / "regression" / "v3_1_1" / "v3_1_1_boundary.json"
-BOUNDARY_VERSION = "v3.1.1-regression-boundary-1.1.0"
+BOUNDARY_VERSION = "v3.1.1-regression-boundary-1.2.0"
 
 #: Composed API documents, checked **additively** rather than byte-exactly.
 #:
@@ -56,6 +56,22 @@ ADDITIVE_API_DOCUMENTS: tuple[str, ...] = (
     "contracts/openapi.json",
     "contracts/openapi-v31.json",
 )
+
+# V3.2 artifacts are deliberately excluded from the V3.1.1 byte boundary.
+# The previous boundary accidentally captured early V3.2 files because it
+# expanded the shared ``contracts`` and ``outputs`` directories after V3.2 had
+# already been introduced.  That made an additive release impossible to
+# evolve without appearing to mutate V3.1.1.
+V32_ADDITIVE_ARTIFACT_PREFIXES: tuple[str, ...] = (
+    "contracts/jsonschema/v32-",
+    "contracts/promotion-gate-catalogue.json",
+    "dashboard/app/data/promotion-fixture.json",
+    "outputs/v32/",
+)
+
+
+def is_v32_additive_artifact(relative_path: str) -> bool:
+    return any(relative_path.startswith(prefix) for prefix in V32_ADDITIVE_ARTIFACT_PREFIXES)
 
 
 def git_value(*args: str, default: str = "UNKNOWN") -> str:
@@ -159,6 +175,7 @@ def build_boundary() -> Dict[str, Any]:
         path.relative_to(ROOT).as_posix(): sha256_of(path)
         for path in committed_artifacts()
         if path.relative_to(ROOT).as_posix() not in ADDITIVE_API_DOCUMENTS
+        and not is_v32_additive_artifact(path.relative_to(ROOT).as_posix())
     }
     api_documents = {
         relative_path: api_surface_at_boundary_tag(relative_path)

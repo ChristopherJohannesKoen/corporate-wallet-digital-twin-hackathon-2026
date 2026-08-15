@@ -46,7 +46,7 @@ PROVIDER_KEY_ENV = {
     "google": "GOOGLE_API_KEY",
 }
 SHOWCASE = {"E01": "BHP Group", "E02": "Glencore", "E09": "Shoprite Holdings"}
-PROMPT_VERSION = "wallet-brief-public-closed-pack-3.1.1"
+PROMPT_VERSION = "wallet-brief-public-closed-pack-3.2.0"
 SCHEMA_VERSION = "banker-narrative-1.0.0"
 
 

@@ -78,7 +78,15 @@ def compute_score(
         weight = float(severity_weight(gate))
 
         rehearsal_evaluation = rehearsal.get(gate.gate_id)
-        if rehearsal_evaluation is not None and rehearsal_evaluation.satisfied():
+        # A positive-path pass is necessary but not sufficient. PMR measures
+        # falsifiable machinery: the same gate must also have been exercised
+        # by an explicit negative or injected-failure case. This prevents a
+        # catalogue full of self-declared PASS rows from scoring 100%.
+        if (
+            rehearsal_evaluation is not None
+            and rehearsal_evaluation.satisfied()
+            and rehearsal_evaluation.failure_injection_verified
+        ):
             pmr_earned += weight
             if rehearsal_evaluation.outcome is GateOutcome.WAIVED:
                 waived += 1
@@ -96,7 +104,11 @@ def compute_score(
                 )
             if real_evaluation.outcome is GateOutcome.WAIVED:
                 waived += 1
-        elif rehearsal_evaluation is not None and rehearsal_evaluation.satisfied():
+        elif (
+            rehearsal_evaluation is not None
+            and rehearsal_evaluation.satisfied()
+            and rehearsal_evaluation.failure_injection_verified
+        ):
             # Passes under simulation, unsupported in reality. This is the
             # number that keeps a high PMR from reading as progress toward
             # production.

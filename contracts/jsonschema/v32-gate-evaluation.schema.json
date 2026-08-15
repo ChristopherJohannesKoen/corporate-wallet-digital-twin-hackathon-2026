@@ -24,7 +24,10 @@
     "PromotionEvidenceMode": {
       "description": "Where a piece of evidence came from, ordered by authority.",
       "enum": [
+        "NOT_AVAILABLE",
         "SYNTHETIC_REHEARSAL",
+        "SIMULATED_POLICY",
+        "PUBLIC_APPROVED",
         "PUBLIC_PACKAGE",
         "REAL_BANK",
         "BANK_ATTESTED"

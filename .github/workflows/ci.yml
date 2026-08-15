@@ -1,4 +1,4 @@
-name: v311-hackathon-submission-ci
+name: v320-promotion-readiness-ci
 on:
   pull_request:
   push:
@@ -79,16 +79,22 @@ jobs:
         with: { python-version: "3.12" }
       - uses: astral-sh/setup-uv@v6
         with: { version: "0.9.2", enable-cache: true }
-      - run: uv sync --frozen --extra dev
-      - run: docker compose -f infra/local/docker-compose.yml up -d opa minio minio-bootstrap
+      - run: uv sync --frozen --extra dev --extra production
+      - run: docker compose -f infra/local/docker-compose.yml up -d
       # The bootstrap verifies its own work — it writes an object to a locked
       # bucket and confirms permanent deletion is refused. A non-zero exit means
       # object lock did not take effect, which cannot be fixed after the fact
       # because --with-lock is only honoured at bucket creation.
       - run: |
           docker compose -f infra/local/docker-compose.yml wait minio-bootstrap
-          test "$(docker inspect wallet-twin-v2-local-minio-bootstrap-1 --format '{{.State.ExitCode}}')" = "0"
+          container_id="$(docker compose -f infra/local/docker-compose.yml ps -q minio-bootstrap)"
+          test -n "$container_id"
+          test "$(docker inspect "$container_id" --format '{{.State.ExitCode}}')" = "0"
       - run: uv run pytest -m bank_lab -q
+      - run: |
+          curl --fail --retry 20 --retry-delay 2 http://127.0.0.1:18110/health
+          curl --fail --retry 20 --retry-delay 2 http://127.0.0.1:18080/health
+          test "$(curl --silent 'http://127.0.0.1:8088/mock/feeds/daily?as_of=2026-06-30' | python -c 'import json,sys; print(json.load(sys.stdin)["row_count"])')" = "100"
       # The divergence log must be empty. A non-empty one means the Rego and the
       # in-process policy have drifted and the system is deciding things nobody
       # decided.

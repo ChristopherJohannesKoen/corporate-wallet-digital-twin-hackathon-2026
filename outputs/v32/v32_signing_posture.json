@@ -29,6 +29,7 @@
       "algorithm": "ecdsa-p256-sha256",
       "key_id": "local-rehearsal-p256",
       "modes": [
+        "SIMULATED_POLICY",
         "SYNTHETIC_REHEARSAL"
       ],
       "note": "Rehearsal only. Cannot satisfy a real-track gate.",
@@ -41,6 +42,7 @@
       "key_id": "sigstore-github-oidc",
       "modes": [
         "PUBLIC_PACKAGE",
+        "SIMULATED_POLICY",
         "SYNTHETIC_REHEARSAL"
       ],
       "note": "Keyless signing requires an ambient GitHub OIDC token. Runs inside Actions only; reported NOT_EXECUTED elsewhere.",
@@ -54,6 +56,7 @@
       "key_id": "aws-kms-promotion-signer",
       "modes": [
         "BANK_ATTESTED",
+        "PUBLIC_APPROVED",
         "PUBLIC_PACKAGE",
         "REAL_BANK"
       ],

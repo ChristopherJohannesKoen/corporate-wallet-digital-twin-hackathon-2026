@@ -1,4 +1,4 @@
-"""Deployable service boundaries for the composed V3.1 microservice topology.
+"""Deployable service boundaries for the composed V3.2 microservice topology.
 
 The reference build deliberately shares one Python distribution so contract and
 control code cannot drift. Each EKS deployment selects one ASGI object below;
@@ -18,6 +18,8 @@ from .api import app as canonical_app
 from wallet_twin_v3.api import router as v3_router
 from wallet_twin_v31.api import router as v31_router
 from wallet_twin_v32.api import router as v32_router
+
+APPLICATION_VERSION = "3.2.0"
 SERVICE_ROUTES = {
     "ingestion": ("/v1/ingestion",),
     "evidence": ("/v1/evidence",),
@@ -57,15 +59,15 @@ SERVICE_ROUTES = {
 
 def create_service_app(service_name: str, prefixes: Iterable[str]) -> FastAPI:
     service = FastAPI(
-        title=f"Corporate Wallet Digital Twin V3.1.1 — {service_name}",
-        version="3.1.1",
+        title=f"Corporate Wallet Digital Twin V3.2.0 — {service_name}",
+        version=APPLICATION_VERSION,
         docs_url=None,
         redoc_url=None,
     )
 
     @service.get("/health", tags=["operational"])
     def health() -> dict[str, str]:
-        return {"status": "ok", "service": service_name, "version": "3.1.1"}
+        return {"status": "ok", "service": service_name, "version": APPLICATION_VERSION}
 
     @service.get("/ready", tags=["operational"])
     def ready() -> dict:

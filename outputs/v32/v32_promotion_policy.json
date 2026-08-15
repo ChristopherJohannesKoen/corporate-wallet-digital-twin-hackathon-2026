@@ -1,9 +1,20 @@
 {
+  "accountable_approval_required": true,
+  "automatic_promotion": false,
+  "automatic_rollback": false,
   "capabilities": {
     "AUTONOMOUS_CLIENT_ACTION": {
       "minimum_state": "CAUSAL_CHAMPION",
       "permanently_withheld": true,
       "required_real_gates": []
+    },
+    "CAUSAL_VALUE": {
+      "minimum_state": "CAUSAL_CHAMPION",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "randomised-trial-validated",
+        "trial-first-stage-strength-adequate"
+      ]
     },
     "CAUSAL_VALUE_CLAIM": {
       "minimum_state": "CAUSAL_CHAMPION",
@@ -20,10 +31,29 @@
         "bank-approved-economics-registered"
       ]
     },
+    "DISCOVERY_CONVERSATION": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
     "HIDDEN_SHADOW_SCORING": {
       "minimum_state": "SHADOW_READY",
       "permanently_withheld": false,
       "required_real_gates": []
+    },
+    "LIVE_GENAI": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "genai-bank-approved"
+      ]
+    },
+    "MEASURED_SHARE": {
+      "minimum_state": "SHADOW_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "e3-multibank-observation-approved"
+      ]
     },
     "MEASURED_SHARE_REPORTING": {
       "minimum_state": "SHADOW_READY",
@@ -37,8 +67,27 @@
       "permanently_withheld": false,
       "required_real_gates": []
     },
+    "POSTERIOR_WALLET": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
     "PRODUCTION_RM_DECISION_SUPPORT": {
       "minimum_state": "SCALE_READY",
+      "permanently_withheld": false,
+      "required_real_gates": []
+    },
+    "PRODUCT_PROPOSAL": {
+      "minimum_state": "PILOT_READY",
+      "permanently_withheld": false,
+      "required_real_gates": [
+        "bank-approved-economics-registered",
+        "feasibility-gates-block-selection",
+        "selected-critical-path-evidence-complete"
+      ]
+    },
+    "SCENARIO_ECONOMICS": {
+      "minimum_state": "OFFLINE_CANDIDATE",
       "permanently_withheld": false,
       "required_real_gates": []
     },
@@ -53,9 +102,21 @@
       "required_real_gates": []
     }
   },
-  "engine_version": "v32-promotion-engine-1.0.0",
+  "engine_version": "v32-promotion-engine-1.1.0",
   "events": {
     "event_types": [
+      "PromotionEvidenceSubmitted",
+      "PromotionEvidenceVerified",
+      "GateEvaluationCompleted",
+      "PromotionDecisionIssued",
+      "PromotionApprovalRecorded",
+      "PromotionTransitionRecorded",
+      "RehearsalStarted",
+      "RehearsalDayCompleted",
+      "RehearsalIncidentInjected",
+      "RehearsalClockReset",
+      "PromotionEvidenceExpired",
+      "PromotionArtifactRevoked",
       "PromotionGateEvaluated",
       "PromotionEvidenceRegistered",
       "PromotionEvidenceSigned",
@@ -66,10 +127,9 @@
       "PromotionStateAdvanced",
       "PromotionCapabilityGranted",
       "PromotionCapabilityRefused",
-      "RehearsalScenarioExecuted",
-      "RehearsalIncidentInjected"
+      "RehearsalScenarioExecuted"
     ],
-    "events_version": "v32-promotion-events-1.0.0",
+    "events_version": "v32-promotion-events-1.1.0",
     "note": "Every promotion event carries its track, so an audit reader can tell a rehearsal event from a real one without resolving anything else. Adding this topic required widening a hardcoded CHECK constraint in the Postgres outbox, which would otherwise have failed at insert time in production.",
     "topics": [
       "wallet-twin.promotion.v1"
@@ -81,13 +141,25 @@
       "admissible_on_real_track": true,
       "bank_evidence_weight": 1.0
     },
+    "NOT_AVAILABLE": {
+      "admissible_on_real_track": false,
+      "bank_evidence_weight": 0.0
+    },
+    "PUBLIC_APPROVED": {
+      "admissible_on_real_track": true,
+      "bank_evidence_weight": 1.0
+    },
     "PUBLIC_PACKAGE": {
       "admissible_on_real_track": true,
-      "bank_evidence_weight": 0.5
+      "bank_evidence_weight": 1.0
     },
     "REAL_BANK": {
       "admissible_on_real_track": true,
-      "bank_evidence_weight": 0.8
+      "bank_evidence_weight": 1.0
+    },
+    "SIMULATED_POLICY": {
+      "admissible_on_real_track": false,
+      "bank_evidence_weight": 0.0
     },
     "SYNTHETIC_REHEARSAL": {
       "admissible_on_real_track": false,
@@ -97,9 +169,9 @@
   "legacy_vocabulary_unified": {
     "aliases_mapped": 38,
     "note": "The MLflow policy declared two transitions and was never parsed by any code. Its gate ids are preserved here as aliases so earlier artifacts remain traceable.",
-    "sources": [
+    "superseded_sources": [
       "src/wallet_twin_v2/release_gates.py",
-      "config/mlflow_promotion_policy.json"
+      "config/mlflow_promotion_policy.json@3.1.1"
     ]
   },
   "policy_version": "v32-promotion-policy-1.0.0",
@@ -120,5 +192,45 @@
   "tracks": {
     "REAL": "governs actual bank authorisation",
     "REHEARSAL": "proves the promotion machinery works"
+  },
+  "transitions": {
+    "OFFLINE_CANDIDATE__TO__SHADOW_READY": [
+      "independent-reproduction",
+      "point-in-time-zero-leakage",
+      "reconciliation-exact",
+      "interval-coverage-90",
+      "crps-improvement",
+      "genai-schema-and-fidelity",
+      "prompt-injection-resistance",
+      "entitlement-negative-tests",
+      "supply-chain-clean",
+      "feasibility-gates-block-selection"
+    ],
+    "PILOT_READY__TO__SCALE_READY": [
+      "supervised-pilot-completed",
+      "bank-approved-economics-registered",
+      "rollback-restores-prior-state",
+      "e3-multibank-observation-approved",
+      "pilot-findings-remediated",
+      "scale-operating-model-approved"
+    ],
+    "SCALE_READY__TO__CAUSAL_CHAMPION": [
+      "randomised-trial-validated",
+      "trial-first-stage-strength-adequate",
+      "sustained-adoption"
+    ],
+    "SHADOW_READY__TO__PILOT_READY": [
+      "elapsed-clean-shadow-days",
+      "service-availability",
+      "read-latency-p95",
+      "event-latency",
+      "refresh-by-0600-sast",
+      "no-unresolved-sev1-sev2",
+      "model-risk-approval",
+      "selected-critical-path-evidence-complete",
+      "selected-value-e2-coverage",
+      "genai-bank-approved",
+      "rm-pilot-protocol-approved"
+    ]
   }
 }
