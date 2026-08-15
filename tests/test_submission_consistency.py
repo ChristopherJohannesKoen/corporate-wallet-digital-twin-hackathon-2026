@@ -120,13 +120,17 @@ def test_wallet_exporter_check_is_non_mutating_and_detects_drift(monkeypatch, tm
     manifest = tmp_path / "manifest.json"
     generated = {
         "projection": {
-            "release": {"hackathon_status": HACKATHON_STATUS_PENDING},
+            "release": {
+                "hackathon_status": HACKATHON_STATUS_PENDING,
+                "hackathon_status_source": "outputs/judging_manifest_v3.1.1.json",
+            },
             "marker": "unchanged",
         },
         "details": {},
     }
     published = json.loads(json.dumps(generated))
     published["projection"]["release"]["hackathon_status"] = "HACKATHON_SUBMISSION_READY"
+    published["projection"]["release"]["hackathon_status_source"] = "manifest.json"
     target.write_text(json.dumps(published), encoding="utf-8")
     manifest.write_text(json.dumps({"status": "HACKATHON_SUBMISSION_READY"}), encoding="utf-8")
     before = target.read_bytes()
