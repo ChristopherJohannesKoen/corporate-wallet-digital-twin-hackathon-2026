@@ -2,12 +2,13 @@
   "version": "3.2.0",
   "status": "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-15T14:19:56.993338+00:00",
-  "source_commit": "7ffcea4c2d4e15f4e9932b651782dfab66746d84",
+  "generated_at": "2026-08-15T14:26:23.853838+00:00",
+  "source_commit": "fea42055dbb32ba94e86a05917f60f3e5b62ab2c",
   "clean_worktree": false,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
   "dirty_paths": [
-    "assets/presentation/v3.2-committed-artifact-manifest.json"
+    "assets/presentation/v3.2-committed-artifact-manifest.json",
+    "dashboard/app/data/wallet-v311-fixture.json"
   ],
   "rebuilt_deliverables": [
     "notebooks/01_wallet_twin_demo.ipynb",
@@ -245,7 +246,7 @@
     },
     {
       "name": "evidence workbook",
-      "command": "C:\\Users\\cjkoe\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe scripts/build_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "command": "node scripts/build_public_facts_workbook.mjs <REPOSITORY_ROOT>",
       "status": "PASS",
       "stdout_tail": [
         "    \"Evidence Queue\",",
@@ -265,7 +266,7 @@
     },
     {
       "name": "workbook verification",
-      "command": "C:\\Users\\cjkoe\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe scripts/verify_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "command": "node scripts/verify_public_facts_workbook.mjs <REPOSITORY_ROOT>",
       "status": "PASS",
       "stdout_tail": [
         "      \"Operations\"",
@@ -299,7 +300,7 @@
     },
     {
       "name": "PowerPoint",
-      "command": "C:\\Users\\cjkoe\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe scripts/build_v31_presentation.mjs <REPOSITORY_ROOT>",
+      "command": "node scripts/build_v31_presentation.mjs <REPOSITORY_ROOT>",
       "status": "PASS",
       "stdout_tail": [
         "{",
@@ -331,33 +332,33 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "20a5090b429b729f64933ad352cb028d48cf2f964509d867b81b91a2e01eb68a",
+      "sha256": "1cea4b8bb334635aa74527a9880db8fb2a3c827115d190579e4de77c2ddc04e6",
       "size_bytes": 182478
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "28f8d3256d335f1e03dd80b7734b07fd00328ff1e1b668102c62b6b10d2486ec",
+      "sha256": "7139eb45c94855b211939c4bb029d4cdc98ee7ee7154adf518a65a893486ec1d",
       "size_bytes": 490497
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "08c8267c6addb7de6a3ee4f4a447ad20c5174ac30b33f4a5e4a21e7ac99f223f",
+      "sha256": "633701e162fb6d2a0c0820971f332bcbab3392c73446184917a2ee3d09a92179",
       "size_bytes": 5555
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "670c6eddc1777aac261e7d2205216b9a5119988166278968ecf3e77af87be215",
-      "size_bytes": 1761012
+      "sha256": "bb0636bdc43e8ca71491d31ed7c00ff758e13bfc39266161d4d699173a1bdd26",
+      "size_bytes": 1761013
     },
     {
       "path": "assets/presentation/v3.2-committed-artifact-manifest.json",
-      "sha256": "ffa03c61e379b2450c4503337293891c4ec3dea8af152e5004e09430f745e74f",
+      "sha256": "24abd610051baabc7f3eeb7e5a80a950e29ddb1f872a8b77cdb3ee0c900f2c83",
       "size_bytes": 1108
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
-      "sha256": "3e0dddb78348ebc97ed73d10dedbf32645b253e7e3a1f4fd250deea4c695662c",
-      "size_bytes": 77005
+      "sha256": "56d9d00d38b0b19082deebe68410451e942e2edf15399e4a66a4fa6ac397b7b5",
+      "size_bytes": 77028
     },
     {
       "path": "contracts/openapi.json",

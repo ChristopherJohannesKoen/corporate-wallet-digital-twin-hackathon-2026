@@ -137,6 +137,7 @@ def stamp_wallet_release(status: str, *, expected_previous: str | None = None) -
             "pending placeholder so the canonical build owns the verdict"
         )
     release["hackathon_status"] = status
+    release["hackathon_status_source"] = "outputs/judging_manifest_v3.2.0.json"
     write_canonical_json(path, payload)
 
 

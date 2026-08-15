@@ -60,6 +60,12 @@ def test_submission_truth_matches_promotion_fixture() -> None:
     assert truth["elapsed_bank_shadow_days"] == 0
 
 
+def test_wallet_surface_names_the_v32_manifest_as_status_authority() -> None:
+    wallet = load(ROOT / "dashboard/app/data/wallet-v311-fixture.json")
+    release = wallet["projection"]["release"]
+    assert release["hackathon_status_source"] == "outputs/judging_manifest_v3.2.0.json"
+
+
 def test_judge_facing_markdown_uses_current_provider_and_promotion_facts() -> None:
     for path in (ROOT / "README.md", ROOT / "docs/judging_map.md"):
         text = path.read_text(encoding="utf-8")
