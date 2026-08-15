@@ -38,6 +38,7 @@ from wallet_twin_v32.laboratories.causal_operating_characteristics import (
 )
 from wallet_twin_v32.laboratories.compute import CANONICAL_TIERS, NIGHTLY_TIERS
 from wallet_twin_v32.laboratories.rm_personas import PERSONAS, REAL_PARTICIPANT, TASKS
+from wallet_twin_v32.laboratories.timing import TIMING_HAZARD_LAB_VERSION
 
 AS_OF = date(2026, 6, 30)
 SEED = 20260630
@@ -451,6 +452,16 @@ def test_a_temporal_split_alone_is_still_optimistic() -> None:
     splits = {item.split: item for item in evaluate_splits(seed=SEED)}
     assert splits["temporal-only"].mae_months <= splits["client-held-out-temporal"].mae_months
     assert "memorisation" in splits["temporal-only"].description
+
+
+def test_hazard_recovery_uses_the_governed_quantized_policy(report: dict) -> None:
+    hazard = report["timing"]["hazard_recovery"]
+    assert hazard["lab_version"] == TIMING_HAZARD_LAB_VERSION
+    assert hazard["numeric_policy"] == {
+        "coefficient_decimals": 6,
+        "probability_decimals": 5,
+        "aggregation": "ORDERED_MATH_FSUM",
+    }
 
 
 # --------------------------------------------------------------------------

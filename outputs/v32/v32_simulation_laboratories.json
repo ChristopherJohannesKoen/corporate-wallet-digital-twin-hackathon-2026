@@ -1939,12 +1939,12 @@
             {
               "count": 3855,
               "observed": 0.137224,
-              "predicted": 0.132646
+              "predicted": 0.132645
             },
             {
               "count": 6,
               "observed": 0.0,
-              "predicted": 0.208704
+              "predicted": 0.208705
             }
           ],
           "log_loss": 0.397506,
@@ -1961,7 +1961,7 @@
             {
               "count": 3041,
               "observed": 0.271621,
-              "predicted": 0.254788
+              "predicted": 0.254787
             }
           ],
           "log_loss": 0.573138,
@@ -1973,17 +1973,17 @@
             {
               "count": 6,
               "observed": 0.333333,
-              "predicted": 0.191363
+              "predicted": 0.191362
             },
             {
               "count": 2491,
               "observed": 0.358089,
-              "predicted": 0.333388
+              "predicted": 0.333387
             },
             {
               "count": 387,
               "observed": 0.408269,
-              "predicted": 0.42338
+              "predicted": 0.423379
             }
           ],
           "log_loss": 0.657174,
@@ -1999,8 +1999,13 @@
         "missing_outcomes": 3632,
         "sector_heterogeneity": true
       },
-      "lab_version": "v32-timing-hazard-recovery-2.0.0",
+      "lab_version": "v32-timing-hazard-recovery-2.0.1",
       "months": 36,
+      "numeric_policy": {
+        "aggregation": "ORDERED_MATH_FSUM",
+        "coefficient_decimals": 6,
+        "probability_decimals": 5
+      },
       "optimizer_converged": true,
       "rows": 72000,
       "temporal_split": true,

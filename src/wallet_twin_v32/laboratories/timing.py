@@ -18,8 +18,10 @@ computing the optimistic variants. A single number cannot show that; three can.
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from datetime import date
+from decimal import ROUND_HALF_EVEN, Decimal
 from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
@@ -27,6 +29,30 @@ import numpy as np
 from .compute import CPU
 
 TIMING_LAB_VERSION = "v32-timing-temporal-split-1.0.0"
+TIMING_HAZARD_LAB_VERSION = "v32-timing-hazard-recovery-2.0.1"
+TIMING_COEFFICIENT_DECIMALS = 6
+TIMING_PROBABILITY_DECIMALS = 5
+
+
+def _quantize_float(value: float, decimal_places: int) -> float:
+    """Quantize a computed value independently of the host BLAS reduction path."""
+    quantum = Decimal(1).scaleb(-decimal_places)
+    return float(Decimal(str(float(value))).quantize(quantum, rounding=ROUND_HALF_EVEN))
+
+
+def _quantize_array(values: np.ndarray, decimal_places: int) -> np.ndarray:
+    return np.fromiter(
+        (_quantize_float(value, decimal_places) for value in values),
+        dtype=float,
+        count=len(values),
+    )
+
+
+def _stable_mean(values: np.ndarray) -> float:
+    """Return an ordered, reproducible mean for governed output aggregation."""
+    if len(values) == 0:
+        raise ValueError("stable mean requires at least one value")
+    return math.fsum(float(value) for value in values) / len(values)
 
 
 @dataclass(frozen=True)
@@ -218,7 +244,8 @@ def hazard_recovery_report(
         return float(-np.sum(target * np.log(probability) + (1 - target) * np.log(1 - probability)))
 
     fitted = minimize(objective, np.zeros(x_design.shape[1]), method="L-BFGS-B")
-    monthly = np.clip(expit(x_design @ fitted.x), 1e-9, 1 - 1e-9)
+    fitted_coefficients = _quantize_array(fitted.x, TIMING_COEFFICIENT_DECIMALS)
+    monthly = np.clip(expit(x_design @ fitted_coefficients), 1e-9, 1 - 1e-9)
 
     horizon_metrics: Dict[str, object] = {}
     for horizon_months, label in ((1, "30d"), (2, "60d"), (3, "90d")):
@@ -231,10 +258,20 @@ def hazard_recovery_report(
                 if not np.isnan(window).any():
                     future[start + offset] = float(np.max(window))
         mask = test & ~np.isnan(future)
-        probability = 1 - np.power(1 - monthly[mask], horizon_months)
+        probability = _quantize_array(
+            1 - np.power(1 - monthly[mask], horizon_months),
+            TIMING_PROBABILITY_DECIMALS,
+        )
         target = future[mask]
-        brier = float(np.mean((probability - target) ** 2))
-        log_loss = float(-np.mean(target * np.log(probability) + (1 - target) * np.log(1 - probability)))
+        brier = math.fsum(
+            (float(predicted) - float(actual)) ** 2
+            for predicted, actual in zip(probability, target, strict=True)
+        ) / len(target)
+        log_loss = -math.fsum(
+            float(actual) * math.log(float(predicted))
+            + (1 - float(actual)) * math.log1p(-float(predicted))
+            for predicted, actual in zip(probability, target, strict=True)
+        ) / len(target)
         bins: List[Dict[str, object]] = []
         for lower in np.linspace(0, 0.8, 5):
             upper = lower + 0.2
@@ -242,8 +279,8 @@ def hazard_recovery_report(
             if in_bin.any():
                 bins.append(
                     {
-                        "predicted": round(float(np.mean(probability[in_bin])), 6),
-                        "observed": round(float(np.mean(target[in_bin])), 6),
+                        "predicted": round(_stable_mean(probability[in_bin]), 6),
+                        "observed": round(_stable_mean(target[in_bin]), 6),
                         "count": int(in_bin.sum()),
                     }
                 )
@@ -254,10 +291,15 @@ def hazard_recovery_report(
             "calibration": bins,
         }
 
-    fitted_signs = np.sign(fitted.x[1:]).astype(int)
+    fitted_signs = np.sign(fitted_coefficients[1:]).astype(int)
     planted_signs = np.sign(planted).astype(int)
     return {
-        "lab_version": "v32-timing-hazard-recovery-2.0.0",
+        "lab_version": TIMING_HAZARD_LAB_VERSION,
+        "numeric_policy": {
+            "coefficient_decimals": TIMING_COEFFICIENT_DECIMALS,
+            "probability_decimals": TIMING_PROBABILITY_DECIMALS,
+            "aggregation": "ORDERED_MATH_FSUM",
+        },
         "as_of": as_of.isoformat(),
         "evidence_mode": "SYNTHETIC_REHEARSAL",
         "clients": clients,
@@ -288,6 +330,7 @@ def hazard_recovery_report(
 
 
 __all__ = [
+    "TIMING_HAZARD_LAB_VERSION",
     "TIMING_LAB_VERSION",
     "SplitResult",
     "evaluate_splits",
