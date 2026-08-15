@@ -183,12 +183,20 @@ def main() -> None:
         tolerated_codes={2: "PASS_EXISTING_EVIDENCE_PRESERVED"},
     )
     checks.append(provider_check)
+    checks.append(run(
+        "canonical submission truth",
+        [sys.executable, "scripts/export_submission_truth.py"],
+    ))
 
     checks.append(run("executed judging notebook", [sys.executable, "scripts/build_v31_notebook.py"]))
     checks.append(run("evidence workbook", [NODE, "scripts/build_public_facts_workbook.mjs", str(ROOT)]))
     checks.append(run("workbook verification", [NODE, "scripts/verify_public_facts_workbook.mjs", str(ROOT)]))
     checks.append(run("one-page PDF", [sys.executable, "scripts/build_submission_pdf.py", str(ROOT)]))
     checks.append(run("PowerPoint", [NODE, "scripts/build_v31_presentation.mjs", str(ROOT)]))
+    checks.append(run(
+        "PowerPoint fallback manifest",
+        [sys.executable, "scripts/write_presentation_fallback_manifest.py"],
+    ))
 
     # Named rather than index-addressed. This list was read positionally —
     # artifacts[2] for the PDF page check and artifacts[-1] for the public
@@ -204,6 +212,7 @@ def main() -> None:
         ROOT / "output/notebook/01_wallet_twin_demo.html",
         ONE_PAGER,
         ROOT / "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+        ROOT / "assets/presentation/v3.2-committed-artifact-manifest.json",
         ROOT / "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
         ROOT / "contracts/openapi.json",
         ROOT / "outputs/v2_validation/offline_validation_report.json",
@@ -215,6 +224,8 @@ def main() -> None:
         ROOT / "outputs/v32/v32_simulation_laboratories.json",
         ROOT / "outputs/v32/v32_shadow_rehearsal.json",
         ROOT / "dashboard/app/data/promotion-fixture.json",
+        ROOT / "data/v2/submission_truth_v3.2.0.json",
+        ROOT / "dashboard/app/data/submission-truth-v3.2.0.json",
         PUBLIC_MIRROR_MANIFEST,
     ]
     # The mirror manifest is produced by a later step, so it is the one artifact
@@ -244,7 +255,12 @@ def main() -> None:
         if PUBLIC_MIRROR_MANIFEST.exists()
         else None
     )
-    submission_ready = bool(public_manifest and public_manifest.get("status") == "PASS" and live_accepted >= 3)
+    submission_ready = bool(
+        public_manifest
+        and public_manifest.get("status") == "PASS"
+        and providers.get("submission_gate_passed") is True
+        and live_accepted >= 6
+    )
     status = "HACKATHON_SUBMISSION_READY" if submission_ready else "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES"
 
     # One computation, two artifacts. The wallet surface is exported before the
@@ -339,8 +355,8 @@ def main() -> None:
         "claim_boundary": "Share is posterior unless E3-observed; economics are representative scenarios; causal incremental value is null; pending facts are excluded.",
         "confidentiality_boundary": "No supplied or derived row-level Syn Bank data, credentials, full provider payloads or private caches may enter the public mirror.",
         "open_external_gates": (
-            ([] if live_accepted >= 3 else [
-                "at least three accepted live-provider briefs using fresh rotated credentials"
+            ([] if providers.get("submission_gate_passed") is True and live_accepted >= 6 else [
+                "at least six accepted provider outputs covering all three providers and showcase clients"
             ])
             + ([] if public_manifest and public_manifest.get("status") == "PASS" else [
                 "anonymous clean-history public mirror publication and verification"

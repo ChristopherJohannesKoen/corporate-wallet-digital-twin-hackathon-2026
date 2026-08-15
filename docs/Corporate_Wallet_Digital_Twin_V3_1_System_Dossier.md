@@ -231,7 +231,7 @@ The solution currently contains:
 - A 10,000-draw Latin-hypercube/Gaussian-copula sensitivity analysis that shows why the meaning of â€œdominantâ€ matters: Trade Finance is the single first-ranked opportunity in all current draws, while Cross-border FX dominates top-ten composition and majority-dominance frequency.
 - A seasonal 30/60/90-day timing baseline, 3,440 transaction-derived surrogate intervals, model promotion thresholds, and a discrete-time challenger. No qualified RM action/outcome history exists, so the challenger is not promotable.
 - Trial contracts, cluster assignment, exposure/action/outcome events, an adoption protocol and a causal analysis rehearsal. No live RM trial has occurred and causal labels remain disabled.
-- OpenAI, Anthropic, Google and deterministic GenAI provider adapters behind a fail-closed gateway; 809 evidence/GenAI checks; no approved live-provider release evaluation.
+- OpenAI, Anthropic, Google and deterministic GenAI provider adapters behind a fail-closed gateway; 809 evidence/GenAI checks; V3.2 adds 8 accepted hackathon external-provider outputs from 9 targets, while bank-approved provider adjudication remains open.
 - AWS EKS, S3 Object Lock, Aurora PostgreSQL, MSK, KMS, CloudTrail, Databricks Unity Catalog/Delta/MLflow, Helm, OPA, OpenTelemetry and CI/security definitions. They are validated as code but have not been applied to a bank-controlled environment.
 - 100 entropy-constrained Shadow Wallet reconstructions and 1,500 anonymous provider/corridor edges; each opportunity retains 256 ensemble draws and exact exported-currency mass balance.
 - 100 positiveâ€“unlabelled need estimates with 33 transparent known positives and 67 unlabelled cases; the SCAR selection assumption and estimated selection constant are carried on outputs.
@@ -799,7 +799,7 @@ The current estate contains 809 governed checks:
 
 Development and sealed cases achieve 100% schema compliance, candidate precision, correct abstention, critical-value matching and injection resistance in the current deterministic evaluation. Training exactness is 91.67% and critical matching 80%, illustrating why training data are not release evidence. The 640 stress cases have zero failures; the one-sided 95% upper failure bound is 0.46699%, below the 0.5% minor unsupported-claim threshold.
 
-All live provider states remain `CONFIGURABLE_NOT_EXECUTED`. The harness requires an explicit public-only acknowledgement, provider approval, pinned snapshot and runtime secret. It retains no payload. No bank-approved live-provider test or independent adjudication has occurred, so the production GenAI gate remains closed.
+The V3.2 comparative artifact records 8 accepted provider-generated outputs from 9 target runs across OpenAI, Anthropic and Google, covering BHP, Glencore and Shoprite. The remaining output was rejected by the claim compiler before publication and retained the deterministic fallback. Accepted outputs passed schema, numeric, citation, abstention and unsupported-critical-claim checks. This is a public-only hackathon external-provider evaluation: it does not supply a bank-approved provider, contract, residency decision, bank credential or independent finance-SME adjudication, so the production `LIVE_GENAI` gate remains closed.
 
 ## 12.5 Production document path
 

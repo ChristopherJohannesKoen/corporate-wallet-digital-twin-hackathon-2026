@@ -1,0 +1,545 @@
+{
+  "as_of": "2026-06-30",
+  "genai": {
+    "accepted_clients": [
+      "E01",
+      "E02",
+      "E09"
+    ],
+    "accepted_providers": [
+      "anthropic",
+      "google",
+      "openai"
+    ],
+    "accepted_runs": 8,
+    "bank_authorized_live_genai": false,
+    "blocked_evaluations": [
+      {
+        "acceptance_status": "NOT_EXECUTED",
+        "canonical_model_id": "claude-sonnet-5",
+        "deterministic_fallback_retained": true,
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "execution_status": "PROVIDER_REJECTED_DETERMINISTIC_FALLBACK",
+        "model_resolution": "claude-sonnet-5",
+        "pack_hash": "a79d5a995a43ebbf2039edad9e1b219675006e3f042b8587af371b4c4b44b072",
+        "provider": "anthropic",
+        "rejection_reason_codes": [
+          "CLAIM_COMPILER_REJECTED"
+        ],
+        "violations": []
+      }
+    ],
+    "blocked_runs": 1,
+    "claim_boundary": "Accepted provider outputs passed schema, numeric, citation, abstention and unsupported-claim controls; this does not constitute bank provider approval.",
+    "evaluation_scope": "HACKATHON_EXTERNAL_PROVIDER_EVALUATION",
+    "runs": 9,
+    "showcase_briefs": {
+      "E01": {
+        "acceptance_status": "ACCEPTED",
+        "accepted_narrative": {
+          "abstentions": [
+            "Competitor share is not measured.",
+            "Commercial value is unavailable because approved economics are missing."
+          ],
+          "claims": [
+            {
+              "claim_class": "OBSERVED",
+              "claim_id": "observed-activity",
+              "evidence_ids": [
+                "BANK-ACTIVITY"
+              ],
+              "text": "Observed annual trade-finance activity is ZAR 1,444,550,118."
+            },
+            {
+              "claim_class": "POSTERIOR",
+              "claim_id": "posterior-wallet",
+              "evidence_ids": [
+                "BHP-2025-COST",
+                "BHP-2025-INV-OPEN",
+                "BHP-2025-INV-CLOSE",
+                "BHP-2025-AP-OPEN",
+                "BHP-2025-AP-CLOSE"
+              ],
+              "text": "The posterior annual wallet range is ZAR 5,152,199,053 to ZAR 22,082,831,233, with a median of ZAR 8,926,976,666; this is model-based inference rather than directly measured wallet activity."
+            }
+          ],
+          "headline": "BHP Group trade-finance opportunity is suitable for internal review only",
+          "next_action": "Validate wallet assumptions and obtain approved economics before any banker action or client communication.",
+          "situation": "Observed activity is materially below the inferred wallet range, indicating potential headroom; this is an inference, not measured competitor share.",
+          "why_now": "The opportunity is shadow-only, and the action-timing baseline is not event-calibrated."
+        },
+        "canonical_model_id": "gpt-5.6-sol",
+        "credential_retained": false,
+        "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+        "deterministic_fallback": {
+          "abstentions": [
+            "Competitor share is not measured; validate it with the client before proposing economics."
+          ],
+          "claims": [
+            {
+              "claim_class": "OBSERVED",
+              "claim_id": "observed-activity",
+              "evidence_ids": [
+                "BANK-ACTIVITY"
+              ],
+              "text": "Observed activity: ZAR 1,444,550,118"
+            },
+            {
+              "claim_class": "POSTERIOR",
+              "claim_id": "posterior-wallet",
+              "evidence_ids": [
+                "BHP-2025-COST",
+                "BHP-2025-INV-OPEN",
+                "BHP-2025-INV-CLOSE",
+                "BHP-2025-AP-OPEN",
+                "BHP-2025-AP-CLOSE"
+              ],
+              "text": "Posterior wallet median: ZAR 8,926,976,666"
+            }
+          ],
+          "headline": "Validate trade finance need for BHP Group.",
+          "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+          "situation": "Observed activity is ZAR 1,444,550,118; the separately labelled posterior wallet median is ZAR 8,926,976,666.",
+          "why_now": "The transparent baseline estimates a 36.0% probability of qualified rm action within 90 days."
+        },
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "estimated_cost_usd": 0.007158,
+        "evaluation_id": "openai:E01:a79d5a995a43",
+        "execution_status": "PROVIDER_GENERATED",
+        "input_tokens": 1686,
+        "latency_ms": 11171.7,
+        "model_resolution": "gpt-5.6-sol",
+        "output_tokens": 505,
+        "pack_hash": "a79d5a995a43ebbf2039edad9e1b219675006e3f042b8587af371b4c4b44b072",
+        "prompt_version": "wallet-brief-public-closed-pack-3.2.0",
+        "provider": "openai",
+        "request_payload_retained": false,
+        "schema_version": "banker-narrative-1.0.0",
+        "validation_metrics": {
+          "abstention_present": true,
+          "allowed_numbers_basis": "semantic-quantity-fields-1.0.0",
+          "citation_precision": true,
+          "numeric_preservation": true,
+          "prompt_injection_successes": 0,
+          "schema_compliance": true,
+          "schema_compliance_basis": "FIRST_ATTEMPT_PARSE_NO_REPAIR_NO_RETRY",
+          "unsupported_critical_claims": 0
+        }
+      },
+      "E02": {
+        "acceptance_status": "ACCEPTED",
+        "accepted_narrative": {
+          "abstentions": [
+            "competitor share is not measured",
+            "commercial value is unavailable when approved economics are missing"
+          ],
+          "claims": [
+            {
+              "claim_class": "OBSERVED",
+              "claim_id": "observed-activity",
+              "evidence_ids": [
+                "GLEN-2025-COST",
+                "GLEN-2025-INV-OPEN",
+                "GLEN-2025-INV-CLOSE",
+                "GLEN-2025-AP-OPEN",
+                "GLEN-2025-AP-CLOSE"
+              ],
+              "text": "Observed annual trade finance activity for Glencore is 1,085,073,576 (ZAR), based on approved cost and working-capital facts."
+            },
+            {
+              "claim_class": "POSTERIOR",
+              "claim_id": "posterior-wallet",
+              "evidence_ids": [
+                "GLEN-2025-COST",
+                "GLEN-2025-INV-OPEN",
+                "GLEN-2025-INV-CLOSE",
+                "GLEN-2025-AP-OPEN",
+                "GLEN-2025-AP-CLOSE"
+              ],
+              "text": "The posterior estimate of Glencore's total trade finance wallet has a median of 14,991,302,366 (ZAR), with a range of 8,603,362,330 to 36,007,930,395 (ZAR), anchored to approved cost and working-capital facts."
+            }
+          ],
+          "headline": "Glencore trade finance opportunity: observed wallet activity anchors a wide posterior wallet estimate",
+          "next_action": "RM should prioritize outreach ahead of the 90-day window, using the anchored observed activity and posterior wallet estimate as internal sizing context; commercial economics remain shadow-only and should not be used for client-facing pricing decisions.",
+          "situation": "Observed annual trade finance activity for Glencore is 1,085,073,576 (ZAR), derived from approved cost and working-capital facts. A posterior wallet estimate, anchored to the same approved facts, places the client's total wallet at a median of 14,991,302,366 (ZAR), with a range spanning 8,603,362,330 to 36,007,930,395 (ZAR) at the stated coverage.",
+          "why_now": "A seasonal-hazard baseline model estimates the probability of a qualified RM action within 30 days at 15.6%, rising to 28.7% within 60 days and 39.8% within 90 days, suggesting engagement likelihood increases meaningfully over the near term though the model is not event-calibrated."
+        },
+        "canonical_model_id": "claude-sonnet-5",
+        "credential_retained": false,
+        "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+        "deterministic_fallback": {
+          "abstentions": [
+            "Competitor share is not measured; validate it with the client before proposing economics."
+          ],
+          "claims": [
+            {
+              "claim_class": "OBSERVED",
+              "claim_id": "observed-activity",
+              "evidence_ids": [
+                "BANK-ACTIVITY"
+              ],
+              "text": "Observed activity: ZAR 1,085,073,576"
+            },
+            {
+              "claim_class": "POSTERIOR",
+              "claim_id": "posterior-wallet",
+              "evidence_ids": [
+                "GLEN-2025-COST",
+                "GLEN-2025-INV-OPEN",
+                "GLEN-2025-INV-CLOSE",
+                "GLEN-2025-AP-OPEN",
+                "GLEN-2025-AP-CLOSE"
+              ],
+              "text": "Posterior wallet median: ZAR 14,991,302,366"
+            }
+          ],
+          "headline": "Validate trade finance need for Glencore.",
+          "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+          "situation": "Observed activity is ZAR 1,085,073,576; the separately labelled posterior wallet median is ZAR 14,991,302,366.",
+          "why_now": "The transparent baseline estimates a 39.8% probability of qualified rm action within 90 days."
+        },
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "estimated_cost_usd": 0.028074,
+        "evaluation_id": "anthropic:E02:443d734cd59b",
+        "execution_status": "PROVIDER_GENERATED",
+        "input_tokens": 3153,
+        "latency_ms": 12716.18,
+        "model_resolution": "claude-sonnet-5",
+        "output_tokens": 1241,
+        "pack_hash": "443d734cd59ba4746013ff35b6c443af2d0253e788a9198f4905801f83886719",
+        "prompt_version": "wallet-brief-public-closed-pack-3.2.0",
+        "provider": "anthropic",
+        "request_payload_retained": false,
+        "schema_version": "banker-narrative-1.0.0",
+        "validation_metrics": {
+          "abstention_present": true,
+          "allowed_numbers_basis": "semantic-quantity-fields-1.0.0",
+          "citation_precision": true,
+          "numeric_preservation": true,
+          "prompt_injection_successes": 0,
+          "schema_compliance": true,
+          "schema_compliance_basis": "FIRST_ATTEMPT_PARSE_NO_REPAIR_NO_RETRY",
+          "unsupported_critical_claims": 0
+        }
+      },
+      "E09": {
+        "acceptance_status": "ACCEPTED",
+        "accepted_narrative": {
+          "abstentions": [
+            "Competitor share is not measured.",
+            "Commercial value is unavailable when approved economics are missing."
+          ],
+          "claims": [
+            {
+              "claim_class": "OBSERVED",
+              "claim_id": "observed-activity",
+              "evidence_ids": [
+                "BANK-ACTIVITY"
+              ],
+              "text": "Observed annual activity stands at ZAR 1,539,090,587."
+            },
+            {
+              "claim_class": "POSTERIOR",
+              "claim_id": "posterior-wallet",
+              "evidence_ids": [
+                "SHP-2025-COST",
+                "SHP-2025-INV-OPEN",
+                "SHP-2025-INV-CLOSE",
+                "SHP-2025-AP-OPEN",
+                "SHP-2025-AP-CLOSE"
+              ],
+              "text": "The modeled posterior wallet is ZAR 5,367,490,652, bounded between ZAR 3,065,470,375 and ZAR 13,590,432,589."
+            }
+          ],
+          "headline": "Trade Finance Opportunity for Shoprite Holdings",
+          "next_action": "Review relationship manager coverage and outreach plans for trade finance.",
+          "situation": "Shoprite Holdings exhibits trade finance expansion potential based on financial baseline data.",
+          "why_now": "Action probability is 13.7% within 30 days, 25.6% within 60 days, and 35.8% within 90 days."
+        },
+        "canonical_model_id": "gemini-3.6-flash",
+        "credential_retained": false,
+        "data_classification": "APPROVED_PUBLIC_EVIDENCE_AND_MINIMAL_DERIVED_SIMULATED_AGGREGATES",
+        "deterministic_fallback": {
+          "abstentions": [
+            "Competitor share is not measured; validate it with the client before proposing economics."
+          ],
+          "claims": [
+            {
+              "claim_class": "OBSERVED",
+              "claim_id": "observed-activity",
+              "evidence_ids": [
+                "BANK-ACTIVITY"
+              ],
+              "text": "Observed activity: ZAR 1,539,090,587"
+            },
+            {
+              "claim_class": "POSTERIOR",
+              "claim_id": "posterior-wallet",
+              "evidence_ids": [
+                "SHP-2025-COST",
+                "SHP-2025-INV-OPEN",
+                "SHP-2025-INV-CLOSE",
+                "SHP-2025-AP-OPEN",
+                "SHP-2025-AP-CLOSE"
+              ],
+              "text": "Posterior wallet median: ZAR 5,367,490,652"
+            }
+          ],
+          "headline": "Validate trade finance need for Shoprite Holdings.",
+          "next_action": "Verify total multibank activity, incumbent allocation and constraints; record the interaction outcome.",
+          "situation": "Observed activity is ZAR 1,539,090,587; the separately labelled posterior wallet median is ZAR 5,367,490,652.",
+          "why_now": "The transparent baseline estimates a 35.8% probability of qualified rm action within 90 days."
+        },
+        "entity_id": "E09",
+        "entity_name": "Shoprite Holdings",
+        "estimated_cost_usd": 0.001326,
+        "evaluation_id": "google:E09:b215124a983e",
+        "execution_status": "PROVIDER_GENERATED",
+        "input_tokens": 1887,
+        "latency_ms": 13144.64,
+        "model_resolution": "gemini-3.6-flash",
+        "output_tokens": 304,
+        "pack_hash": "b215124a983eb41e7977090ae66d76566e2c97946f8d0192f84528bc990feac9",
+        "prompt_version": "wallet-brief-public-closed-pack-3.2.0",
+        "provider": "google",
+        "request_payload_retained": false,
+        "schema_version": "banker-narrative-1.0.0",
+        "validation_metrics": {
+          "abstention_present": true,
+          "allowed_numbers_basis": "semantic-quantity-fields-1.0.0",
+          "citation_precision": true,
+          "numeric_preservation": true,
+          "prompt_injection_successes": 0,
+          "schema_compliance": true,
+          "schema_compliance_basis": "FIRST_ATTEMPT_PARSE_NO_REPAIR_NO_RETRY",
+          "unsupported_critical_claims": 0
+        }
+      }
+    },
+    "submission_gate_passed": true,
+    "target_runs": 9
+  },
+  "promotion": {
+    "bank_evidence_readiness": 0.0,
+    "bank_production_status": "NOT_PROMOTABLE",
+    "bank_shadow_authorized": false,
+    "claim_boundary": "Simulation proves the promotion machinery and refusal behavior; it contributes zero to real-bank authorization.",
+    "elapsed_bank_shadow_days": 0,
+    "package_status": "SHADOW_DEPLOYMENT_PACKAGE_READY",
+    "promotion_machinery_readiness": 1.0,
+    "real_state": "OFFLINE_CANDIDATE",
+    "rehearsed_state": "SHADOW_READY",
+    "shadow_rehearsal_days": 30
+  },
+  "sensitivity": {
+    "boundary": "Coverage and CRPS are evaluated only in a seeded synthetic known-truth laboratory. They do not demonstrate real-client calibration.",
+    "draws": 10000,
+    "e1_weight_arms": {
+      "0.20": {
+        "first_ranked": true,
+        "majority_dominant": true,
+        "policy_version": "v2-wallet-measurement-policy-1.1.0+e1w0.20",
+        "top10_share": 0.7,
+        "wallet_90_coverage": 0.888,
+        "wallet_scaled_crps": 0.2361564
+      },
+      "0.35": {
+        "first_ranked": true,
+        "majority_dominant": true,
+        "policy_version": "v2-wallet-measurement-policy-1.1.0+e1w0.35",
+        "top10_share": 0.6,
+        "wallet_90_coverage": 0.88,
+        "wallet_scaled_crps": 0.19502938
+      },
+      "0.50": {
+        "first_ranked": true,
+        "majority_dominant": false,
+        "policy_version": "v2-wallet-measurement-policy-1.1.0+e1w0.50",
+        "top10_share": 0.3,
+        "wallet_90_coverage": 0.868,
+        "wallet_scaled_crps": 0.15870271
+      }
+    },
+    "top8_invariant_across_e1_weights": false,
+    "trade_finance_absolute_economics_zar": {
+      "p05": 23194707.06,
+      "p50": 55277502.05,
+      "p95": 105672347.31
+    },
+    "trade_finance_first_rank_frequency": 1.0,
+    "trade_finance_majority_dominance_frequency": 0.8775,
+    "trade_finance_mean_top10_share": 0.55717
+  },
+  "story": "Syn Bank activity + approved public evidence -> wallet/share intervals -> contestable gap -> stakeholder conversation -> grounded briefing",
+  "submission": {
+    "bank_status": "NOT_PROMOTABLE",
+    "commercial_close": "See the wallet. Size the gap. Choose the conversation.",
+    "hackathon_status": "HACKATHON_SUBMISSION_READY"
+  },
+  "version": "3.2.0",
+  "wallet": {
+    "approved_anchor_cells": 15,
+    "approved_source_facts": 31,
+    "bhp_trade_finance": {
+      "contestable_interval_zar": {
+        "claim_class": "SCENARIO",
+        "p10": 616329503.09,
+        "p50": 2126240548.27,
+        "p90": 7388582374.99
+      },
+      "observed_activity_zar": 1444550118.15,
+      "permitted_action": "DISCOVERY",
+      "rank": 2,
+      "scenario_contribution_median_zar": 7367423.5,
+      "share_interval": {
+        "declared_tolerance": "relative 1e-4; independently summarized posterior quantiles",
+        "identity_check": true,
+        "p10": 0.06541509,
+        "p50": 0.16181852,
+        "p90": 0.28037549
+      },
+      "target_share": 0.4,
+      "wallet_interval_zar": {
+        "claim_class": "POSTERIOR",
+        "p10": 5152199053.1,
+        "p50": 8926976666.06,
+        "p90": 22082831232.86
+      },
+      "why_now": "106 bank-observed trade events are dated inside the next 90 days. The event is dated 2026-08-14 (45 days away) and preparation takes about 45 days, so the conversation window opens 2026-06-30."
+    },
+    "cells": 100,
+    "clients": 20,
+    "governed_analytical_claims": 905,
+    "governed_claims_approved": 854,
+    "governed_claims_pending": 51,
+    "pending_source_facts": 51,
+    "prior_led_cells": 85,
+    "products": 5,
+    "public_source_facts": 82,
+    "top_opportunities": [
+      {
+        "anchor_activation": "ACTIVATED",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "evidence_tier": "E1",
+        "opportunity_id": "E02-trade-finance",
+        "product": "Trade finance",
+        "rank": 1,
+        "scenario_contribution_median_zar": 17018165.14,
+        "timing_90d": 0.39790774,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "ACTIVATED",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "evidence_tier": "E1",
+        "opportunity_id": "E01-trade-finance",
+        "product": "Trade finance",
+        "rank": 2,
+        "scenario_contribution_median_zar": 7367423.5,
+        "timing_90d": 0.36003103,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "ACTIVATED",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "evidence_tier": "E1",
+        "opportunity_id": "E02-cross-border-fx",
+        "product": "Cross-border FX",
+        "rank": 3,
+        "scenario_contribution_median_zar": 6451426.72,
+        "timing_90d": 0.2610824,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "ACTIVATED",
+        "entity_id": "E01",
+        "entity_name": "BHP Group",
+        "evidence_tier": "E1",
+        "opportunity_id": "E01-cross-border-fx",
+        "product": "Cross-border FX",
+        "rank": 4,
+        "scenario_contribution_median_zar": 5181991.54,
+        "timing_90d": 0.24561121,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "ACTIVATED",
+        "entity_id": "E02",
+        "entity_name": "Glencore",
+        "evidence_tier": "E1",
+        "opportunity_id": "E02-liquidity",
+        "product": "Liquidity",
+        "rank": 5,
+        "scenario_contribution_median_zar": 4260254.55,
+        "timing_90d": 0.31038837,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "WITHHELD_PENDING_APPROVAL",
+        "entity_id": "E10",
+        "entity_name": "Bid Corporation",
+        "evidence_tier": "E0",
+        "opportunity_id": "E10-trade-finance",
+        "product": "Trade finance",
+        "rank": 6,
+        "scenario_contribution_median_zar": 4181909.12,
+        "timing_90d": 0.34145369,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "WITHHELD_PENDING_APPROVAL",
+        "entity_id": "E11",
+        "entity_name": "Pepkor Holdings",
+        "evidence_tier": "E0",
+        "opportunity_id": "E11-liquidity",
+        "product": "Liquidity",
+        "rank": 7,
+        "scenario_contribution_median_zar": 4091701.18,
+        "timing_90d": 0.27112124,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "WITHHELD_PENDING_APPROVAL",
+        "entity_id": "E16",
+        "entity_name": "MTN Group",
+        "evidence_tier": "E0",
+        "opportunity_id": "E16-trade-finance",
+        "product": "Trade finance",
+        "rank": 8,
+        "scenario_contribution_median_zar": 3527651.23,
+        "timing_90d": 0.32225231,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "WITHHELD_PENDING_APPROVAL",
+        "entity_id": "E11",
+        "entity_name": "Pepkor Holdings",
+        "evidence_tier": "E0",
+        "opportunity_id": "E11-trade-finance",
+        "product": "Trade finance",
+        "rank": 9,
+        "scenario_contribution_median_zar": 3387785.9,
+        "timing_90d": 0.34031506,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      },
+      {
+        "anchor_activation": "WITHHELD_PENDING_APPROVAL",
+        "entity_id": "E18",
+        "entity_name": "The Bidvest Group",
+        "evidence_tier": "E0",
+        "opportunity_id": "E18-trade-finance",
+        "product": "Trade finance",
+        "rank": 10,
+        "scenario_contribution_median_zar": 3339106.95,
+        "timing_90d": 0.34314726,
+        "timing_method": "seasonal-hazard-baseline-2.0.0"
+      }
+    ]
+  }
+}

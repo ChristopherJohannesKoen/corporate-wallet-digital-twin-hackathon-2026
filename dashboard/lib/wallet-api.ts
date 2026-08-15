@@ -4,7 +4,8 @@ import v3FixtureJson from "@/app/data/v3-fixture.json";
 import v31FixtureJson from "@/app/data/v31-fixture.json";
 import walletV311Json from "@/app/data/wallet-v311-fixture.json";
 import promotionJson from "@/app/data/promotion-fixture.json";
-import type { Opportunity, PromotionReadiness, ShadowFixture, V3Fixture, V31Fixture, WalletOpportunityDetail, WalletPortfolioProjection } from "./contracts";
+import submissionTruthJson from "@/app/data/submission-truth-v3.2.0.json";
+import type { Opportunity, PromotionReadiness, ShadowFixture, SubmissionTruth, V3Fixture, V31Fixture, WalletOpportunityDetail, WalletPortfolioProjection } from "./contracts";
 
 export const fixture = fixtureJson as unknown as ShadowFixture;
 export const v3Fixture = v3FixtureJson as unknown as V3Fixture;
@@ -14,6 +15,7 @@ export const walletV311Fixture = walletV311Json as unknown as {
   details: Record<string, WalletOpportunityDetail>;
 };
 export const promotionFixture = promotionJson as unknown as PromotionReadiness;
+export const submissionTruth = submissionTruthJson as unknown as SubmissionTruth;
 
 export async function proxyWalletApi(path: string, init?: RequestInit): Promise<Response | null> {
   const baseUrl = process.env.WALLET_API_BASE_URL;

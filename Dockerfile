@@ -23,7 +23,7 @@ RUN python -m pip install --no-cache-dir uv==0.9.2 \
 # The runtime fixture is aggregate, public/representative judging data only.
 # Raw Syn Bank rows and downloaded issuer documents are deliberately excluded.
 COPY data/public_facts.csv ./data/public_facts.csv
-COPY data/v2/benchmark_rate_cards.json data/v2/external_dataset_registry.json data/v2/public_facts_expanded.csv data/v2/public_sources.json data/v2/representative_trade_finance_summary.json ./data/v2/
+COPY data/v2/benchmark_rate_cards.json data/v2/external_dataset_registry.json data/v2/public_facts_expanded.csv data/v2/public_sources.json data/v2/representative_trade_finance_summary.json data/v2/submission_truth_v3.2.0.json ./data/v2/
 COPY data/v2/golden_set/cases.jsonl ./data/v2/golden_set/cases.jsonl
 COPY data/v3/public_sensor_registry.json ./data/v3/public_sensor_registry.json
 COPY legacy/v1/fixtures/portfolio.json ./legacy/v1/fixtures/portfolio.json

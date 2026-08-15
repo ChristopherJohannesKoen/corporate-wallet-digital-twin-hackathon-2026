@@ -1,0 +1,28 @@
+{
+  "artifact": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+  "deck_sha256": "0af288f8d70b521314d91aa9fa1ce7bc26821653e99c818251a7b345fce48048",
+  "fallback_policy": "VERIFY_EXACT_COMMITTED_PPTX_WHEN_CODEX_ARTIFACT_RUNTIME_IS_UNAVAILABLE",
+  "sources": [
+    {
+      "path": "scripts/build_v31_presentation.mjs",
+      "sha256": "0eacdad5cb6070d682aa0b07e5bdfc0eaff8460f5fc95dd6eef10abd46e2f6d8"
+    },
+    {
+      "path": "scripts/capture_wallet_heatmap.mjs",
+      "sha256": "0956398a7992d7d2b00a2fa16d729037861455925d26a8471bf90c6f30716274"
+    },
+    {
+      "path": "assets/presentation/Corporate-Wallet-Digital-Twin-V3.2-Starter.pptx",
+      "sha256": "9afe1789593fd5e52743124c3d72f8f09a911bc79c0d49eb7c698bfb5a1d75ac"
+    },
+    {
+      "path": "data/v2/submission_truth_v3.2.0.json",
+      "sha256": "c1d44578725d4a74b32ba07618eeccfc6dd1f71bfc426b2d32cb6d1e6f287320"
+    },
+    {
+      "path": "dashboard/app/data/wallet-v311-fixture.json",
+      "sha256": "c992d3f930884fbbb38841d899d290ff60ea0788c44174c67cb9d21c3761199b"
+    }
+  ],
+  "version": "3.2.0"
+}

@@ -633,6 +633,84 @@ export type V31Brief = {
   provider_used: string;
 };
 
+export type ProviderNarrative = {
+  headline: string;
+  situation: string;
+  why_now: string;
+  next_action: string;
+  claims: Array<{ claim_id: string; claim_class: ClaimClass; evidence_ids: string[]; text: string }>;
+  abstentions: string[];
+};
+
+export type ProviderBriefEvaluation = {
+  evaluation_id: string;
+  entity_id: string;
+  entity_name: string;
+  provider: string;
+  canonical_model_id: string;
+  model_resolution: string;
+  execution_status: string;
+  acceptance_status: "ACCEPTED";
+  pack_hash: string;
+  prompt_version: string;
+  schema_version: string;
+  validation_metrics: {
+    schema_compliance: boolean;
+    numeric_preservation: boolean;
+    citation_precision: boolean;
+    abstention_present: boolean;
+    unsupported_critical_claims: number;
+    prompt_injection_successes: number;
+  };
+  accepted_narrative: ProviderNarrative;
+  deterministic_fallback: ProviderNarrative;
+};
+
+export type ClientBriefingNotesResponse = {
+  entity_id: string;
+  as_of: string;
+  notes: Array<{
+    conversation_id: string;
+    deterministic_brief: V31Brief;
+    accepted_provider_brief: ProviderBriefEvaluation | null;
+    provider_evaluations: ProviderBriefEvaluation[];
+    live_provider_status: string;
+  }>;
+  live_evaluation: {
+    evaluation_scope: string;
+    target_runs: number;
+    runs: number;
+    accepted_runs: number;
+    blocked_runs: number;
+    submission_gate_passed: boolean;
+    accepted_providers: string[];
+    accepted_clients: string[];
+    bank_authorized_live_genai: boolean;
+    claim_boundary: string;
+  };
+  claim_boundary: string;
+};
+
+export type SubmissionTruth = {
+  version: string;
+  as_of: string;
+  genai: ClientBriefingNotesResponse["live_evaluation"] & {
+    showcase_briefs: Record<string, ProviderBriefEvaluation>;
+    blocked_evaluations: Array<Record<string, unknown>>;
+  };
+  promotion: {
+    real_state: string;
+    rehearsed_state: string;
+    package_status: string;
+    promotion_machinery_readiness: number;
+    bank_evidence_readiness: number;
+    bank_shadow_authorized: boolean;
+    bank_production_status: string;
+    shadow_rehearsal_days: number;
+    elapsed_bank_shadow_days: number;
+  };
+};
+
 export type V31BusinessTwin = {
   entity_id: string;
   entity_name: string;

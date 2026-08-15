@@ -75,3 +75,22 @@ def test_openapi_exposes_all_submission_wallet_reads():
     assert "/v3/wallet-portfolio" in schema["paths"]
     assert "/v3/wallet-opportunities/{opportunity_id}" in schema["paths"]
     assert "/v3/clients/{client_id}/briefing-notes" in schema["paths"]
+
+
+def test_showcase_briefing_notes_surface_accepted_provider_and_fallback(monkeypatch):
+    monkeypatch.setenv("WALLET_DEPLOYMENT_MODE", "CLIENT_DEMO")
+    response = TestClient(app).get(
+        "/v3/clients/E01/briefing-notes?as_of=2026-06-30",
+        headers=HEADERS,
+    )
+    assert response.status_code == 200
+    payload = response.json()
+    assert payload["live_evaluation"]["accepted_runs"] == 8
+    assert payload["live_evaluation"]["target_runs"] == 9
+    assert payload["live_evaluation"]["bank_authorized_live_genai"] is False
+    accepted = payload["notes"][0]["accepted_provider_brief"]
+    assert accepted["provider"] == "openai"
+    assert accepted["canonical_model_id"] == "gpt-5.6-sol"
+    assert accepted["acceptance_status"] == "ACCEPTED"
+    assert accepted["validation_metrics"]["unsupported_critical_claims"] == 0
+    assert payload["notes"][0]["deterministic_brief"]["compiler"]

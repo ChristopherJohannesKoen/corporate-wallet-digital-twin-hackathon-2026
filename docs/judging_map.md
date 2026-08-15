@@ -27,7 +27,7 @@
 | Is share measured? | No. It is posterior unless an E3 multibank observation exists. |
 | Why 31 approved but 82 public facts? | 51 are developer-verified candidates pending accountable finance-SME review; they are excluded from active inference. |
 | Is Trade Finance hard-coded to win? | No. The engine reports rank frequency, top-ten share, majority frequency and absolute economics. It loses majority dominance at E1 weight 0.50. |
-| Is the GenAI result live? | The deterministic brief is accepted. Live provider runs remain `NOT_EXECUTED` unless fresh rotated credentials and explicit acknowledgement are present. |
+| Is the GenAI result live? | For hackathon evaluation, yes: 8 of 9 genuine provider outputs were accepted across OpenAI, Anthropic and Google and all three showcase clients. One output was blocked by the claim compiler and fallback retained. This is not bank-authorized `LIVE_GENAI`. |
 | Is this production-ready for a bank? | No. Hackathon submission status is separate; bank release remains `NOT_PROMOTABLE`. |
 | What is confidential? | Supplied Syn Bank rows and challenge-derived row-level data remain private. The public mirror uses independently generated anonymized fixtures. |
 

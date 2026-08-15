@@ -23,6 +23,7 @@ from wallet_twin_v2.contracts import EntitlementContext, StrictModel
 from .briefs import compile_claim_pack
 from .events import V31EventType, build_v31_event
 from .feasibility import record_attestation
+from .live_briefs import live_evaluation_summary, provider_brief_for_client
 from .repository import repository
 from .taxonomy import (
     BankingSolution,
@@ -155,22 +156,29 @@ def client_briefing_notes(
             -item.policy_rank.selection_stability,
         )
     )
+    provider_brief = provider_brief_for_client(client_id)
     notes = []
     for item in items[:3]:
         deterministic = repository.brief(item.conversation_id, as_of, context.client_ids)
         notes.append({
             "conversation_id": item.conversation_id,
-            "brief": deterministic.model_dump(mode="json"),
-            "provider_evaluations": [],
-            "live_provider_status": "NOT_EXECUTED_WITHOUT_FRESH_ENVIRONMENT_CREDENTIAL",
+            "deterministic_brief": deterministic.model_dump(mode="json"),
+            "accepted_provider_brief": provider_brief if not notes else None,
+            "provider_evaluations": [provider_brief] if provider_brief and not notes else [],
+            "live_provider_status": (
+                "HACKATHON_EXTERNAL_PROVIDER_ACCEPTED"
+                if provider_brief and not notes
+                else "DETERMINISTIC_FALLBACK_AVAILABLE"
+            ),
         })
     return {
         "entity_id": client_id,
         "as_of": as_of.isoformat(),
         "notes": notes,
+        "live_evaluation": live_evaluation_summary(),
         "claim_boundary": (
-            "Deterministic briefs are operational. Provider-generated briefs appear only "
-            "after all critical validators pass; no provider result is fabricated."
+            "Accepted provider briefs passed every critical hackathon validator. This is "
+            "not bank-authorized LIVE_GENAI; deterministic output remains available beside it."
         ),
     }
 

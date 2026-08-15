@@ -33,6 +33,13 @@ SECRET_PATTERNS = (
     re.compile(r"AQ\.[A-Za-z0-9_-]{20,}"),
     re.compile(r"gh[oprsu]_[A-Za-z0-9]{20,}"),
 )
+CHALLENGE_DERIVED_PATTERNS = (
+    "3,064,295",
+    "3064295",
+    "R17.018m",
+    "R7.367m",
+    "a79d5a995a43ebbf2039edad9e1b219675006e3f042b8587af371b4c4b44b072",
+)
 
 
 def copy_item(source: Path, target: Path) -> None:
@@ -41,7 +48,10 @@ def copy_item(source: Path, target: Path) -> None:
             source,
             target,
             dirs_exist_ok=True,
-            ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo", ".pytest_cache", ".ruff_cache", "node_modules", "dist", ".next"),
+            ignore=shutil.ignore_patterns(
+                "__pycache__", "*.pyc", "*.pyo", "*.egg-info",
+                ".pytest_cache", ".ruff_cache", "node_modules", "dist", ".next",
+            ),
         )
     elif source.exists():
         target.parent.mkdir(parents=True, exist_ok=True)
@@ -131,7 +141,11 @@ def main() -> None:
     # Remove private/submission-only builders and all legacy/challenge aggregates.
     for relative in (
         "scripts/build_finance_sme_review_pack.py", "scripts/export_public_mirror.py",
-        "scripts/build_submission.py",
+        "scripts/build_submission.py", "scripts/build_submission_pdf.py",
+        "scripts/build_v31_notebook.py", "scripts/build_v3_notebook.py",
+        "scripts/build_v31_presentation.mjs", "scripts/capture_wallet_heatmap.mjs",
+        "scripts/write_presentation_fallback_manifest.py",
+        "scripts/export_submission_truth.py",
     ):
         (out / relative).unlink(missing_ok=True)
     # The public mirror carries a safe-demo suite. Private V1/V3 regression
@@ -143,10 +157,110 @@ def main() -> None:
             shutil.rmtree(path)
         else:
             path.unlink(missing_ok=True)
+
+    # The private dossier and judging map contain challenge-derived counts and
+    # named commercial outputs. Publish a compact safe methodology instead of
+    # trying to redact those long documents in place.
+    remove_tree(out / "docs")
+    (out / "docs").mkdir(parents=True, exist_ok=True)
+    (out / "docs" / "METHODOLOGY.md").write_text(
+        "# Safe-mirror methodology\n\n"
+        "The Corporate Wallet Digital Twin models the identity `A = qT`, where "
+        "the safe fixture observes anonymized aggregate activity `A` and treats "
+        "total wallet `T` and share `q` as latent. It reports identification "
+        "bounds, model-based posterior intervals and explicitly labelled "
+        "commercial scenarios. The Decision Twin maps an interval to a role, "
+        "problem, solution, timing and discovery question. The Promotion Twin "
+        "evaluates REAL and REHEARSAL evidence separately.\n\n"
+        "This mirror contains independently generated `D01`–`D20` aggregates "
+        "and public-source registries only. It establishes software mechanics, "
+        "not the confidential hackathon result, measured competitor share, bank "
+        "economics, RM adoption, causal uplift or bank authorization.\n",
+        encoding="utf-8",
+    )
+    (out / "docs" / "DATA_AND_CLAIM_BOUNDARY.md").write_text(
+        "# Data and claim boundary\n\n"
+        "Allowed: source code, schemas, prompts, infrastructure definitions, "
+        "public issuer facts and independently generated anonymized aggregates.\n\n"
+        "Excluded: supplied or derived row-level bank data, challenge-derived "
+        "client aggregates, named-client provider packs, credentials, downloaded "
+        "documents, private judging artifacts and caches.\n",
+        encoding="utf-8",
+    )
     baseline = safe_baseline()
     safe_path = out / "legacy/v1/fixtures/portfolio.json"
     safe_path.parent.mkdir(parents=True, exist_ok=True)
     safe_path.write_text(json.dumps(baseline, indent=2) + "\n", encoding="utf-8")
+
+    # The private tree's submission truth contains named-client evaluation
+    # evidence. Replace it before any build or commit can observe the export.
+    # The safe mirror demonstrates the same API shape with no provider claim.
+    safe_truth = {
+        "version": "3.2.0-safe",
+        "as_of": "2026-06-30",
+        "genai": {
+            "evaluation_scope": "SAFE_PUBLIC_MIRROR_NOT_EXECUTED",
+            "target_runs": 0,
+            "runs": 0,
+            "accepted_runs": 0,
+            "blocked_runs": 0,
+            "submission_gate_passed": False,
+            "accepted_providers": [],
+            "accepted_clients": [],
+            "showcase_briefs": {},
+            "blocked_evaluations": [],
+            "bank_authorized_live_genai": False,
+            "claim_boundary": "No provider evaluation or named-client pack is published in the safe mirror.",
+        },
+        "promotion": {
+            "real_state": "OFFLINE_CANDIDATE",
+            "rehearsed_state": "SHADOW_READY",
+            "package_status": "SHADOW_DEPLOYMENT_PACKAGE_READY",
+            "promotion_machinery_readiness": 1.0,
+            "bank_evidence_readiness": 0.0,
+            "bank_shadow_authorized": False,
+            "bank_production_status": "NOT_PROMOTABLE",
+            "shadow_rehearsal_days": 30,
+            "elapsed_bank_shadow_days": 0,
+        },
+    }
+    for safe_truth_path in (
+        out / "data/v2/submission_truth_v3.2.0.json",
+        out / "dashboard/app/data/submission-truth-v3.2.0.json",
+    ):
+        safe_truth_path.parent.mkdir(parents=True, exist_ok=True)
+        safe_truth_path.write_text(json.dumps(safe_truth, indent=2) + "\n", encoding="utf-8")
+
+    # The private registry records the supplied challenge archive and its
+    # exact row count.  Neither belongs in a clean public history.  Retain the
+    # licence-governed public/representative datasets and make the omission
+    # explicit instead of redacting the private entry in place.
+    registry_path = out / "data/v2/external_dataset_registry.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    registry["datasets"] = [
+        dataset
+        for dataset in registry["datasets"]
+        if dataset.get("dataset_id") != "synbank-supplied-banking-data"
+    ]
+    registry["public_mirror_boundary"] = (
+        "The supplied hackathon archive and every challenge-derived aggregate "
+        "are intentionally absent from this clean public mirror."
+    )
+    registry_path.write_text(json.dumps(registry, indent=2) + "\n", encoding="utf-8")
+
+    # The demo-data module is useful for generating independent rehearsal
+    # panels, but its private manifest helper embeds the challenge archive row
+    # count.  A public build has no supplied rows, so the exported source must
+    # report zero rather than preserve that challenge-specific fingerprint.
+    demo_data_path = out / "src/wallet_twin_v2/demo_data.py"
+    demo_source = demo_data_path.read_text(encoding="utf-8")
+    private_count_line = '"synbank_rows": 3064295,'
+    if private_count_line not in demo_source:
+        raise RuntimeError("expected private source-estate count was not found")
+    demo_data_path.write_text(
+        demo_source.replace(private_count_line, '"synbank_rows": 0,'),
+        encoding="utf-8",
+    )
 
     # The workbench source is publishable, but its committed private fixtures
     # are not. Rebuild every browser fixture inside the export process after the
@@ -167,6 +281,7 @@ def main() -> None:
     for script in (
         "export_v3_contracts.py",
         "export_v31_contracts.py",
+        "export_v311_wallet_surface.py",
         "export_v32_contracts.py",
         "export_v32_workbench_fixture.py",
     ):
@@ -247,6 +362,7 @@ def run(*args: str) -> None:
 def main() -> None:
     run("scripts/export_v3_contracts.py")
     run("scripts/export_v31_contracts.py")
+    run("scripts/export_v311_wallet_surface.py")
     run("scripts/export_v32_contracts.py")
     run("scripts/export_v32_workbench_fixture.py")
     run("-m", "pytest", "-q", "tests")
@@ -334,6 +450,9 @@ jobs:
             for pattern in SECRET_PATTERNS:
                 if pattern.search(text):
                     denial.append(f"SECRET_PATTERN:{relative.as_posix()}:{pattern.pattern[:12]}")
+            for pattern in CHALLENGE_DERIVED_PATTERNS:
+                if pattern in text:
+                    denial.append(f"CHALLENGE_DERIVED_PATTERN:{relative.as_posix()}:{pattern[:12]}")
             if b"PK\x03\x04" in data and path.suffix.lower() == ".zip":
                 denial.append(f"ZIP_ARCHIVE:{relative.as_posix()}")
     status = "PASS" if not denial else "FAIL"
