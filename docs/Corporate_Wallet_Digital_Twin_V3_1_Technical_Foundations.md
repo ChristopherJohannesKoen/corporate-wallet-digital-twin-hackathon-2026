@@ -1,20 +1,90 @@
-# Corporate Wallet Digital Twin V3.1.1 — Technical Foundations, Statistical Theory and Production Engineering
+# Corporate Wallet Digital Twin V3.2.0 — Technical Foundations, Statistical Theory and Production Engineering
 
 ## Document control
 
 | Field | Value |
 |---|---|
 | Document purpose | Literature-grounded technical specification of how V3 is being created, why each concept is used, how it is implemented, and how it must be validated |
-| Version | 3.1.1 ? submission-hardening and wallet-first edition |
+| Version | 3.2.0 — promotion-readiness edition |
 | Technical baseline | Repository state and validation artefacts available on 12 August 2026 |
 | Team | Corporate Wallet Digital Twin |
 | Team member | Christopher Koen |
 | Intended readers | Corporate-bank product owners, quantitative analysts, Treasury and finance, model risk, data engineering, security, architecture, GenAI governance and relationship-management leaders |
 | Product scope | Collections, Payments, Liquidity, Cross-border FX and Trade Finance |
 | Demonstration status | Client demonstration ready using Syn Bank simulation, audited public evidence and pinned representative datasets |
-| Production status | Not promotable until bank-owned evidence, data, economics, infrastructure, provider and pilot gates are passed |
+| Production status | `OFFLINE_CANDIDATE`; promotion machinery rehearsed, bank production `NOT_PROMOTABLE` |
 | Normative language | â€œMustâ€ denotes a release or safety requirement; â€œshouldâ€ denotes a strong design recommendation; â€œmayâ€ denotes an optional extension |
 | Source hierarchy | Implemented source and frozen outputs; primary peer-reviewed literature; official standards and vendor documentation; programme design decisions |
+
+## V3.2 control theory: evidence-aware promotion by construction
+
+The Promotion Readiness Twin treats authorization as a typed, cumulative state
+machine rather than a release-report label. For target state `s`, every gate
+`g ∈ G_s` returns two outcomes. `R_g` is the real-bank decision and `H_g` is the
+rehearsal decision. A transition is eligible only if every cumulative blocking
+`R_g = PASS`; `H_g = PASS` can demonstrate only that the evaluator, evidence
+binding and refusal behavior execute. No score can override a failed gate.
+
+Let severity weight `w_g` be 5, 3 or 1 for critical, high or standard gates.
+The audit indicators are:
+
+```text
+PMR_s = 100 * Σ_g w_g I(evaluator implemented ∧ positive test ∧ failure test
+                         ∧ valid signed rehearsal PASS) / Σ_g w_g
+
+BER_s = 100 * Σ_g w_g I(real-track PASS) / Σ_g w_g
+```
+
+`SYNTHETIC_REHEARSAL`, `SIMULATED_POLICY` and `NOT_AVAILABLE` contribute zero
+to BER. PMR and BER are not probabilities and are never combined. Authorization
+is the conjunction of gate outcomes plus accountable approval, not either score.
+
+Mode integrity is a signed type discipline. An RFC 8785 canonical payload is
+placed in a DSSE-style envelope. Trust roots bind a key to allowed modes,
+environments, owner/approver roles, validity and revocation. Local P-256 and
+GitHub OIDC/Sigstore signers are restricted to rehearsal/public packaging.
+Only a bank-configured AWS KMS ECDSA signer may potentially carry `REAL_BANK`
+or `BANK_ATTESTED`, and fixture mode loads no such trust root. Semantic hashes
+exclude publication timestamps; signatures cover the complete published
+envelope. Identical analysis can therefore have a stable content digest while
+two publications remain distinguishable and independently auditable.
+
+Consequence is factored from maturity through a capability lattice. Discovery,
+posterior wallet, measured share, scenario economics, proposal, live GenAI and
+causal value each require distinct evidence. This prevents operational success
+from silently licensing an analytical claim: E3 absence blocks measured share
+but not hidden shadow; unapproved rates block commercial value; unknown material
+feasibility permits discovery only; and positive independently validated ITT
+evidence is the only route to causal value.
+
+The simulation programme is falsification-oriented. The synthetic E3 panel
+creates hidden wallet/share truth under heterogeneity, selection bias,
+measurement error, censoring and point-in-time restatement; the sample-size
+planner repeats client-held-out temporal calibration at n = 20, 30, 40, 60,
+80, 100 and 150 with Wilson Monte Carlo intervals. The economics lab performs
+10,000 correlated Latin-hypercube draws for 16 solution ledgers. The timing lab
+plants a discrete hazard in 2,000 36-month trajectories. The causal lab uses
+analytic cluster-trial search followed by 2,000 Monte Carlo replications. The
+GenAI suite contains 120 sealed cases and 1,000 deterministic mutations. All
+carry `SYNTHETIC_REHEARSAL` and cannot satisfy real gates.
+
+The accelerated shadow rehearsal advances virtual time without sleeping. A
+critical day-17 reconciliation failure resets the clean counter; days 18–47
+then establish 30 consecutive rehearsal days while real elapsed bank days stay
+zero. Entitlement breach, stale evidence, unsupported GenAI, missing artifact,
+high vulnerability, latency and refresh failures are isolated negative
+scenarios. This proves refusal behavior; it does not pretend calendar operation
+occurred.
+
+Implementation is service-owned and append-only: a twelfth promotion service,
+20 additive `/v3` paths, a single promotion event topic, PostgreSQL workflow
+and outbox state, Delta governance history, MLflow artifact resolution and a
+workbench Model Risk projection. Promotion is never automatic. A signed
+decision is evidence for accountable human approval, not the approval itself.
+The decision package is RFC 8785 canonicalized and DSSE-signed; the approval
+must repeat both its `decision_id` and exact payload SHA-256. This prevents an
+approval from surviving recalculation, expiry or any other change to the
+decision it was actually reviewing.
 
 ## V3.1 scientific extension: from product opportunity to decision twin
 

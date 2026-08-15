@@ -1,0 +1,101 @@
+{
+  "$defs": {
+    "PromotionEvidenceMode": {
+      "description": "Where a piece of evidence came from, ordered by authority.",
+      "enum": [
+        "NOT_AVAILABLE",
+        "SYNTHETIC_REHEARSAL",
+        "SIMULATED_POLICY",
+        "PUBLIC_APPROVED",
+        "PUBLIC_PACKAGE",
+        "REAL_BANK",
+        "BANK_ATTESTED"
+      ],
+      "title": "PromotionEvidenceMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "How many multibank-observed clients would be needed, or that we cannot say.\n\n``recommended_n`` is ``None`` with ``NOT_DETERMINED_UP_TO_150`` when no\ntested sample size reached the target. Manufacturing a recommendation from a\nsweep that never converged would be the most consequential kind of\noverclaim this planner could make.",
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "title": "As Of",
+      "type": "string"
+    },
+    "determination": {
+      "title": "Determination",
+      "type": "string"
+    },
+    "generated_at": {
+      "format": "date-time",
+      "title": "Generated At",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/PromotionEvidenceMode",
+      "default": "SYNTHETIC_REHEARSAL"
+    },
+    "plan_id": {
+      "title": "Plan Id",
+      "type": "string"
+    },
+    "recommended_n": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Recommended N"
+    },
+    "replications_per_n": {
+      "exclusiveMinimum": 0,
+      "title": "Replications Per N",
+      "type": "integer"
+    },
+    "target_coverage": {
+      "exclusiveMaximum": 1.0,
+      "exclusiveMinimum": 0.0,
+      "title": "Target Coverage",
+      "type": "number"
+    },
+    "target_half_width": {
+      "exclusiveMaximum": 1.0,
+      "exclusiveMinimum": 0.0,
+      "title": "Target Half Width",
+      "type": "number"
+    },
+    "tested_sample_sizes": {
+      "items": {
+        "type": "integer"
+      },
+      "title": "Tested Sample Sizes",
+      "type": "array"
+    },
+    "wilson_intervals": {
+      "items": {
+        "items": {
+          "type": "number"
+        },
+        "type": "array"
+      },
+      "title": "Wilson Intervals",
+      "type": "array"
+    }
+  },
+  "required": [
+    "plan_id",
+    "as_of",
+    "target_coverage",
+    "target_half_width",
+    "tested_sample_sizes",
+    "determination",
+    "replications_per_n"
+  ],
+  "title": "E3SampleSizePlan",
+  "type": "object"
+}

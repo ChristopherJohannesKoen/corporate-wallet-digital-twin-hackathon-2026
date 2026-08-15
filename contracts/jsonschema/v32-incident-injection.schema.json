@@ -1,0 +1,68 @@
+{
+  "$defs": {
+    "GateSeverity": {
+      "description": "How much a gate's outcome matters. Weights in ``SEVERITY_WEIGHTS``.",
+      "enum": [
+        "CRITICAL",
+        "HIGH",
+        "STANDARD"
+      ],
+      "title": "GateSeverity",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A deliberately injected failure and what it reset.\n\nIncidents reset the rehearsal counter only. An injected incident that\nchanged a real number would mean the rehearsal was not isolated.",
+  "properties": {
+    "affects_real_track": {
+      "default": false,
+      "title": "Affects Real Track",
+      "type": "boolean"
+    },
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "expected_failing_gate_id": {
+      "title": "Expected Failing Gate Id",
+      "type": "string"
+    },
+    "incident_id": {
+      "title": "Incident Id",
+      "type": "string"
+    },
+    "injected_on_rehearsal_day": {
+      "minimum": 1,
+      "title": "Injected On Rehearsal Day",
+      "type": "integer"
+    },
+    "resets_rehearsal_counter": {
+      "default": true,
+      "title": "Resets Rehearsal Counter",
+      "type": "boolean"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "severity": {
+      "$ref": "#/$defs/GateSeverity"
+    },
+    "simulation_clock": {
+      "format": "date-time",
+      "title": "Simulation Clock",
+      "type": "string"
+    }
+  },
+  "required": [
+    "incident_id",
+    "scenario_id",
+    "injected_on_rehearsal_day",
+    "severity",
+    "description",
+    "expected_failing_gate_id",
+    "simulation_clock"
+  ],
+  "title": "IncidentInjection",
+  "type": "object"
+}

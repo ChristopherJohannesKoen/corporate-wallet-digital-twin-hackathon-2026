@@ -51,13 +51,38 @@ def _stable_seed(*parts: str) -> int:
     return int.from_bytes(digest[:8], "big") % (2**32 - 1)
 
 
-def _interval(values: np.ndarray, as_of: date, version: str, claim: ClaimClass) -> IntervalEstimate:
-    lower, median, upper = np.quantile(values, [0.05, 0.50, 0.95])
+def _interval(
+    values: np.ndarray,
+    as_of: date,
+    version: str,
+    claim: ClaimClass,
+    nominal_coverage: float = 0.90,
+) -> IntervalEstimate:
+    """A central interval at the requested nominal coverage.
+
+    ``nominal_coverage`` defaults to 0.90, which is what every published
+    artifact uses, so this parameterisation changes no committed byte. It exists
+    because the V3.2 calibration laboratory audits coverage at 50% and 80% as
+    well: a model can be well calibrated at 90% and badly calibrated in the
+    middle of its distribution, and checking one nominal level cannot detect
+    that.
+    """
+    if not 0.0 < nominal_coverage < 1.0:
+        raise ValueError(f"nominal_coverage must lie in (0, 1); got {nominal_coverage}")
+    # Rounded to remove binary-representation noise. (1.0 - 0.90) / 2.0 is
+    # 0.04999999999999999, not 0.05, and np.quantile at that probability returns
+    # a very slightly different value than at the literal 0.05 this function used
+    # before it was parameterised. That epsilon propagated into committed pack
+    # hashes and interval widths — a silent numeric drift in artifacts nothing
+    # was byte-gating. Quantile probabilities are specified to a few decimals, so
+    # rounding to twelve removes the noise without altering any intended value.
+    tail = round((1.0 - nominal_coverage) / 2.0, 12)
+    lower, median, upper = np.quantile(values, [tail, 0.50, round(1.0 - tail, 12)])
     return IntervalEstimate(
         lower=float(lower),
         median=float(median),
         upper=float(upper),
-        nominal_coverage=0.90,
+        nominal_coverage=nominal_coverage,
         model_version=version,
         as_of=as_of,
         claim_class=claim,

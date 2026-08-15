@@ -120,23 +120,48 @@ def event_recovery_rehearsal(event_count: int = 500) -> dict:
 
 
 def thirty_day_shadow_rehearsal() -> dict:
-    days = []
-    for day in range(1, 31):
-        days.append({
-            "day": day,
-            "pipeline_completed": True,
-            "reconciliation_passed": True,
-            "unsupported_critical_claims": 0,
-            "entitlement_breaches": 0,
-            "sev1_sev2": 0,
-        })
+    """Superseded by the V3.2 accelerated rehearsal on a virtual clock.
+
+    This looped thirty times with every field set to "passed". Every day was
+    clean by construction, so it could not fail and therefore established
+    nothing about the daily control sequence it appeared to exercise — a
+    rehearsal whose only possible outcome is success is a constant, not a test.
+
+    ``wallet_twin_v32.rehearsal`` replaces it with a run that can fail and does:
+    a critical reconciliation failure on virtual day 17 resets the clean-day
+    counter, so reaching thirty consecutive clean days takes forty-seven
+    simulated days and demonstrates the counter is a control rather than a loop
+    bound.
+
+    Kept as a delegating shim rather than deleted, because the V2 operational
+    rehearsal artifact is committed and consumers read this key. It now reports
+    where the real result lives instead of restating a vacuous one.
+    """
+    from datetime import date as _date
+
+    from wallet_twin_v32.rehearsal import (
+        CANONICAL_INCIDENT_DAY,
+        REQUIRED_CLEAN_DAYS,
+        canonical_rehearsal,
+    )
+
+    clock, incident = canonical_rehearsal(as_of=_date(2026, 6, 30))
     return {
-        "status": "SYNTHETIC_30_DAY_CONTROL_REHEARSAL",
-        "days": len(days),
-        "clean_days": sum(all((item["pipeline_completed"], item["reconciliation_passed"], item["unsupported_critical_claims"] == 0, item["entitlement_breaches"] == 0, item["sev1_sev2"] == 0)) for item in days),
+        "status": "SUPERSEDED_BY_V32_ACCELERATED_REHEARSAL",
+        "days": clock.day,
+        "clean_days": clock.consecutive_clean,
+        "incident_day": CANONICAL_INCIDENT_DAY,
+        "incident_gate": incident.expected_failing_gate_id,
+        "counter_was_reset": clock.last_reset_reason is not None,
+        "required_clean_days": REQUIRED_CLEAN_DAYS,
         "production_consecutive_shadow_days": 0,
         "production_gate_passed": False,
         "reason": "Simulated calendar days cannot satisfy an elapsed production operating-period gate.",
+        "superseded_by": "wallet_twin_v32.rehearsal.rehearsal_report",
+        "why_superseded": (
+            "The previous implementation set every day to passed, so it could "
+            "not fail and proved nothing about the control sequence."
+        ),
     }
 
 

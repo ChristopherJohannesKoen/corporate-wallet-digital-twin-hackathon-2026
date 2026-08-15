@@ -32,4 +32,7 @@ services:
   - { name: experiment, app: experiment_app, irsaRoleArn: "REQUIRED_EXPERIMENT_ROLE" }
   - { name: genai, app: genai_app, irsaRoleArn: "REQUIRED_GENAI_ROLE" }
   - { name: entitlement, app: entitlement_app, irsaRoleArn: "REQUIRED_ENTITLEMENT_ROLE" }
+  # V3.2. Owns the promotion schema and outbox; its IRSA role is the only one
+  # that needs kms:Sign, and only once a real ECDSA key exists.
+  - { name: promotion, app: promotion_app, irsaRoleArn: "REQUIRED_PROMOTION_ROLE" }
   - { name: workbench-bff, app: workbench_bff_app, irsaRoleArn: "REQUIRED_WORKBENCH_ROLE" }

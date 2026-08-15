@@ -1,4 +1,4 @@
-"""Build and execute the canonical V3.1.1 judging notebook.
+"""Build and execute the canonical V3.2.0 judging notebook.
 
 The notebook has two modes.  Private evaluator mode reads ``SYNBANK_DATA_ZIP``
 or the local confidential challenge archive; public mirror mode uses the
@@ -33,19 +33,19 @@ def markdown(source: str):
 def build():
     nb = nbf.v4.new_notebook()
     nb.metadata = {
-        "kernelspec": {"display_name": "Corporate Wallet V3.1.1", "language": "python", "name": "wallet-twin-v311"},
+        "kernelspec": {"display_name": "Corporate Wallet V3.2.0", "language": "python", "name": "wallet-twin-v320"},
         "language_info": {"name": "python", "version": "3"},
         "submission": {
             "team": "Corporate Wallet Digital Twin",
             "member": "Christopher Koen",
-            "solution_version": "V3.1.1",
+            "solution_version": "V3.2.0",
             "as_of": "2026-06-30",
             "confidential_rows_embedded": False,
         },
     }
     nb.cells = [
         markdown("""
-# Corporate Wallet Digital Twin V3.1.1 — executed judging notebook
+# Corporate Wallet Digital Twin V3.2.0 — executed judging notebook
 
 **Team:** Corporate Wallet Digital Twin  
 **Member:** Christopher Koen  
@@ -246,7 +246,59 @@ display(provider_rows)
 print('Accepted live runs:', comparison['accepted_runs'], '| gate:', comparison['submission_gate_passed'])
 print('Fresh credentials are required; provider failures are not presented as success.')
 """),
-        markdown("## 11. Validation hierarchy and release conclusion"),
+        markdown("## 11. Promotion Readiness Twin: real evidence and rehearsal evidence never mix"),
+        code("""
+promotion = json.loads((ROOT / 'dashboard/app/data/promotion-fixture.json').read_text())
+summary = promotion['summary']
+display(pd.DataFrame([
+    ['Current real state', summary['real_state']],
+    ['Highest rehearsed state', summary['rehearsed_state']],
+    ['Promotion Machinery Readiness', f"{summary['promotion_machinery_readiness']:.0%}"],
+    ['Bank Evidence Readiness', f"{summary['bank_evidence_readiness']:.0%}"],
+    ['Bank shadow authorized', summary['bank_shadow_authorized']],
+    ['Bank production', summary['bank_production_status']],
+], columns=['control','value']))
+gates = pd.DataFrame([
+    {
+        'transition': transition['transition_id'], 'gate': gate['gate_id'],
+        'severity': gate['severity'], 'real': gate['real_outcome'],
+        'rehearsal': gate['rehearsal_outcome'], 'mode': gate['evidence_mode'],
+        'signed': gate['signature_status'],
+    }
+    for transition in promotion['transitions'] for gate in transition['gates']
+])
+display(gates.groupby(['real','rehearsal','mode']).size().rename('gates').to_frame())
+print('Gate catalogue:', len(gates), 'gates across', len(promotion['transitions']), 'transitions')
+assert len(gates) == 30
+assert summary['promotion_machinery_readiness'] == 1.0
+assert summary['bank_evidence_readiness'] == 0.0
+assert summary['bank_shadow_authorized'] is False
+"""),
+        markdown("## 12. Synthetic E3 planning and accelerated shadow failure injection"),
+        code("""
+labs = json.loads((ROOT / 'outputs/v32/v32_simulation_laboratories.json').read_text())
+e3_plan = labs['e3_sample_size_readiness']
+plan_rows = pd.DataFrame(e3_plan['sweep'])
+display(plan_rows[['n','replications','coverage_success_rate','crps_success_rate','subgroup_success_rate','all_criteria_wilson_lower','all_criteria_wilson_upper']])
+print('E3 planning recommendation:', e3_plan['determination'], e3_plan['recommended_n'])
+print('Evidence mode:', e3_plan['evidence_mode'], '— cannot enable measured share')
+
+clock = promotion['clock']
+display(pd.Series(clock, name='Accelerated shadow rehearsal').to_frame())
+assert clock['rehearsal_days_elapsed'] == 47
+assert clock['consecutive_clean_rehearsal_days'] == 30
+assert clock['elapsed_bank_shadow_days'] == 0
+assert 'RECONCILIATION' in clock['last_reset_reason']
+"""),
+        markdown("## 13. Consequence-level capability permissions"),
+        code("""
+capabilities = pd.DataFrame(promotion['capabilities'])
+display(capabilities[['capability','granted','refusal_reason']])
+required = {'DISCOVERY_CONVERSATION','POSTERIOR_WALLET','MEASURED_SHARE','SCENARIO_ECONOMICS','PRODUCT_PROPOSAL','LIVE_GENAI','CAUSAL_VALUE'}
+assert required.issubset(set(capabilities.capability))
+print('A rehearsed state never grants a real capability; each permission uses real state and real evidence prerequisites.')
+"""),
+        markdown("## 14. Validation hierarchy and release conclusion"),
         code("""
 hierarchy = pd.DataFrame([
     ['Mechanical', 'contracts, equations, point-in-time, authorization, reproducibility', 'PASSED'],
@@ -257,6 +309,8 @@ hierarchy = pd.DataFrame([
 display(hierarchy)
 print('Hackathon software state: HACKATHON_SUBMISSION_READY after final artifact/CI gates')
 print('Bank production state:', v31.release['bank_production_status'])
+print('Promotion state:', summary['real_state'])
+print('Rehearsal claim: SHADOW_PROMOTION_REHEARSAL_PASSED')
 assert v31.validation['measured_competitor_share_claims'] == 0
 assert v31.validation['causal_value_claims'] == 0
 assert v31.release['bank_production_status'] == 'NOT_PROMOTABLE'
@@ -270,6 +324,8 @@ assert v31.release['bank_production_status'] == 'NOT_PROMOTABLE'
 - Timing is a transparent baseline, not a qualified-RM-outcome calibrated hazard model.
 - Live provider evaluation remains incomplete until fresh rotated credentials and explicit acknowledgement are supplied.
 - No RM pilot or randomized trial has established causal impact.
+- The 30 clean shadow days are virtual rehearsal days; elapsed bank shadow days remain zero.
+- PMR 100% proves the promotion machinery and its refusal paths execute. BER 0% proves no bank evidence has been substituted by simulation.
 
 These limitations block bank promotion but do not invalidate the reproducible hackathon demonstration.
 """),
@@ -278,14 +334,14 @@ These limitations block bank promotion but do not invalidate the reproducible ha
 
 
 def main():
-    kernel_dir = ROOT / "tmp" / "v311-notebook-kernel"
+    kernel_dir = ROOT / "tmp" / "v320-notebook-kernel"
     kernel_dir.mkdir(parents=True, exist_ok=True)
     (kernel_dir / "kernel.json").write_text(json.dumps({
         "argv": [sys.executable, "-m", "ipykernel_launcher", "-f", "{connection_file}"],
-        "display_name": "Corporate Wallet V3.1.1", "language": "python",
+        "display_name": "Corporate Wallet V3.2.0", "language": "python",
     }, indent=2), encoding="utf-8")
-    KernelSpecManager().install_kernel_spec(str(kernel_dir), kernel_name="wallet-twin-v311", prefix=sys.prefix)
-    executed = NotebookClient(build(), timeout=600, kernel_name="wallet-twin-v311", resources={"metadata": {"path": str(ROOT)}}).execute()
+    KernelSpecManager().install_kernel_spec(str(kernel_dir), kernel_name="wallet-twin-v320", prefix=sys.prefix)
+    executed = NotebookClient(build(), timeout=600, kernel_name="wallet-twin-v320", resources={"metadata": {"path": str(ROOT)}}).execute()
     executed.metadata["kernelspec"] = {"display_name": "Python 3", "language": "python", "name": "python3"}
     OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     nbf.write(executed, OUTPUT)

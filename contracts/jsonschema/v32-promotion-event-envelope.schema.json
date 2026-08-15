@@ -1,0 +1,319 @@
+{
+  "$defs": {
+    "DecisionTrack": {
+      "description": "Which question a gate evaluation answers.",
+      "enum": [
+        "REAL",
+        "REHEARSAL"
+      ],
+      "title": "DecisionTrack",
+      "type": "string"
+    },
+    "DeploymentEnvironment": {
+      "enum": [
+        "FIXTURE",
+        "DEVELOPMENT",
+        "CLIENT_DEMO",
+        "SHADOW",
+        "PILOT",
+        "PRODUCTION"
+      ],
+      "title": "DeploymentEnvironment",
+      "type": "string"
+    },
+    "EntitlementContext": {
+      "additionalProperties": false,
+      "properties": {
+        "client_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Client Ids",
+          "type": "array"
+        },
+        "environment": {
+          "$ref": "#/$defs/DeploymentEnvironment"
+        },
+        "legal_entities": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Legal Entities",
+          "type": "array"
+        },
+        "products": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Products",
+          "type": "array"
+        },
+        "regions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Regions",
+          "type": "array"
+        },
+        "roles": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Roles",
+          "type": "array"
+        },
+        "team": {
+          "title": "Team",
+          "type": "string"
+        },
+        "user_id": {
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "user_id",
+        "roles",
+        "team",
+        "regions",
+        "client_ids",
+        "environment"
+      ],
+      "title": "EntitlementContext",
+      "type": "object"
+    },
+    "PromotionEventType": {
+      "description": "Canonical V3.2 events followed by frozen pre-release aliases.",
+      "enum": [
+        "PromotionEvidenceSubmitted",
+        "PromotionEvidenceVerified",
+        "GateEvaluationCompleted",
+        "PromotionDecisionIssued",
+        "PromotionApprovalRecorded",
+        "PromotionTransitionRecorded",
+        "RehearsalStarted",
+        "RehearsalDayCompleted",
+        "RehearsalIncidentInjected",
+        "RehearsalClockReset",
+        "PromotionEvidenceExpired",
+        "PromotionArtifactRevoked",
+        "PromotionGateEvaluated",
+        "PromotionEvidenceRegistered",
+        "PromotionEvidenceSigned",
+        "PromotionEvidenceVerificationFailed",
+        "PromotionDecisionPublished",
+        "PromotionApprovalSubmitted",
+        "PromotionApprovalReviewed",
+        "PromotionStateAdvanced",
+        "PromotionCapabilityGranted",
+        "PromotionCapabilityRefused",
+        "RehearsalScenarioExecuted"
+      ],
+      "title": "PromotionEventType",
+      "type": "string"
+    },
+    "PromotionEvidenceMode": {
+      "description": "Where a piece of evidence came from, ordered by authority.",
+      "enum": [
+        "NOT_AVAILABLE",
+        "SYNTHETIC_REHEARSAL",
+        "SIMULATED_POLICY",
+        "PUBLIC_APPROVED",
+        "PUBLIC_PACKAGE",
+        "REAL_BANK",
+        "BANK_ATTESTED"
+      ],
+      "title": "PromotionEvidenceMode",
+      "type": "string"
+    },
+    "PromotionTopic": {
+      "enum": [
+        "wallet-twin.promotion.v1"
+      ],
+      "title": "PromotionTopic",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Envelope for canonical and backward-compatible V3.2 events.",
+  "properties": {
+    "as_of": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "As Of"
+    },
+    "decision_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Decision Id"
+    },
+    "entitlement_context": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/EntitlementContext"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "envelope_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Envelope Id"
+    },
+    "event_id": {
+      "title": "Event Id",
+      "type": "string"
+    },
+    "event_type": {
+      "$ref": "#/$defs/PromotionEventType"
+    },
+    "evidence_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Evidence Id"
+    },
+    "evidence_mode": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/PromotionEvidenceMode"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "gate_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Gate Id"
+    },
+    "idempotency_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Idempotency Key"
+    },
+    "occurred_at": {
+      "format": "date-time",
+      "title": "Occurred At",
+      "type": "string"
+    },
+    "payload": {
+      "additionalProperties": true,
+      "default": {},
+      "title": "Payload",
+      "type": "object"
+    },
+    "reason_codes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "scenario_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Scenario Id"
+    },
+    "schema_version": {
+      "default": "3.2.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "simulation_clock": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Simulation Clock"
+    },
+    "topic": {
+      "$ref": "#/$defs/PromotionTopic"
+    },
+    "track": {
+      "$ref": "#/$defs/DecisionTrack"
+    },
+    "transition_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Transition Id"
+    }
+  },
+  "required": [
+    "event_id",
+    "event_type",
+    "topic",
+    "track",
+    "occurred_at"
+  ],
+  "title": "PromotionEventEnvelope",
+  "type": "object"
+}

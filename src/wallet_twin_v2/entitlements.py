@@ -8,6 +8,13 @@ from .contracts import AccessDecision, DeploymentEnvironment, EntitlementContext
 
 SHADOW_ROLES = {"SHADOW_OPERATOR", "MODEL_VALIDATOR", "EVIDENCE_REVIEWER", "PILOT_RM", "PLATFORM_ADMIN"}
 SENSITIVE_ECONOMICS_ROLES = {"PRODUCT_FINANCE", "TREASURY", "RISK", "PLATFORM_ADMIN"}
+#: Roles that may write to the V3.2 promotion register. Reading the promotion
+#: position is broadly useful — a PILOT_RM should be able to see what the system
+#: is and is not authorised to do. Writing to it decides that authorisation, so
+#: it is restricted to the functions accountable for the decision. Without this,
+#: any shadow role could record a gate evaluation, and the gate register would
+#: describe who had access rather than what was established.
+PROMOTION_WRITE_ROLES = {"MODEL_VALIDATOR", "PLATFORM_ADMIN", "SHADOW_OPERATOR"}
 
 
 class EntitlementService:
@@ -28,6 +35,7 @@ class EntitlementService:
         resource_id: str,
         client_id: Optional[str] = None,
         product: Optional[str] = None,
+        client_region: Optional[str] = None,
         sensitive_economics: bool = False,
         shadow_only: bool = True,
     ) -> AccessDecision:
@@ -40,12 +48,26 @@ class EntitlementService:
                 reasons.append("SHADOW_ROLE_REQUIRED")
             if client_id and "*" not in context.client_ids and client_id not in context.client_ids:
                 reasons.append("CLIENT_NOT_ENTITLED")
+            # Region was enforced by the OPA policy and not here. Nothing caught
+            # it while OPA sat unconsulted: a principal entitled to a client in
+            # one region could read that client's data from any other, because
+            # the only policy actually running never looked at region. Same
+            # wildcard and same empty-list semantics as the client rule, so the
+            # two policies agree rather than merely both being present.
+            if (
+                client_region
+                and "*" not in context.regions
+                and client_region not in context.regions
+            ):
+                reasons.append("REGION_NOT_ENTITLED")
             if product and context.products and "*" not in context.products and product not in context.products:
                 reasons.append("PRODUCT_NOT_ENTITLED")
             if sensitive_economics and not roles.intersection(SENSITIVE_ECONOMICS_ROLES):
                 reasons.append("SENSITIVE_ECONOMICS_ROLE_REQUIRED")
             if action.startswith("evidence:approve") and "EVIDENCE_REVIEWER" not in roles and "PLATFORM_ADMIN" not in roles:
                 reasons.append("EVIDENCE_REVIEWER_ROLE_REQUIRED")
+            if action.startswith("v32:") and action.endswith(":write") and not roles.intersection(PROMOTION_WRITE_ROLES):
+                reasons.append("PROMOTION_WRITE_ROLE_REQUIRED")
             if context.environment == DeploymentEnvironment.PRODUCTION and context.user_id.startswith("demo-"):
                 reasons.append("DEMO_IDENTITY_FORBIDDEN_IN_PRODUCTION")
 

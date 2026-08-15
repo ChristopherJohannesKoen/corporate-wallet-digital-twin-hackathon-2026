@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from datetime import date
+import hashlib
 from typing import Dict, List, Literal
 
-from fastapi import FastAPI, Header, HTTPException
+from fastapi import FastAPI, Header, HTTPException, Response
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -54,6 +56,17 @@ def health() -> dict:
     return {"status": "ok", "mode": "LOCAL_MOCK_ONLY"}
 
 
+@app.get("/metrics", include_in_schema=False)
+def metrics() -> Response:
+    """Minimal Prometheus exposition for the local bank-shaped harness."""
+    payload = (
+        "# HELP wallet_twin_mock_up Local integration-double availability.\n"
+        "# TYPE wallet_twin_mock_up gauge\n"
+        "wallet_twin_mock_up 1\n"
+    )
+    return Response(content=payload, media_type="text/plain; version=0.0.4")
+
+
 @app.post("/mock/identity/introspect")
 def introspect(authorization: str = Header(default="")) -> dict:
     token = authorization.removeprefix("Bearer ").strip()
@@ -80,3 +93,42 @@ def list_crm_events(authorization: str = Header(default="")) -> List[CRMEvent]:
     if not identity.get("active"):
         raise HTTPException(status_code=401, detail="mock identity required")
     return list(crm_events)
+
+
+@app.get("/mock/feeds/daily")
+def synthetic_daily_feed(as_of: date) -> dict:
+    """Deterministic aggregate feed for the bank-shaped shadow lab.
+
+    No supplied transaction row is returned. Values are independently generated
+    from stable identifiers so reconciliation and replay can be exercised.
+    """
+    rows = []
+    products = ("Collections", "Payments", "Liquidity", "Cross-border FX", "Trade finance")
+    for client_index in range(1, 21):
+        for product_index, product in enumerate(products, start=1):
+            seed = f"v32-feed:{as_of.isoformat()}:{client_index}:{product_index}"
+            digest = hashlib.sha256(seed.encode()).hexdigest()
+            amount = 1_000_000 + int(digest[:10], 16) % 250_000_000
+            rows.append(
+                {
+                    "client_id": f"E{client_index:02d}",
+                    "product": product,
+                    "as_of": as_of.isoformat(),
+                    "amount_zar": amount,
+                    "source_mode": "SYNTHETIC_REHEARSAL",
+                    "row_hash": digest,
+                }
+            )
+    total = sum(row["amount_zar"] for row in rows)
+    manifest = hashlib.sha256(
+        "|".join(row["row_hash"] for row in rows).encode()
+    ).hexdigest()
+    return {
+        "feed_version": "v32-synthetic-bank-feed-1.0.0",
+        "as_of": as_of.isoformat(),
+        "source_mode": "SYNTHETIC_REHEARSAL",
+        "rows": rows,
+        "row_count": len(rows),
+        "control_total_zar": total,
+        "manifest_sha256": manifest,
+    }

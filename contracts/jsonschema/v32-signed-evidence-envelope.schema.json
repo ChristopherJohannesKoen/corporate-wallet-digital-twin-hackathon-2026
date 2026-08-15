@@ -1,0 +1,118 @@
+{
+  "$defs": {
+    "PromotionEvidenceMode": {
+      "description": "Where a piece of evidence came from, ordered by authority.",
+      "enum": [
+        "NOT_AVAILABLE",
+        "SYNTHETIC_REHEARSAL",
+        "SIMULATED_POLICY",
+        "PUBLIC_APPROVED",
+        "PUBLIC_PACKAGE",
+        "REAL_BANK",
+        "BANK_ATTESTED"
+      ],
+      "title": "PromotionEvidenceMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A DSSE-shaped envelope binding a payload digest to a signature.\n\nThe mode lives *inside* the signed payload (workstream 3 canonicalises the\npayload with RFC 8785 before signing), so altering it invalidates the\nsignature. Recording it here as well lets the register be read without\nverifying every envelope, and :meth:`_mode_matches_key_authority` keeps the\ntwo from disagreeing.",
+  "properties": {
+    "envelope_id": {
+      "title": "Envelope Id",
+      "type": "string"
+    },
+    "evidence_id": {
+      "title": "Evidence Id",
+      "type": "string"
+    },
+    "expires_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expires At"
+    },
+    "key_authorised_modes": {
+      "items": {
+        "$ref": "#/$defs/PromotionEvidenceMode"
+      },
+      "title": "Key Authorised Modes",
+      "type": "array"
+    },
+    "key_id": {
+      "title": "Key Id",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/PromotionEvidenceMode"
+    },
+    "payload_sha256": {
+      "maxLength": 64,
+      "minLength": 64,
+      "title": "Payload Sha256",
+      "type": "string"
+    },
+    "payload_type": {
+      "default": "application/vnd.wallet-twin.promotion-evidence+json",
+      "title": "Payload Type",
+      "type": "string"
+    },
+    "signature": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signature"
+    },
+    "signature_algorithm": {
+      "title": "Signature Algorithm",
+      "type": "string"
+    },
+    "signature_status": {
+      "default": "UNSIGNED",
+      "title": "Signature Status",
+      "type": "string"
+    },
+    "signed_at": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Signed At"
+    },
+    "trust_domain": {
+      "title": "Trust Domain",
+      "type": "string"
+    }
+  },
+  "required": [
+    "envelope_id",
+    "evidence_id",
+    "payload_sha256",
+    "mode",
+    "key_id",
+    "key_authorised_modes",
+    "signature_algorithm",
+    "trust_domain"
+  ],
+  "title": "SignedEvidenceEnvelope",
+  "type": "object"
+}

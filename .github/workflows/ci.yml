@@ -1,4 +1,4 @@
-name: v311-hackathon-submission-ci
+name: v320-promotion-readiness-ci
 on:
   pull_request:
   push:
@@ -22,10 +22,17 @@ jobs:
       - run: uv run python scripts/export_v3_contracts.py
       - run: uv run python scripts/run_v3_validation.py
       - run: uv run python scripts/export_v31_contracts.py
+      # Regenerate the analytical projection in memory and compare it while
+      # preserving the final verdict stamped by the canonical submission build.
+      - run: uv run python scripts/export_v311_wallet_surface.py --check
+      - run: uv run python scripts/export_v32_contracts.py
+      - run: uv run python scripts/export_v32_workbench_fixture.py
       - run: uv run python scripts/run_measurement_sensitivity.py
       - run: uv run ruff check src tests scripts
-      - run: uv run pytest --cov=wallet_twin_v2 --cov=wallet_twin_v3 --cov=wallet_twin_v31 --cov-report=term-missing
-      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json dashboard/app/data/v3-fixture.json dashboard/app/data/v31-fixture.json dashboard/app/data/wallet-v311-fixture.json outputs/v3 outputs/v31 outputs/v3_validation/v3_validation_report.json outputs/v2_validation/measurement_policy_sensitivity.json tests/regression/v3_0/v3_0_frozen_surface.restated.json
+      - run: uv run pytest --cov=wallet_twin_v2 --cov=wallet_twin_v3 --cov=wallet_twin_v31 --cov=wallet_twin_v32 --cov-report=term-missing
+      # V3.2 is additive: this must still pass unchanged for V3.1.1's surface.
+      - run: uv run python scripts/freeze_v311_boundary.py --check
+      - run: git diff --exit-code -- contracts dashboard/app/data/shadow-fixture.json dashboard/app/data/v3-fixture.json dashboard/app/data/v31-fixture.json dashboard/app/data/wallet-v311-fixture.json dashboard/app/data/promotion-fixture.json outputs/v3 outputs/v31 outputs/v32 outputs/v3_validation/v3_validation_report.json outputs/v2_validation/measurement_policy_sensitivity.json tests/regression/v3_0/v3_0_frozen_surface.restated.json
   workbench:
     runs-on: ubuntu-latest
     defaults: { run: { working-directory: dashboard } }
@@ -42,17 +49,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: docker build --pull --tag wallet-twin:${{ github.sha }} .
-      - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2, wallet_twin_v3, wallet_twin_v31; from wallet_twin_v2.service_apps import business_twin_app, workbench_bff_app; assert any(route.path == '/v3/decision-twin' for route in business_twin_app.routes); assert any(route.path == '/v3/coverage-plan' for route in workbench_bff_app.routes)"
+      - run: docker run --rm wallet-twin:${{ github.sha }} python -c "import wallet_twin_v2, wallet_twin_v3, wallet_twin_v31, wallet_twin_v32; from wallet_twin_v2.service_apps import SERVICE_ROUTES, business_twin_app, promotion_app, workbench_bff_app; assert any(route.path == '/v3/decision-twin' for route in business_twin_app.routes); assert any(route.path == '/v3/coverage-plan' for route in workbench_bff_app.routes); assert len(SERVICE_ROUTES) == 12; assert any(route.path == '/v3/promotion/state' for route in promotion_app.routes)"
       - run: docker run --detach --name wallet-twin-smoke --publish 18080:8080 wallet-twin:${{ github.sha }}
-      - run: |
-          for attempt in $(seq 1 20); do
-            if docker exec wallet-twin-smoke python -c "import urllib.error,urllib.request; url='http://127.0.0.1:8080/v3/decision-twin?as_of=2026-06-30&week_start=2026-07-06'; exec('try:\n urllib.request.urlopen(url, timeout=2)\n raise AssertionError(\"unauthenticated read unexpectedly allowed\")\nexcept urllib.error.HTTPError as exc:\n assert exc.code == 401'); headers={'x-user-id':'ci-smoke','x-user-roles':'SHADOW_OPERATOR,MODEL_VALIDATOR','x-user-team':'model-risk','x-user-clients':'*','x-user-products':'*'}; payload=__import__('json').load(urllib.request.urlopen(urllib.request.Request(url,headers=headers), timeout=10)); assert payload['metadata']['version'] == '3.1.1'; assert len(payload['coverage_plan']['entries']) == 8; wallet=__import__('json').load(urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8080/v3/wallet-portfolio?as_of=2026-06-30',headers=headers),timeout=10)); assert len(wallet['cells']) == 100; assert wallet['approved_anchor_cells'] == 15"; then
-              exit 0
-            fi
-            sleep 2
-          done
-          docker logs wallet-twin-smoke
-          exit 1
+      # Readiness polling and assertions are separated inside the script: a
+      # failed assertion fails once, loudly, instead of being retried twenty
+      # times and reported as a timeout.
+      - run: docker exec -i wallet-twin-smoke python - < scripts/container_smoke.py
+      - if: failure()
+        run: docker logs wallet-twin-smoke
       - if: always()
         run: docker rm --force wallet-twin-smoke || true
       - uses: anchore/sbom-action@v0
@@ -64,6 +68,44 @@ jobs:
           exit-code: "1"
           ignore-unfixed: true
       # Bank CI must additionally sign and attest the promoted artifact.
+  # The bank-shaped lab. These assertions cannot be made against a stub: the
+  # OPA/Python divergence that V3.2 found existed precisely because the policy
+  # engine had never actually been consulted.
+  bank-lab:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - uses: astral-sh/setup-uv@v6
+        with: { version: "0.9.2", enable-cache: true }
+      - run: uv sync --frozen --extra dev --extra production
+      - run: docker compose -f infra/local/docker-compose.yml up -d
+      # The bootstrap verifies its own work — it writes an object to a locked
+      # bucket and confirms permanent deletion is refused. A non-zero exit means
+      # object lock did not take effect, which cannot be fixed after the fact
+      # because --with-lock is only honoured at bucket creation.
+      - run: |
+          # `up -d` has already waited for this service because every wallet
+          # service declares service_completed_successfully. Include stopped
+          # one-shot containers when resolving its ID.
+          container_id="$(docker compose -f infra/local/docker-compose.yml ps --all --quiet minio-bootstrap)"
+          test -n "$container_id"
+          test "$(docker inspect "$container_id" --format '{{.State.ExitCode}}')" = "0"
+      - run: uv run pytest -m bank_lab -q
+      - run: |
+          curl --fail --retry 20 --retry-delay 2 http://127.0.0.1:18110/health
+          curl --fail --retry 20 --retry-delay 2 http://127.0.0.1:18080/health
+          test "$(curl --silent 'http://127.0.0.1:8088/mock/feeds/daily?as_of=2026-06-30' | python -c 'import json,sys; print(json.load(sys.stdin)["row_count"])')" = "100"
+      # The divergence log must be empty. A non-empty one means the Rego and the
+      # in-process policy have drifted and the system is deciding things nobody
+      # decided.
+      - run: uv run python scripts/check_policy_agreement.py
+      - if: failure()
+        run: docker compose -f infra/local/docker-compose.yml logs
+      - if: always()
+        run: docker compose -f infra/local/docker-compose.yml down -v
+
   secret-scan:
     runs-on: ubuntu-latest
     steps:

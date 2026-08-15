@@ -1,4 +1,4 @@
-# Corporate Wallet Digital Twin V3.1.1 — operational runbook
+# Corporate Wallet Digital Twin V3.2.0 — operational runbook
 
 ## V3.1.1 canonical rebuild and smoke test
 
@@ -151,7 +151,7 @@ npm run dev
 7. Rebuild the audit workbook and ensure all formula checks pass.
 
 The active register is
-`outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx`: 82 E1 source facts,
+`outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx`: 82 E1 source facts,
 20 clients, 31 approved and 51 pending. Pending facts remain candidate evidence
 and cannot activate anchors. The expected wallet surface is exactly 15 E1
 anchored and 85 E0 prior-led client-product opportunities.
@@ -183,7 +183,14 @@ If the provider is unavailable or any validation fails, return the deterministic
 
 Apply `infra/databricks/curated_tables.sql` and `infra/databricks/data_products.sql` through a migration identity with governed-tag `ASSIGN` permission. V3 data products include Shadow Wallet draws/edges, PU estimates, change-point state, leakage alarms, Treasury graphs, scenarios/selections and evidence-acquisition plans.
 
-Register all artifacts listed by `config/mlflow_promotion_policy.json`. Automatic promotion and rollback are disabled. Promotion requires signed human approval and the candidate/shadow/champion gates documented in the model card.
+Register all artifacts listed by `config/mlflow_promotion_policy.json`. Automatic promotion and rollback are disabled. Promotion requires signed human approval and the cumulative `OFFLINE_CANDIDATE → SHADOW_READY → PILOT_READY → SCALE_READY → CAUSAL_CHAMPION` gates documented in the model card.
+
+Before approving a transition, retrieve the signed decision package and verify
+its DSSE envelope. Submit the four-eyes approval with the same `decision_id` and
+`decision_payload_sha256`. A 409 response with
+`APPROVAL_DECISION_ID_MISMATCH` or
+`APPROVAL_DECISION_PAYLOAD_HASH_MISMATCH` means the decision changed; retrieve,
+review and approve the new package rather than reusing the stale approval.
 
 ## AWS/EKS release
 
@@ -211,3 +218,31 @@ Stop publication immediately for a source reconciliation failure, future-data le
 - **Workbook check fails:** rebuild fixtures first, then rebuild/verify the workbook; do not edit computed cells manually.
 - **Provider evaluation fails:** disable the provider and retain deterministic fallback.
 - **Cross-client result appears:** treat as a security incident; disable the route and preserve access-decision evidence.
+
+## V3.2 promotion twin
+
+- **Promotion state looks wrong:** it is recomputed from gate evaluations on
+  every read and never stored. Inspect `/v3/promotion/transitions` for the first
+  transition whose blocking gates are unsatisfied; the walk stops there.
+- **A gate shows red with no action:** every gate carries
+  `what_would_make_real_pass`. If it is empty, that is a catalogue defect, not a
+  blocked gate.
+- **Fixture mode rejects a write (409):** expected. A demonstration fixture must
+  never be able to produce bank authorisation. Real-track writes require a
+  non-fixture deployment.
+- **`POLICY_DIVERGENCE_DENIED`:** OPA and the in-process policy disagreed, so the
+  request was denied and recorded. Run
+  `python scripts/check_policy_agreement.py` against the lab to see the full
+  matrix. Do not "fix" this by preferring one policy — one of them has drifted
+  and both need review.
+- **OPA unreachable:** the gateway raises rather than allowing. Restore OPA;
+  never fail open.
+- **MinIO object-lock bootstrap fails:** object lock cannot be enabled on an
+  existing bucket. Recreate them: `docker compose down -v && docker compose up -d`.
+- **Rehearsal reports 30 clean days:** that is simulated time. Check
+  `elapsed_bank_shadow_days` in the same payload; it is 0 and cannot be
+  otherwise. Thirty *elapsed* bank days is a separate, unmet gate.
+- **A signer reports `NOT_EXECUTED`:** Sigstore needs an ambient GitHub OIDC
+  token and KMS needs a live AWS account plus an `ECDSA_SHA_256` key — the
+  existing Terraform key is RSA-3072. Neither returns plausible bytes when
+  unavailable; both raise.

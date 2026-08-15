@@ -13,6 +13,12 @@ topics:
   - { name: wallet-twin.decision.v1, partitions: 24 }
   - { name: wallet-twin.client-learning.v1 }
   - { name: wallet-twin.audit.v1, partitions: 24 }
+  # V3.2 promotion topic. Separate from the four above because promotion is a
+  # governance concern, and routing it onto an existing topic would make every
+  # current consumer filter events it has no interest in. Compacted retention
+  # is deliberately NOT used: the promotion history is the audit trail, and a
+  # superseded gate evaluation is evidence of how the position changed.
+  - { name: wallet-twin.promotion.v1 }
   - { name: wallet.eligibility-recorded.v1 }
   - { name: wallet.recommendation-assigned.v1 }
   - { name: wallet.recommendation-displayed.v1 }

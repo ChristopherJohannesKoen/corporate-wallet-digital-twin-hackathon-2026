@@ -1,4 +1,4 @@
-# Corporate Wallet Digital Twin V3.1.1
+# Corporate Wallet Digital Twin V3.2.0
 
 **Team:** Corporate Wallet Digital Twin
 
@@ -28,7 +28,26 @@ identification bounds and posterior intervals—not a falsely precise point
 estimate. Observed, identified, posterior, scenario and causal claims remain
 distinct throughout the API, workbench, notebook and submission artifacts.
 
-## Authoritative V3.1.1 result
+## V3.2 — Promotion Readiness Twin
+
+V3.2 adds the question V3.1.1 cannot express: **is this system allowed to be
+used, and for what?** Five ordered states, 30 governed gates, and every gate
+evaluated twice — once on a REAL track that governs bank authorisation, once on
+a REHEARSAL track that proves the machinery works.
+
+```
+Real state      OFFLINE_CANDIDATE        Rehearsed to   CAUSAL_CHAMPION
+PMR  100%  (machinery works)             BER  0%  (bank has no evidence)
+shadow_rehearsal_days 30                 elapsed_bank_shadow_days 0
+BANK_SHADOW_AUTHORIZED  FALSE            BANK_PRODUCTION_STATUS  NOT_PROMOTABLE
+```
+
+The two scores are never combined. A single figure would let a fully rehearsed
+system with no bank evidence read as nearly production-ready; the two numbers
+disagreeing is the finding. See
+[docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md](docs/Corporate_Wallet_Digital_Twin_V3_2_Promotion_Twin.md).
+
+## Authoritative Wallet and Decision Twin result
 
 - 3,064,295 confidential supplied Syn Bank rows in private-evaluator mode.
 - 20 supplied relationships × five product mappings = 100 heatmap cells.
@@ -81,14 +100,18 @@ notebook output.
 Live provider evaluation is opt-in. Never reuse credentials pasted into chat:
 
 ```powershell
-$env:LIVE_PROVIDER_EVAL_PUBLIC_ONLY_ACK = "true"
+$env:LIVE_PROVIDER_EVAL_ACK_PUBLIC_ONLY = "true"
 $env:OPENAI_API_KEY = "<fresh rotated secret>"
 $env:OPENAI_PROVIDER_APPROVED = "true"
 $env:OPENAI_MODEL_SNAPSHOT = "gpt-5.6-sol"
 # Add equivalent approved Anthropic and Google variables.
-$env:RUN_LIVE_PROVIDER_EVAL = "true"
 uv run python scripts/build_submission.py
 ```
+
+A provider is called only when its key, approval flag and exact model snapshot
+are all present; otherwise the run records `NOT_EXECUTED` against that provider
+and the deterministic brief stands. The manifest reports what actually ran — it
+never labels a run live that made no call.
 
 ## Submission artifacts
 
@@ -96,8 +119,8 @@ uv run python scripts/build_submission.py
 - `output/presentation/Corporate-Wallet-Digital-Twin.pptx` — ten-slide judging deck.
 - `notebooks/01_wallet_twin_demo.ipynb` — executed wallet-first judging notebook.
 - `output/notebook/01_wallet_twin_demo.html` — portable notebook rendering.
-- `outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx` — 82-fact review and wallet-impact workbook.
-- `outputs/judging_manifest_v3.1.1.json` — build, hash, claim and gate manifest.
+- `outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx` — evidence, wallet-impact and promotion-readiness workbook.
+- `outputs/judging_manifest_v3.2.0.json` — build, hash, claim and promotion-gate manifest.
 - `dashboard/` — entitled Wallet Portfolio, Coverage Plan, Client Twin and Governance workbench.
 - `docs/judging_map.md` — judge question-to-evidence map.
 - `docs/Corporate_Wallet_Digital_Twin_V3_1_System_Dossier.md` — complete system record.
@@ -138,7 +161,7 @@ npm audit --omit=dev --audit-level=high
 ```
 
 CI also builds and starts the real ASGI image, proves unauthenticated `/v3`
-access returns 401, then sends explicit demo entitlements and requires V3.1.1,
+access returns 401, then sends explicit demo entitlements and requires V3.2.0,
 eight plan entries, 100 wallet cells and 15 approved anchors.
 
 ## Evidence and confidentiality boundary

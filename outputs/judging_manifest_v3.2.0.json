@@ -1,0 +1,411 @@
+{
+  "version": "3.2.0",
+  "status": "HACKATHON_SUBMISSION_READY",
+  "bank_production_status": "NOT_PROMOTABLE",
+  "generated_at": "2026-08-15T06:52:31.825548+00:00",
+  "source_commit": "c51264f68a4d89b226a5afd523e494400a3edc4a",
+  "clean_worktree": true,
+  "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
+  "dirty_paths": [],
+  "rebuilt_deliverables": [
+    "notebooks/01_wallet_twin_demo.ipynb",
+    "output/notebook/01_wallet_twin_demo.html",
+    "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+    "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx.inspect.ndjson",
+    "outputs/audit/Public-Facts-Anchor-Register.inspect.json"
+  ],
+  "data_mode": "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
+  "checks": [
+    {
+      "name": "locked environment",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe -c import fastapi,numpy,pandas,pydantic; print('environment-ok')",
+      "status": "PASS",
+      "stdout_tail": [
+        "environment-ok"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v3_contracts",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v3_contracts.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{\"schemas\": 22, \"substrate_opportunities\": 100, \"v3_opportunities\": 100, \"dashboard_output\": \"<REPOSITORY_ROOT>\\\\dashboard\\\\app\\\\data\", \"canonical_v3_output\": \"<REPOSITORY_ROOT>\\\\outputs\\\\v3\"}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v31_contracts",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v31_contracts.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "exported 24 JSON Schemas to contracts\\jsonschema",
+        "exported OpenAPI to contracts\\openapi-v31.json",
+        "exported validation artifacts to outputs\\v31",
+        "{",
+        "  \"conversations\": 224,",
+        "  \"solution_projections\": 320,",
+        "  \"business_evidence_claims\": 905,",
+        "  \"coverage_plan_size\": 8,",
+        "  \"solver_status\": \"OPTIMAL\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v311_wallet_surface",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v311_wallet_surface.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "wrote dashboard\\app\\data\\wallet-v311-fixture.json (100 cells, hackathon_status=HACKATHON_STATUS_PENDING_CANONICAL_BUILD)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v32_contracts",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v32_contracts.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "exported 12 V3.2 schemas, 30 gates across 4 transitions, 9 laboratories"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v32_workbench_fixture",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v32_workbench_fixture.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "wrote dashboard\\app\\data\\promotion-fixture.json (30 gates, real=OFFLINE_CANDIDATE, rehearsed=SHADOW_READY, PMR=1.0, BER=0.0)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_evidence_qa",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_evidence_qa.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"documents\": 17,",
+        "  \"document_passes\": 17,",
+        "  \"facts\": 51,",
+        "  \"fact_passes\": 51,",
+        "  \"ready_for_finance_sme\": 51,",
+        "  \"production_approval_claim_allowed\": false",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "build_finance_sme_review_pack",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/build_finance_sme_review_pack.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "      \"in_review_priority\": false",
+        "    },",
+        "    {",
+        "      \"rank\": 17,",
+        "      \"entity_id\": \"E20\",",
+        "      \"entity_name\": \"Shaftesbury Capital plc\",",
+        "      \"prior_led_scenario_contribution_median_zar\": 52247.69,",
+        "      \"cumulative_value_share\": 1.0,",
+        "      \"in_review_priority\": false",
+        "    }",
+        "  ]",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_offline_validation",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_offline_validation.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"report_version\": \"offline-validation-1.0.0\",",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\outputs\\\\v2_validation\\\\offline_validation_report.json\",",
+        "  \"watermark\": \"SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE \\u2014 NOT BANK-VALIDATED\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_v3_validation",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_v3_validation.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "    \"pu_labelled_positives\": 33,",
+        "    \"pu_selection_constant\": 0.70032,",
+        "    \"change_point_series\": 100,",
+        "    \"rm_actions_selected\": 12,",
+        "    \"rm_capacity_respected\": true,",
+        "    \"positive_net_voi_requests\": 8,",
+        "    \"all_selected_voi_positive\": true,",
+        "    \"anonymous_provider_nodes_only\": true,",
+        "    \"measured_competitor_share_claims\": 0,",
+        "    \"causal_value_claims\": 0",
+        "  }",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_measurement_sensitivity",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_measurement_sensitivity.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "      \"top8_identical\": false",
+        "    },",
+        "    \"0.50\": {",
+        "      \"kendall_tau_vs_baseline\": 0.9797979797979798,",
+        "      \"cells_moving_more_than_five_ranks\": 4,",
+        "      \"max_absolute_rank_move\": 12,",
+        "      \"activated_cell_max_rank_move\": 12,",
+        "      \"top8_overlap_with_baseline\": 6,",
+        "      \"top8_identical\": false",
+        "    }",
+        "  }",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "run_genai_evals",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_genai_evals.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "  \"release_gate\": {",
+        "    \"passed\": true,",
+        "    \"scope\": \"deterministic extraction baseline only\",",
+        "    \"external_provider_results\": {",
+        "      \"openai\": \"CONFIGURABLE_NOT_EXECUTED\",",
+        "      \"anthropic\": \"CONFIGURABLE_NOT_EXECUTED\",",
+        "      \"google\": \"CONFIGURABLE_NOT_EXECUTED\"",
+        "    },",
+        "    \"production_release_allowed\": false,",
+        "    \"reason\": \"The deterministic baseline, evidence-register replay and page-grounding checks cannot replace independent finance-SME adjudication or bank-approved live-provider evaluation.\"",
+        "  }",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "provider evaluation",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_live_provider_eval.py",
+      "status": "PASS_EXISTING_EVIDENCE_PRESERVED",
+      "stdout_tail": [],
+      "stderr_tail": [
+        "{",
+        "  \"status\": \"REFUSED_TO_OVERWRITE_ACCEPTED_EVIDENCE\",",
+        "  \"existing_accepted_runs\": 8,",
+        "  \"this_run_accepted_runs\": 0,",
+        "  \"reason\": \"This run accepted fewer briefs than the artifact already on disk, which usually means credentials were absent. Supply fresh rotated provider credentials, or pass --allow-regression to discard the existing evaluation deliberately.\"",
+        "}"
+      ]
+    },
+    {
+      "name": "executed judging notebook",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/build_v31_notebook.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\notebooks\\\\01_wallet_twin_demo.ipynb\",",
+        "  \"html_output\": \"<REPOSITORY_ROOT>\\\\output\\\\notebook\\\\01_wallet_twin_demo.html\",",
+        "  \"cells\": 31,",
+        "  \"stored_outputs\": 34,",
+        "  \"errors\": 0",
+        "}"
+      ],
+      "stderr_tail": [
+        "<REPOSITORY_ROOT>\\.venv\\Lib\\site-packages\\zmq\\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.",
+        "  self._get_loop()",
+        "[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption."
+      ]
+    },
+    {
+      "name": "evidence workbook",
+      "command": "node scripts/build_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "    \"Evidence Queue\",",
+        "    \"Sensitivity\",",
+        "    \"Promotion Readiness\",",
+        "    \"Checks\",",
+        "    \"Sources\"",
+        "  ],",
+        "  \"factCount\": 82,",
+        "  \"clientCount\": 20,",
+        "  \"anchorCount\": 15,",
+        "  \"opportunityCount\": 100,",
+        "  \"errors\": []",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "workbook verification",
+      "command": "node scripts/verify_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "      \"Operations\"",
+        "    ],",
+        "    [",
+        "      \"Bank evidence readiness\",",
+        "      0,",
+        "      0,",
+        "      \"PASS\",",
+        "      \"Synthetic evidence contributes zero to BER\",",
+        "      \"Model risk\"",
+        "    ]",
+        "  ]",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "one-page PDF",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/build_submission_pdf.py <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"status\": \"ok\",",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\output\\\\pdf\\\\Corporate-Wallet-Digital-Twin-One-Pager.pdf\",",
+        "  \"pages\": 1,",
+        "  \"version\": \"3.2.0\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "PowerPoint",
+      "command": "node scripts/build_v31_presentation.mjs <REPOSITORY_ROOT>",
+      "status": "PASS",
+      "stdout_tail": [
+        "Inspect result written to file: <REPOSITORY_ROOT>\\output\\presentation\\Corporate-Wallet-Digital-Twin.pptx.inspect.ndjson",
+        "{",
+        "  \"slides\": 10,",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\output\\\\presentation\\\\Corporate-Wallet-Digital-Twin.pptx\"",
+        "}"
+      ],
+      "stderr_tail": []
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "notebooks/01_wallet_twin_demo.ipynb",
+      "sha256": "ccf3513f20f2b69e67e4f0e86d294e1bc96b22872eb0a51235c9ecb6cfa71236",
+      "size_bytes": 182222
+    },
+    {
+      "path": "output/notebook/01_wallet_twin_demo.html",
+      "sha256": "911f6628d89b3bcee28fcf2fdab5b727288417444edac8c632ca82a940e1b84a",
+      "size_bytes": 485080
+    },
+    {
+      "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+      "sha256": "34fe77098fb191cfcfe84855805b9cf455aada4d0226b76e1a2454894e0893b6",
+      "size_bytes": 5499
+    },
+    {
+      "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+      "sha256": "7fabbfcf79d1bfbcad23aa5adc96815e74a8a42ab461641625b27d9174a0c52a",
+      "size_bytes": 1740219
+    },
+    {
+      "path": "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
+      "sha256": "49b23bb0b18362504938d4d0d0facad88c4092651a9b4bf52ebce30556cc9dce",
+      "size_bytes": 77043
+    },
+    {
+      "path": "contracts/openapi.json",
+      "sha256": "c56b60e137c8942bbdb94e777f714432eec1f1567863ffb88d039db695040a3e",
+      "size_bytes": 285117
+    },
+    {
+      "path": "outputs/v2_validation/offline_validation_report.json",
+      "sha256": "7e8c02ffe9e8e1400e522c9ef15fee07eb0ad6a0874e07d04124ed8654cfabaa",
+      "size_bytes": 48036
+    },
+    {
+      "path": "dashboard/app/data/wallet-v311-fixture.json",
+      "sha256": "c992d3f930884fbbb38841d899d290ff60ea0788c44174c67cb9d21c3761199b",
+      "size_bytes": 1067533
+    },
+    {
+      "path": "contracts/promotion-gate-catalogue.json",
+      "sha256": "91c4b15ba8dc14b2cfcb1a2afb810df84024b8e82984d77b3642a87b91d391e6",
+      "size_bytes": 30897
+    },
+    {
+      "path": "outputs/v32/v32_promotion_policy.json",
+      "sha256": "6b5f2dc1bb379065e8183de0dfd77fb88cbd99a363c2867f3ffa7db966d9de4d",
+      "size_bytes": 7823
+    },
+    {
+      "path": "outputs/v32/v32_signing_posture.json",
+      "sha256": "8fc6c586c2ce8d30a9fe46ed3a7d1b50e950da4c451081e68af1b110b3909fce",
+      "size_bytes": 2624
+    },
+    {
+      "path": "outputs/v32/v32_simulation_laboratories.json",
+      "sha256": "5fc6ad9b5a0ca526d33128b55d9463e77265f122f5c3e364c86c0fd3e84d37ed",
+      "size_bytes": 59403
+    },
+    {
+      "path": "outputs/v32/v32_shadow_rehearsal.json",
+      "sha256": "d0f7613b4e60eaa508065dfb951a3cc92f04604e51ae0118a057b7af7bbd46c3",
+      "size_bytes": 20495
+    },
+    {
+      "path": "dashboard/app/data/promotion-fixture.json",
+      "sha256": "4e09ddc323601d5303d67cd7bc803506be8d62bbca078749f6dafae723fc2274",
+      "size_bytes": 52071
+    },
+    {
+      "path": "public-mirror-manifest.json",
+      "sha256": "0fe100c87b14eb2dc2602d3707b66e560a23e4579303d9a7ea1314098c5f71c1",
+      "size_bytes": 570
+    }
+  ],
+  "counts": {
+    "wallet_cells": 100,
+    "approved_anchor_cells": 15,
+    "prior_led_cells": 85,
+    "approved_source_facts": 31,
+    "pending_source_facts": 51,
+    "live_provider_briefs_accepted": 8,
+    "promotion_gates": 30
+  },
+  "promotion": {
+    "offline_candidate_validated": true,
+    "shadow_promotion_rehearsal_passed": true,
+    "shadow_deployment_package_ready": true,
+    "real_state": "OFFLINE_CANDIDATE",
+    "rehearsed_state": "SHADOW_READY",
+    "bank_shadow_authorized": false,
+    "promotion_machinery_readiness": 1.0,
+    "bank_evidence_readiness": 0.0,
+    "shadow_rehearsal_days": 30,
+    "elapsed_bank_shadow_days": 0,
+    "real_bank_signing_available": false,
+    "signers_executed": [
+      "LocalECDSASigner"
+    ],
+    "signers_not_executed": [
+      "SigstoreSigner",
+      "KMSSigner"
+    ]
+  },
+  "claim_boundary": "Share is posterior unless E3-observed; economics are representative scenarios; causal incremental value is null; pending facts are excluded.",
+  "confidentiality_boundary": "No supplied or derived row-level Syn Bank data, credentials, full provider payloads or private caches may enter the public mirror.",
+  "open_external_gates": [],
+  "bank_production_open_gates": [
+    "representative E3 multibank calibration panel",
+    "approved bank pricing, FTP, capital, risk, cost and hurdle inputs",
+    "bank AWS/Databricks/identity/catalogue/SIEM controls",
+    "supervised RM pilot and randomized outcome trial",
+    "thirty elapsed clean bank shadow days (rehearsed only; elapsed = 0)",
+    "a real bank signing key; no signer here can sign REAL_BANK evidence"
+  ]
+}

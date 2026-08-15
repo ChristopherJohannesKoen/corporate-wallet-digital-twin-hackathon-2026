@@ -1,6 +1,6 @@
 # AWS reference stack
 
-This Terraform root provisions the private platform primitives required by V3.1:
+This Terraform root provisions the private platform primitives required by V3.2:
 KMS, an asymmetric manifest-signing key, compliance-mode S3 Object Lock,
 private EKS with control-plane logs, IAM-authenticated MSK and Aurora PostgreSQL,
 CloudTrail integrity validation, object-locked audit storage, VPC flow logs,
@@ -11,8 +11,8 @@ and backend names are never committed.
 It intentionally consumes a bank-managed VPC and private subnets so inspection,
 DNS, egress, transit routing and security services remain under platform control.
 Databricks data-product and ABAC migrations, MLflow promotion policy, EKS Helm,
-OPA, V3.1 domain-topic event contracts, OpenTelemetry, Shadow Wallet/PU/change-point,
-Business Twin/graph/conversation and portfolio Delta products, plus the V3.1 MLflow
+OPA, V3.2 domain-topic event contracts, OpenTelemetry, Shadow Wallet/PU/change-point,
+Business Twin/graph/conversation, promotion-governance and portfolio Delta products, plus the V3.2 MLflow
 promotion policy are included in `infra/`. The
 Databricks account/workspace, Unity Catalog metastore attachment, corporate SSO,
 approved SIEM destination and application WAF/ingress attachment remain bank

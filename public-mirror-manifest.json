@@ -1,11 +1,11 @@
 {
-  "version": "3.1.1",
+  "version": "3.2.0",
   "status": "PASS",
   "history": "CLEAN_HISTORY_REQUIRED",
   "data_mode": "INDEPENDENTLY_GENERATED_ANONYMIZED_AGGREGATES",
-  "files": 307,
-  "scanned_files": 307,
-  "safe_fixture_sha256": "5c45afba3fe4cd67da7a69052e7a2cc29015de542f6387faab986a5303b234b6",
+  "files": 359,
+  "scanned_files": 359,
+  "safe_fixture_sha256": "5a5a3b6a34056750bbe3779caff32742c1141e4b5fae66a10e945e71e3ba22d7",
   "denial_findings": [],
   "excluded": [
     "ref/",

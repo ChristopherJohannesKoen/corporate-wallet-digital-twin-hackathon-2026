@@ -1,0 +1,94 @@
+{
+  "$defs": {
+    "DecisionTrack": {
+      "description": "Which question a gate evaluation answers.",
+      "enum": [
+        "REAL",
+        "REHEARSAL"
+      ],
+      "title": "DecisionTrack",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Four-eyes approval of a promotion decision.\n\nReuses the V2 maker/checker rule from ``evidence.py``: the submitter cannot\nbe the reviewer, and roles must differ.",
+  "properties": {
+    "approval_id": {
+      "title": "Approval Id",
+      "type": "string"
+    },
+    "decision": {
+      "pattern": "^(APPROVED|REJECTED)$",
+      "title": "Decision",
+      "type": "string"
+    },
+    "decision_id": {
+      "title": "Decision Id",
+      "type": "string"
+    },
+    "decision_payload_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Decision Payload Sha256",
+      "type": "string"
+    },
+    "rationale": {
+      "title": "Rationale",
+      "type": "string"
+    },
+    "reason_codes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Reason Codes",
+      "type": "array"
+    },
+    "reviewed_at": {
+      "format": "date-time",
+      "title": "Reviewed At",
+      "type": "string"
+    },
+    "reviewed_by": {
+      "title": "Reviewed By",
+      "type": "string"
+    },
+    "reviewed_role": {
+      "title": "Reviewed Role",
+      "type": "string"
+    },
+    "submitted_at": {
+      "format": "date-time",
+      "title": "Submitted At",
+      "type": "string"
+    },
+    "submitted_by": {
+      "title": "Submitted By",
+      "type": "string"
+    },
+    "submitted_role": {
+      "title": "Submitted Role",
+      "type": "string"
+    },
+    "track": {
+      "$ref": "#/$defs/DecisionTrack"
+    },
+    "transition_id": {
+      "title": "Transition Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "approval_id",
+    "decision_id",
+    "decision_payload_sha256",
+    "transition_id",
+    "track",
+    "submitted_by",
+    "submitted_role",
+    "reviewed_by",
+    "reviewed_role",
+    "decision",
+    "rationale"
+  ],
+  "title": "PromotionApproval",
+  "type": "object"
+}

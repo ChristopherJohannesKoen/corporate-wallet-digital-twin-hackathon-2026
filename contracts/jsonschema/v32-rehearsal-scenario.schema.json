@@ -1,0 +1,79 @@
+{
+  "$defs": {
+    "GateOutcome": {
+      "description": "Outcome of evaluating one gate on one track.\n\n``UNKNOWN`` is distinct from ``FAIL``: a gate nobody has evidence for has\nnot been failed, it has not been attempted, and reporting the two the same\nway would either overstate progress or manufacture a failure. ``WAIVED``\ncarries a named approver and is always visible in the register.",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "UNKNOWN",
+        "NOT_REQUIRED",
+        "WAIVED"
+      ],
+      "title": "GateOutcome",
+      "type": "string"
+    },
+    "PromotionEvidenceMode": {
+      "description": "Where a piece of evidence came from, ordered by authority.",
+      "enum": [
+        "NOT_AVAILABLE",
+        "SYNTHETIC_REHEARSAL",
+        "SIMULATED_POLICY",
+        "PUBLIC_APPROVED",
+        "PUBLIC_PACKAGE",
+        "REAL_BANK",
+        "BANK_ATTESTED"
+      ],
+      "title": "PromotionEvidenceMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "description": "A named rehearsal, including the negative ones.\n\n``expected_outcome`` is declared before the run. A scenario that only\nrecords what happened cannot distinguish a gate that correctly failed from\none that broke.",
+  "properties": {
+    "description": {
+      "title": "Description",
+      "type": "string"
+    },
+    "expected_outcome": {
+      "$ref": "#/$defs/GateOutcome"
+    },
+    "is_negative_scenario": {
+      "default": false,
+      "title": "Is Negative Scenario",
+      "type": "boolean"
+    },
+    "mode": {
+      "$ref": "#/$defs/PromotionEvidenceMode",
+      "default": "SYNTHETIC_REHEARSAL"
+    },
+    "scenario_id": {
+      "title": "Scenario Id",
+      "type": "string"
+    },
+    "targeted_gate_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Targeted Gate Ids",
+      "type": "array"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    },
+    "transition_id": {
+      "title": "Transition Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "scenario_id",
+    "title",
+    "description",
+    "transition_id",
+    "targeted_gate_ids",
+    "expected_outcome"
+  ],
+  "title": "RehearsalScenario",
+  "type": "object"
+}

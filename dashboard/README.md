@@ -1,6 +1,6 @@
-# Corporate Wallet Digital Twin V3.1 workbench
+# Corporate Wallet Digital Twin V3.2 workbench
 
-Private client-demonstration workbench for the composed V3.1 Corporate Banking Decision Twin. It
+Private client-demonstration workbench for the composed Wallet, Decision and V3.2 Promotion Readiness Twins. It
 serves a point-in-time demo snapshot locally and can proxy the entitled bank API
 when `WALLET_API_BASE_URL` is configured. The `/api/v3/decision-twin` route returns
 the live, entitlement-filtered `/v3/decision-twin` response when connected and

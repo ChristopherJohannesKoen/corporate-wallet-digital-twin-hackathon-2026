@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "corporate-wallet-digital-twin"
-version = "3.1.1"
+version = "3.2.0"
 description = "Evidence-first corporate wallet decision support for the Standard Bank Hackathon 2026"
 readme = "README.md"
 requires-python = ">=3.11,<3.14"
@@ -54,6 +54,13 @@ where = ["src"]
 pythonpath = ["src"]
 testpaths = ["tests"]
 addopts = "-ra"
+markers = [
+    # Requires the bank-shaped lab from infra/local/docker-compose.yml. These
+    # skip rather than fail when the lab is down, because a developer running
+    # the unit suite has not done anything wrong. CI brings the lab up and runs
+    # them explicitly, so skipping locally never means skipping everywhere.
+    "bank_lab: needs the local bank-shaped lab (docker compose up -d)",
+]
 
 [tool.ruff.lint.per-file-ignores]
 "scripts/*.py" = ["E402"]

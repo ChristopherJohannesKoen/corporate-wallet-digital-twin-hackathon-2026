@@ -9,10 +9,16 @@ from wallet_twin_v2.fixtures import build_fixture
 from wallet_twin_v2.genai_eval import evaluate_golden_set
 from wallet_twin_v2.genai_gateway import (
     AnthropicMessagesProvider,
+    BankerNarrative,
+    ClaimCompiler,
+    DeterministicProvider,
     GoogleGeminiProvider,
+    NarrativeClaim,
     OpenAIResponsesProvider,
     ProviderGateway,
+    closed_pack_allowed_numbers,
 )
+from wallet_twin_v2.contracts import ClaimClass
 from wallet_twin_v2.mock_integrations import app as mock_app
 from wallet_twin_v2.offline_lab import synthetic_calibration_lab
 from wallet_twin_v2.public_evidence import PublicEvidenceRegistry
@@ -131,6 +137,129 @@ def test_provider_status_never_returns_secret_values(monkeypatch):
     serialized = json.dumps(gateway.status())
     assert "test-secret-that-must-not-appear" not in serialized
     assert gateway.status()["providers"]["openai"]["credential_configured"] is True
+
+
+def test_openai_uses_the_same_closed_output_contract_as_other_providers(monkeypatch):
+    fixture = build_fixture()
+    opportunity = next(
+        item
+        for item in fixture["opportunities"]
+        if item.entity_id == "E01" and item.evidence_fact_ids
+    )
+    evidence = {
+        "BANK-ACTIVITY": "Approved aggregate simulation activity.",
+        **{
+            fact_id: "Approved public evidence."
+            for fact_id in opportunity.evidence_fact_ids
+        },
+    }
+    captured = {}
+
+    class FakeResponses:
+        def parse(self, **kwargs):
+            captured.update(kwargs)
+            return type(
+                "FakeResponse",
+                (),
+                {
+                    "output_parsed": DeterministicProvider().generate(
+                        opportunity, evidence, "test-user"
+                    ),
+                    "usage": None,
+                },
+            )()
+
+    class FakeClient:
+        responses = FakeResponses()
+
+    monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("OPENAI_MODEL_SNAPSHOT", "gpt-5.6-sol")
+    monkeypatch.setenv("OPENAI_PROVIDER_APPROVED", "true")
+
+    provider = OpenAIResponsesProvider(client_factory=lambda **_: FakeClient())
+    provider.generate(opportunity, evidence, "test-user")
+
+    payload = json.loads(captured["input"])
+    assert payload["output_contract"]["required_claim_ids"] == [
+        "observed-activity",
+        "posterior-wallet",
+    ]
+    assert payload["output_contract"]["abstention_required"] is True
+    assert "Return exactly two claims" in captured["instructions"]
+    assert "Do not repeat dates" in captured["instructions"]
+    assert captured["model"] == "gpt-5.6-sol"
+    assert captured["store"] is False
+    assert captured["tools"] == []
+
+
+def test_claim_compiler_normalizes_display_format_but_rejects_invented_numbers():
+    narrative = BankerNarrative(
+        headline="Validate the opportunity",
+        situation="Observed activity is ZAR 1,000.0 with 90% interval coverage.",
+        why_now="The 90-day probability is 27%.",
+        next_action="Confirm the external wallet within the 30-90 day window.",
+        claims=[
+            NarrativeClaim(
+                claim_id="observed-activity",
+                text="Observed activity: ZAR 1,000",
+                evidence_ids=["BANK-ACTIVITY"],
+                claim_class=ClaimClass.OBSERVED,
+            )
+        ],
+        abstentions=["Competitor share is not measured."],
+    )
+    accepted = ClaimCompiler.validate(
+        narrative,
+        allowed_numbers={"1000", "30", "90", "27.0%", "0.9"},
+        allowed_evidence={"BANK-ACTIVITY"},
+    )
+    assert accepted == []
+
+    narrative.next_action = "Contact the client within 7 days."
+    rejected = ClaimCompiler.validate(
+        narrative,
+        allowed_numbers={"1000", "30", "90", "27.0%", "0.9"},
+        allowed_evidence={"BANK-ACTIVITY"},
+    )
+    assert "UNSUPPORTED_NUMBER:7" in rejected
+
+
+def test_allowed_numbers_admit_quantities_not_structural_noise():
+    """The closed-pack guard is scoped to banker-meaningful quantities.
+
+    Deriving it by scraping every number token out of the serialised payload
+    would admit schema versions, page numbers, ranks and id fragments as
+    quotable financial figures — exactly the class of claim the guard exists to
+    catch. Every deterministic brief must still pass, or the guard is too tight
+    to be usable.
+    """
+    fixture = build_fixture()
+    opportunities = fixture["opportunities"][:12]
+
+    for opportunity in opportunities:
+        evidence = {fact_id: "source p.1" for fact_id in opportunity.evidence_fact_ids} or {
+            "PRIOR-REGISTRY": "governed prior"
+        }
+        allowed = closed_pack_allowed_numbers(opportunity, evidence)
+
+        # Real quantities are quotable, in the formats a narrative would use.
+        wallet = opportunity.posterior_wallet
+        assert f"{wallet.median:.0f}" in allowed
+        assert f"{opportunity.timing.probability_90d:.1%}" in allowed
+
+        # Structural noise is not.
+        assert "v1" not in allowed
+        for noise in ("2025", "999999999", "0.123456789"):
+            assert noise not in allowed, f"{noise} should not be quotable for {opportunity.opportunity_id}"
+
+        # And the guard stays usable: the governed deterministic brief passes.
+        brief = DeterministicProvider().generate(opportunity, evidence, "test-user")
+        violations = ClaimCompiler.validate(
+            brief,
+            allowed_numbers=allowed,
+            allowed_evidence=set(evidence) | {"PRIOR-REGISTRY", "BANK-ACTIVITY"},
+        )
+        assert violations == [], f"{opportunity.opportunity_id}: {violations}"
 
 
 def test_local_identity_and_crm_double_enforce_authentication():

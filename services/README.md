@@ -1,4 +1,4 @@
-# V3.1 service deployment map
+# V3.2 service deployment map
 
 All services use the same signed, SBOM-attested image but select a different
 ASGI entry point. This keeps schemas and control logic identical while the Helm
@@ -14,6 +14,7 @@ scope and PostgreSQL credentials.
 | Business Twin | `business_twin_app` | Business snapshots, graphs, problems, stakeholders and funding routes |
 | Timing | `timing_app` | Event probability models |
 | Recommendation | `recommendation_app` | V1/V3 opportunities, V3.1 conversations, Pareto plans and interactions |
+| Promotion | `promotion_app` | Signed gate evidence, dual-track decisions, approvals, capability permissions and accelerated rehearsals |
 | Experiment | `experiment_app` | Assignments, eligibility and outcomes |
 | GenAI | `genai_app` | Controlled extraction and narration |
 | Entitlement | `entitlement_app` | Attribute projections and access decisions |

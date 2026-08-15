@@ -605,3 +605,10 @@ app.include_router(v3_router)
 from wallet_twin_v31.api import router as v31_router  # noqa: E402
 
 app.include_router(v31_router)
+
+
+# V3.2 adds the Promotion Readiness Twin: whether the system is authorised to be
+# used, and for what.  Same /v3 major, same reason.
+from wallet_twin_v32.api import router as v32_router  # noqa: E402
+
+app.include_router(v32_router)

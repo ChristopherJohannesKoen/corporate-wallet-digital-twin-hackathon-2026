@@ -1,4 +1,28 @@
-name: wallet-twin-v2-local
+name: wallet-twin-v32-local
+
+x-wallet-service: &wallet-service
+  build:
+    context: ../..
+    dockerfile: Dockerfile
+  image: wallet-twin-local:v3.2.0
+  environment: &wallet-environment
+    # CLIENT_DEMO keeps the lab synthetic while enabling the same deny-by-
+    # default request boundary exercised by the production-shaped image. The
+    # analytical repository remains fixture/rehearsal-only, so real-mode
+    # promotion writes are still rejected by the Promotion service itself.
+    WALLET_DEPLOYMENT_MODE: CLIENT_DEMO
+    GENAI_PROVIDER: deterministic
+    WALLET_POSTGRES_DSN: postgresql://wallet_local:local-only-change-me@postgres:5432/wallet_twin
+    WALLET_MSK_BROKERS: redpanda:9092
+    WALLET_OPA_URL: http://opa:8181
+    WALLET_OIDC_ISSUER: http://keycloak:8090/realms/wallet-twin
+    WALLET_OIDC_AUDIENCE: wallet-twin
+    OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+    WALLET_MLFLOW_REGISTRY_URI: http://mlflow:5000
+  depends_on:
+    postgres: { condition: service_healthy }
+    redpanda: { condition: service_healthy }
+    minio-bootstrap: { condition: service_completed_successfully }
 
 services:
   postgres:
@@ -10,6 +34,7 @@ services:
     ports: ["127.0.0.1:5432:5432"]
     volumes:
       - ../sql/001_operational_schemas.sql:/docker-entrypoint-initdb.d/001_operational_schemas.sql:ro
+      - ../sql/002_promotion_schemas.sql:/docker-entrypoint-initdb.d/002_promotion_schemas.sql:ro
       - postgres-data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U wallet_local -d wallet_twin"]
@@ -35,6 +60,81 @@ services:
       MINIO_ROOT_PASSWORD: local-only-change-me
     ports: ["127.0.0.1:9000:9000", "127.0.0.1:9001:9001"]
     volumes: ["minio-data:/data"]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  # No bucket creation step existed before V3.2, so every "immutable evidence"
+  # claim rested on a bucket nobody had created with a retention mode nobody had
+  # set. Object lock must be enabled AT BUCKET CREATION — it cannot be turned on
+  # afterwards — which is exactly the kind of thing that is discovered far too
+  # late if the bootstrap is left as a manual step in a runbook.
+  minio-bootstrap:
+    image: minio/mc:RELEASE.2024-07-31T15-58-33Z
+    depends_on:
+      minio: { condition: service_healthy }
+    # Windows checkouts may expose CRLF through the bind mount. Normalize the
+    # mounted script inside the disposable container before execution so the
+    # object-lock control behaves identically on Windows and Linux runners.
+    entrypoint: ["/bin/sh", "-c", "tr -d '\r' < /bootstrap/minio_object_lock.sh > /tmp/minio_object_lock.sh && /bin/sh /tmp/minio_object_lock.sh"]
+    environment:
+      MINIO_ENDPOINT: http://minio:9000
+      MINIO_ROOT_USER: local-minio
+      MINIO_ROOT_PASSWORD: local-only-change-me
+      EVIDENCE_RETENTION_DAYS: "2555"
+    volumes:
+      - ./minio_object_lock.sh:/bootstrap/minio_object_lock.sh:ro
+
+  # OIDCVerifier has existed since V2 as a client with no issuer to point at.
+  # Keycloak gives the bank-shaped lab a real one, so the token path is
+  # exercised rather than asserted.
+  keycloak:
+    image: quay.io/keycloak/keycloak:25.0.4
+    command: ["start-dev", "--import-realm", "--http-port=8090"]
+    environment:
+      KEYCLOAK_ADMIN: local-admin
+      KEYCLOAK_ADMIN_PASSWORD: local-only-change-me
+      KC_HEALTH_ENABLED: "true"
+    ports: ["127.0.0.1:8090:8090"]
+    volumes:
+      - ./keycloak-realm.json:/opt/keycloak/data/import/wallet-twin-realm.json:ro
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/127.0.0.1/8090 && echo -e 'GET /realms/wallet-twin/.well-known/openid-configuration HTTP/1.1\\nHost: localhost\\nConnection: close\\n\\n' >&3 && grep -q '200 OK' <&3"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  # Postgres backend store and MinIO artifact store, matching the bank shape
+  # rather than MLflow's file-based default.
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.16.2
+    depends_on:
+      postgres: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - >-
+        pip install --no-cache-dir psycopg2-binary boto3 >/dev/null &&
+        mlflow server --host 0.0.0.0 --port 5000
+        --backend-store-uri postgresql://wallet_local:local-only-change-me@postgres:5432/wallet_twin
+        --default-artifact-root s3://wallet-twin-mlflow/
+    environment:
+      MLFLOW_S3_ENDPOINT_URL: http://minio:9000
+      AWS_ACCESS_KEY_ID: local-minio
+      AWS_SECRET_ACCESS_KEY: local-only-change-me
+    ports: ["127.0.0.1:5000:5000"]
+
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=7d
+    ports: ["127.0.0.1:9090:9090"]
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./release_gate_rules.yml:/etc/prometheus/release_gate_rules.yml:ro
 
   opa:
     image: openpolicyagent/opa:0.68.0-static
@@ -58,6 +158,52 @@ services:
     environment:
       GENAI_PROVIDER: deterministic
     ports: ["127.0.0.1:8088:8088"]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8088/health', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 20
+
+  # Twelve independently addressable boundaries. They share an image, not a
+  # database; WALLET_SERVICE_APP selects the owned ASGI surface.
+  wallet-ingestion:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: ingestion_app }
+  wallet-evidence:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: evidence_app }
+  wallet-economics:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: economics_app }
+  wallet-model:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: wallet_model_app }
+  wallet-business-twin:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: business_twin_app }
+  wallet-timing:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: timing_app }
+  wallet-recommendation:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: recommendation_app }
+  wallet-experiment:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: experiment_app }
+  wallet-genai:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: genai_app }
+  wallet-entitlement:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: entitlement_app }
+  wallet-promotion:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: promotion_app }
+    ports: ["127.0.0.1:18110:8080"]
+  wallet-workbench-bff:
+    <<: *wallet-service
+    environment: { <<: *wallet-environment, WALLET_SERVICE_APP: workbench_bff_app }
+    ports: ["127.0.0.1:18080:8080"]
 
   spark:
     image: bitnami/spark:3.5.1

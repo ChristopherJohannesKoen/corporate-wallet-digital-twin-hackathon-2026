@@ -13,17 +13,17 @@ export async function generateMetadata(): Promise<Metadata> {
   const base = new URL(`${protocol}://${host}`);
   return {
     metadataBase: base,
-    title: "Corporate Wallet Digital Twin V3.1.1 · Wallet Portfolio",
+    title: "Corporate Wallet Digital Twin V3.2.0 · Promotion Readiness",
     description: "Turn Syn Bank activity and approved evidence into wallet/share intervals, a 20 × 5 contestable-gap heatmap and grounded conversations.",
     openGraph: {
-      title: "Corporate Wallet Digital Twin V3.1.1",
+      title: "Corporate Wallet Digital Twin V3.2.0",
       description: "Observed activity → latent wallet → contestable gap → governed conversation.",
       type: "website",
       images: [{ url: new URL("/og-v31.png", base), width: 1536, height: 1024, alt: "Corporate Wallet Digital Twin V3.1 Decision Twin" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Corporate Wallet Digital Twin V3.1.1",
+      title: "Corporate Wallet Digital Twin V3.2.0",
       description: "The complete 20 × 5 wallet heatmap, forensic drill-down and governed action layer.",
       images: [new URL("/og-v31.png", base)],
     },

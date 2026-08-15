@@ -2,9 +2,20 @@
   "version": "3.1.1",
   "status": "HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-13T06:22:12.708017+00:00",
-  "source_commit": "51e33d780b72fcb0e90e4ebf9471740fb3095cdc",
-  "clean_worktree": false,
+  "generated_at": "2026-08-14T11:01:42.578468+00:00",
+  "source_commit": "904571e8ffd2bf8ea765a7005b68697e1cb0791e",
+  "clean_worktree": true,
+  "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
+  "dirty_paths": [],
+  "rebuilt_deliverables": [
+    "notebooks/01_wallet_twin_demo.ipynb",
+    "output/notebook/01_wallet_twin_demo.html",
+    "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
+    "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
+    "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx.inspect.ndjson",
+    "outputs/audit/Public-Facts-Anchor-Register.inspect.json"
+  ],
   "data_mode": "AUTO_PRIVATE_IF_LOCAL_ARCHIVE_PRESENT_ELSE_PUBLIC_MIRROR",
   "checks": [
     {
@@ -21,7 +32,7 @@
       "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v3_contracts.py",
       "status": "PASS",
       "stdout_tail": [
-        "{\"schemas\": 22, \"substrate_opportunities\": 100, \"v3_opportunities\": 100, \"dashboard_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\dashboard\\\\app\\\\data\", \"canonical_v3_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v3\"}"
+        "{\"schemas\": 22, \"substrate_opportunities\": 100, \"v3_opportunities\": 100, \"dashboard_output\": \"<REPOSITORY_ROOT>\\\\dashboard\\\\app\\\\data\", \"canonical_v3_output\": \"<REPOSITORY_ROOT>\\\\outputs\\\\v3\"}"
       ],
       "stderr_tail": []
     },
@@ -32,7 +43,6 @@
       "stdout_tail": [
         "exported 24 JSON Schemas to contracts\\jsonschema",
         "exported OpenAPI to contracts\\openapi-v31.json",
-        "exported workbench fixture to dashboard\\app\\data\\v31-fixture.json",
         "exported validation artifacts to outputs\\v31",
         "{",
         "  \"conversations\": 224,",
@@ -49,7 +59,25 @@
       "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v311_wallet_surface.py",
       "status": "PASS",
       "stdout_tail": [
-        "wrote C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\dashboard\\app\\data\\wallet-v311-fixture.json (100 cells)"
+        "wrote dashboard\\app\\data\\wallet-v311-fixture.json (100 cells, hackathon_status=HACKATHON_SUBMISSION_BLOCKED_EXTERNAL_GATES)"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v32_contracts",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v32_contracts.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "exported 12 V3.2 schemas, 24 gates across 4 transitions, 7 laboratories"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "export_v32_workbench_fixture",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_v32_workbench_fixture.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "wrote dashboard\\app\\data\\promotion-fixture.json (24 gates, real=OFFLINE_CANDIDATE, rehearsed=CAUSAL_CHAMPION, PMR=1.0, BER=0.0)"
       ],
       "stderr_tail": []
     },
@@ -96,7 +124,7 @@
       "stdout_tail": [
         "{",
         "  \"report_version\": \"offline-validation-1.0.0\",",
-        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v2_validation\\\\offline_validation_report.json\",",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\outputs\\\\v2_validation\\\\offline_validation_report.json\",",
         "  \"watermark\": \"SYNTHETIC / PUBLIC / BENCHMARK EVIDENCE \\u2014 NOT BANK-VALIDATED\"",
         "}"
       ],
@@ -163,13 +191,14 @@
       "stderr_tail": []
     },
     {
-      "name": "provider target report",
+      "name": "provider evaluation",
       "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/run_live_provider_eval.py",
       "status": "PASS",
       "stdout_tail": [
         "{",
-        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\outputs\\\\v2_validation\\\\live_provider_comparison.json\",",
+        "  \"output\": \"outputs\\\\v2_validation\\\\live_provider_comparison.json\",",
         "  \"accepted_runs\": 0,",
+        "  \"previous_accepted_runs\": 0,",
         "  \"submission_gate_passed\": false",
         "}"
       ],
@@ -181,15 +210,15 @@
       "status": "PASS",
       "stdout_tail": [
         "{",
-        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\notebooks\\\\01_wallet_twin_demo.ipynb\",",
-        "  \"html_output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\output\\\\notebook\\\\01_wallet_twin_demo.html\",",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\notebooks\\\\01_wallet_twin_demo.ipynb\",",
+        "  \"html_output\": \"<REPOSITORY_ROOT>\\\\output\\\\notebook\\\\01_wallet_twin_demo.html\",",
         "  \"cells\": 25,",
         "  \"stored_outputs\": 26,",
         "  \"errors\": 0",
         "}"
       ],
       "stderr_tail": [
-        "C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\.venv\\Lib\\site-packages\\zmq\\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.",
+        "<REPOSITORY_ROOT>\\.venv\\Lib\\site-packages\\zmq\\_future.py:718: RuntimeWarning: Proactor event loop does not implement add_reader family of methods required for zmq. Registering an additional selector thread for add_reader support via tornado. Use `asyncio.set_event_loop_policy(WindowsSelectorEventLoopPolicy())` to avoid this warning.",
         "  self._get_loop()",
         "[IPKernelApp] WARNING | Kernel is running over TCP without encryption. All communication (including code and outputs) is sent in plain text and is susceptible to eavesdropping. Use IPC transport or launch with kernel manager-provisioned CurveZMQ keys to enable transport encryption."
       ]
@@ -241,7 +270,7 @@
       "stdout_tail": [
         "{",
         "  \"status\": \"ok\",",
-        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\output\\\\pdf\\\\Corporate-Wallet-Digital-Twin-One-Pager.pdf\",",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\output\\\\pdf\\\\Corporate-Wallet-Digital-Twin-One-Pager.pdf\",",
         "  \"pages\": 1,",
         "  \"version\": \"3.1.1\"",
         "}"
@@ -253,10 +282,10 @@
       "command": "node scripts/build_v31_presentation.mjs <REPOSITORY_ROOT>",
       "status": "PASS",
       "stdout_tail": [
-        "Inspect result written to file: C:\\Users\\cjkoe\\Documents\\Hackathon 2026 - Standard Bank\\Code\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\output\\presentation\\Corporate-Wallet-Digital-Twin.pptx.inspect.ndjson",
+        "Inspect result written to file: <REPOSITORY_ROOT>\\output\\presentation\\Corporate-Wallet-Digital-Twin.pptx.inspect.ndjson",
         "{",
         "  \"slides\": 10,",
-        "  \"output\": \"C:\\\\Users\\\\cjkoe\\\\Documents\\\\Hackathon 2026 - Standard Bank\\\\Code\\\\Corporate Wallet Digital Twin - Hackathon 2026 - Standard Bank\\\\output\\\\presentation\\\\Corporate-Wallet-Digital-Twin.pptx\"",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\output\\\\presentation\\\\Corporate-Wallet-Digital-Twin.pptx\"",
         "}"
       ],
       "stderr_tail": []
@@ -265,33 +294,33 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "374587b8b22196393d208626a9aae1df9deaaa6298c7264b048b9938c7de1a50",
+      "sha256": "eaed5eb1642a374ffe5f6d99e5dd17539b45afa1ff78a9011db44af714d37962",
       "size_bytes": 159274
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "df5dfbd6bb691ef39442e58358b0cf237d875c3550d8c2b9a4561b1c94a38cb5",
+      "sha256": "1e21975de9072fcb74fe37df1b990c772972054c4f9410482a0788aa74c1a45e",
       "size_bytes": 460277
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "3a18b6e467ccbaf5d1ef2c5e0e523b622d2913b3f23b45c4206d885f9cd8294a",
+      "sha256": "d05a678919ddeafd7aa9f923a52d9dbe4ed62308e67af4f84b9a6fbc020a85fc",
       "size_bytes": 5522
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "873829d9c785686ec3060f33de3c91d1691061267c831a6c816b8ea51d9d06f1",
-      "size_bytes": 1740238
+      "sha256": "6d1d0a5d6439d6a283cf7669f67f1e53e42d5c069d43face62a1ea9ae100ae6c",
+      "size_bytes": 1740234
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.1.1.xlsx",
-      "sha256": "1ac27f91963aeb0376ca47bf841768e70f693c968b91d9bcd0dfbacb8d532869",
-      "size_bytes": 70585
+      "sha256": "0cef29f8e37d4d6ce656f04d8a6e9a5666a354323d356752e19525d40fa4ac3b",
+      "size_bytes": 70553
     },
     {
       "path": "contracts/openapi.json",
-      "sha256": "d8b270bbf00f6b58db6dccd31c2784e7ed622ff7fef6c02abf047d9e7a5a3f78",
-      "size_bytes": 186033
+      "sha256": "98b97a53b1db0492500452ece8b9f86b4075197a601f269fe689f5feebad793a",
+      "size_bytes": 240227
     },
     {
       "path": "outputs/v2_validation/offline_validation_report.json",
@@ -300,12 +329,42 @@
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
-      "sha256": "4dbaea303906bc76c80057afa808f9ca1f9c352bf6c5eb9bbc6f0c28f086a3cc",
-      "size_bytes": 1067476
+      "sha256": "ceb708c9a98509258c216a0901db101455e783e3dde368196a23c17df4ef4a9b",
+      "size_bytes": 1067550
+    },
+    {
+      "path": "contracts/promotion-gate-catalogue.json",
+      "sha256": "11097bf7dc94ec35e009870fdeb45fae788c2aa84da541cfe7c36b1ba80f7aa8",
+      "size_bytes": 24937
+    },
+    {
+      "path": "outputs/v32/v32_promotion_policy.json",
+      "sha256": "1ea3b4f7db4396a819d4fb1993ee498a83a6ffdec8eaa84155f020e3a95b3bc4",
+      "size_bytes": 4343
+    },
+    {
+      "path": "outputs/v32/v32_signing_posture.json",
+      "sha256": "a2c2a0184247bd60ad70729839c86c135adca2c26d6f07949e2105e85f36cc07",
+      "size_bytes": 2538
+    },
+    {
+      "path": "outputs/v32/v32_simulation_laboratories.json",
+      "sha256": "42381e7670867e65cf1af167252f99746e43f03c3e28248d1a8fffcb9c85f6cd",
+      "size_bytes": 22968
+    },
+    {
+      "path": "outputs/v32/v32_shadow_rehearsal.json",
+      "sha256": "d0f7613b4e60eaa508065dfb951a3cc92f04604e51ae0118a057b7af7bbd46c3",
+      "size_bytes": 20495
+    },
+    {
+      "path": "dashboard/app/data/promotion-fixture.json",
+      "sha256": "0d350c3bbc12a7a03a410cfbe86a5c6c49ae50c716bab71dfded095edf2c40dc",
+      "size_bytes": 42008
     },
     {
       "path": "public-mirror-manifest.json",
-      "sha256": "f57b28c9f27ebe55d3ae829bacb3fc1746a2924f66b54455998afa07cd49c426",
+      "sha256": "c9414c0fdd46d8e28262e3659b22b5d9bca1044b4ea3e0c190aebb67b49b078d",
       "size_bytes": 570
     }
   ],
@@ -315,7 +374,25 @@
     "prior_led_cells": 85,
     "approved_source_facts": 31,
     "pending_source_facts": 51,
-    "live_provider_briefs_accepted": 0
+    "live_provider_briefs_accepted": 0,
+    "promotion_gates": 24
+  },
+  "promotion": {
+    "real_state": "OFFLINE_CANDIDATE",
+    "rehearsed_state": "CAUSAL_CHAMPION",
+    "bank_shadow_authorized": false,
+    "promotion_machinery_readiness": 1.0,
+    "bank_evidence_readiness": 0.0,
+    "shadow_rehearsal_days": 30,
+    "elapsed_bank_shadow_days": 0,
+    "real_bank_signing_available": false,
+    "signers_executed": [
+      "LocalECDSASigner"
+    ],
+    "signers_not_executed": [
+      "SigstoreSigner",
+      "KMSSigner"
+    ]
   },
   "claim_boundary": "Share is posterior unless E3-observed; economics are representative scenarios; causal incremental value is null; pending facts are excluded.",
   "confidentiality_boundary": "No supplied or derived row-level Syn Bank data, credentials, full provider payloads or private caches may enter the public mirror.",
@@ -326,6 +403,8 @@
     "representative E3 multibank calibration panel",
     "approved bank pricing, FTP, capital, risk, cost and hurdle inputs",
     "bank AWS/Databricks/identity/catalogue/SIEM controls",
-    "supervised RM pilot and randomized outcome trial"
+    "supervised RM pilot and randomized outcome trial",
+    "thirty elapsed clean bank shadow days (rehearsed only; elapsed = 0)",
+    "a real bank signing key; no signer here can sign REAL_BANK evidence"
   ]
 }
