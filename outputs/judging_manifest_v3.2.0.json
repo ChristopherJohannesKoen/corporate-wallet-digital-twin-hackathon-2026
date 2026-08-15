@@ -1,14 +1,12 @@
 {
   "version": "3.2.0",
-  "status": "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
+  "status": "HACKATHON_SUBMISSION_READY",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-15T14:37:02.250922+00:00",
-  "source_commit": "30048a3167a2c196671b88ad35d0baa252b1ade9",
-  "clean_worktree": false,
+  "generated_at": "2026-08-15T14:42:45.814427+00:00",
+  "source_commit": "1257e612fc57d13eee43b026bd3d78f6435a59df",
+  "clean_worktree": true,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
-  "dirty_paths": [
-    "dashboard/app/data/wallet-v311-fixture.json"
-  ],
+  "dirty_paths": [],
   "rebuilt_deliverables": [
     "notebooks/01_wallet_twin_demo.ipynb",
     "output/notebook/01_wallet_twin_demo.html",
@@ -325,17 +323,17 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "e3ec31535cd162eeb6bf92d29eefaf7d9ffe829d373fd6e9ccaa29a386476834",
+      "sha256": "a28bc3e21e9c1056d5274c9dac36367aef4aac5c49c697e192e63a7309faad04",
       "size_bytes": 182478
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "628b0d3f8ef461f68bb97ce7ab221a0917bc7f4a85c49dff796a15918535b43e",
+      "sha256": "1f4799cdeefb12fdcca5e46d9bfacb0bf0bf129d554eee0007c137121f3963dd",
       "size_bytes": 490497
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "b2a5bdd442a0789208dc9741fd6d1c995c1b033f497bc0323eb78560bfb68b66",
+      "sha256": "f1232dd89ab490e8307970863e74e442ee8e52b55ea880f342ff4fce199367b3",
       "size_bytes": 5555
     },
     {
@@ -350,8 +348,8 @@
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
-      "sha256": "09391831501f1e842cbf566ac0f2e4d8b53eb6bd0f281f7ecacec09ad6637d5f",
-      "size_bytes": 77028
+      "sha256": "002f7e233f51e9438316bdda0453ab70a775836eae16508e951147c5d01f8796",
+      "size_bytes": 77014
     },
     {
       "path": "contracts/openapi.json",
@@ -365,8 +363,8 @@
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
-      "sha256": "38aa67acc87aa201af2608d6046a31acff73c65cdbc48e17eaefc253d5caf4ab",
-      "size_bytes": 1067560
+      "sha256": "6d35b3ee52ecd8fa7b2a4b46d4815b50048b08a82dfe48a316f31c4da3e879bc",
+      "size_bytes": 1067533
     },
     {
       "path": "contracts/promotion-gate-catalogue.json",
