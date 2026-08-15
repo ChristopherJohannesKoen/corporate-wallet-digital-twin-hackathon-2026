@@ -1,0 +1,4 @@
+# Historical SHA-256 artifact digests in the frozen V3.1.1 regression
+# boundary. These exact Gitleaks fingerprints are not credentials.
+f5015d86efbd371c0710a73a532ae50cf560efe9:tests/regression/v3_1_1/v3_1_1_boundary.json:generic-api-key:59
+f5015d86efbd371c0710a73a532ae50cf560efe9:tests/regression/v3_1_1/v3_1_1_boundary.json:generic-api-key:60
