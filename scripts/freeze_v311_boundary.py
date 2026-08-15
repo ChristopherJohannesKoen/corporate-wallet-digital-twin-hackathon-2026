@@ -80,10 +80,18 @@ def git_value(*args: str, default: str = "UNKNOWN") -> str:
 
 
 def sha256_of(path: Path) -> str:
+    """Hash JSON artifacts using the V3.1.1 boundary's CRLF byte convention.
+
+    The boundary was frozen from canonical JSON written on Windows, where text
+    output used CRLF. GitHub's Linux runner regenerates the same parsed JSON with
+    LF. Normalising both forms to the original CRLF convention preserves the
+    historical digests while ensuring line-ending choice cannot masquerade as
+    analytical drift.
+    """
     digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
+    content = path.read_bytes()
+    normalised = content.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    digest.update(normalised.replace(b"\n", b"\r\n"))
     return digest.hexdigest()
 
 

@@ -19,7 +19,7 @@ import pytest
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from freeze_v311_boundary import additive_api_drift, build_boundary  # noqa: E402
+from freeze_v311_boundary import additive_api_drift, build_boundary, sha256_of  # noqa: E402
 
 BOUNDARY = Path(__file__).with_name("v3_1_1_boundary.json")
 
@@ -39,6 +39,14 @@ def current() -> dict:
 
 def test_current_measurement_does_not_recapture_the_historical_api(current: dict) -> None:
     assert current["additive_api_documents"] == {}
+
+
+def test_boundary_digest_is_stable_across_text_line_endings(tmp_path: Path) -> None:
+    lf = tmp_path / "lf.json"
+    crlf = tmp_path / "crlf.json"
+    lf.write_bytes(b'{\n  "status": "same"\n}\n')
+    crlf.write_bytes(b'{\r\n  "status": "same"\r\n}\r\n')
+    assert sha256_of(lf) == sha256_of(crlf)
 
 
 def test_boundary_declares_its_version(frozen: dict) -> None:
