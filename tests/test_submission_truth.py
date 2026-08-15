@@ -11,6 +11,7 @@ from pathlib import Path
 
 import pytest
 from pypdf import PdfReader
+from wallet_twin_v2.artifacts import git_content_changes
 
 ROOT = Path(__file__).resolve().parents[1]
 TRUTH = ROOT / "data/v2/submission_truth_v3.2.0.json"
@@ -79,6 +80,17 @@ def test_presentation_manifest_normalizes_text_but_binds_deck_bytes() -> None:
         else:
             assert source["hash_mode"] == "BYTE_EXACT"
         assert hashlib.sha256(data).hexdigest() == source["sha256"]
+
+
+def test_submission_dirty_check_is_content_based() -> None:
+    changed = git_content_changes()
+    assert "GIT_INSPECTION_FAILED" not in changed
+    # A regenerated file with an identical Git blob may be stat-dirty on
+    # Windows; it is not a content change and must not cap readiness.
+    if not (ROOT / ".git").exists():
+        pytest.skip("content check requires a Git worktree")
+    assert all(path.strip() for path in changed)
+    assert "dashboard/app/data/wallet-v311-fixture.json" not in changed
 
 
 def test_judge_facing_markdown_uses_current_provider_and_promotion_facts() -> None:

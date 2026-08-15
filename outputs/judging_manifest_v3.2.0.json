@@ -2,19 +2,17 @@
   "version": "3.2.0",
   "status": "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-15T14:31:54.499127+00:00",
-  "source_commit": "1e1e1c199a88da4a344b6792fddf14e4d857d360",
+  "generated_at": "2026-08-15T14:37:02.250922+00:00",
+  "source_commit": "30048a3167a2c196671b88ad35d0baa252b1ade9",
   "clean_worktree": false,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
   "dirty_paths": [
-    "assets/presentation/v3.2-committed-artifact-manifest.json",
     "dashboard/app/data/wallet-v311-fixture.json"
   ],
   "rebuilt_deliverables": [
     "notebooks/01_wallet_twin_demo.ipynb",
     "output/notebook/01_wallet_twin_demo.html",
     "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-    "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
     "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
     "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx.inspect.ndjson",
     "outputs/audit/Public-Facts-Anchor-Register.inspect.json"
@@ -304,14 +302,9 @@
       "status": "PASS",
       "stdout_tail": [
         "{",
-        "  \"status\": \"PASS\",",
-        "  \"output\": \"<REPOSITORY_ROOT>\\\\tmp\\\\v311-deck\\\\wallet-heatmap.png\",",
-        "  \"cells\": 100",
-        "}",
-        "Inspect result written to file: <REPOSITORY_ROOT>\\output\\presentation\\Corporate-Wallet-Digital-Twin.pptx.inspect.ndjson",
-        "{",
-        "  \"slides\": 10,",
-        "  \"output\": \"<REPOSITORY_ROOT>\\\\output\\\\presentation\\\\Corporate-Wallet-Digital-Twin.pptx\"",
+        "  \"status\": \"PASS_COMMITTED_ARTIFACT_HASH_VERIFIED\",",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\output\\\\presentation\\\\Corporate-Wallet-Digital-Twin.pptx\",",
+        "  \"authoring_runtime\": \"NOT_REQUIRED_INPUTS_UNCHANGED\"",
         "}"
       ],
       "stderr_tail": []
@@ -332,32 +325,32 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "c63229520c1104e209b084d8fc9c41ebd020962e4054ab40df515aed54a25c0d",
+      "sha256": "e3ec31535cd162eeb6bf92d29eefaf7d9ffe829d373fd6e9ccaa29a386476834",
       "size_bytes": 182478
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "36beaa3b9b62362b85cb81d0251499eba022257686622d30d2d53198fad8f41c",
+      "sha256": "628b0d3f8ef461f68bb97ce7ab221a0917bc7f4a85c49dff796a15918535b43e",
       "size_bytes": 490497
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "3d8fb45bd7941417d4b4c4818d7364addd0d680bba4796adaae1a78425a9426e",
+      "sha256": "b2a5bdd442a0789208dc9741fd6d1c995c1b033f497bc0323eb78560bfb68b66",
       "size_bytes": 5555
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "47de45f9ac6a3027b2b38161be61f33810a6c68cbe79f46916b7a10484ce934d",
-      "size_bytes": 1761010
+      "sha256": "1cdd88b9c4ef25ec8f4e391ee3109b213429f36b4bbf9ba77a79bb21931f3753",
+      "size_bytes": 1761011
     },
     {
       "path": "assets/presentation/v3.2-committed-artifact-manifest.json",
-      "sha256": "0638e9c2ff3e549287efc9746f256d1f71202418eac8e778c2159eef94678521",
-      "size_bytes": 1108
+      "sha256": "ced6967edb62a63a74036386c7330fcb52ec5e4392662d657265c9bc631af9af",
+      "size_bytes": 1310
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
-      "sha256": "7ba0f5793d6fdf84a43df521772d24d35130479c8a597d4819b55a5c0b4112cf",
+      "sha256": "09391831501f1e842cbf566ac0f2e4d8b53eb6bd0f281f7ecacec09ad6637d5f",
       "size_bytes": 77028
     },
     {

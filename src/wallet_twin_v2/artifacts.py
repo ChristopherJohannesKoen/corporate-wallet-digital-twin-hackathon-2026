@@ -8,6 +8,7 @@ the build while being silently omitted from the gate that protects it.
 
 from __future__ import annotations
 
+import subprocess
 from pathlib import Path
 from typing import List
 
@@ -100,6 +101,32 @@ def reproducibility_relevant(paths: List[str]) -> List[str]:
     """
     exempt = set(NON_REPRODUCIBLE_DELIVERABLES) | set(UNSTABLE_BY_DESIGN)
     return [path for path in paths if path not in exempt]
+
+
+def git_content_changes(root: Path = ROOT) -> List[str]:
+    """Return real staged, unstaged and untracked content changes.
+
+    Windows can retain a stat-cache ``.M`` after a canonical exporter rewrites
+    a file to the exact committed Git blob. Readiness is about content drift,
+    so query the content-bearing Git surfaces rather than porcelain status.
+    """
+
+    commands = (
+        ("diff", "--name-only"),
+        ("diff", "--cached", "--name-only"),
+        ("ls-files", "--others", "--exclude-standard"),
+    )
+    changed: set[str] = set()
+    for command in commands:
+        completed = subprocess.run(
+            ["git", *command], cwd=root, text=True, capture_output=True
+        )
+        if completed.returncode != 0:
+            return ["GIT_INSPECTION_FAILED"]
+        changed.update(
+            line.strip() for line in completed.stdout.splitlines() if line.strip()
+        )
+    return sorted(changed)
 
 
 def committed_artifacts(root: Path = ROOT) -> List[Path]:

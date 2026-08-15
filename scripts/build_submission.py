@@ -145,7 +145,7 @@ def main() -> None:
     enter_locked_runtime()
     from pypdf import PdfReader
 
-    from wallet_twin_v2.artifacts import reproducibility_relevant
+    from wallet_twin_v2.artifacts import git_content_changes, reproducibility_relevant
 
     checks: list[dict] = []
     checks.append(run("locked environment", [sys.executable, "-c", "import fastapi,numpy,pandas,pydantic; print('environment-ok')"]))
@@ -282,10 +282,7 @@ def main() -> None:
     # The wallet surface was stamped before artifact authoring, so the deck,
     # notebook and manifest all consume the same final hackathon verdict.
 
-    # `git status --porcelain` emits "XY path"; slice past the two status
-    # characters and strip, rather than assuming a fixed-width prefix.
-    porcelain = git_value("status", "--porcelain", default="UNKNOWN")
-    changed = [line[2:].strip() for line in porcelain.splitlines() if line.strip()]
+    changed = git_content_changes()
     # Document deliverables restamp their own creation time on every build, so a
     # whole-tree dirty check would make an honest READY verdict unreachable. What
     # matters is whether source or a gated artifact drifted from the named commit.
