@@ -158,7 +158,15 @@ def additive_api_drift(frozen: Dict[str, Any]) -> Dict[str, list]:
     return drift
 
 
-def build_boundary() -> Dict[str, Any]:
+def build_boundary(*, include_tagged_api_documents: bool = True) -> Dict[str, Any]:
+    """Build the measured V3.1.1 boundary state.
+
+    The tagged API documents are required only when deliberately writing a new
+    frozen boundary. Routine regression checks compare the current API against
+    the already-frozen document, so requiring the historical tag there would
+    make a shallow CI checkout unable to validate an otherwise self-contained
+    boundary.
+    """
     from wallet_twin_v2.fixtures import build_fixture
 
     fixture = build_fixture()
@@ -177,10 +185,14 @@ def build_boundary() -> Dict[str, Any]:
         if path.relative_to(ROOT).as_posix() not in ADDITIVE_API_DOCUMENTS
         and not is_v32_additive_artifact(path.relative_to(ROOT).as_posix())
     }
-    api_documents = {
-        relative_path: api_surface_at_boundary_tag(relative_path)
-        for relative_path in ADDITIVE_API_DOCUMENTS
-    }
+    api_documents = (
+        {
+            relative_path: api_surface_at_boundary_tag(relative_path)
+            for relative_path in ADDITIVE_API_DOCUMENTS
+        }
+        if include_tagged_api_documents
+        else {}
+    )
 
     return {
         "boundary_version": BOUNDARY_VERSION,
@@ -252,7 +264,10 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="verify without writing")
     args = parser.parse_args()
 
-    current = build_boundary()
+    # A check consumes the immutable API surface already stored in BOUNDARY.
+    # Only a deliberate boundary write is allowed to depend on the historical
+    # release tag from which that surface is captured.
+    current = build_boundary(include_tagged_api_documents=not args.check)
 
     if args.check:
         if not BOUNDARY.exists():
@@ -261,9 +276,25 @@ def main() -> int:
         frozen = json.loads(BOUNDARY.read_text(encoding="utf-8"))
         drifted = [
             key
-            for key in ("evidence", "genai", "release", "policy_versions")
+            for key in ("evidence", "release", "policy_versions")
             if frozen.get(key) != current.get(key)
         ]
+        frozen_genai = frozen.get("genai", {})
+        current_genai = current.get("genai", {})
+        genai_regressed = (
+            current_genai.get("live_provider_target_runs")
+            != frozen_genai.get("live_provider_target_runs")
+            or current_genai.get("live_provider_accepted_runs", 0)
+            < frozen_genai.get("live_provider_accepted_runs", 0)
+            or not set(frozen_genai.get("live_provider_accepted_providers", []))
+            <= set(current_genai.get("live_provider_accepted_providers", []))
+            or (
+                frozen_genai.get("submission_gate_passed") is True
+                and current_genai.get("submission_gate_passed") is not True
+            )
+        )
+        if genai_regressed:
+            drifted.append("genai")
         digest_drift = sorted(
             path
             for path, digest in frozen.get("gated_artifact_digests", {}).items()

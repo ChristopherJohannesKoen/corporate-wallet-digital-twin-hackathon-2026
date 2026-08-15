@@ -109,6 +109,42 @@ def test_wallet_exporter_always_returns_status_ownership_to_canonical_build(
     assert _load(target)["projection"]["release"]["hackathon_status"] == HACKATHON_STATUS_PENDING
 
 
+def test_wallet_exporter_check_is_non_mutating_and_detects_drift(monkeypatch, tmp_path):
+    script = ROOT / "scripts" / "export_v311_wallet_surface.py"
+    spec = importlib.util.spec_from_file_location("export_v311_wallet_surface_check", script)
+    assert spec is not None and spec.loader is not None
+    exporter = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(exporter)
+
+    target = tmp_path / "wallet.json"
+    manifest = tmp_path / "manifest.json"
+    generated = {
+        "projection": {
+            "release": {"hackathon_status": HACKATHON_STATUS_PENDING},
+            "marker": "unchanged",
+        },
+        "details": {},
+    }
+    published = json.loads(json.dumps(generated))
+    published["projection"]["release"]["hackathon_status"] = "HACKATHON_SUBMISSION_READY"
+    target.write_text(json.dumps(published), encoding="utf-8")
+    manifest.write_text(json.dumps({"status": "HACKATHON_SUBMISSION_READY"}), encoding="utf-8")
+    before = target.read_bytes()
+
+    monkeypatch.setattr(exporter, "ROOT", tmp_path)
+    monkeypatch.setattr(exporter, "OUT", target)
+    monkeypatch.setattr(exporter, "MANIFEST", manifest)
+    monkeypatch.setattr(exporter, "build_payload", lambda: generated)
+
+    exporter.main(check=True)
+    assert target.read_bytes() == before
+
+    published["projection"]["marker"] = "drifted"
+    target.write_text(json.dumps(published), encoding="utf-8")
+    with pytest.raises(RuntimeError, match="fixture drifted"):
+        exporter.main(check=True)
+
+
 def test_canonical_builder_can_cap_its_own_ready_status_but_not_an_unexpected_one(
     monkeypatch, tmp_path
 ):

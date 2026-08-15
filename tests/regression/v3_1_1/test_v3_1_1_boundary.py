@@ -31,7 +31,14 @@ def frozen() -> dict:
 
 @pytest.fixture(scope="module")
 def current() -> dict:
-    return build_boundary()
+    # Routine checks are self-contained: the historical API surface is already
+    # frozen in v3_1_1_boundary.json. The v3.1.1 tag is required only when an
+    # accountable release process deliberately rewrites that boundary.
+    return build_boundary(include_tagged_api_documents=False)
+
+
+def test_current_measurement_does_not_recapture_the_historical_api(current: dict) -> None:
+    assert current["additive_api_documents"] == {}
 
 
 def test_boundary_declares_its_version(frozen: dict) -> None:
