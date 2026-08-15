@@ -1,6 +1,6 @@
 {
   "artifact": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-  "deck_sha256": "0af288f8d70b521314d91aa9fa1ce7bc26821653e99c818251a7b345fce48048",
+  "deck_sha256": "670c6eddc1777aac261e7d2205216b9a5119988166278968ecf3e77af87be215",
   "fallback_policy": "VERIFY_EXACT_COMMITTED_PPTX_WHEN_CODEX_ARTIFACT_RUNTIME_IS_UNAVAILABLE",
   "sources": [
     {
@@ -21,7 +21,7 @@
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
-      "sha256": "c992d3f930884fbbb38841d899d290ff60ea0788c44174c67cb9d21c3761199b"
+      "sha256": "c34c06fa3f075cabd6fa28a899c6c76f561386040bb1e8ad8a31ff01d150696f"
     }
   ],
   "version": "3.2.0"

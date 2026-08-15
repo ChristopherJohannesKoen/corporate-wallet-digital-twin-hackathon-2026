@@ -1,12 +1,14 @@
 {
   "version": "3.2.0",
-  "status": "HACKATHON_SUBMISSION_READY",
+  "status": "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-15T06:52:31.825548+00:00",
-  "source_commit": "c51264f68a4d89b226a5afd523e494400a3edc4a",
-  "clean_worktree": true,
+  "generated_at": "2026-08-15T14:19:56.993338+00:00",
+  "source_commit": "7ffcea4c2d4e15f4e9932b651782dfab66746d84",
+  "clean_worktree": false,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
-  "dirty_paths": [],
+  "dirty_paths": [
+    "assets/presentation/v3.2-committed-artifact-manifest.json"
+  ],
   "rebuilt_deliverables": [
     "notebooks/01_wallet_twin_demo.ipynb",
     "output/notebook/01_wallet_twin_demo.html",
@@ -205,6 +207,24 @@
       ]
     },
     {
+      "name": "canonical submission truth",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/export_submission_truth.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"status\": \"PASS\",",
+        "  \"version\": \"3.2.0\",",
+        "  \"targets\": [",
+        "    \"data/v2/submission_truth_v3.2.0.json\",",
+        "    \"dashboard/app/data/submission-truth-v3.2.0.json\"",
+        "  ],",
+        "  \"accepted_provider_runs\": 8,",
+        "  \"rehearsed_state\": \"SHADOW_READY\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
       "name": "executed judging notebook",
       "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/build_v31_notebook.py",
       "status": "PASS",
@@ -213,7 +233,7 @@
         "  \"output\": \"<REPOSITORY_ROOT>\\\\notebooks\\\\01_wallet_twin_demo.ipynb\",",
         "  \"html_output\": \"<REPOSITORY_ROOT>\\\\output\\\\notebook\\\\01_wallet_twin_demo.html\",",
         "  \"cells\": 31,",
-        "  \"stored_outputs\": 34,",
+        "  \"stored_outputs\": 37,",
         "  \"errors\": 0",
         "}"
       ],
@@ -225,7 +245,7 @@
     },
     {
       "name": "evidence workbook",
-      "command": "node scripts/build_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "command": "C:\\Users\\cjkoe\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe scripts/build_public_facts_workbook.mjs <REPOSITORY_ROOT>",
       "status": "PASS",
       "stdout_tail": [
         "    \"Evidence Queue\",",
@@ -245,7 +265,7 @@
     },
     {
       "name": "workbook verification",
-      "command": "node scripts/verify_public_facts_workbook.mjs <REPOSITORY_ROOT>",
+      "command": "C:\\Users\\cjkoe\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe scripts/verify_public_facts_workbook.mjs <REPOSITORY_ROOT>",
       "status": "PASS",
       "stdout_tail": [
         "      \"Operations\"",
@@ -279,13 +299,30 @@
     },
     {
       "name": "PowerPoint",
-      "command": "node scripts/build_v31_presentation.mjs <REPOSITORY_ROOT>",
+      "command": "C:\\Users\\cjkoe\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe scripts/build_v31_presentation.mjs <REPOSITORY_ROOT>",
       "status": "PASS",
       "stdout_tail": [
+        "{",
+        "  \"status\": \"PASS\",",
+        "  \"output\": \"<REPOSITORY_ROOT>\\\\tmp\\\\v311-deck\\\\wallet-heatmap.png\",",
+        "  \"cells\": 100",
+        "}",
         "Inspect result written to file: <REPOSITORY_ROOT>\\output\\presentation\\Corporate-Wallet-Digital-Twin.pptx.inspect.ndjson",
         "{",
         "  \"slides\": 10,",
         "  \"output\": \"<REPOSITORY_ROOT>\\\\output\\\\presentation\\\\Corporate-Wallet-Digital-Twin.pptx\"",
+        "}"
+      ],
+      "stderr_tail": []
+    },
+    {
+      "name": "PowerPoint fallback manifest",
+      "command": "<REPOSITORY_ROOT>\\.venv\\Scripts\\python.exe scripts/write_presentation_fallback_manifest.py",
+      "status": "PASS",
+      "stdout_tail": [
+        "{",
+        "  \"status\": \"PASS\",",
+        "  \"manifest\": \"<REPOSITORY_ROOT>\\\\assets\\\\presentation\\\\v3.2-committed-artifact-manifest.json\"",
         "}"
       ],
       "stderr_tail": []
@@ -294,28 +331,33 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "ccf3513f20f2b69e67e4f0e86d294e1bc96b22872eb0a51235c9ecb6cfa71236",
-      "size_bytes": 182222
+      "sha256": "20a5090b429b729f64933ad352cb028d48cf2f964509d867b81b91a2e01eb68a",
+      "size_bytes": 182478
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "911f6628d89b3bcee28fcf2fdab5b727288417444edac8c632ca82a940e1b84a",
-      "size_bytes": 485080
+      "sha256": "28f8d3256d335f1e03dd80b7734b07fd00328ff1e1b668102c62b6b10d2486ec",
+      "size_bytes": 490497
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "34fe77098fb191cfcfe84855805b9cf455aada4d0226b76e1a2454894e0893b6",
-      "size_bytes": 5499
+      "sha256": "08c8267c6addb7de6a3ee4f4a447ad20c5174ac30b33f4a5e4a21e7ac99f223f",
+      "size_bytes": 5555
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "7fabbfcf79d1bfbcad23aa5adc96815e74a8a42ab461641625b27d9174a0c52a",
-      "size_bytes": 1740219
+      "sha256": "670c6eddc1777aac261e7d2205216b9a5119988166278968ecf3e77af87be215",
+      "size_bytes": 1761012
+    },
+    {
+      "path": "assets/presentation/v3.2-committed-artifact-manifest.json",
+      "sha256": "ffa03c61e379b2450c4503337293891c4ec3dea8af152e5004e09430f745e74f",
+      "size_bytes": 1108
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
-      "sha256": "49b23bb0b18362504938d4d0d0facad88c4092651a9b4bf52ebce30556cc9dce",
-      "size_bytes": 77043
+      "sha256": "3e0dddb78348ebc97ed73d10dedbf32645b253e7e3a1f4fd250deea4c695662c",
+      "size_bytes": 77005
     },
     {
       "path": "contracts/openapi.json",
@@ -329,8 +371,8 @@
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
-      "sha256": "c992d3f930884fbbb38841d899d290ff60ea0788c44174c67cb9d21c3761199b",
-      "size_bytes": 1067533
+      "sha256": "af09e5d1ff2115564bc62d54a0ac07f0eabee526f22ee91b74b342ab52705e3f",
+      "size_bytes": 1067560
     },
     {
       "path": "contracts/promotion-gate-catalogue.json",
@@ -349,8 +391,8 @@
     },
     {
       "path": "outputs/v32/v32_simulation_laboratories.json",
-      "sha256": "5fc6ad9b5a0ca526d33128b55d9463e77265f122f5c3e364c86c0fd3e84d37ed",
-      "size_bytes": 59403
+      "sha256": "1a7ab1b77f532a823e0e802351d59a6574ab6e78510f1220deb6acb45ac6e583",
+      "size_bytes": 59557
     },
     {
       "path": "outputs/v32/v32_shadow_rehearsal.json",
@@ -363,8 +405,18 @@
       "size_bytes": 52071
     },
     {
+      "path": "data/v2/submission_truth_v3.2.0.json",
+      "sha256": "c1d44578725d4a74b32ba07618eeccfc6dd1f71bfc426b2d32cb6d1e6f287320",
+      "size_bytes": 22993
+    },
+    {
+      "path": "dashboard/app/data/submission-truth-v3.2.0.json",
+      "sha256": "c1d44578725d4a74b32ba07618eeccfc6dd1f71bfc426b2d32cb6d1e6f287320",
+      "size_bytes": 22993
+    },
+    {
       "path": "public-mirror-manifest.json",
-      "sha256": "0fe100c87b14eb2dc2602d3707b66e560a23e4579303d9a7ea1314098c5f71c1",
+      "sha256": "ea942ce2ba9388f224afa90e2006ecda3aa7ff16c6e104c67022228985777180",
       "size_bytes": 570
     }
   ],
