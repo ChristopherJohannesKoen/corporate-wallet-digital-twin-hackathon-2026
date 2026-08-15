@@ -11,6 +11,19 @@ const OUTPUT_PPTX = path.join(OUT, "Corporate-Wallet-Digital-Twin.pptx");
 const FALLBACK_MANIFEST = path.join(ROOT, "assets", "presentation", "v3.2-committed-artifact-manifest.json");
 
 const digest = async (file) => createHash("sha256").update(await fs.readFile(file)).digest("hex");
+const TEXT_SOURCE_EXTENSIONS = new Set([".js", ".json", ".mjs", ".ts", ".tsx"]);
+
+async function sourceDigest(file) {
+  const data = await fs.readFile(file);
+  if (!TEXT_SOURCE_EXTENSIONS.has(path.extname(file).toLowerCase())) {
+    return createHash("sha256").update(data).digest("hex");
+  }
+  // Git's Windows checkout may use CRLF while canonical exporters write LF.
+  // Line endings are not authoring semantics, so normalize them for source
+  // provenance while retaining a byte-exact digest for the PPTX itself.
+  const normalized = data.toString("utf8").replace(/\r\n?/g, "\n");
+  return createHash("sha256").update(normalized, "utf8").digest("hex");
+}
 
 async function verifyCommittedArtifact() {
   const manifest = JSON.parse(await fs.readFile(FALLBACK_MANIFEST, "utf8"));
@@ -18,7 +31,7 @@ async function verifyCommittedArtifact() {
     throw new Error("Committed PowerPoint hash does not match its fallback manifest");
   }
   for (const source of manifest.sources) {
-    if (await digest(path.join(ROOT, source.path)) !== source.sha256) {
+    if (await sourceDigest(path.join(ROOT, source.path)) !== source.sha256) {
       throw new Error(`PowerPoint authoring source drifted: ${source.path}`);
     }
   }

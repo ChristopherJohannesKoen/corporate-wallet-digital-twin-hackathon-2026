@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import zipfile
@@ -16,6 +17,7 @@ TRUTH = ROOT / "data/v2/submission_truth_v3.2.0.json"
 DASHBOARD_TRUTH = ROOT / "dashboard/app/data/submission-truth-v3.2.0.json"
 LIVE = ROOT / "outputs/v2_validation/live_provider_comparison.json"
 PROMOTION = ROOT / "dashboard/app/data/promotion-fixture.json"
+PRESENTATION_MANIFEST = ROOT / "assets/presentation/v3.2-committed-artifact-manifest.json"
 
 
 def load(path: Path) -> dict:
@@ -64,6 +66,19 @@ def test_wallet_surface_names_the_v32_manifest_as_status_authority() -> None:
     wallet = load(ROOT / "dashboard/app/data/wallet-v311-fixture.json")
     release = wallet["projection"]["release"]
     assert release["hackathon_status_source"] == "outputs/judging_manifest_v3.2.0.json"
+
+
+def test_presentation_manifest_normalizes_text_but_binds_deck_bytes() -> None:
+    manifest = load(PRESENTATION_MANIFEST)
+    deck = ROOT / manifest["artifact"]
+    assert hashlib.sha256(deck.read_bytes()).hexdigest() == manifest["deck_sha256"]
+    for source in manifest["sources"]:
+        data = (ROOT / source["path"]).read_bytes()
+        if source["hash_mode"] == "LF_NORMALIZED_TEXT":
+            data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+        else:
+            assert source["hash_mode"] == "BYTE_EXACT"
+        assert hashlib.sha256(data).hexdigest() == source["sha256"]
 
 
 def test_judge_facing_markdown_uses_current_provider_and_promotion_facts() -> None:

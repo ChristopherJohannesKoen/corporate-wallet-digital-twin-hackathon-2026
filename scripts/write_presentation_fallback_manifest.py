@@ -34,6 +34,13 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def source_sha256(path: Path) -> str:
+    data = path.read_bytes()
+    if path.suffix.lower() in {".js", ".json", ".mjs", ".ts", ".tsx"}:
+        data = data.replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(data).hexdigest()
+
+
 def main() -> None:
     if not DECK.exists():
         raise RuntimeError("judging deck does not exist")
@@ -45,7 +52,13 @@ def main() -> None:
         "artifact": DECK.relative_to(ROOT).as_posix(),
         "deck_sha256": sha256(DECK),
         "sources": [
-            {"path": path.relative_to(ROOT).as_posix(), "sha256": sha256(path)}
+            {
+                "path": path.relative_to(ROOT).as_posix(),
+                "sha256": source_sha256(path),
+                "hash_mode": "LF_NORMALIZED_TEXT" if path.suffix.lower()
+                in {".js", ".json", ".mjs", ".ts", ".tsx"}
+                else "BYTE_EXACT",
+            }
             for path in SOURCES
         ],
         "fallback_policy": "VERIFY_EXACT_COMMITTED_PPTX_WHEN_CODEX_ARTIFACT_RUNTIME_IS_UNAVAILABLE",

@@ -2,8 +2,8 @@
   "version": "3.2.0",
   "status": "HACKATHON_SUBMISSION_PROVISIONAL_UNCOMMITTED_WORKTREE",
   "bank_production_status": "NOT_PROMOTABLE",
-  "generated_at": "2026-08-15T14:26:23.853838+00:00",
-  "source_commit": "fea42055dbb32ba94e86a05917f60f3e5b62ab2c",
+  "generated_at": "2026-08-15T14:31:54.499127+00:00",
+  "source_commit": "1e1e1c199a88da4a344b6792fddf14e4d857d360",
   "clean_worktree": false,
   "clean_worktree_scope": "source and reproducibility-gated artifacts; document deliverables that restamp their own creation time are listed separately and do not affect the verdict",
   "dirty_paths": [
@@ -332,32 +332,32 @@
   "artifacts": [
     {
       "path": "notebooks/01_wallet_twin_demo.ipynb",
-      "sha256": "1cea4b8bb334635aa74527a9880db8fb2a3c827115d190579e4de77c2ddc04e6",
+      "sha256": "c63229520c1104e209b084d8fc9c41ebd020962e4054ab40df515aed54a25c0d",
       "size_bytes": 182478
     },
     {
       "path": "output/notebook/01_wallet_twin_demo.html",
-      "sha256": "7139eb45c94855b211939c4bb029d4cdc98ee7ee7154adf518a65a893486ec1d",
+      "sha256": "36beaa3b9b62362b85cb81d0251499eba022257686622d30d2d53198fad8f41c",
       "size_bytes": 490497
     },
     {
       "path": "output/pdf/Corporate-Wallet-Digital-Twin-One-Pager.pdf",
-      "sha256": "633701e162fb6d2a0c0820971f332bcbab3392c73446184917a2ee3d09a92179",
+      "sha256": "3d8fb45bd7941417d4b4c4818d7364addd0d680bba4796adaae1a78425a9426e",
       "size_bytes": 5555
     },
     {
       "path": "output/presentation/Corporate-Wallet-Digital-Twin.pptx",
-      "sha256": "bb0636bdc43e8ca71491d31ed7c00ff758e13bfc39266161d4d699173a1bdd26",
-      "size_bytes": 1761013
+      "sha256": "47de45f9ac6a3027b2b38161be61f33810a6c68cbe79f46916b7a10484ce934d",
+      "size_bytes": 1761010
     },
     {
       "path": "assets/presentation/v3.2-committed-artifact-manifest.json",
-      "sha256": "24abd610051baabc7f3eeb7e5a80a950e29ddb1f872a8b77cdb3ee0c900f2c83",
+      "sha256": "0638e9c2ff3e549287efc9746f256d1f71202418eac8e778c2159eef94678521",
       "size_bytes": 1108
     },
     {
       "path": "outputs/audit/Public-Facts-Anchor-Register-V3.2.0.xlsx",
-      "sha256": "56d9d00d38b0b19082deebe68410451e942e2edf15399e4a66a4fa6ac397b7b5",
+      "sha256": "7ba0f5793d6fdf84a43df521772d24d35130479c8a597d4819b55a5c0b4112cf",
       "size_bytes": 77028
     },
     {
@@ -372,7 +372,7 @@
     },
     {
       "path": "dashboard/app/data/wallet-v311-fixture.json",
-      "sha256": "af09e5d1ff2115564bc62d54a0ac07f0eabee526f22ee91b74b342ab52705e3f",
+      "sha256": "38aa67acc87aa201af2608d6046a31acff73c65cdbc48e17eaefc253d5caf4ab",
       "size_bytes": 1067560
     },
     {
